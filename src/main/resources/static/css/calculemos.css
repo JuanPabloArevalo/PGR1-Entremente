@@ -1,0 +1,26 @@
+.operacion{
+	text-align: center;
+	font-family: verdana ;
+	font-size: 12rem;
+	font-style: bold;
+}
+
+/**Cuando la resolucion sea menor**/
+@media handheld, only screen and (max-width: 768px) {
+        .operacion{
+             font-size: 9rem!important;
+        }
+}
+
+@media only screen and (max-width: 768px) {
+        .operacion{
+             font-size: 9rem!important;
+        }
+}
+
+.botonOperacion{
+	text-align: center;
+	font-family: verdana ;
+	font-size: 5rem;
+	font-style: bold;
+}

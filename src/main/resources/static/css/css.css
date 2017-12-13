@@ -1,0 +1,155 @@
+/**Clases Generales*/
+.centrar{
+	text-align: center;
+    	margin: auto;
+}
+/**Cuando la resolucion sea menor**/
+@media handheld, only screen and (max-width: 768px) {
+        .titulo{
+             font-size: 3rem!important;
+        }
+}
+
+@media only screen and (max-width: 768px) {
+        .titulo{
+             font-size: 3rem!important;
+        }
+}
+.nombreProgramaMenu{
+}
+.titulo{
+	text-align: center;
+	font-family: verdana ;
+	font-size: 4.5rem;
+	font-style: normal;
+	color:#2573ec;
+}
+/**Cuando la resolucion sea menor**/
+@media handheld, only screen and (max-width: 992px) {
+        .letraTextos{
+             font-size: 1.5rem!important;
+        }
+}
+
+@media only screen and (max-width: 992px) {
+        .letraTextos{
+             font-size: 1.5rem!important;
+        }
+}
+
+.letraTextos{
+	font-family: verdana ;
+	font-size: 2.5rem;
+	font-style: normal;
+}
+	
+/**Imagen del menú*/
+.panelImagenMenu{
+	height: 5vw;
+}
+.botonQueDeboHacer{
+	text-align: center;
+	font-family: verdana ;
+	font-size: 2.5rem;
+	font-style: normal;
+}
+/**Clase Preguntas*/
+.panelImagenPregunta{
+	width: 65%;
+        height: 65%;
+}
+.panelBotonesRespuesta{
+	padding-left:8vw;
+	padding-right:8vw;
+}
+/**Clase Operaciones*/
+.botonesOperaciones{
+	padding-left:20vw;
+	padding-right:20vw;
+
+}
+/**Clase Percepcion*/
+.imagenPercepcion{
+	width: 65%;
+        height: 65%;
+}
+.imagenPercepcionRespuesta{
+	padding-top:0vw;
+        height: 75%;
+}
+.panelPreguntaPercepcion{
+	padding-bottom:1vw;
+}
+
+/**Cuando la resolucion sea menor**/
+@media handheld, only screen and (max-width: 992px) {
+        .panelRespuestaPercepcion{
+             height: 20vw!important;
+        }
+}
+
+@media only screen and (max-width: 992px) {
+        .panelRespuestaPercepcion{
+             height: 20vw!important;
+        }
+}
+
+.panelRespuestaPercepcion{
+	background-color:#c7ebfe;
+	height: 12vw;
+	border-style: solid;
+	border-color:#c7fed5
+}
+.subTituloBlanco{
+	text-align: left;
+	font-family: verdana ;
+	font-size: 2.5rem;
+	font-style: normal;
+	color:#e6e6ff;
+}
+.subTituloAzul{
+	text-align: left;
+	font-family: verdana ;
+	font-size: 2.5rem;
+	font-style: normal;
+	color:#3333ff;
+}
+
+.subTitulo{
+	text-align: left;
+	font-family: verdana ;
+	font-size: 2.5rem;
+	font-style: normal;
+}
+
+
+.subTituloCentrado{
+	text-align: center;
+	font-family: verdana ;
+	font-size: 2.5rem;
+	font-style: normal;
+}
+
+.encabezado2{
+	text-align: left;
+	font-family: verdana ;
+	font-size: 2.0rem;
+	font-style: normal;
+}
+
+.encabezado{
+	font-family: verdana ;
+	font-size: 2.0rem;
+	font-style: normal;
+}
+
+.colorVerdeOscuro{
+	color:#004d00;
+}
+.colorAzulOscuro{
+	color:#004d80;
+}
+.colorRojoOscuro{
+	color:#ec171d;
+}
+

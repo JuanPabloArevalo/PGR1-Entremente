@@ -1,0 +1,12 @@
+.panelRespuesta{
+	background-color:#c7ebfe;
+	border-style: solid;
+	border-color:#c7fed5
+}
+.imagenRespuesta{
+	padding-top:0vw;
+        width: 55%;
+}
+.imagenPregunta{
+	width: 55%;
+}

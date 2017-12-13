@@ -1,0 +1,19 @@
+#panelLogo{
+	padding-top:1vw;
+}
+
+#panelBotones{
+	padding-top:0vw;
+}
+
+#idFondoIndex{
+  	background-image: url("../image/fondoIndex.png");
+  	padding-left:1vw;
+
+}
+
+#panelLogoUniversidad{
+	padding-top:3vw;
+	width: 95%;
+	height: 40%;
+}

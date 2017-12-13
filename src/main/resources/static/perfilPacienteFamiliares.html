@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head><meta http-equiv="Content-Type" content="text/html; charset=gb18030">
+  	<!--librerias Bootstrap>
+  	<!-- Latest compiled and minified CSS -->
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+	<!-- jQuery library -->
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+	<!-- Latest compiled JavaScript -->
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script> 
+    
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!--importarCSS-->
+    <link rel="stylesheet" href="css/css.css" />
+    <link rel="stylesheet" href="css/perfilPaciente.css" />
+    
+    <script src="js/iniciarSesion.js"></script> 
+  </head>
+  <body>
+  	<div class="container-fluid">
+		<nav class="navbar navbar-inverse navbar-fixed-top">
+			<div class="container-fluid">
+		    		<div class="navbar-header">
+		      			<button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
+		        			<span class="icon-bar"></span>
+		        			<span class="icon-bar"></span>
+		        			<span class="icon-bar"></span>
+		      			</button>
+		      			<a class="navbar-brand nombreProgramaMenu" href="/menuPaciente.html">EntreMente</a>
+		    		</div>
+		    		<div class="collapse navbar-collapse" id="myNavbar">
+		      			<ul class="nav navbar-nav">
+		        			<li><a href="/perfilPaciente.html">Mi Perfil</a></li>
+		        			<li class="active"><a href="/perfilPacienteFamiliares.html">Familiares<span class="badge">2</span></a></li>
+		        			<li><a href="/perfilPacientePersonalMedico.html">Personal de Salud<span class="badge">2</span></a></li>
+		        			<li><a href="/perfilPacienteMensajes.html">Mensajes <span class="badge">7</span></a></li>
+		      			</ul>
+		      			<ul class="nav navbar-nav navbar-right">
+		        			<li><a data-toggle="modal" data-target="#modalCerrarSesion"><span class="glyphicon glyphicon-log-in"></span>Adios!</a></li>
+		      			</ul>
+		    		</div>
+		  	</div>
+		</nav> 
+<!--Modal Cerrar Sesion-->	
+		<div id="modalCerrarSesion" class="modal fade" role="dialog">
+  			<div class="modal-dialog">
+    				<div class="modal-content">
+      					<div class="modal-header">
+        					<h4 class="modal-title subTituloAzul">Cerrar Sesi贸n</h4>
+      					</div>
+      					<div class="modal-body letraTextos">
+        					<p>Estas seguro que quieres cerrar tu sesi贸n</p>
+      					</div>
+      					<div class="modal-footer">
+      						<button type="button" class="btn btn-success" data-dismiss="modal">Continuar</button>
+      						<a href="/index.html"><button type="button" class="btn btn-danger">Cerrar Sesión</button></a>
+			        	</div>
+
+    				</div>
+			</div>
+		</div>
+<!--Fin Modal Cerrar Sesion-->
+		
+		
+		<div class="tab-content">
+			<div class="row">
+				<h2 class="titulo">Familiares</h2>
+			</div>
+<!--Tabla solicitudes familiares-->
+		    	<div class="panel panel-primary">
+		      		<div class="panel-heading"><h5 class="subTituloBlanco">Solicitudes<span class="badge">2</span></h5></div>
+		      			<div class="panel-body">
+			      			<div class="table-responsive">          
+							<table class="table">
+				    				<thead>
+						      			<tr>
+						        			<th>#</th>
+						        			<th>Nombre</th>
+									        <th>Apellido</th>
+									        <th>Relación</th>
+									        <th></th>
+						      			</tr>
+				    				</thead>
+				    				<tbody>
+								      	<tr>
+									        <td>1</td>
+									        <td>Juan</td>
+									        <td>Arevalo</td>
+									        <td>  						
+					  						<select class="form-control" id="sel1">
+											        <option>Padres</option>
+											        <option>Tios</option>
+											        <option>Hermanos</option>
+											        <option>Abuelos</option>
+											        <option selected>Sobrinos</option>
+											        <option>Otros</option>
+											</select>
+										</td>
+									        <td><button type="button" class="btn btn-success">Aceptar</button><button type="button" class="btn btn-danger">Rechazar</button></td>
+									        
+								      	</tr>
+								      	<tr>
+									        <td>2</td>
+									        <td>Claudia</td>
+									        <td>Merchan</td>
+									        <td>  						
+					  						<select class="form-control" id="sel1">
+											        <option>Padres</option>
+											        <option>Tios</option>
+											        <option selected>Hermanos</option>
+											        <option>Abuelos</option>
+											        <option>Sobrinos</option>
+											        <option>Otros</option>
+											</select>
+										</td>
+									        <td><button type="button" class="btn btn-success">Aceptar</button><button type="button" class="btn btn-danger">Rechazar</button></td>
+									        
+								      	</tr>
+				    				</tbody>
+				  			</table>
+						</div>	
+					</div>	
+		      		</div>
+		    	</div>
+
+
+				
+<!--Fin Tabla solicitudes familiares-->
+
+<!--Busqueda de familiares-->
+			<div class="panel panel-primary">
+				<div class="panel-heading"><h5 class="subTituloBlanco">Agregar familiares</h5></div>
+				<div class="panel-body">
+					<form>
+				  		<div class="input-group">
+				    			<input type="text" class="form-control" placeholder="B煤squeda">
+				    			<div class="input-group-btn">
+				      				<button class="btn btn-default" type="button" data-toggle="modal" data-target="#myModal">
+				        				<i class="glyphicon glyphicon-search"></i>
+				      				</button>
+				    			</div>
+				  		</div>
+					</form>
+				</div>
+			</div>
+<!--Fin Busqueda de familiares-->
+
+
+
+<!-- Modal adicionar familiar-->
+			  <div class="modal fade" id="myModal" role="dialog">
+			  	<div class="modal-dialog modal-lg">
+			      		<div class="modal-content">
+			        		<div class="modal-header">
+			          			<button type="button" class="close" data-dismiss="modal">&times;</button>
+			          			<h5 class="subTituloAzul">Adicionar Familiares</h5>
+			        		</div>
+			        		<div class="modal-body">
+			          			<div class="panel panel-primary">
+      								<div class="panel-heading">Familiares Encontrados</div>
+      								<div class="panel-body">
+      									<div class="table-responsive">          
+										<table class="table">
+									    		<thead>
+									      			<tr>
+									        			<th>#</th>
+												        <th>Documento</th>
+												        <th>Nombre</th>
+												        <th>Apellidos</th>
+												        <th>Relación</th>
+												        <th></th>
+									      			</tr>
+									   		</thead>
+									    		<tbody>
+										      		<tr>
+												        <td>1</td>
+												        <td>111111111</td>
+												        <td>Marta</td>
+												        <td>Arevalo</td>
+												        <td>  						
+								  						<select class="form-control" id="sel1">
+														        <option>Padres</option>
+														        <option>Tios</option>
+														        <option selected>Hermanos</option>
+														        <option>Abuelos</option>
+														        <option>Sobrinos</option>
+														        <option>Otros</option>
+														</select>
+													</td>
+												        <td><td><button type="button" class="btn btn-success">Agregar</button></td>
+										      		</tr>
+									    		</tbody>
+									  	</table>
+									</div>
+      								</div>
+    							</div>
+			        		</div>
+			        		<div class="modal-footer">
+			          			<button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+			        		</div>
+			      		</div>
+			    	</div>
+			  </div>
+<!-- Fin Modal adicionar familiar-->
+
+
+<!--Tabla mis familiares-->  
+    			<div class="panel panel-primary">
+      				<div class="panel-heading"><h5 class="subTituloBlanco">Mis Familiares</h5></div>
+      				<div class="panel-body">
+      					<div class="table-responsive">          
+						<table class="table">
+					    		<thead>
+					      			<tr>
+					        			<th>#</th>
+					        			<th>Nombre</th>
+								        <th>Apellido</th>
+								        <th>Relación</th>
+								        <th></th>
+					      			</tr>
+					    		</thead>
+					    		<tbody>
+							      	<tr>
+								        <td>1</td>
+								        <td>Maria Jose</td>
+								        <td>Arevalo</td>  
+								        <td>Hermanos</td>  
+								        <td><button type="button" class="btn btn-danger">Eliminar</button></td>      
+							      </tr>
+							      <tr>
+								        <td>2</td>
+								        <td>Pepito</td>
+								        <td>Perez</td> 
+								        <td>Otros</td>  
+								        <td><button type="button" class="btn btn-danger">Eliminar</button></td>
+							      </tr>
+							      <tr>
+								        <td>3</td>
+								        <td>Maria Alejandra</td>
+								        <td>Perez</td> 
+								        <td>Sobrino</td>  
+								        <td><button type="button" class="btn btn-danger">Eliminar</button></td>
+							      </tr>
+					    		</tbody>
+			  			</table>
+					</div>
+      				</div>
+    			</div>
+<!--Fin Tabla mis familiares--> 
+		</div>
+	</div>
+  </body>
+</html>
