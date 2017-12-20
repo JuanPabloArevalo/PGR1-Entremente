@@ -5,6 +5,7 @@
  */
 package edu.eci.pgr1.entremente.controllers;
 
+import edu.eci.pgr1.entremente.model.Paciente;
 import edu.eci.pgr1.entremente.model.Usuario;
 import edu.eci.pgr1.entremente.services.EntreMenteServices;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,8 +26,8 @@ public class EntreMenteController {
     @Autowired
     private EntreMenteServices ems = null;
     
-    @RequestMapping(path = "/usuarios", method = RequestMethod.POST)
-    public ResponseEntity<?> manejadorPostAdicionarUsuario(@RequestBody Usuario usuario) {
+    @RequestMapping(path = "/pacientes", method = RequestMethod.POST)
+    public ResponseEntity<?> manejadorPostAdicionarUsuario(@RequestBody Paciente paciente) {
 //        try {
 //            sws.addUsuarios(usuario);
 //            return new ResponseEntity<>(HttpStatus.CREATED);
