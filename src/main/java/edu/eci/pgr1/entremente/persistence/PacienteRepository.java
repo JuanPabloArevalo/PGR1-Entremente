@@ -6,7 +6,6 @@
 package edu.eci.pgr1.entremente.persistence;
 
 import edu.eci.pgr1.entremente.model.Paciente;
-import java.sql.SQLException;
 /**
  *
  * @author Administrador
@@ -23,8 +22,20 @@ public interface PacienteRepository {
     /**
      * Metodo encargado de validar si existe un paciente
      * @param paciente
+     * @return 
      * @throws PersistenceNotFoundException 
+     * @throws edu.eci.pgr1.entremente.persistence.PersistenceException 
      */
     public boolean existePaciente(Paciente paciente) throws PersistenceNotFoundException, PersistenceException;
+    
+    /**
+     * Metodo encargado de traer el paciente, dado el nombre de usuario  y la contraseña
+     * @param nombreUsuarios
+     * @param password
+     * @return
+     * @throws PersistenceNotFoundException
+     * @throws PersistenceException 
+     */
+    public Paciente traerPaciente(String nombreUsuarios, String password) throws PersistenceNotFoundException, PersistenceException;
     
 }

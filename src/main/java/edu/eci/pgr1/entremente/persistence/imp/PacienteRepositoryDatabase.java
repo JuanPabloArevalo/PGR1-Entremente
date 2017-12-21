@@ -116,4 +116,45 @@ public class PacienteRepositoryDatabase implements PacienteRepository{
             return false;
         }
     }
+
+    @Override
+    public Paciente traerPaciente(String nombreUsuarios, String password) throws PersistenceNotFoundException, PersistenceException {
+        Paciente paciente = null;
+        try {
+            Class.forName(DatosBD.DRIVER);
+            connect = DriverManager.getConnection(DatosBD.CONECTOR);
+            
+            preparedStatement = connect.prepareStatement("SELECT * FROM "+NOMBRETABLA +" WHERE nombreUsuario = '"+nombreUsuarios+"' AND password = '"+password+"'");
+            resultSet = preparedStatement.executeQuery();
+            
+            if(resultSet.next()){
+               paciente = new Paciente();
+               paciente.setApellidos(resultSet.getString("apellidos"));
+               paciente.setCiudad(resultSet.getString("ciudad"));
+               paciente.setCorreo(resultSet.getString("correo"));
+               paciente.setDireccion(resultSet.getString("direccion"));
+               paciente.setDocumentoIdentidad(resultSet.getString("documentoIdentidad"));
+               paciente.setFechaNacimiento(resultSet.getDate("fechaNacimiento").toString());
+               paciente.setGenero(resultSet.getString("genero"));
+               paciente.setId(resultSet.getInt("id"));
+               paciente.setNombreUsuario(nombreUsuarios);
+               paciente.setNombres(resultSet.getString("nombres"));
+               paciente.setPais(resultSet.getString("pais"));
+               paciente.setTipoDocumento(resultSet.getString("tipoDocumento"));
+               paciente.setPassword(resultSet.getString("password"));
+            }
+            
+        } catch (ClassNotFoundException | SQLException e) {
+            throw new PersistenceNotFoundException(e.getMessage());
+        } finally {
+            close();
+        }
+    
+        if(paciente==null){
+            throw new PersistenceException("Usuario/Password inválidos");
+        }
+        else{
+            return paciente;
+        }
+    }
 }

@@ -16,6 +16,7 @@ import java.util.logging.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -41,6 +42,19 @@ public class EntreMenteController {
             Logger.getLogger(EntreMenteController.class.getName()).log(Level.SEVERE, null, ex);
             return new ResponseEntity<>(ex.getMessage(), HttpStatus.NOT_FOUND);
         }        
+    }
+    
+    
+    
+    @RequestMapping(path = "/pacientes/{usuario}/{password}", method = RequestMethod.GET)
+    public ResponseEntity<?> manejadorGetRegistrado(@PathVariable("usuario") String nombreU, @PathVariable("password") String password) {
+        try {
+            return new ResponseEntity<>(ems.iniciarSesion(nombreU, password), HttpStatus.ACCEPTED);
+        } catch (PersistenceNotFoundException | PersistenceException ex) {
+            Logger.getLogger(EntreMenteController.class.getName()).log(Level.SEVERE, null, ex);
+            return new ResponseEntity<>(ex.getMessage(), HttpStatus.NOT_FOUND);
+        }
+
     }
     
  
