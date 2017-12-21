@@ -44,16 +44,16 @@ var iniciarSesion = (function () {
             }
         },
         iniciarSesionFamiliar(){
-            var nombreUsuario = $("#usuarioPaciente").val();
-            var password = $("#passwordPaciente").val();
+            var nombreUsuario = $("#usuarioFamiliar").val();
+            var password = $("#passwordFamiliar").val();
             
             if(nombreUsuario===""){
-                $("#mensajeFaltaProm").text("Por favor ingrese el usuario"); 
-                $("#divProm").show();
+                $("#mensajeFaltaFam").text("Por favor ingrese el usuario"); 
+                $("#divFam").show();
             }
             else if(password===""){
-                $("#mensajeFaltaProm").text("Por favor ingrese la contraseña"); 
-                $("#divProm").show();
+                $("#mensajeFaltaFam").text("Por favor ingrese la contraseña"); 
+                $("#divFam").show();
             }
             else{
                 var promesa = apiclientIniciarSesion.autenticacionFamiliar(nombreUsuario,password , function(usuario){ 
@@ -69,8 +69,8 @@ var iniciarSesion = (function () {
                     window.location.href = "perfilFamiliar.html";
                 }); 
                 promesa.then(function(){},function(){
-                    $("#mensajeFaltaProm").text(promesa.responseText); 
-                    $("#divProm").show();
+                    $("#mensajeFaltaFam").text(promesa.responseText); 
+                    $("#divFam").show();
                 });
             }
         }
