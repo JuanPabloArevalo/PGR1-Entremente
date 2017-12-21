@@ -13,8 +13,8 @@ and open the template in the editor.
         <link rel="stylesheet" href="/webjars/bootstrap/3.3.7/css/bootstrap.min.css" />
         <link rel="stylesheet" href="css/registrar.css" />
         <link rel="stylesheet" href="css/css.css" />
-        <script src="js/apiclientRegistrarPaciente.js"></script> 
-        <script src="js/registrarPaciente.js"></script> 
+        <script src="js/apiclientRegistrarFamiliar.js"></script> 
+        <script src="js/registrarFamiliar.js"></script> 
         <title>Registrar Familiar</title>
     </head>
     <body id = "divFondo">
@@ -47,21 +47,6 @@ and open the template in the editor.
 
                     <label>Documento de identidad:</label>
                     <input type="number" class="form-control" id="documento">
-
-                    <label>Fecha Nacimiento:</label>
-                    <input type="date" class="form-control" id="fechaNacimiento"/>
-                    <label>Género</label><br>
-                    <select class="form-control" id="genero">
-                        <option value="">...</option>
-                        <option value="H">Hombre</option>
-                        <option value="M">Mujer</option>
-                    </select>
-                    <label>País</label>
-                    <input type="text" class="form-control" id="idPais">
-                    <label>Ciudad:</label>
-                    <input type="text" class="form-control" id="idCiudad">
-                    <label>Dirección:</label>
-                    <input type="text" class="form-control" id="idDireccion">
                     <label>Correo:</label>
                     <input type="email" class="form-control" id="idCorreo">
                     <label>Nombre de usuario:</label>
@@ -71,7 +56,7 @@ and open the template in the editor.
                     <label>Confirmar Contraseña:</label>
                     <input type="password" class="form-control has-error has-feedback" id="passwordconfirmar">
                     <br>
-                    <button class="btn btn-success btn-block" onclick="registrarPaciente.registrarPaciente()">Guardar</button>
+                    <button class="btn btn-success btn-block" onclick="registrarFamiliar.registrarFamiliar()">Guardar</button>
                     <br>
                     <a href="/iniciarSesion.html" class="btn btn-warning btn-block" role="button">Atras</a>
                 </div>

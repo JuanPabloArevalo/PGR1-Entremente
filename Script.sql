@@ -15,3 +15,15 @@ CREATE TABLE paciente (
     tipoDocumento CHAR(1),
 	correo VARCHAR(80)
 );
+
+CREATE TABLE FAMILIAR (
+	id INT(6) UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+    nombres VARCHAR(40),
+    apellidos VARCHAR(40),
+    documentoIdentidad VARCHAR(10),
+    nombreUsuario VARCHAR(50),
+    password VARCHAR(50),
+    tipoDocumento CHAR(1),
+	correo VARCHAR(80)
+);
+

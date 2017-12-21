@@ -7,10 +7,12 @@
 var apiclientIniciarSesion = (function(){
     
     return{
-            autenticacion(nombreUsuario,password, callback){
-                return $.get("/entremente/V1/pacientes/"+nombreUsuario+"/"+password,callback);  
-            }
-        
+        autenticacionPaciente(nombreUsuario,password, callback){
+            return $.get("/entremente/V1/pacientes/"+nombreUsuario+"/"+password,callback);  
+        },
+        autenticacionFamiliar(nombreUsuario,password, callback){
+            return $.get("/entremente/V1/familiares/"+nombreUsuario+"/"+password,callback);  
+        }
     };
     
 }());

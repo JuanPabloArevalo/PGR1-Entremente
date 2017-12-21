@@ -5,28 +5,29 @@
  */
 package edu.eci.pgr1.entremente.persistence;
 
+import edu.eci.pgr1.entremente.model.Familiar;
 import edu.eci.pgr1.entremente.model.Paciente;
+
 /**
  *
  * @author Juan Pablo Arévalo
  */
-public interface PacienteRepository {
-    
-    /**
+public interface FamiliarRepository {
+        /**
      * Metodo encargado de adicionar un nuevo paciente
-     * @param paciente
+     * @param familiar
      * @throws PersistenceNotFoundException 
      */
-    public void adicionarPaciente(Paciente paciente) throws PersistenceNotFoundException;
+    public void adicionarFamiliar(Familiar familiar) throws PersistenceNotFoundException;
     
     /**
      * Metodo encargado de validar si existe un paciente
-     * @param paciente
+     * @param familiar
      * @return 
      * @throws PersistenceNotFoundException 
      * @throws edu.eci.pgr1.entremente.persistence.PersistenceException 
      */
-    public boolean existePaciente(Paciente paciente) throws PersistenceNotFoundException, PersistenceException;
+    public boolean existeFamiliar(Familiar familiar) throws PersistenceNotFoundException, PersistenceException;
     
     /**
      * Metodo encargado de traer el paciente, dado el nombre de usuario  y la contraseña
@@ -36,6 +37,6 @@ public interface PacienteRepository {
      * @throws PersistenceNotFoundException
      * @throws PersistenceException 
      */
-    public Paciente traerPaciente(String nombreUsuarios, String password) throws PersistenceNotFoundException, PersistenceException;
+    public Familiar traerFamiliar(String nombreUsuarios, String password) throws PersistenceNotFoundException, PersistenceException;
     
 }

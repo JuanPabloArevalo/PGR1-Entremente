@@ -5,63 +5,46 @@
  */
 package edu.eci.pgr1.entremente.model;
 
-
 /**
  *
- * @author Juan Pablo Arévalo Merchán
+ * @author Juan Pablo Arévalo M.
  */
-
-public class Paciente {
-
+public class Familiar {
+    
     private Integer id;
     private String nombres;
     private String apellidos;
     private String documentoIdentidad;
-    private String fechaNacimiento;
-    private String genero;
-    private String pais;
-    private String ciudad;
     private String nombreUsuario;
     private String password;
-    private String direccion;
     private String tipoDocumento;
     private String correo;
-    
+
     /**
      * Constructor 1
      */
-    public Paciente(){
+    public Familiar(){
         
     }
     
     /**
-     * 
+     * Constructor 2
      * @param id
      * @param nombres
      * @param apellidos
      * @param documentoIdentidad
-     * @param fechaNacimiento
-     * @param genero
-     * @param pais
-     * @param ciudad
      * @param nombreUsuario
      * @param password
-     * @param direccion
      * @param tipoDocumento
      * @param correo 
      */
-    public Paciente(Integer id, String nombres, String apellidos, String documentoIdentidad, String fechaNacimiento, String genero, String pais, String ciudad, String nombreUsuario, String password, String direccion, String tipoDocumento, String correo){
+    public Familiar(Integer id, String nombres, String apellidos, String documentoIdentidad, String nombreUsuario, String password, String tipoDocumento, String correo){
         this.id = id;
         this.nombres = nombres;
         this.apellidos = apellidos;
         this.documentoIdentidad = documentoIdentidad;
-        this.fechaNacimiento = fechaNacimiento;
-        this.genero = genero;
-        this.pais = pais;
-        this.ciudad = ciudad;
         this.nombreUsuario = nombreUsuario;
         this.password = password;
-        this.direccion = direccion;
         this.tipoDocumento = tipoDocumento;
         this.correo = correo; 
     }
@@ -123,62 +106,6 @@ public class Paciente {
     }
 
     /**
-     * @return the fechaNacimiento
-     */
-    public String getFechaNacimiento() {
-        return fechaNacimiento;
-    }
-
-    /**
-     * @param fechaNacimiento the fechaNacimiento to set
-     */
-    public void setFechaNacimiento(String fechaNacimiento) {
-        this.fechaNacimiento = fechaNacimiento;
-    }
-
-    /**
-     * @return the genero
-     */
-    public String getGenero() {
-        return genero;
-    }
-
-    /**
-     * @param genero the genero to set
-     */
-    public void setGenero(String genero) {
-        this.genero = genero;
-    }
-
-    /**
-     * @return the pais
-     */
-    public String getPais() {
-        return pais;
-    }
-
-    /**
-     * @param pais the pais to set
-     */
-    public void setPais(String pais) {
-        this.pais = pais;
-    }
-
-    /**
-     * @return the ciudad
-     */
-    public String getCiudad() {
-        return ciudad;
-    }
-
-    /**
-     * @param ciudad the ciudad to set
-     */
-    public void setCiudad(String ciudad) {
-        this.ciudad = ciudad;
-    }
-
-    /**
      * @return the nombreUsuario
      */
     public String getNombreUsuario() {
@@ -204,20 +131,6 @@ public class Paciente {
      */
     public void setPassword(String password) {
         this.password = password;
-    }
-
-    /**
-     * @return the direccion
-     */
-    public String getDireccion() {
-        return direccion;
-    }
-
-    /**
-     * @param direccion the direccion to set
-     */
-    public void setDireccion(String direccion) {
-        this.direccion = direccion;
     }
 
     /**

@@ -21,7 +21,7 @@ var iniciarSesion = (function () {
                 $("#divProm").show();
             }
             else{
-                var promesa = apiclientIniciarSesion.autenticacion(nombreUsuario,password , function(usuario){ 
+                var promesa = apiclientIniciarSesion.autenticacionPaciente(nombreUsuario,password , function(usuario){ 
                     sessionStorage.setItem("id", usuario.id);
                     sessionStorage.setItem("nombres", usuario.nombres);
                     sessionStorage.setItem("apellidos", usuario.apellidos);
@@ -36,6 +36,37 @@ var iniciarSesion = (function () {
                     sessionStorage.setItem("correo", usuario.correo);
                     alert("Bienvenido, " + usuario.nombres+" "+usuario.apellidos);
                     window.location.href = "menuPaciente.html";
+                }); 
+                promesa.then(function(){},function(){
+                    $("#mensajeFaltaProm").text(promesa.responseText); 
+                    $("#divProm").show();
+                });
+            }
+        },
+        iniciarSesionFamiliar(){
+            var nombreUsuario = $("#usuarioPaciente").val();
+            var password = $("#passwordPaciente").val();
+            
+            if(nombreUsuario===""){
+                $("#mensajeFaltaProm").text("Por favor ingrese el usuario"); 
+                $("#divProm").show();
+            }
+            else if(password===""){
+                $("#mensajeFaltaProm").text("Por favor ingrese la contraseña"); 
+                $("#divProm").show();
+            }
+            else{
+                var promesa = apiclientIniciarSesion.autenticacionFamiliar(nombreUsuario,password , function(usuario){ 
+                    sessionStorage.setItem("id", usuario.id);
+                    sessionStorage.setItem("nombres", usuario.nombres);
+                    sessionStorage.setItem("apellidos", usuario.apellidos);
+                    sessionStorage.setItem("documentoIdentidad", usuario.documentoIdentidad);
+                    sessionStorage.setItem("nombreUsuario", usuario.nombreUsuario);
+                    sessionStorage.setItem("password", usuario.password);
+                    sessionStorage.setItem("tipoDocumento", usuario.tipoDocumento);
+                    sessionStorage.setItem("correo", usuario.correo);
+                    alert("Bienvenido, " + usuario.nombres+" "+usuario.apellidos);
+                    window.location.href = "perfilFamiliar.html";
                 }); 
                 promesa.then(function(){},function(){
                     $("#mensajeFaltaProm").text(promesa.responseText); 
