@@ -5,13 +5,22 @@
  */
 package edu.eci.pgr1.entremente.model;
 
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.Table;
+
 /**
  *
  * @author Juan Pablo Arévalo Merchán
  */
+@Entity
+@Table(name = "Paciente")
 public class Paciente {
-    
-    private String id;
+    @Id
+    @GeneratedValue(strategy=GenerationType.AUTO)
+    private Integer id;
     private String nombres;
     private String apellidos;
     private String documentoIdentidad;
@@ -48,7 +57,7 @@ public class Paciente {
      * @param tipoDocumento
      * @param correo 
      */
-    public Paciente(String id, String nombres, String apellidos, String documentoIdentidad, String fechaNacimiento, String genero, String pais, String ciudad, String nombreUsuario, String password, String direccion, String tipoDocumento, String correo){
+    public Paciente(Integer id, String nombres, String apellidos, String documentoIdentidad, String fechaNacimiento, String genero, String pais, String ciudad, String nombreUsuario, String password, String direccion, String tipoDocumento, String correo){
         this.id = id;
         this.nombres = nombres;
         this.apellidos = apellidos;
@@ -67,14 +76,14 @@ public class Paciente {
     /**
      * @return the id
      */
-    public String getId() {
+    public Integer getId() {
         return id;
     }
 
     /**
      * @param id the id to set
      */
-    public void setId(String id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
