@@ -12,6 +12,9 @@ var apiclientIniciarSesion = (function(){
         },
         autenticacionFamiliar(nombreUsuario,password, callback){
             return $.get("/entremente/V1/familiares/"+nombreUsuario+"/"+password,callback);  
+        },
+        autenticacionPersonalSalud(nombreUsuario,password, callback){
+            return $.get("/entremente/V1/personalSalud/"+nombreUsuario+"/"+password,callback);  
         }
     };
     

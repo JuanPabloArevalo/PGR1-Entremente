@@ -7,6 +7,7 @@ package edu.eci.pgr1.entremente.controllers;
 
 import edu.eci.pgr1.entremente.model.Familiar;
 import edu.eci.pgr1.entremente.model.Paciente;
+import edu.eci.pgr1.entremente.model.PersonalSalud;
 import edu.eci.pgr1.entremente.persistence.PersistenceException;
 import edu.eci.pgr1.entremente.persistence.PersistenceNotFoundException;
 import edu.eci.pgr1.entremente.services.EntreMenteServices;
@@ -32,6 +33,8 @@ public class EntreMenteController {
     @Autowired
     private EntreMenteServices ems = null;
     
+    
+///PACIENTE    
     @RequestMapping(path = "/pacientes", method = RequestMethod.POST)
     public ResponseEntity<?> manejadorPostAdicionarPaciente(@RequestBody Paciente paciente) {
         try {
@@ -55,7 +58,8 @@ public class EntreMenteController {
         }
     }
     
-    
+
+//FAMILIARES    
     @RequestMapping(path = "/familiares", method = RequestMethod.POST)
     public ResponseEntity<?> manejadorPostAdicionarFamiliar(@RequestBody Familiar familiar) {
         try {
@@ -79,6 +83,27 @@ public class EntreMenteController {
         }
     }
     
- 
+//PERSONAL SALUD 
+    @RequestMapping(path = "/personalSalud", method = RequestMethod.POST)
+    public ResponseEntity<?> manejadorPostAdicionarPersonalSalud(@RequestBody PersonalSalud personalSalud) {
+        try {
+            ems.adicionarPersonalSalud(personalSalud);
+            return new ResponseEntity<>(HttpStatus.CREATED);
+        } catch (PersistenceNotFoundException | PersistenceException ex) {
+            Logger.getLogger(EntreMenteController.class.getName()).log(Level.SEVERE, null, ex);
+            return new ResponseEntity<>(ex.getMessage(), HttpStatus.NOT_FOUND);
+        }        
+    }
     
+    
+    
+    @RequestMapping(path = "/personalSalud/{usuario}/{password}", method = RequestMethod.GET)
+    public ResponseEntity<?> manejadorIniciarPersonalSalud(@PathVariable("usuario") String nombreU, @PathVariable("password") String password) {
+        try {
+            return new ResponseEntity<>(ems.iniciarSesionPersonalSalud(nombreU, password), HttpStatus.ACCEPTED);
+        } catch (PersistenceNotFoundException | PersistenceException ex) {
+            Logger.getLogger(EntreMenteController.class.getName()).log(Level.SEVERE, null, ex);
+            return new ResponseEntity<>(ex.getMessage(), HttpStatus.NOT_FOUND);
+        }
+    }    
 }

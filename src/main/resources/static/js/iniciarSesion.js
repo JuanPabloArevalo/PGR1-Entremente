@@ -22,6 +22,7 @@ var iniciarSesion = (function () {
             }
             else{
                 var promesa = apiclientIniciarSesion.autenticacionPaciente(nombreUsuario,password , function(usuario){ 
+                    console.info(usuario);
                     sessionStorage.setItem("id", usuario.id);
                     sessionStorage.setItem("nombres", usuario.nombres);
                     sessionStorage.setItem("apellidos", usuario.apellidos);
@@ -71,6 +72,37 @@ var iniciarSesion = (function () {
                 promesa.then(function(){},function(){
                     $("#mensajeFaltaFam").text(promesa.responseText); 
                     $("#divFam").show();
+                });
+            }
+        },
+        iniciarSesionPersonalSalud(){
+            var nombreUsuario = $("#usuarioPersonalSalud").val();
+            var password = $("#passwordPersonalSalud").val();
+            
+            if(nombreUsuario===""){
+                $("#mensajeFaltaFam").text("Por favor ingrese el usuario"); 
+                $("#divFam").show();
+            }
+            else if(password===""){
+                $("#mensajeFaltaFam").text("Por favor ingrese la contraseña"); 
+                $("#divFam").show();
+            }
+            else{
+                var promesa = apiclientIniciarSesion.autenticacionPersonalSalud(nombreUsuario,password , function(usuario){ 
+                    sessionStorage.setItem("id", usuario.id);
+                    sessionStorage.setItem("nombres", usuario.nombres);
+                    sessionStorage.setItem("apellidos", usuario.apellidos);
+                    sessionStorage.setItem("documentoIdentidad", usuario.documentoIdentidad);
+                    sessionStorage.setItem("nombreUsuario", usuario.nombreUsuario);
+                    sessionStorage.setItem("password", usuario.password);
+                    sessionStorage.setItem("tipoDocumento", usuario.tipoDocumento);
+                    sessionStorage.setItem("correo", usuario.correo);
+                    alert("Bienvenido, " + usuario.nombres+" "+usuario.apellidos);
+                    window.location.href = "perfilFamiliar.html";
+                }); 
+                promesa.then(function(){},function(){
+                    $("#mensajeFaltaPerSal").text(promesa.responseText); 
+                    $("#divPerSal").show();
                 });
             }
         }

@@ -4,7 +4,7 @@ CREATE TABLE paciente (
 	id INT(6) UNSIGNED AUTO_INCREMENT PRIMARY KEY,
     nombres VARCHAR(40),
     apellidos VARCHAR(40),
-    documentoIdentidad VARCHAR(10),
+    documentoIdentidad VARCHAR(15),
     fechaNacimiento DATE,
     genero CHAR(1),
     pais VARCHAR(15),
@@ -20,10 +20,23 @@ CREATE TABLE FAMILIAR (
 	id INT(6) UNSIGNED AUTO_INCREMENT PRIMARY KEY,
     nombres VARCHAR(40),
     apellidos VARCHAR(40),
-    documentoIdentidad VARCHAR(10),
+    documentoIdentidad VARCHAR(15),
     nombreUsuario VARCHAR(50),
     password VARCHAR(50),
     tipoDocumento CHAR(1),
 	correo VARCHAR(80)
 );
+
+CREATE TABLE PERSONALSALUD (
+	id INT(6) UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+    nombres VARCHAR(40),
+    apellidos VARCHAR(40),
+    documentoIdentidad VARCHAR(15),
+    nombreUsuario VARCHAR(50),
+    password VARCHAR(50),
+    tipoDocumento CHAR(1),
+	correo VARCHAR(80),
+    rol VARCHAR(2)
+);
+
 

@@ -5,10 +5,10 @@
  */
 package edu.eci.pgr1.entremente.persistence.imp;
 
-import edu.eci.pgr1.entremente.model.Familiar;
-import edu.eci.pgr1.entremente.persistence.FamiliarRepository;
+import edu.eci.pgr1.entremente.model.PersonalSalud;
 import edu.eci.pgr1.entremente.persistence.PersistenceException;
 import edu.eci.pgr1.entremente.persistence.PersistenceNotFoundException;
+import edu.eci.pgr1.entremente.persistence.PersonalSaludRepository;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
@@ -22,12 +22,12 @@ import org.springframework.stereotype.Service;
  * @author Juan Pablo Arévalo
  */
 @Service
-public class FamiliarRepositoryDatabase implements FamiliarRepository{
+public class PersonalSaludRepositoryDatabase implements PersonalSaludRepository{
     private Connection connect = null;
     private Statement statement = null;
     private PreparedStatement preparedStatement = null;
     private ResultSet resultSet = null;
-    private static final String NOMBRETABLA = "FAMILIAR";
+    private static final String NOMBRETABLA = "PERSONALSALUD";
 
        
     /**
@@ -52,21 +52,21 @@ public class FamiliarRepositoryDatabase implements FamiliarRepository{
     }
 
     @Override
-    public boolean existeFamiliar(Familiar familiar) throws PersistenceNotFoundException, PersistenceException {
-        boolean existeFamiliar = false;
+    public boolean existePersonalSalud(PersonalSalud personalSalud) throws PersistenceNotFoundException, PersistenceException {
+        boolean existePersonal = false;
         String nombreUsuario = "";
         String correo = "";
         try {
             Class.forName(DatosBD.DRIVER);
             connect = DriverManager.getConnection(DatosBD.CONECTOR);
             
-            preparedStatement = connect.prepareStatement("SELECT documentoIdentidad, tipoDocumento, nombreUsuario, correo FROM "+NOMBRETABLA +" WHERE (documentoIdentidad='"+familiar.getDocumentoIdentidad()+"' AND tipoDocumento = '"+familiar.getTipoDocumento()+"') OR nombreUsuario = '"+familiar.getNombreUsuario()+"' OR correo = '"+familiar.getCorreo()+"'");
+            preparedStatement = connect.prepareStatement("SELECT documentoIdentidad, tipoDocumento, nombreUsuario, correo FROM "+NOMBRETABLA +" WHERE (documentoIdentidad='"+personalSalud.getDocumentoIdentidad()+"' AND tipoDocumento = '"+personalSalud.getTipoDocumento()+"') OR nombreUsuario = '"+personalSalud.getNombreUsuario()+"' OR correo = '"+personalSalud.getCorreo()+"'");
             resultSet = preparedStatement.executeQuery();
             
             if(resultSet.next()){
                 nombreUsuario = resultSet.getString(3);
                 correo = resultSet.getString(4);
-                existeFamiliar = true;
+                existePersonal = true;
             }
             
         } catch (ClassNotFoundException | SQLException e) {
@@ -75,11 +75,11 @@ public class FamiliarRepositoryDatabase implements FamiliarRepository{
             close();
         }
     
-        if(existeFamiliar){
-            if(nombreUsuario.trim().equalsIgnoreCase(familiar.getNombreUsuario())){
+        if(existePersonal){
+            if(nombreUsuario.trim().equalsIgnoreCase(personalSalud.getNombreUsuario())){
                 throw new PersistenceException("El nombre de usuario ya existe!");
             }
-            else if(correo.trim().equalsIgnoreCase(familiar.getCorreo())){
+            else if(correo.trim().equalsIgnoreCase(personalSalud.getCorreo())){
                 throw new PersistenceException("El correo ya esta registrado!");
             }
             else{
@@ -92,8 +92,8 @@ public class FamiliarRepositoryDatabase implements FamiliarRepository{
     }
 
     @Override
-    public Familiar traerFamiliar(String nombreUsuarios, String password) throws PersistenceNotFoundException, PersistenceException {
-        Familiar familiar = null;
+    public PersonalSalud traerPersonalSalud(String nombreUsuarios, String password) throws PersistenceNotFoundException, PersistenceException {
+        PersonalSalud personalSalud = null;
         try {
             Class.forName(DatosBD.DRIVER);
             connect = DriverManager.getConnection(DatosBD.CONECTOR);
@@ -102,15 +102,16 @@ public class FamiliarRepositoryDatabase implements FamiliarRepository{
             resultSet = preparedStatement.executeQuery();
             
             if(resultSet.next()){
-               familiar = new Familiar();
-               familiar.setApellidos(resultSet.getString("apellidos"));
-               familiar.setCorreo(resultSet.getString("correo"));
-               familiar.setDocumentoIdentidad(resultSet.getString("documentoIdentidad"));
-               familiar.setId(resultSet.getInt("id"));
-               familiar.setNombreUsuario(nombreUsuarios);
-               familiar.setNombres(resultSet.getString("nombres"));
-               familiar.setTipoDocumento(resultSet.getString("tipoDocumento"));
-               familiar.setPassword(resultSet.getString("password"));
+               personalSalud = new PersonalSalud();
+               personalSalud.setApellidos(resultSet.getString("apellidos"));
+               personalSalud.setCorreo(resultSet.getString("correo"));
+               personalSalud.setDocumentoIdentidad(resultSet.getString("documentoIdentidad"));
+               personalSalud.setId(resultSet.getInt("id"));
+               personalSalud.setNombreUsuario(nombreUsuarios);
+               personalSalud.setNombres(resultSet.getString("nombres"));
+               personalSalud.setTipoDocumento(resultSet.getString("tipoDocumento"));
+               personalSalud.setPassword(resultSet.getString("password"));
+               personalSalud.setRol(resultSet.getString("rol"));
             }
             
         } catch (ClassNotFoundException | SQLException e) {
@@ -119,28 +120,29 @@ public class FamiliarRepositoryDatabase implements FamiliarRepository{
             close();
         }
     
-        if(familiar==null){
+        if(personalSalud==null){
             throw new PersistenceException("Usuario/Contraseña inválidos");
         }
         else{
-            return familiar;
+            return personalSalud;
         }
     }
 
     @Override
-    public void adicionarFamiliar(Familiar familiar) throws PersistenceNotFoundException {
+    public void adicionarPersonalSalud(PersonalSalud personalSalud) throws PersistenceNotFoundException {
         try {
             Class.forName(DatosBD.DRIVER);
             connect = DriverManager.getConnection(DatosBD.CONECTOR);
             statement = connect.createStatement();
-            preparedStatement = connect.prepareStatement("insert into  "+NOMBRETABLA+" (nombres, apellidos, documentoIdentidad, nombreUsuario, password, tipoDocumento, correo) values (?, ?, ?, ?, ?, ?, ?)");
-            preparedStatement.setString(1, familiar.getNombres());
-            preparedStatement.setString(2, familiar.getApellidos());
-            preparedStatement.setString(3, familiar.getDocumentoIdentidad());
-            preparedStatement.setString(4, familiar.getNombreUsuario());
-            preparedStatement.setString(5, familiar.getPassword());
-            preparedStatement.setString(6, familiar.getTipoDocumento());
-            preparedStatement.setString(7, familiar.getCorreo());
+            preparedStatement = connect.prepareStatement("insert into  "+NOMBRETABLA+" (nombres, apellidos, documentoIdentidad, nombreUsuario, password, tipoDocumento, correo, rol) values (?, ?, ?, ?, ?, ?, ?, ?)");
+            preparedStatement.setString(1, personalSalud.getNombres());
+            preparedStatement.setString(2, personalSalud.getApellidos());
+            preparedStatement.setString(3, personalSalud.getDocumentoIdentidad());
+            preparedStatement.setString(4, personalSalud.getNombreUsuario());
+            preparedStatement.setString(5, personalSalud.getPassword());
+            preparedStatement.setString(6, personalSalud.getTipoDocumento());
+            preparedStatement.setString(7, personalSalud.getCorreo());
+            preparedStatement.setString(8, personalSalud.getRol());
             preparedStatement.executeUpdate();
         } catch (ClassNotFoundException | SQLException e) {
             throw new PersistenceNotFoundException(e.getMessage());

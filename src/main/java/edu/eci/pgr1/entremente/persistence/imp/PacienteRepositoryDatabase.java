@@ -151,7 +151,7 @@ public class PacienteRepositoryDatabase implements PacienteRepository{
         }
     
         if(paciente==null){
-            throw new PersistenceException("Usuario/Password inválidos");
+            throw new PersistenceException("Usuario/Contraseña inválidos");
         }
         else{
             return paciente;
