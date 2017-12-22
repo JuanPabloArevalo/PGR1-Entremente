@@ -6,6 +6,7 @@
 package edu.eci.pgr1.entremente.persistence.imp;
 
 import edu.eci.pgr1.entremente.model.Familiar;
+import edu.eci.pgr1.entremente.model.RelacionPacienteFamiliar;
 import edu.eci.pgr1.entremente.persistence.FamiliarRepository;
 import edu.eci.pgr1.entremente.persistence.PersistenceException;
 import edu.eci.pgr1.entremente.persistence.PersistenceNotFoundException;
@@ -15,6 +16,8 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.HashSet;
+import java.util.Set;
 import org.springframework.stereotype.Service;
 
 /**
@@ -148,4 +151,40 @@ public class FamiliarRepositoryDatabase implements FamiliarRepository{
             close();
         }          
     }
+
+    @Override
+    public Set<RelacionPacienteFamiliar> traerRelacionesPacientes(Familiar familiar, String estado) throws PersistenceNotFoundException {
+        Set<RelacionPacienteFamiliar> relaciones = new HashSet<>();
+        RelacionPacienteFamiliar rel = null;
+        try {
+            Class.forName(DatosBD.DRIVER);
+            connect = DriverManager.getConnection(DatosBD.CONECTOR);
+            
+            preparedStatement = connect.prepareStatement("SELECT * FROM PACIENTEFAMILIAR PF LEFT JOIN PACIENTE P ON (PF.idPaciente=P.ID) WHERE idFamiliar = '"+familiar.getId()+"' AND ESTADO = '"+estado+"' ORDER BY PF.ID");
+            System.out.println("SELECT * FROM PACIENTEFAMILIAR PF LEFT JOIN PACIENTE P ON (PF.idPaciente=P.ID) WHERE idFamiliar = '"+familiar.getId()+"' AND ESTADO = '"+estado+"' ORDER BY PF.ID");
+            
+            resultSet = preparedStatement.executeQuery();
+            
+            while(resultSet.next()){
+               rel = new RelacionPacienteFamiliar();
+               rel.setApellidosFamiliar(familiar.getApellidos());
+               rel.setIdFamiliar(familiar.getId());
+               rel.setNombresFamiliar(familiar.getNombres());
+               rel.setId(resultSet.getInt("PF.ID"));
+               rel.setIdPaciente(resultSet.getInt("P.ID"));
+               rel.setApellidosPaciente(resultSet.getString("P.APELLIDOS"));
+               rel.setNombresPaciente(resultSet.getString("P.NOMBRES"));
+               rel.setEstado(estado);
+               rel.setRelacion(resultSet.getString("PF.relacion"));
+               relaciones.add(rel);
+            }
+            
+        } catch (ClassNotFoundException | SQLException e) {
+            throw new PersistenceNotFoundException(e.getMessage());
+        } finally {
+            close();
+        }
+        return relaciones;
+   }
+
 }

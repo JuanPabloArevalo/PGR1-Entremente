@@ -15,6 +15,8 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.HashSet;
+import java.util.Set;
 import org.springframework.stereotype.Service;
 
 /**
@@ -156,5 +158,52 @@ public class PacienteRepositoryDatabase implements PacienteRepository{
         else{
             return paciente;
         }
+    }
+
+    @Override
+    public Set<Paciente> busquedaPacientes(String valor) throws PersistenceNotFoundException, PersistenceException {
+        Set<Paciente> pacientes = new HashSet<>();
+        Paciente paciente = null;
+        
+        try {
+            Class.forName(DatosBD.DRIVER);
+            connect = DriverManager.getConnection(DatosBD.CONECTOR);
+            
+            preparedStatement = connect.prepareStatement("SELECT * FROM "+NOMBRETABLA +" WHERE nombreUsuario LIKE '%"+valor+"%' OR nombres LIKE '%"+valor+"%' OR apellidos LIKE '%"+valor+"%' OR documentoIdentidad LIKE '%"+valor+"%' or correo LIKE '%"+valor+"%' ORDER BY Apellidos, Nombres");
+            System.out.println("SELECT * FROM "+NOMBRETABLA +" WHERE nombreUsuario LIKE '%"+valor+"%' OR nombres LIKE '%"+valor+"%' OR apellidos LIKE '%"+valor+"%' OR documentoIdentidad LIKE '%"+valor+"%' or correo LIKE '%"+valor+"%' ORDER BY Apellidos, Nombres");
+            resultSet = preparedStatement.executeQuery();
+            
+            while(resultSet.next()){
+                System.out.println("Entroooo. ");
+               paciente = new Paciente();
+               paciente.setApellidos(resultSet.getString("apellidos"));
+               paciente.setCiudad(resultSet.getString("ciudad"));
+               paciente.setCorreo(resultSet.getString("correo"));
+               paciente.setDireccion(resultSet.getString("direccion"));
+               paciente.setDocumentoIdentidad(resultSet.getString("documentoIdentidad"));
+               paciente.setFechaNacimiento(resultSet.getDate("fechaNacimiento").toString());
+               paciente.setGenero(resultSet.getString("genero"));
+               paciente.setId(resultSet.getInt("id"));
+               paciente.setNombreUsuario(resultSet.getString("nombreUsuario"));
+               paciente.setNombres(resultSet.getString("nombres"));
+               paciente.setPais(resultSet.getString("pais"));
+               paciente.setTipoDocumento(resultSet.getString("tipoDocumento"));
+               paciente.setPassword("");
+               pacientes.add(paciente);
+            }
+            
+        } catch (ClassNotFoundException | SQLException e) {
+            throw new PersistenceNotFoundException(e.getMessage());
+        } finally {
+            close();
+        }
+    
+        if(pacientes.isEmpty()){
+            throw new PersistenceException("No existen pacienes con ese dato!");
+        }
+        else{
+            return pacientes;
+        }
+        
     }
 }

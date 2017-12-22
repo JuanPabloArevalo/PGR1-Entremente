@@ -6,6 +6,7 @@
 package edu.eci.pgr1.entremente.persistence;
 
 import edu.eci.pgr1.entremente.model.Paciente;
+import java.util.Set;
 /**
  *
  * @author Juan Pablo Arévalo
@@ -37,5 +38,14 @@ public interface PacienteRepository {
      * @throws PersistenceException 
      */
     public Paciente traerPaciente(String nombreUsuarios, String password) throws PersistenceNotFoundException, PersistenceException;
+    
+    /**
+     * Metodo encargado de buscar los pacientes que contengan por el valor pasado
+     * @param valor
+     * @return
+     * @throws PersistenceNotFoundException
+     * @throws PersistenceException 
+     */
+    public Set<Paciente> busquedaPacientes(String valor) throws PersistenceNotFoundException, PersistenceException;
     
 }

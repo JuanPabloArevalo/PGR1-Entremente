@@ -8,11 +8,13 @@ package edu.eci.pgr1.entremente.services;
 import edu.eci.pgr1.entremente.model.Familiar;
 import edu.eci.pgr1.entremente.model.Paciente;
 import edu.eci.pgr1.entremente.model.PersonalSalud;
+import edu.eci.pgr1.entremente.model.RelacionPacienteFamiliar;
 import edu.eci.pgr1.entremente.persistence.FamiliarRepository;
 import edu.eci.pgr1.entremente.persistence.PacienteRepository;
 import edu.eci.pgr1.entremente.persistence.PersistenceException;
 import edu.eci.pgr1.entremente.persistence.PersistenceNotFoundException;
 import edu.eci.pgr1.entremente.persistence.PersonalSaludRepository;
+import java.util.Set;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -109,7 +111,37 @@ public class EntreMenteServices {
         return personalSaludRepository.traerPersonalSalud(nombreUsuario, password);
     }
     
+    /**
+     * Metodo encargado de traer todas las relaciones pendientes de los pacientes del Familiar pasado por parametro
+     * @param familiar
+     * @return
+     * @throws PersistenceNotFoundException 
+     */
+    public Set<RelacionPacienteFamiliar> getRelacionesPacienteFamiliarPendientes(Familiar familiar) throws PersistenceNotFoundException{
+        return familiarRepository.traerRelacionesPacientes(familiar, RelacionPacienteFamiliar.ESTADOPENDIENTE);
+    }
     
+    /**
+     * Metodo encargado de traer todas las relaciones aceptadas de los pacientes del Familiar pasado por parametro
+     * @param familiar
+     * @return
+     * @throws PersistenceNotFoundException 
+     */
+    public Set<RelacionPacienteFamiliar> getRelacionesPacienteFamiliarAceptadas(Familiar familiar) throws PersistenceNotFoundException{
+        return familiarRepository.traerRelacionesPacientes(familiar, RelacionPacienteFamiliar.ESTADOACEPTADO);
+    }
+    
+    
+    /**
+     * Metodo encargado de consultar todos los pacientes que existan con ese dato
+     * @param dato
+     * @return
+     * @throws PersistenceNotFoundException 
+     * @throws edu.eci.pgr1.entremente.persistence.PersistenceException 
+     */
+    public Set<Paciente> consultarPacientes(String dato) throws PersistenceNotFoundException, PersistenceException{
+        return pacienteRepository.busquedaPacientes(dato);
+    }
     
     
 }
