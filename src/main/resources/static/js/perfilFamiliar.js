@@ -4,21 +4,21 @@
  * and open the template in the editor.
  */
     function adicionarFilaPendientes(item){
-        var markup = "<tr class=\"filas\"><td>" + item.id + "</td><td>" + item.nombresPaciente + "</td><td>" + item.apellidosPaciente + "</td><td>" + item.relacion + "</td><td><button type=\"button\" class=\"btn btn-success\" onclick=\"\">Aceptar</button><button type=\"button\" class=\"btn btn-danger\">Rechazar</button></td></tr>";
+        var markup = "<tr class=\"filasP\"><td>" + item.id + "</td><td>" + item.nombresPaciente + "</td><td>" + item.apellidosPaciente + "</td><td>" + item.relacion + "</td><td><button type=\"button\" class=\"btn btn-success\" onclick=\"perfilFamiliar.aceptarSolicitud("+item.id+", "+item.idPaciente+", "+item.idFamiliar+")\">Aceptar</button><button type=\"button\" class=\"btn btn-danger\">Rechazar</button></td></tr>";
         $("#tablaPendientes").append(markup);
     }
 
     function inicializarElementosPendientes(){
-        $("#tablaPendientes").remove("tr");
+        $(".FilasP").remove("tr");
     }
     
     function adicionarFilaAceptadas(item){
-        var markup = "<tr class=\"filas\"><td>" + item.id + "</td><td>" + item.nombresPaciente + "</td><td>" + item.apellidosPaciente + "</td><td>" + item.relacion + "</td><td><button type=\"button\" class=\"btn btn-primary\" onclick=\"\">Consultar</button><button type=\"button\" class=\"btn btn-danger\">Eliminar</button></td></tr>";
+        var markup = "<tr class=\"filasA\"><td>" + item.id + "</td><td>" + item.nombresPaciente + "</td><td>" + item.apellidosPaciente + "</td><td>" + item.relacion + "</td><td><button type=\"button\" class=\"btn btn-primary\" onclick=\"\">Consultar</button><button type=\"button\" class=\"btn btn-danger\">Eliminar</button></td></tr>";
         $("#tablaAceptadas").append(markup);
     }
 
     function inicializarElementosAceptadas(){
-        $("#tablaAceptadas").remove("tr");
+        $(".filasA").remove("tr");
     }
     
     function adicionarFilaBusqueda(item){
@@ -29,6 +29,10 @@
 
     function inicializarElementosBusqueda(){
         $("#idTablaBusqueda").remove("tr");
+    }
+    
+    function inicializarElementosPendientes(){
+        $("#tablaPendientes").remove("tr");
     }
 
 var perfilFamiliar = (function () {
@@ -116,6 +120,20 @@ var perfilFamiliar = (function () {
                     }
                 );
             }
+        },
+        aceptarSolicitud(id, idPaciente, idFamiliar){
+            var promesaConsulta = apiclientPerfilFamiliar.aceptarSolicitud(id, idPaciente, idFamiliar);
+            promesaConsulta.then(
+                function (datos) { 
+                    inicializarElementosAceptadas();
+                    inicializarElementosPendientes();
+//                    perfilFamiliar.cargarSolicitudes();
+                    alert("Se ha aceptado la solicitud!!");
+                },
+                function (dato) {
+                    alert(dato.responseText);
+                }
+            );
         }
     };
 }());

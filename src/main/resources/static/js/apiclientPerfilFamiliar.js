@@ -24,6 +24,14 @@ var apiclientPerfilFamiliar = (function(){
         },
         getBusquedaPacientes(dato){
             return $.get("/entremente/V1/pacientes/"+dato);  
+        },
+        aceptarSolicitud(id, idPaciente, idFamiliar){
+            return $.ajax({
+                url:  "/entremente/V1/familiares/relaciones/pacientes",
+                type: "PUT",
+                data: '{"id":'+id+' ,"idPaciente":'+idPaciente+',"idFamiliar":'+idFamiliar+', "estado":"","relacion":""}',
+                contentType: "application/json"
+            });
         }
       };
     

@@ -143,5 +143,13 @@ public class EntreMenteServices {
         return pacienteRepository.busquedaPacientes(dato);
     }
     
-    
+    /**
+     * Metodo encargado de aceptar la solicitud del paciente familiar
+     * @param relacion
+     * @throws PersistenceNotFoundException
+     * @throws PersistenceException 
+     */
+    public void aceptarSolicitudPacienteFamiliar(RelacionPacienteFamiliar relacion) throws PersistenceNotFoundException, PersistenceException{
+        familiarRepository.aceptarSolicitudPaciente(relacion);
+    }
 }

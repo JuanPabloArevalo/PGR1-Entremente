@@ -159,12 +159,8 @@ public class FamiliarRepositoryDatabase implements FamiliarRepository{
         try {
             Class.forName(DatosBD.DRIVER);
             connect = DriverManager.getConnection(DatosBD.CONECTOR);
-            
             preparedStatement = connect.prepareStatement("SELECT * FROM PACIENTEFAMILIAR PF LEFT JOIN PACIENTE P ON (PF.idPaciente=P.ID) WHERE idFamiliar = '"+familiar.getId()+"' AND ESTADO = '"+estado+"' ORDER BY PF.ID");
-            System.out.println("SELECT * FROM PACIENTEFAMILIAR PF LEFT JOIN PACIENTE P ON (PF.idPaciente=P.ID) WHERE idFamiliar = '"+familiar.getId()+"' AND ESTADO = '"+estado+"' ORDER BY PF.ID");
-            
             resultSet = preparedStatement.executeQuery();
-            
             while(resultSet.next()){
                rel = new RelacionPacienteFamiliar();
                rel.setApellidosFamiliar(familiar.getApellidos());
@@ -178,7 +174,6 @@ public class FamiliarRepositoryDatabase implements FamiliarRepository{
                rel.setRelacion(resultSet.getString("PF.relacion"));
                relaciones.add(rel);
             }
-            
         } catch (ClassNotFoundException | SQLException e) {
             throw new PersistenceNotFoundException(e.getMessage());
         } finally {
@@ -186,5 +181,21 @@ public class FamiliarRepositoryDatabase implements FamiliarRepository{
         }
         return relaciones;
    }
+
+    @Override
+    public void aceptarSolicitudPaciente(RelacionPacienteFamiliar relacion) throws PersistenceNotFoundException, PersistenceException {
+        try {
+            Class.forName(DatosBD.DRIVER);
+            connect = DriverManager.getConnection(DatosBD.CONECTOR);
+            statement = connect.createStatement();
+            preparedStatement = connect.prepareStatement("UPDATE PACIENTEFAMILIAR SET ESTADO = '"+RelacionPacienteFamiliar.ESTADOACEPTADO+"' WHERE ID = ?");
+            preparedStatement.setInt(1, relacion.getId());
+            preparedStatement.executeUpdate();
+        } catch (ClassNotFoundException | SQLException e) {
+            throw new PersistenceNotFoundException(e.getMessage());
+        } finally {
+            close();
+        }  
+    }
 
 }

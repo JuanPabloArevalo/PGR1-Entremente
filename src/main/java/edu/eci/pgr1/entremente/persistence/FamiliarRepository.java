@@ -51,4 +51,11 @@ public interface FamiliarRepository {
      */
     public Set<RelacionPacienteFamiliar> traerRelacionesPacientes(Familiar familiar, String estado) throws PersistenceNotFoundException;
 
+    /**
+     * Metodo encargado de aceptar la solicitud de la realcion paciente-familiar
+     * @param relacion
+     * @throws PersistenceNotFoundException
+     * @throws PersistenceException 
+     */
+    public void aceptarSolicitudPaciente(RelacionPacienteFamiliar relacion) throws PersistenceNotFoundException, PersistenceException;
 }

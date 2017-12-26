@@ -8,6 +8,7 @@ package edu.eci.pgr1.entremente.controllers;
 import edu.eci.pgr1.entremente.model.Familiar;
 import edu.eci.pgr1.entremente.model.Paciente;
 import edu.eci.pgr1.entremente.model.PersonalSalud;
+import edu.eci.pgr1.entremente.model.RelacionPacienteFamiliar;
 import edu.eci.pgr1.entremente.persistence.PersistenceException;
 import edu.eci.pgr1.entremente.persistence.PersistenceNotFoundException;
 import edu.eci.pgr1.entremente.services.EntreMenteServices;
@@ -109,6 +110,17 @@ public class EntreMenteController {
             Logger.getLogger(EntreMenteController.class.getName()).log(Level.SEVERE, null, ex);
             return new ResponseEntity<>(ex.getMessage(), HttpStatus.NOT_FOUND);
         }        
+    }
+    
+    @RequestMapping(path = "/familiares/relaciones/pacientes", method = RequestMethod.PUT)
+    public ResponseEntity<?> manejadorRelacionesFamliaresPacientesAceptadar(@RequestBody RelacionPacienteFamiliar relacion) {
+        try {
+            ems.aceptarSolicitudPacienteFamiliar(relacion);
+            return new ResponseEntity<>("Se ha aceptado la solicitud!", HttpStatus.CREATED);
+        } catch (PersistenceNotFoundException | PersistenceException ex) {
+            Logger.getLogger(EntreMenteController.class.getName()).log(Level.SEVERE, null, ex);
+            return new ResponseEntity<>(ex.getMessage(), HttpStatus.NOT_FOUND);
+        }    
     }
 
     
