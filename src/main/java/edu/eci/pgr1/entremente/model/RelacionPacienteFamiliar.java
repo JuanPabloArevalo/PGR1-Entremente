@@ -12,6 +12,9 @@ package edu.eci.pgr1.entremente.model;
 public class RelacionPacienteFamiliar {
     public static final String ESTADOPENDIENTE = "P";
     public static final String ESTADOACEPTADO = "A";
+    
+    public static final String ENVIADOFAMILIAR = "F";
+    public static final String ENVIADOPACIENTE = "P";
     private int id;
     private int idPaciente;
     private String nombresPaciente;

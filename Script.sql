@@ -46,7 +46,8 @@ CREATE TABLE PACIENTEFAMILIAR (
     FOREIGN KEY (idPaciente) REFERENCES paciente(id),
     FOREIGN KEY (idFamiliar) REFERENCES FAMILIAR(id),
     estado VARCHAR(2),
-    relacion VARCHAR(20)
+    relacion VARCHAR(20),
+	enviado VARCHAR(1)
 );
 
 

@@ -4,16 +4,16 @@
  * and open the template in the editor.
  */
     function adicionarFilaPendientes(item){
-        var markup = "<tr class=\"filasP\"><td>" + item.id + "</td><td>" + item.nombresPaciente + "</td><td>" + item.apellidosPaciente + "</td><td>" + item.relacion + "</td><td><button type=\"button\" class=\"btn btn-success\" onclick=\"perfilFamiliar.aceptarSolicitud("+item.id+", "+item.idPaciente+", "+item.idFamiliar+")\">Aceptar</button><button type=\"button\" class=\"btn btn-danger\">Rechazar</button></td></tr>";
+        var markup = "<tr class=\"filasP\"><td>" + item.id + "</td><td>" + item.nombresPaciente + "</td><td>" + item.apellidosPaciente + "</td><td>" + item.relacion + "</td><td><button type=\"button\" class=\"btn btn-success\" onclick=\"perfilFamiliar.aceptarSolicitud("+item.id+", "+item.idPaciente+", "+item.idFamiliar+")\">Aceptar</button><button type=\"button\" class=\"btn btn-danger\" onclick=\"perfilFamiliar.rechazarSolicitud("+item.id+", "+item.idPaciente+", "+item.idFamiliar+")\">Rechazar</button></td></tr>";
         $("#tablaPendientes").append(markup);
     }
 
     function inicializarElementosPendientes(){
-        $(".FilasP").remove("tr");
+        $(".filasP").remove("tr");
     }
     
     function adicionarFilaAceptadas(item){
-        var markup = "<tr class=\"filasA\"><td>" + item.id + "</td><td>" + item.nombresPaciente + "</td><td>" + item.apellidosPaciente + "</td><td>" + item.relacion + "</td><td><button type=\"button\" class=\"btn btn-primary\" onclick=\"\">Consultar</button><button type=\"button\" class=\"btn btn-danger\">Eliminar</button></td></tr>";
+        var markup = "<tr class=\"filasA\"><td>" + item.id + "</td><td>" + item.nombresPaciente + "</td><td>" + item.apellidosPaciente + "</td><td>" + item.relacion + "</td><td><button type=\"button\" class=\"btn btn-primary\" onclick=\"\">Consultar</button><button type=\"button\" class=\"btn btn-danger\" onclick=\"perfilFamiliar.eliminarRelacion("+item.id+", "+item.idPaciente+", "+item.idFamiliar+")\">Eliminar</button></td></tr>";
         $("#tablaAceptadas").append(markup);
     }
 
@@ -23,17 +23,15 @@
     
     function adicionarFilaBusqueda(item){
         console.info(item);
-        var markup = "<tr class=\"filas\"><td>" + item.id + "</td><td>" + item.nombreUsuario + "</td><td>" + item.nombres + "</td><td>" + item.apellidos + "</td><td><select class=\"form-control\" id=\"relacion"+item.id+"\"><option>Padres</option><option>Tios</option><option>Hermanos</option><option>Abuelos</option><option selected>Sobrinos</option><option selected>Otros</option></select></td><td><button type=\"button\" class=\"btn btn-success\" onclick=\"\">Agregar</button></td></tr>";
+        var markup = "<tr class=\"filasB\"><td>" + item.id + "</td><td>" + item.nombreUsuario + "</td><td>" + item.nombres + "</td><td>" + item.apellidos + "</td><td><select class=\"form-control\" id=\"relacion"+item.id+"\"><option>Padres</option><option>Tios</option><option>Hermanos</option><option>Abuelos</option><option selected>Sobrinos</option><option selected>Otros</option></select></td><td><button type=\"button\" class=\"btn btn-success\" onclick=\"perfilFamiliar.adicionarRelacion("+item.id+")\">Agregar</button></td></tr>";
         $("#idTablaBusqueda").append(markup);
     }
 
     function inicializarElementosBusqueda(){
-        $("#idTablaBusqueda").remove("tr");
+        $(".filasB").remove("tr");
     }
     
-    function inicializarElementosPendientes(){
-        $("#tablaPendientes").remove("tr");
-    }
+
 
 var perfilFamiliar = (function () {
     return{    
@@ -124,11 +122,55 @@ var perfilFamiliar = (function () {
         aceptarSolicitud(id, idPaciente, idFamiliar){
             var promesaConsulta = apiclientPerfilFamiliar.aceptarSolicitud(id, idPaciente, idFamiliar);
             promesaConsulta.then(
-                function (datos) { 
+                function () { 
                     inicializarElementosAceptadas();
                     inicializarElementosPendientes();
-//                    perfilFamiliar.cargarSolicitudes();
+                    perfilFamiliar.cargarSolicitudes();
                     alert("Se ha aceptado la solicitud!!");
+                },
+                function (dato) {
+                    alert(dato.responseText);
+                }
+            );
+        },
+        rechazarSolicitud(id, idPaciente, idFamiliar){
+            var promesaConsulta = apiclientPerfilFamiliar.eliminarSolicitud(id, idPaciente, idFamiliar);
+            promesaConsulta.then(
+                function () { 
+                    inicializarElementosAceptadas();
+                    inicializarElementosPendientes();
+                    perfilFamiliar.cargarSolicitudes();
+                    alert("Se ha rechazado la solicitud del Paciente!!");
+                },
+                function (dato) {
+                    alert(dato.responseText);
+                }
+            );
+        },
+        eliminarRelacion(id, idPaciente, idFamiliar){
+            var promesaConsulta = apiclientPerfilFamiliar.eliminarSolicitud(id, idPaciente, idFamiliar);
+            promesaConsulta.then(
+                function () { 
+                    inicializarElementosAceptadas();
+                    inicializarElementosPendientes();
+                    perfilFamiliar.cargarSolicitudes();
+                    alert("Se ha eliminado la relación con el Paciente");
+                },
+                function (dato) {
+                    alert(dato.responseText);
+                }
+            );
+        },
+        adicionarRelacion(idPaciente){
+            var relacion = $("select#relacion"+idPaciente).val();
+            var idFamiliar = sessionStorage.getItem("id");
+            var promesaConsulta = apiclientPerfilFamiliar.adicionarSolicitud(idPaciente, idFamiliar, relacion);
+            promesaConsulta.then(
+                function () { 
+                    inicializarElementosAceptadas();
+                    inicializarElementosPendientes();
+                    perfilFamiliar.cargarSolicitudes();
+                    alert("Se ha enviado la solicitud");
                 },
                 function (dato) {
                     alert(dato.responseText);

@@ -32,6 +32,22 @@ var apiclientPerfilFamiliar = (function(){
                 data: '{"id":'+id+' ,"idPaciente":'+idPaciente+',"idFamiliar":'+idFamiliar+', "estado":"","relacion":""}',
                 contentType: "application/json"
             });
+        },
+        eliminarSolicitud(id, idPaciente, idFamiliar){
+            return $.ajax({
+                url:  "/entremente/V1/familiares/relaciones/pacientes",
+                type: "DELETE",
+                data: '{"id":'+id+' ,"idPaciente":'+idPaciente+',"idFamiliar":'+idFamiliar+', "estado":"","relacion":""}',
+                contentType: "application/json"
+            });
+        },
+        adicionarSolicitud(idPaciente, idFamiliar,relacion){
+            return $.ajax({
+                url:  "/entremente/V1/familiares/relaciones/pacientes",
+                type: "POST",
+                data: '{"id":0 ,"idPaciente":'+idPaciente+',"idFamiliar":'+idFamiliar+', "estado":"","relacion":"'+relacion+'"}',
+                contentType: "application/json"
+            });
         }
       };
     

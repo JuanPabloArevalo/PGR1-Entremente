@@ -153,13 +153,13 @@ public class FamiliarRepositoryDatabase implements FamiliarRepository{
     }
 
     @Override
-    public Set<RelacionPacienteFamiliar> traerRelacionesPacientes(Familiar familiar, String estado) throws PersistenceNotFoundException {
+    public Set<RelacionPacienteFamiliar> traerRelacionesPacientesDesdeFamiliar(Familiar familiar, String estado) throws PersistenceNotFoundException {
         Set<RelacionPacienteFamiliar> relaciones = new HashSet<>();
         RelacionPacienteFamiliar rel = null;
         try {
             Class.forName(DatosBD.DRIVER);
             connect = DriverManager.getConnection(DatosBD.CONECTOR);
-            preparedStatement = connect.prepareStatement("SELECT * FROM PACIENTEFAMILIAR PF LEFT JOIN PACIENTE P ON (PF.idPaciente=P.ID) WHERE idFamiliar = '"+familiar.getId()+"' AND ESTADO = '"+estado+"' ORDER BY PF.ID");
+            preparedStatement = connect.prepareStatement("SELECT * FROM PACIENTEFAMILIAR PF LEFT JOIN PACIENTE P ON (PF.idPaciente=P.ID) WHERE idFamiliar = '"+familiar.getId()+"' AND ESTADO = '"+estado+"' AND ENVIADO = '"+RelacionPacienteFamiliar.ENVIADOPACIENTE+"' ORDER BY PF.ID");
             resultSet = preparedStatement.executeQuery();
             while(resultSet.next()){
                rel = new RelacionPacienteFamiliar();
@@ -196,6 +196,74 @@ public class FamiliarRepositoryDatabase implements FamiliarRepository{
         } finally {
             close();
         }  
+    }
+
+    @Override
+    public void eliminarSolicitudPaciente(RelacionPacienteFamiliar relacion) throws PersistenceNotFoundException, PersistenceException {
+        try {
+            Class.forName(DatosBD.DRIVER);
+            connect = DriverManager.getConnection(DatosBD.CONECTOR);
+            statement = connect.createStatement();
+            preparedStatement = connect.prepareStatement("DELETE FROM PACIENTEFAMILIAR WHERE ID = ?");
+            preparedStatement.setInt(1, relacion.getId());
+            preparedStatement.executeUpdate();
+        } catch (ClassNotFoundException | SQLException e) {
+            throw new PersistenceNotFoundException(e.getMessage());
+        } finally {
+            close();
+        }  
+    }
+
+    @Override
+    public void adicionarSolicitudPacienteDesdeFamiliar(RelacionPacienteFamiliar relacion) throws PersistenceNotFoundException, PersistenceException {
+        try {
+            Class.forName(DatosBD.DRIVER);
+            connect = DriverManager.getConnection(DatosBD.CONECTOR);
+            statement = connect.createStatement();
+            preparedStatement = connect.prepareStatement("INSERT INTO PACIENTEFAMILIAR (Id, IdPaciente, idFamiliar, estado, relacion, enviado) VALUES (?,?,?,?,?,?) ");
+            preparedStatement.setInt(1, relacion.getId());
+            preparedStatement.setInt(2, relacion.getIdPaciente());
+            preparedStatement.setInt(3, relacion.getIdFamiliar());
+            preparedStatement.setString(4, "P");
+            preparedStatement.setString(5, relacion.getRelacion());
+            preparedStatement.setString(6, RelacionPacienteFamiliar.ENVIADOFAMILIAR);
+            preparedStatement.executeUpdate();
+        } catch (ClassNotFoundException | SQLException e) {
+            throw new PersistenceNotFoundException(e.getMessage());
+        } finally {
+            close();
+        } 
+    }
+
+    @Override
+    public boolean existeRelacionPacienteFamiliar(RelacionPacienteFamiliar relacion) throws PersistenceNotFoundException, PersistenceException {
+        boolean existeRelacion = false;
+        try {
+            Class.forName(DatosBD.DRIVER);
+            connect = DriverManager.getConnection(DatosBD.CONECTOR);
+            
+            preparedStatement = connect.prepareStatement("SELECT id FROM PACIENTEFAMILIAR WHERE idPaciente = ? AND idFamiliar = ?");
+            preparedStatement.setInt(1, relacion.getIdPaciente());
+            preparedStatement.setInt(2, relacion.getIdFamiliar());
+            resultSet = preparedStatement.executeQuery();
+            
+            if(resultSet.next()){
+                relacion.setId(resultSet.getInt(1));
+                existeRelacion = true;
+            }
+            
+        } catch (ClassNotFoundException | SQLException e) {
+            throw new PersistenceNotFoundException(e.getMessage());
+        } finally {
+            close();
+        }
+    
+        if(existeRelacion){
+            throw new PersistenceException("Ya existe la relación paciente-familiar");
+        }
+        else{
+            return false;
+        }
     }
 
 }

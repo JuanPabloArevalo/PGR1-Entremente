@@ -117,8 +117,8 @@ public class EntreMenteServices {
      * @return
      * @throws PersistenceNotFoundException 
      */
-    public Set<RelacionPacienteFamiliar> getRelacionesPacienteFamiliarPendientes(Familiar familiar) throws PersistenceNotFoundException{
-        return familiarRepository.traerRelacionesPacientes(familiar, RelacionPacienteFamiliar.ESTADOPENDIENTE);
+    public Set<RelacionPacienteFamiliar> getRelacionesPacientePendientesDesdeFamiliar(Familiar familiar) throws PersistenceNotFoundException{
+        return familiarRepository.traerRelacionesPacientesDesdeFamiliar(familiar, RelacionPacienteFamiliar.ESTADOPENDIENTE);
     }
     
     /**
@@ -127,8 +127,8 @@ public class EntreMenteServices {
      * @return
      * @throws PersistenceNotFoundException 
      */
-    public Set<RelacionPacienteFamiliar> getRelacionesPacienteFamiliarAceptadas(Familiar familiar) throws PersistenceNotFoundException{
-        return familiarRepository.traerRelacionesPacientes(familiar, RelacionPacienteFamiliar.ESTADOACEPTADO);
+    public Set<RelacionPacienteFamiliar> getRelacionesPacienterAceptadasDesdeFamiliar(Familiar familiar) throws PersistenceNotFoundException{
+        return familiarRepository.traerRelacionesPacientesDesdeFamiliar(familiar, RelacionPacienteFamiliar.ESTADOACEPTADO);
     }
     
     
@@ -149,7 +149,30 @@ public class EntreMenteServices {
      * @throws PersistenceNotFoundException
      * @throws PersistenceException 
      */
-    public void aceptarSolicitudPacienteFamiliar(RelacionPacienteFamiliar relacion) throws PersistenceNotFoundException, PersistenceException{
+    public void aceptarSolicitudPaciente(RelacionPacienteFamiliar relacion) throws PersistenceNotFoundException, PersistenceException{
         familiarRepository.aceptarSolicitudPaciente(relacion);
+    }
+    
+    /**
+     * Metodo encargado de eliminar la solicitud del paciente familiar
+     * @param relacion
+     * @throws PersistenceNotFoundException
+     * @throws PersistenceException 
+     */
+    public void eliminarSolicitudPaciente(RelacionPacienteFamiliar relacion) throws PersistenceNotFoundException, PersistenceException{
+        familiarRepository.eliminarSolicitudPaciente(relacion);
+    }
+   
+    /**
+     * Metodo encargado de adicionar la solicitud del paciente familiar
+     * @param relacion
+     * @throws PersistenceNotFoundException
+     * @throws PersistenceException 
+     */
+    public void adicionarRelacionPacienteDesdeFamiliar(RelacionPacienteFamiliar relacion) throws PersistenceNotFoundException, PersistenceException{
+        boolean existe = familiarRepository.existeRelacionPacienteFamiliar(relacion);
+        if(!existe){
+            familiarRepository.adicionarSolicitudPacienteDesdeFamiliar(relacion);
+        }
     }
 }

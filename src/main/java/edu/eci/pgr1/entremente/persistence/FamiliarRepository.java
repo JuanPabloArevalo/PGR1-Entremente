@@ -6,7 +6,6 @@
 package edu.eci.pgr1.entremente.persistence;
 
 import edu.eci.pgr1.entremente.model.Familiar;
-import edu.eci.pgr1.entremente.model.Paciente;
 import edu.eci.pgr1.entremente.model.RelacionPacienteFamiliar;
 import java.util.Set;
 
@@ -49,7 +48,7 @@ public interface FamiliarRepository {
      * @return 
      * @throws edu.eci.pgr1.entremente.persistence.PersistenceNotFoundException 
      */
-    public Set<RelacionPacienteFamiliar> traerRelacionesPacientes(Familiar familiar, String estado) throws PersistenceNotFoundException;
+    public Set<RelacionPacienteFamiliar> traerRelacionesPacientesDesdeFamiliar(Familiar familiar, String estado) throws PersistenceNotFoundException;
 
     /**
      * Metodo encargado de aceptar la solicitud de la realcion paciente-familiar
@@ -58,4 +57,30 @@ public interface FamiliarRepository {
      * @throws PersistenceException 
      */
     public void aceptarSolicitudPaciente(RelacionPacienteFamiliar relacion) throws PersistenceNotFoundException, PersistenceException;
+
+    /**
+     * Metodo encargado de eliminar la solicitud de la realcion paciente-familiar
+     * @param relacion
+     * @throws PersistenceNotFoundException
+     * @throws PersistenceException 
+     */
+    public void eliminarSolicitudPaciente(RelacionPacienteFamiliar relacion) throws PersistenceNotFoundException, PersistenceException;
+
+    /**
+     * Metodo encargado de adicionar la solicitud de la realcion paciente-familiar
+     * @param relacion
+     * @throws PersistenceNotFoundException
+     * @throws PersistenceException 
+     */
+    public void adicionarSolicitudPacienteDesdeFamiliar(RelacionPacienteFamiliar relacion) throws PersistenceNotFoundException, PersistenceException;
+    
+    /**
+     * Metodo encargado de validar si existe la solicitud de la realcion paciente-familiar
+     * @param relacion
+     * @return 
+     * @throws PersistenceNotFoundException
+     * @throws PersistenceException 
+     */
+    public boolean existeRelacionPacienteFamiliar(RelacionPacienteFamiliar relacion) throws PersistenceNotFoundException, PersistenceException;
+
 }
