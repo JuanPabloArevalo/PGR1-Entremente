@@ -7,7 +7,7 @@ package edu.eci.pgr1.entremente.persistence.imp;
 
 import edu.eci.pgr1.entremente.model.Familiar;
 import edu.eci.pgr1.entremente.model.Paciente;
-import edu.eci.pgr1.entremente.model.RelacionPacienteFamiliar;
+import edu.eci.pgr1.entremente.model.Relacion;
 import edu.eci.pgr1.entremente.persistence.FamiliarRepository;
 import edu.eci.pgr1.entremente.persistence.PersistenceException;
 import edu.eci.pgr1.entremente.persistence.PersistenceNotFoundException;
@@ -154,12 +154,12 @@ public class FamiliarRepositoryDatabase implements FamiliarRepository{
     }
 
     @Override
-    public Set<RelacionPacienteFamiliar> traerRelacionesPacientesDesdeFamiliar(Familiar familiar, String estado) throws PersistenceNotFoundException {
-        Set<RelacionPacienteFamiliar> relaciones = new HashSet<>();
-        RelacionPacienteFamiliar rel = null;
+    public Set<Relacion> traerRelacionesPacientesDesdeFamiliar(Familiar familiar, String estado) throws PersistenceNotFoundException {
+        Set<Relacion> relaciones = new HashSet<>();
+        Relacion rel = null;
         String complemento = "";
-        if(RelacionPacienteFamiliar.ESTADOPENDIENTE.equalsIgnoreCase(estado)){
-            complemento = " AND ENVIADO = '"+RelacionPacienteFamiliar.ENVIADOPACIENTE+"' ";
+        if(Relacion.ESTADOPENDIENTE.equalsIgnoreCase(estado)){
+            complemento = " AND ENVIADO = '"+Relacion.ENVIADOPACIENTE+"' ";
         }
         try {
             Class.forName(DatosBD.DRIVER);
@@ -167,7 +167,7 @@ public class FamiliarRepositoryDatabase implements FamiliarRepository{
             preparedStatement = connect.prepareStatement("SELECT * FROM PACIENTEFAMILIAR PF LEFT JOIN PACIENTE P ON (PF.idPaciente=P.ID) WHERE idFamiliar = '"+familiar.getId()+"' AND ESTADO = '"+estado+"' "+complemento+" ORDER BY PF.ID");
             resultSet = preparedStatement.executeQuery();
             while(resultSet.next()){
-               rel = new RelacionPacienteFamiliar();
+               rel = new Relacion();
                rel.setApellidosFamiliar(familiar.getApellidos());
                rel.setIdFamiliar(familiar.getId());
                rel.setNombresFamiliar(familiar.getNombres());
@@ -188,12 +188,12 @@ public class FamiliarRepositoryDatabase implements FamiliarRepository{
    }
 
     @Override
-    public void aceptarSolicitudPaciente(RelacionPacienteFamiliar relacion) throws PersistenceNotFoundException, PersistenceException {
+    public void aceptarSolicitudPaciente(Relacion relacion) throws PersistenceNotFoundException, PersistenceException {
         try {
             Class.forName(DatosBD.DRIVER);
             connect = DriverManager.getConnection(DatosBD.CONECTOR);
             statement = connect.createStatement();
-            preparedStatement = connect.prepareStatement("UPDATE PACIENTEFAMILIAR SET ESTADO = '"+RelacionPacienteFamiliar.ESTADOACEPTADO+"' WHERE ID = ?");
+            preparedStatement = connect.prepareStatement("UPDATE PACIENTEFAMILIAR SET ESTADO = '"+Relacion.ESTADOACEPTADO+"' WHERE ID = ?");
             preparedStatement.setInt(1, relacion.getId());
             preparedStatement.executeUpdate();
         } catch (ClassNotFoundException | SQLException e) {
@@ -204,7 +204,7 @@ public class FamiliarRepositoryDatabase implements FamiliarRepository{
     }
 
     @Override
-    public void eliminarSolicitudPaciente(RelacionPacienteFamiliar relacion) throws PersistenceNotFoundException, PersistenceException {
+    public void eliminarSolicitudPaciente(Relacion relacion) throws PersistenceNotFoundException, PersistenceException {
         try {
             Class.forName(DatosBD.DRIVER);
             connect = DriverManager.getConnection(DatosBD.CONECTOR);
@@ -220,7 +220,7 @@ public class FamiliarRepositoryDatabase implements FamiliarRepository{
     }
 
     @Override
-    public void adicionarSolicitudPacienteDesdeFamiliar(RelacionPacienteFamiliar relacion) throws PersistenceNotFoundException, PersistenceException {
+    public void adicionarSolicitudPacienteDesdeFamiliar(Relacion relacion) throws PersistenceNotFoundException, PersistenceException {
         try {
             Class.forName(DatosBD.DRIVER);
             connect = DriverManager.getConnection(DatosBD.CONECTOR);
@@ -231,7 +231,7 @@ public class FamiliarRepositoryDatabase implements FamiliarRepository{
             preparedStatement.setInt(3, relacion.getIdFamiliar());
             preparedStatement.setString(4, "P");
             preparedStatement.setString(5, relacion.getRelacion());
-            preparedStatement.setString(6, RelacionPacienteFamiliar.ENVIADOFAMILIAR);
+            preparedStatement.setString(6, Relacion.ENVIADOOTRO);
             preparedStatement.executeUpdate();
         } catch (ClassNotFoundException | SQLException e) {
             throw new PersistenceNotFoundException(e.getMessage());
@@ -241,7 +241,7 @@ public class FamiliarRepositoryDatabase implements FamiliarRepository{
     }
 
     @Override
-    public boolean existeRelacionPacienteFamiliar(RelacionPacienteFamiliar relacion) throws PersistenceNotFoundException, PersistenceException {
+    public boolean existeRelacionPacienteFamiliar(Relacion relacion) throws PersistenceNotFoundException, PersistenceException {
         boolean existeRelacion = false;
         try {
             Class.forName(DatosBD.DRIVER);
@@ -280,7 +280,6 @@ public class FamiliarRepositoryDatabase implements FamiliarRepository{
             Class.forName(DatosBD.DRIVER);
             connect = DriverManager.getConnection(DatosBD.CONECTOR);
             preparedStatement = connect.prepareStatement("SELECT * FROM "+NOMBRETABLA +" WHERE nombreUsuario LIKE '%"+valor+"%' OR nombres LIKE '%"+valor+"%' OR apellidos LIKE '%"+valor+"%' OR documentoIdentidad LIKE '%"+valor+"%' or correo LIKE '%"+valor+"%' ORDER BY Apellidos, Nombres");
-            System.out.println("SELECT * FROM "+NOMBRETABLA +" WHERE nombreUsuario LIKE '%"+valor+"%' OR nombres LIKE '%"+valor+"%' OR apellidos LIKE '%"+valor+"%' OR documentoIdentidad LIKE '%"+valor+"%' or correo LIKE '%"+valor+"%' ORDER BY Apellidos, Nombres");
             resultSet = preparedStatement.executeQuery();
             while(resultSet.next()){
                 familiar = new Familiar();

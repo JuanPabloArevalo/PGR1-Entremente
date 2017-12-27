@@ -8,7 +8,7 @@ package edu.eci.pgr1.entremente.controllers;
 import edu.eci.pgr1.entremente.model.Familiar;
 import edu.eci.pgr1.entremente.model.Paciente;
 import edu.eci.pgr1.entremente.model.PersonalSalud;
-import edu.eci.pgr1.entremente.model.RelacionPacienteFamiliar;
+import edu.eci.pgr1.entremente.model.Relacion;
 import edu.eci.pgr1.entremente.persistence.PersistenceException;
 import edu.eci.pgr1.entremente.persistence.PersistenceNotFoundException;
 import edu.eci.pgr1.entremente.services.EntreMenteServices;
@@ -90,7 +90,7 @@ public class EntreMenteController {
     }
     
     @RequestMapping(path = "/pacientes/relaciones/familiares", method = RequestMethod.POST)
-    public ResponseEntity<?> manejadorRelacionesAdicionarRelacionDesdePaciente(@RequestBody RelacionPacienteFamiliar relacion) {
+    public ResponseEntity<?> manejadorRelacionesAdicionarRelacionDesdePaciente(@RequestBody Relacion relacion) {
         try {
             ems.adicionarRelacionPacienteDesdePaciente(relacion);
             return new ResponseEntity<>("Se ha enviado la solicitud!", HttpStatus.CREATED);
@@ -143,7 +143,7 @@ public class EntreMenteController {
     }
     
     @RequestMapping(path = "/familiares/relaciones/pacientes", method = RequestMethod.PUT)
-    public ResponseEntity<?> manejadorRelacionesFamliaresPacientesAceptadar(@RequestBody RelacionPacienteFamiliar relacion) {
+    public ResponseEntity<?> manejadorRelacionesFamliaresPacientesAceptadar(@RequestBody Relacion relacion) {
         try {
             ems.aceptarSolicitudPaciente(relacion);
             return new ResponseEntity<>("Se ha aceptado la solicitud!", HttpStatus.CREATED);
@@ -154,7 +154,7 @@ public class EntreMenteController {
     }
     
     @RequestMapping(path = "/familiares/relaciones/pacientes", method = RequestMethod.DELETE)
-    public ResponseEntity<?> manejadorRelacionesFamliaresPacientesEliminar(@RequestBody RelacionPacienteFamiliar relacion) {
+    public ResponseEntity<?> manejadorRelacionesFamliaresPacientesEliminar(@RequestBody Relacion relacion) {
         try {
             ems.eliminarSolicitudPaciente(relacion);
             return new ResponseEntity<>("Se ha eliminado la solicitud!", HttpStatus.CREATED);
@@ -165,7 +165,7 @@ public class EntreMenteController {
     }
     
     @RequestMapping(path = "/familiares/relaciones/pacientes", method = RequestMethod.POST)
-    public ResponseEntity<?> manejadorRelacionesFamliaresPacientesAdicionar(@RequestBody RelacionPacienteFamiliar relacion) {
+    public ResponseEntity<?> manejadorRelacionesFamliaresPacientesAdicionar(@RequestBody Relacion relacion) {
         try {
             ems.adicionarRelacionPacienteDesdeFamiliar(relacion);
             return new ResponseEntity<>("Se ha enviado la solicitud!", HttpStatus.CREATED);
@@ -174,6 +174,7 @@ public class EntreMenteController {
             return new ResponseEntity<>(ex.getMessage(), HttpStatus.NOT_FOUND);
         }    
     }
+    
     @RequestMapping(path = "/familiares/{dato}", method = RequestMethod.GET)
     public ResponseEntity<?> manejadorConsultarFamliares(@PathVariable("dato") String dato) {
         try {
@@ -195,8 +196,6 @@ public class EntreMenteController {
         }        
     }
     
-    
-    
     @RequestMapping(path = "/personalSalud/{usuario}/{password}", method = RequestMethod.GET)
     public ResponseEntity<?> manejadorIniciarPersonalSalud(@PathVariable("usuario") String nombreU, @PathVariable("password") String password) {
         try {
@@ -205,5 +204,60 @@ public class EntreMenteController {
             Logger.getLogger(EntreMenteController.class.getName()).log(Level.SEVERE, null, ex);
             return new ResponseEntity<>(ex.getMessage(), HttpStatus.NOT_FOUND);
         }
-    }    
+    }   
+    
+    @RequestMapping(path = "/personalSalud/relaciones/pacientes/pendientes", method = RequestMethod.POST)
+    public ResponseEntity<?> manejadorGetRelacionesSaludPacientesPendientes(@RequestBody PersonalSalud personalSalud) {
+        System.out.println("Entro Pendientes");
+        try {
+            return new ResponseEntity<>(ems.getRelacionesPacientePendientesDesdeSalud(personalSalud), HttpStatus.CREATED);
+        } catch (PersistenceNotFoundException ex) {
+            Logger.getLogger(EntreMenteController.class.getName()).log(Level.SEVERE, null, ex);
+            return new ResponseEntity<>(ex.getMessage(), HttpStatus.NOT_FOUND);
+        }        
+    }
+    
+    @RequestMapping(path = "/personalSalud/relaciones/pacientes/aceptadas", method = RequestMethod.POST)
+    public ResponseEntity<?> manejadorGetRelacionesSaludPacientesAceptadas(@RequestBody PersonalSalud personalSalud) {
+        System.out.println("Entro Aceptadas");
+        try {
+            return new ResponseEntity<>(ems.getRelacionesPacienterAceptadasDesdeSalud(personalSalud), HttpStatus.CREATED);
+        } catch (PersistenceNotFoundException ex) {
+            Logger.getLogger(EntreMenteController.class.getName()).log(Level.SEVERE, null, ex);
+            return new ResponseEntity<>(ex.getMessage(), HttpStatus.NOT_FOUND);
+        }        
+    }
+    
+    @RequestMapping(path = "/personalSalud/relaciones/pacientes", method = RequestMethod.POST)
+    public ResponseEntity<?> manejadorRelacionesSaludPacientesAdicionar(@RequestBody Relacion relacion) {
+        try {
+            ems.adicionarRelacionPacienteDesdeSalud(relacion);
+            return new ResponseEntity<>("Se ha enviado la solicitud!", HttpStatus.CREATED);
+        } catch (PersistenceNotFoundException | PersistenceException ex) {
+            Logger.getLogger(EntreMenteController.class.getName()).log(Level.SEVERE, null, ex);
+            return new ResponseEntity<>(ex.getMessage(), HttpStatus.NOT_FOUND);
+        }    
+    }
+    
+    @RequestMapping(path = "/personalSalud/relaciones/pacientes", method = RequestMethod.PUT)
+    public ResponseEntity<?> manejadorRelacionesSaludPacientesAceptadar(@RequestBody Relacion relacion) {
+        try {
+            ems.aceptarSolicitudPacientePersonalSalud(relacion);
+            return new ResponseEntity<>("Se ha aceptado la solicitud!", HttpStatus.CREATED);
+        } catch (PersistenceNotFoundException | PersistenceException ex) {
+            Logger.getLogger(EntreMenteController.class.getName()).log(Level.SEVERE, null, ex);
+            return new ResponseEntity<>(ex.getMessage(), HttpStatus.NOT_FOUND);
+        }    
+    }
+    
+    @RequestMapping(path = "/personalSalud/relaciones/pacientes", method = RequestMethod.DELETE)
+    public ResponseEntity<?> manejadorRelacionesSaludPacientesEliminar(@RequestBody Relacion relacion) {
+        try {
+            ems.eliminarSolicitudPacientePersonalSalud(relacion);
+            return new ResponseEntity<>("Se ha eliminado la solicitud!", HttpStatus.CREATED);
+        } catch (PersistenceNotFoundException | PersistenceException ex) {
+            Logger.getLogger(EntreMenteController.class.getName()).log(Level.SEVERE, null, ex);
+            return new ResponseEntity<>(ex.getMessage(), HttpStatus.NOT_FOUND);
+        }    
+    }
 }

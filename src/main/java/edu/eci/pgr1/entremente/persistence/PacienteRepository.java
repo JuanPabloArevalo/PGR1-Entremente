@@ -7,7 +7,7 @@ package edu.eci.pgr1.entremente.persistence;
 
 import edu.eci.pgr1.entremente.model.Familiar;
 import edu.eci.pgr1.entremente.model.Paciente;
-import edu.eci.pgr1.entremente.model.RelacionPacienteFamiliar;
+import edu.eci.pgr1.entremente.model.Relacion;
 import java.util.Set;
 /**
  *
@@ -56,7 +56,7 @@ public interface PacienteRepository {
      * @return 
      * @throws edu.eci.pgr1.entremente.persistence.PersistenceNotFoundException 
      */
-    public Set<RelacionPacienteFamiliar> traerRelacionesFamiliaresDesdePaciente(Paciente paciente, String estado) throws PersistenceNotFoundException;
+    public Set<Relacion> traerRelacionesFamiliaresDesdePaciente(Paciente paciente, String estado) throws PersistenceNotFoundException;
 
     /**
      * Metodo encargado de adicionar la solicitud de la realcion paciente-familiar
@@ -64,7 +64,7 @@ public interface PacienteRepository {
      * @throws PersistenceNotFoundException
      * @throws PersistenceException 
      */
-    public void adicionarSolicitudPacienteDesdePaciente(RelacionPacienteFamiliar relacion) throws PersistenceNotFoundException, PersistenceException;
+    public void adicionarSolicitudPacienteDesdePaciente(Relacion relacion) throws PersistenceNotFoundException, PersistenceException;
     
     
 }

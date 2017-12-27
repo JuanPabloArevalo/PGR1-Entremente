@@ -9,11 +9,11 @@ package edu.eci.pgr1.entremente.model;
  *
  * @author Administrador
  */
-public class RelacionPacienteFamiliar {
+public class Relacion {
     public static final String ESTADOPENDIENTE = "P";
     public static final String ESTADOACEPTADO = "A";
     
-    public static final String ENVIADOFAMILIAR = "F";
+    public static final String ENVIADOOTRO = "O";
     public static final String ENVIADOPACIENTE = "P";
     private int id;
     private int idPaciente;
@@ -28,7 +28,7 @@ public class RelacionPacienteFamiliar {
     /**
      * Constructor 1
      */
-    public RelacionPacienteFamiliar(){
+    public Relacion(){
         
     }
     
@@ -44,7 +44,7 @@ public class RelacionPacienteFamiliar {
      * @param estado
      * @param relacion 
      */
-    public RelacionPacienteFamiliar(int id, int idPaciente, String nombresPaciente, String apellidosPaciente, int idFamiliar, String nombresFamiliar, String apellidosFamiliar, String estado, String relacion){
+    public Relacion(int id, int idPaciente, String nombresPaciente, String apellidosPaciente, int idFamiliar, String nombresFamiliar, String apellidosFamiliar, String estado, String relacion){
         this.id = id;
         this.idPaciente = idPaciente;
         this.nombresPaciente = nombresPaciente;

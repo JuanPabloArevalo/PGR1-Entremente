@@ -1,24 +1,24 @@
 <!DOCTYPE html>
 <html lang="es">
     <head>
-        <!--librerias Bootstrap-->
-        <!-- Latest compiled and minified CSS -->
-        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-        <!-- jQuery library -->
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-        <!-- Latest compiled JavaScript -->
-        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script> 
+        <script src="/webjars/jquery/jquery.min.js"></script>
+        <script src="/webjars/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+        <link rel="stylesheet" href="/webjars/bootstrap/3.3.7/css/bootstrap.min.css" />
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <!--importarCSS-->
         <link rel="stylesheet" href="css/css.css" />
         <link rel="stylesheet" href="css/perfilPaciente.css" />
-
+        <script src="js/cerrarSesion.js"></script> 
         <script src="js/iniciarSesion.js"></script> 
+        <script src="js/apiclientPerfilPersonalSalud.js"></script> 
+        <script src="js/perfilPersonalSalud.js"></script> 
+        
+        <title>Mi Perfil - Pacientes</title>
     </head>
-    <body>
+    <body onload="perfilPersonalSalud.cargarInformacionPacientes()">
         <div class="container-fluid">
-            <!--Menú-->	
+<!--Menú-->	
             <nav class="navbar navbar-inverse navbar-fixed-top">
                 <div class="container-fluid">
                     <div class="navbar-header">
@@ -32,17 +32,18 @@
                     <div class="collapse navbar-collapse" id="myNavbar">
                         <ul class="nav navbar-nav">
                             <li><a href="/perfilPersonalSalud.html">Mi Perfil</a></li>
-                            <li class="active"><a href="/perfilPersonalSaludPaciente.html">Pacientes<span class="badge">5</span></a></li></a></li>
+                            <li class="active"><a href="/perfilPersonalSaludPaciente.html">Pacientes</a></li>
                         </ul>
                         <ul class="nav navbar-nav navbar-right">
+                            <li class=""><a id="idNombreUsu"></a></li>
                             <li><a data-toggle="modal" data-target="#modalCerrarSesion"><span class="glyphicon glyphicon-log-in"></span>Adios!</a></li>
                         </ul>
                     </div>
                 </div>
             </nav> 
-            <!--Fin Menú-->
+<!--Fin Menú-->
 
-            <!--Modal Cerrar Sesion-->	
+<!--Modal Cerrar Sesion-->	
             <div id="modalCerrarSesion" class="modal fade" role="dialog">
                 <div class="modal-dialog">
                     <div class="modal-content">
@@ -54,25 +55,24 @@
                         </div>
                         <div class="modal-footer">
                             <button type="button" class="btn btn-success" data-dismiss="modal">Continuar</button>
-                            <a href="/index.html"><button type="button" class="btn btn-danger" >Cerrar Sesión</button></a>
+                            <a onclick="cerrarSesion.cerrarSesion()"><button type="button" class="btn btn-danger">Cerrar Sesión</button></a>
                         </div>
-
                     </div>
                 </div>
             </div>
-            <!--Fin Modal Cerrar Sesion-->
+<!--Fin Modal Cerrar Sesion-->
 
 
             <div class="tab-content">
                 <div class="row">
                     <h2 class="titulo colorVerdeOscuro">Pacientes</h2>
                 </div>
-                <!--Tabla solicitudes-->
+<!--Tabla solicitudes-->
                 <div class="panel panel-success ">
-                    <div class="panel-heading"><h5 class="subTitulo colorVerdeOscuro">Solicitudes<span class="badge">5</span></h5></div>
+                    <div class="panel-heading"><h5 class="subTitulo colorVerdeOscuro">Solicitudes</h5></div>
                     <div class="panel-body">
                         <div class="table-responsive">          
-                            <table class="table">
+                            <table class="table" id="tablaPendientes">
                                 <thead>
                                     <tr>
                                         <th>#</th>
@@ -82,57 +82,23 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <tr>
-                                        <td>1</td>
-                                        <td>Federico</td>
-                                        <td>Garcia</td>
-                                        <td><button type="button" class="btn btn-success">Aceptar</button><button type="button" class="btn btn-danger">Rechazar</button></td>
-
-                                    </tr>
-                                    <tr>
-                                        <td>2</td>
-                                        <td>Tomas</td>
-                                        <td>Ortiz</td>
-                                        <td><button type="button" class="btn btn-success">Aceptar</button><button type="button" class="btn btn-danger">Rechazar</button></td>      
-                                    </tr>
-                                    <tr>
-                                        <td>3</td>
-                                        <td>Sara</td>
-                                        <td>Uribe</td>
-                                        <td><button type="button" class="btn btn-success">Aceptar</button><button type="button" class="btn btn-danger">Rechazar</button></td>      
-                                    </tr>
-                                    <tr>
-                                        <td>4</td>
-                                        <td>Jessica</td>
-                                        <td>Cediel</td>
-                                        <td><button type="button" class="btn btn-success">Aceptar</button><button type="button" class="btn btn-danger">Rechazar</button></td>
-                                    </tr>
-                                    <tr>
-                                        <td>5</td>
-                                        <td>Maria</td>
-                                        <td>Martinez</td>
-                                        <td><button type="button" class="btn btn-success">Aceptar</button><button type="button" class="btn btn-danger">Rechazar</button></td>
-                                    </tr>
                                 </tbody>
                             </table>
                         </div>	
                     </div>	
                 </div>
             </div>
+<!--Fin Tabla solicitudes-->
 
-
-
-            <!--Fin Tabla solicitudes-->
-
-            <!--Busqueda-->
+<!--Busqueda-->
             <div class="panel panel-success ">
                 <div class="panel-heading"><h5 class="subTitulo colorVerdeOscuro">Agregar pacientes</h5></div>
                 <div class="panel-body">
                     <form>
                         <div class="input-group">
-                            <input type="text" class="form-control" placeholder="Búsqueda">
+                            <input type="text" class="form-control" placeholder="Búsqueda" id="idBusqueda">
                             <div class="input-group-btn">
-                                <button class="btn btn-default" type="button" data-toggle="modal" data-target="#myModal">
+                                <button onclick="perfilPersonalSalud.consultarPacientes()" class="btn btn-default" type="button">
                                     <i class="glyphicon glyphicon-search"></i>
                                 </button>
                             </div>
@@ -140,12 +106,10 @@
                     </form>
                 </div>
             </div>
-            <!--Fin Busqueda-->
+<!--Fin Busqueda-->
 
-
-
-            <!-- Modal adicionar-->
-            <div class="modal fade" id="myModal" role="dialog">
+<!-- Modal adicionar-->
+            <div class="modal fade" id="modalBusqueda" role="dialog">
                 <div class="modal-dialog modal-lg">
                     <div class="modal-content">
                         <div class="modal-header">
@@ -157,24 +121,17 @@
                                 <div class="panel-heading">Pacientes Encontrados</div>
                                 <div class="panel-body">
                                     <div class="table-responsive">          
-                                        <table class="table">
+                                        <table class="table" id="idTablaBusqueda">
                                             <thead>
                                                 <tr>
                                                     <th>#</th>
-                                                    <th>Documento</th>
+                                                    <th>Nombre Usuario</th>
                                                     <th>Nombre</th>
                                                     <th>Apellidos</th>
                                                     <th></th>
                                                 </tr>
                                             </thead>
                                             <tbody>
-                                                <tr>
-                                                    <td>1</td>
-                                                    <td>4583286</td>
-                                                    <td>Amparo</td>
-                                                    <td>Lopera</td>
-                                                    <td><button type="button" class="btn btn-success">Agregar</button></td>
-                                                </tr>
                                             </tbody>
                                         </table>
                                     </div>
@@ -187,15 +144,15 @@
                     </div>
                 </div>
             </div>
-            <!-- Fin Modal adicionar-->
+<!-- Fin Modal adicionar-->
 
 
-            <!--Tabla Pacientes-->  
+<!--Tabla Pacientes-->  
             <div class="panel panel-success ">
                 <div class="panel-heading"><h5 class="subTitulo colorVerdeOscuro">Mis pacientes</h5></div>
                 <div class="panel-body">
                     <div class="table-responsive">          
-                        <table class="table">
+                        <table class="table" id="tablaAceptadas">
                             <thead>
                                 <tr>
                                     <th>#</th>
@@ -205,39 +162,13 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr>
-                                    <td>1</td>
-                                    <td>Maria Jose</td>
-                                    <td>Arevalo</td>  
-                                    <td>
-                                        <a href="/perfilPersonalSaludConsultaPaciente.html"><button type="submit" class="btn btn-success">Consultar</button></a>
-                                        <a href=""><button type="button" class="btn btn-danger">Eliminar</button></a>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>2</td>
-                                    <td>Pepito</td>
-                                    <td>Perez</td> 
-                                    <td>
-                                        <a href="/perfilPersonalSaludConsultaPaciente.html"><button type="submit" class="btn btn-success">Consultar</button></a>
-                                        <a href=""><button type="button" class="btn btn-danger">Eliminar</button></a> 
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>3</td>
-                                    <td>Maria Alejandra</td>
-                                    <td>Perez</td> 
-                                    <td>
-                                        <a href="/perfilPersonalSaludConsultaPaciente.html"><button type="submit" class="btn btn-success">Consultar</button></a>
-                                        <a href=""><button type="button" class="btn btn-danger">Eliminar</button></a>
-                                    </td>
-                                </tr>
+<!--<a href="/perfilPersonalSaludConsultaPaciente.html"><button type="submit" class="btn btn-success">Consultar</button></a>-->     
                             </tbody>
                         </table>
                     </div>
                 </div>
             </div>
-            <!--Fin Tabla Pacientes--> 
+<!--Fin Tabla Pacientes--> 
         </div>
     </body>
 </html>

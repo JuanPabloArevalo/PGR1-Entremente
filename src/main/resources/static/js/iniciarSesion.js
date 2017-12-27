@@ -98,6 +98,7 @@ var iniciarSesion = (function () {
                     sessionStorage.setItem("password", usuario.password);
                     sessionStorage.setItem("tipoDocumento", usuario.tipoDocumento);
                     sessionStorage.setItem("correo", usuario.correo);
+                    sessionStorage.setItem("rol", usuario.rol);
                     alert("Bienvenido, " + usuario.nombres+" "+usuario.apellidos);
                     window.location.href = "perfilPersonalSalud.html";
                 }); 

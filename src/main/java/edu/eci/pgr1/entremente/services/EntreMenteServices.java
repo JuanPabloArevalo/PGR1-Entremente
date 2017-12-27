@@ -8,7 +8,7 @@ package edu.eci.pgr1.entremente.services;
 import edu.eci.pgr1.entremente.model.Familiar;
 import edu.eci.pgr1.entremente.model.Paciente;
 import edu.eci.pgr1.entremente.model.PersonalSalud;
-import edu.eci.pgr1.entremente.model.RelacionPacienteFamiliar;
+import edu.eci.pgr1.entremente.model.Relacion;
 import edu.eci.pgr1.entremente.persistence.FamiliarRepository;
 import edu.eci.pgr1.entremente.persistence.PacienteRepository;
 import edu.eci.pgr1.entremente.persistence.PersistenceException;
@@ -117,8 +117,8 @@ public class EntreMenteServices {
      * @return
      * @throws PersistenceNotFoundException 
      */
-    public Set<RelacionPacienteFamiliar> getRelacionesPacientePendientesDesdeFamiliar(Familiar familiar) throws PersistenceNotFoundException{
-        return familiarRepository.traerRelacionesPacientesDesdeFamiliar(familiar, RelacionPacienteFamiliar.ESTADOPENDIENTE);
+    public Set<Relacion> getRelacionesPacientePendientesDesdeFamiliar(Familiar familiar) throws PersistenceNotFoundException{
+        return familiarRepository.traerRelacionesPacientesDesdeFamiliar(familiar, Relacion.ESTADOPENDIENTE);
     }
     /**
      * Metodo encargado de traer todas las relaciones pendientes de los familiares del paciente pasado por parametro
@@ -126,8 +126,8 @@ public class EntreMenteServices {
      * @return
      * @throws PersistenceNotFoundException 
      */
-    public Set<RelacionPacienteFamiliar> getRelacionesPacientePendientesDesdePaciente(Paciente paciente) throws PersistenceNotFoundException{
-        return pacienteRepository.traerRelacionesFamiliaresDesdePaciente(paciente, RelacionPacienteFamiliar.ESTADOPENDIENTE);
+    public Set<Relacion> getRelacionesPacientePendientesDesdePaciente(Paciente paciente) throws PersistenceNotFoundException{
+        return pacienteRepository.traerRelacionesFamiliaresDesdePaciente(paciente, Relacion.ESTADOPENDIENTE);
     }    
     /**
      * Metodo encargado de traer todas las relaciones aceptadas de los pacientes del Familiar pasado por parametro
@@ -135,8 +135,8 @@ public class EntreMenteServices {
      * @return
      * @throws PersistenceNotFoundException 
      */
-    public Set<RelacionPacienteFamiliar> getRelacionesPacienterAceptadasDesdeFamiliar(Familiar familiar) throws PersistenceNotFoundException{
-        return familiarRepository.traerRelacionesPacientesDesdeFamiliar(familiar, RelacionPacienteFamiliar.ESTADOACEPTADO);
+    public Set<Relacion> getRelacionesPacienterAceptadasDesdeFamiliar(Familiar familiar) throws PersistenceNotFoundException{
+        return familiarRepository.traerRelacionesPacientesDesdeFamiliar(familiar, Relacion.ESTADOACEPTADO);
     }
     /**
      * Metodo encargado de traer todas las relaciones aceptadas de los familiares del paciente pasado por parametro
@@ -144,8 +144,8 @@ public class EntreMenteServices {
      * @return
      * @throws PersistenceNotFoundException 
      */
-    public Set<RelacionPacienteFamiliar> getRelacionesPacienterAceptadasDesdePaciente(Paciente paciente) throws PersistenceNotFoundException{
-        return pacienteRepository.traerRelacionesFamiliaresDesdePaciente(paciente, RelacionPacienteFamiliar.ESTADOACEPTADO);
+    public Set<Relacion> getRelacionesPacienterAceptadasDesdePaciente(Paciente paciente) throws PersistenceNotFoundException{
+        return pacienteRepository.traerRelacionesFamiliaresDesdePaciente(paciente, Relacion.ESTADOACEPTADO);
     }    
     
     /**
@@ -176,7 +176,7 @@ public class EntreMenteServices {
      * @throws PersistenceNotFoundException
      * @throws PersistenceException 
      */
-    public void aceptarSolicitudPaciente(RelacionPacienteFamiliar relacion) throws PersistenceNotFoundException, PersistenceException{
+    public void aceptarSolicitudPaciente(Relacion relacion) throws PersistenceNotFoundException, PersistenceException{
         familiarRepository.aceptarSolicitudPaciente(relacion);
     }
     
@@ -186,7 +186,7 @@ public class EntreMenteServices {
      * @throws PersistenceNotFoundException
      * @throws PersistenceException 
      */
-    public void eliminarSolicitudPaciente(RelacionPacienteFamiliar relacion) throws PersistenceNotFoundException, PersistenceException{
+    public void eliminarSolicitudPaciente(Relacion relacion) throws PersistenceNotFoundException, PersistenceException{
         familiarRepository.eliminarSolicitudPaciente(relacion);
     }
    
@@ -196,7 +196,7 @@ public class EntreMenteServices {
      * @throws PersistenceNotFoundException
      * @throws PersistenceException 
      */
-    public void adicionarRelacionPacienteDesdeFamiliar(RelacionPacienteFamiliar relacion) throws PersistenceNotFoundException, PersistenceException{
+    public void adicionarRelacionPacienteDesdeFamiliar(Relacion relacion) throws PersistenceNotFoundException, PersistenceException{
         boolean existe = familiarRepository.existeRelacionPacienteFamiliar(relacion);
         if(!existe){
             familiarRepository.adicionarSolicitudPacienteDesdeFamiliar(relacion);
@@ -209,10 +209,65 @@ public class EntreMenteServices {
      * @throws PersistenceNotFoundException
      * @throws PersistenceException 
      */
-    public void adicionarRelacionPacienteDesdePaciente(RelacionPacienteFamiliar relacion) throws PersistenceNotFoundException, PersistenceException{
+    public void adicionarRelacionPacienteDesdePaciente(Relacion relacion) throws PersistenceNotFoundException, PersistenceException{
         boolean existe = familiarRepository.existeRelacionPacienteFamiliar(relacion);
         if(!existe){
             pacienteRepository.adicionarSolicitudPacienteDesdePaciente(relacion);
         }
+    }
+    
+    
+    
+    /**
+     * Metodo encargado de traer todas las relaciones pendientes del personal de la salud del paciente pasado por parametro
+     * @param personalSalud
+     * @return
+     * @throws PersistenceNotFoundException 
+     */
+    public Set<Relacion> getRelacionesPacientePendientesDesdeSalud(PersonalSalud personalSalud) throws PersistenceNotFoundException{
+        return personalSaludRepository.traerRelacionesPacientesDesdeSalud(personalSalud, Relacion.ESTADOPENDIENTE);
+    }    
+    /**
+     * Metodo encargado de traer todas las relaciones aceptadas de los pacientes del Personal pasado por parametro
+     * @param personalSalud
+     * @return
+     * @throws PersistenceNotFoundException 
+     */
+    public Set<Relacion> getRelacionesPacienterAceptadasDesdeSalud(PersonalSalud personalSalud) throws PersistenceNotFoundException{
+        return personalSaludRepository.traerRelacionesPacientesDesdeSalud(personalSalud, Relacion.ESTADOACEPTADO);
+    }
+    
+    /**
+     * Metodo encargado de adicionar la solicitud del paciente familiar
+     * @param relacion
+     * @throws PersistenceNotFoundException
+     * @throws PersistenceException 
+     */
+    public void adicionarRelacionPacienteDesdeSalud(Relacion relacion) throws PersistenceNotFoundException, PersistenceException{
+        boolean existe = personalSaludRepository.existeRelacionPacienteSalud(relacion);
+        if(!existe){
+            personalSaludRepository.adicionarSolicitudPacienteDesdeSalud(relacion);
+        }
+    }
+    
+    
+    /**
+     * Metodo encargado de aceptar la solicitud del paciente personal salud
+     * @param relacion
+     * @throws PersistenceNotFoundException
+     * @throws PersistenceException 
+     */
+    public void aceptarSolicitudPacientePersonalSalud(Relacion relacion) throws PersistenceNotFoundException, PersistenceException{
+        personalSaludRepository.aceptarSolicitudPaciente(relacion);
+    }
+    
+    /**
+     * Metodo encargado de eliminar la solicitud del paciente personal Salud
+     * @param relacion
+     * @throws PersistenceNotFoundException
+     * @throws PersistenceException 
+     */
+    public void eliminarSolicitudPacientePersonalSalud(Relacion relacion) throws PersistenceNotFoundException, PersistenceException{
+        personalSaludRepository.eliminarSolicitudPaciente(relacion);
     }
 }

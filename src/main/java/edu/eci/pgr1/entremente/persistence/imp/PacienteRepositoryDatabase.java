@@ -7,7 +7,7 @@ package edu.eci.pgr1.entremente.persistence.imp;
 
 import edu.eci.pgr1.entremente.model.Familiar;
 import edu.eci.pgr1.entremente.model.Paciente;
-import edu.eci.pgr1.entremente.model.RelacionPacienteFamiliar;
+import edu.eci.pgr1.entremente.model.Relacion;
 import edu.eci.pgr1.entremente.persistence.PacienteRepository;
 import edu.eci.pgr1.entremente.persistence.PersistenceException;
 import edu.eci.pgr1.entremente.persistence.PersistenceNotFoundException;
@@ -207,13 +207,13 @@ public class PacienteRepositoryDatabase implements PacienteRepository{
     }
 
     @Override
-    public Set<RelacionPacienteFamiliar> traerRelacionesFamiliaresDesdePaciente(Paciente paciente, String estado) throws PersistenceNotFoundException {
-        Set<RelacionPacienteFamiliar> relaciones = new HashSet<>();
+    public Set<Relacion> traerRelacionesFamiliaresDesdePaciente(Paciente paciente, String estado) throws PersistenceNotFoundException {
+        Set<Relacion> relaciones = new HashSet<>();
         String complemento = "";
-        if(RelacionPacienteFamiliar.ESTADOPENDIENTE.equalsIgnoreCase(estado)){
-            complemento = " AND ENVIADO = '"+RelacionPacienteFamiliar.ENVIADOFAMILIAR+"' ";
+        if(Relacion.ESTADOPENDIENTE.equalsIgnoreCase(estado)){
+            complemento = " AND ENVIADO = '"+Relacion.ENVIADOOTRO+"' ";
         }
-        RelacionPacienteFamiliar rel = null;
+        Relacion rel = null;
         try {
             Class.forName(DatosBD.DRIVER);
             connect = DriverManager.getConnection(DatosBD.CONECTOR);
@@ -221,7 +221,7 @@ public class PacienteRepositoryDatabase implements PacienteRepository{
             System.out.println("edu.eci.pgr1.entremente.persistence.imp.PacienteRepositoryDatabase.traerRelacionesFamiliaresDesdePaciente()");
             resultSet = preparedStatement.executeQuery();
             while(resultSet.next()){
-                rel = new RelacionPacienteFamiliar();
+                rel = new Relacion();
                 rel.setId(resultSet.getInt("PF.ID"));
                 rel.setIdFamiliar(resultSet.getInt("F.ID"));
                 rel.setIdPaciente(paciente.getId());
@@ -243,7 +243,7 @@ public class PacienteRepositoryDatabase implements PacienteRepository{
     }
 
     @Override
-    public void adicionarSolicitudPacienteDesdePaciente(RelacionPacienteFamiliar relacion) throws PersistenceNotFoundException, PersistenceException {
+    public void adicionarSolicitudPacienteDesdePaciente(Relacion relacion) throws PersistenceNotFoundException, PersistenceException {
         try {
             Class.forName(DatosBD.DRIVER);
             connect = DriverManager.getConnection(DatosBD.CONECTOR);
@@ -254,7 +254,7 @@ public class PacienteRepositoryDatabase implements PacienteRepository{
             preparedStatement.setInt(3, relacion.getIdFamiliar());
             preparedStatement.setString(4, "P");
             preparedStatement.setString(5, relacion.getRelacion());
-            preparedStatement.setString(6, RelacionPacienteFamiliar.ENVIADOPACIENTE);
+            preparedStatement.setString(6, Relacion.ENVIADOPACIENTE);
             preparedStatement.executeUpdate();
         } catch (ClassNotFoundException | SQLException e) {
             throw new PersistenceNotFoundException(e.getMessage());
