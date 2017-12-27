@@ -36,7 +36,7 @@ CREATE TABLE PERSONALSALUD (
     password VARCHAR(50),
     tipoDocumento CHAR(1),
 	correo VARCHAR(80),
-    rol VARCHAR(2)
+    rol VARCHAR(2) 
 );
 
 CREATE TABLE PACIENTEFAMILIAR (
@@ -45,9 +45,9 @@ CREATE TABLE PACIENTEFAMILIAR (
     idFamiliar INT UNSIGNED NOT NULL,
     FOREIGN KEY (idPaciente) REFERENCES paciente(id),
     FOREIGN KEY (idFamiliar) REFERENCES FAMILIAR(id),
-    estado VARCHAR(2),
-    relacion VARCHAR(20),
-	enviado VARCHAR(1)
+    estado VARCHAR(2), /* P = Pendiente   /  A = Aceptado*/
+    relacion VARCHAR(20), 
+	enviado VARCHAR(1) /* P = Paciente   /  O = Otro*/
 );
 
 CREATE TABLE PACIENTESALUD (
@@ -56,8 +56,8 @@ CREATE TABLE PACIENTESALUD (
     idPersonalSalud INT UNSIGNED NOT NULL,
     FOREIGN KEY (idPaciente) REFERENCES paciente(id),
     FOREIGN KEY (idPersonalSalud) REFERENCES PERSONALSALUD(id),
-    estado VARCHAR(2),
+    estado VARCHAR(2),/* P = Pendiente   /  A = Aceptado*/
     relacion VARCHAR(20),
-	enviado VARCHAR(1)
+	enviado VARCHAR(1)/* P = Paciente   /  O = Otro*/
 );
 
