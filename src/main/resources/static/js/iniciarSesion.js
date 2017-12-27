@@ -22,7 +22,7 @@ var iniciarSesion = (function () {
             }
             else{
                 var promesa = apiclientIniciarSesion.autenticacionPaciente(nombreUsuario,password , function(usuario){ 
-                    console.info(usuario);
+                    
                     sessionStorage.setItem("id", usuario.id);
                     sessionStorage.setItem("nombres", usuario.nombres);
                     sessionStorage.setItem("apellidos", usuario.apellidos);
@@ -78,14 +78,15 @@ var iniciarSesion = (function () {
         iniciarSesionPersonalSalud(){
             var nombreUsuario = $("#usuarioPersonalSalud").val();
             var password = $("#passwordPersonalSalud").val();
-            
+            console.info(nombreUsuario)
+            console.info(password)
             if(nombreUsuario===""){
-                $("#mensajeFaltaFam").text("Por favor ingrese el usuario"); 
-                $("#divFam").show();
+                $("#mensajeFaltaPerSal").text("Por favor ingrese el usuario"); 
+                $("#divPerSal").show();
             }
             else if(password===""){
-                $("#mensajeFaltaFam").text("Por favor ingrese la contraseña"); 
-                $("#divFam").show();
+                $("#mensajeFaltaPerSal").text("Por favor ingrese la contraseña"); 
+                $("#divPerSal").show();
             }
             else{
                 var promesa = apiclientIniciarSesion.autenticacionPersonalSalud(nombreUsuario,password , function(usuario){ 
@@ -98,7 +99,7 @@ var iniciarSesion = (function () {
                     sessionStorage.setItem("tipoDocumento", usuario.tipoDocumento);
                     sessionStorage.setItem("correo", usuario.correo);
                     alert("Bienvenido, " + usuario.nombres+" "+usuario.apellidos);
-                    window.location.href = "perfilFamiliar.html";
+                    window.location.href = "perfilPersonalSalud.html";
                 }); 
                 promesa.then(function(){},function(){
                     $("#mensajeFaltaPerSal").text(promesa.responseText); 

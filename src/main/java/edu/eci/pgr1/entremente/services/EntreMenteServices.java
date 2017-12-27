@@ -120,7 +120,15 @@ public class EntreMenteServices {
     public Set<RelacionPacienteFamiliar> getRelacionesPacientePendientesDesdeFamiliar(Familiar familiar) throws PersistenceNotFoundException{
         return familiarRepository.traerRelacionesPacientesDesdeFamiliar(familiar, RelacionPacienteFamiliar.ESTADOPENDIENTE);
     }
-    
+    /**
+     * Metodo encargado de traer todas las relaciones pendientes de los familiares del paciente pasado por parametro
+     * @param paciente
+     * @return
+     * @throws PersistenceNotFoundException 
+     */
+    public Set<RelacionPacienteFamiliar> getRelacionesPacientePendientesDesdePaciente(Paciente paciente) throws PersistenceNotFoundException{
+        return pacienteRepository.traerRelacionesFamiliaresDesdePaciente(paciente, RelacionPacienteFamiliar.ESTADOPENDIENTE);
+    }    
     /**
      * Metodo encargado de traer todas las relaciones aceptadas de los pacientes del Familiar pasado por parametro
      * @param familiar
@@ -130,7 +138,15 @@ public class EntreMenteServices {
     public Set<RelacionPacienteFamiliar> getRelacionesPacienterAceptadasDesdeFamiliar(Familiar familiar) throws PersistenceNotFoundException{
         return familiarRepository.traerRelacionesPacientesDesdeFamiliar(familiar, RelacionPacienteFamiliar.ESTADOACEPTADO);
     }
-    
+    /**
+     * Metodo encargado de traer todas las relaciones aceptadas de los familiares del paciente pasado por parametro
+     * @param paciente
+     * @return
+     * @throws PersistenceNotFoundException 
+     */
+    public Set<RelacionPacienteFamiliar> getRelacionesPacienterAceptadasDesdePaciente(Paciente paciente) throws PersistenceNotFoundException{
+        return pacienteRepository.traerRelacionesFamiliaresDesdePaciente(paciente, RelacionPacienteFamiliar.ESTADOACEPTADO);
+    }    
     
     /**
      * Metodo encargado de consultar todos los pacientes que existan con ese dato
@@ -141,6 +157,17 @@ public class EntreMenteServices {
      */
     public Set<Paciente> consultarPacientes(String dato) throws PersistenceNotFoundException, PersistenceException{
         return pacienteRepository.busquedaPacientes(dato);
+    }
+    
+    /**
+     * Metodo encargado de consultar todos los familiares que existan con ese dato
+     * @param dato
+     * @return
+     * @throws PersistenceNotFoundException 
+     * @throws edu.eci.pgr1.entremente.persistence.PersistenceException 
+     */
+    public Set<Familiar> consultarFamiliares(String dato) throws PersistenceNotFoundException, PersistenceException{
+        return familiarRepository.busquedaFamiliares(dato);
     }
     
     /**
@@ -173,6 +200,19 @@ public class EntreMenteServices {
         boolean existe = familiarRepository.existeRelacionPacienteFamiliar(relacion);
         if(!existe){
             familiarRepository.adicionarSolicitudPacienteDesdeFamiliar(relacion);
+        }
+    }
+    
+    /**
+     * Metodo encargado de adicionar la solicitud del paciente familiar
+     * @param relacion
+     * @throws PersistenceNotFoundException
+     * @throws PersistenceException 
+     */
+    public void adicionarRelacionPacienteDesdePaciente(RelacionPacienteFamiliar relacion) throws PersistenceNotFoundException, PersistenceException{
+        boolean existe = familiarRepository.existeRelacionPacienteFamiliar(relacion);
+        if(!existe){
+            pacienteRepository.adicionarSolicitudPacienteDesdePaciente(relacion);
         }
     }
 }

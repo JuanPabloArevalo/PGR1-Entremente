@@ -69,6 +69,36 @@ public class EntreMenteController {
         }
     }
     
+    @RequestMapping(path = "/pacientes/relaciones/familiares/pendientes", method = RequestMethod.POST)
+    public ResponseEntity<?> manejadorGetRelacionesPendientesFamiliaresDesdePaciente(@RequestBody Paciente paciente) {
+        try {
+            return new ResponseEntity<>(ems.getRelacionesPacientePendientesDesdePaciente(paciente), HttpStatus.CREATED);
+        } catch (PersistenceNotFoundException ex) {
+            Logger.getLogger(EntreMenteController.class.getName()).log(Level.SEVERE, null, ex);
+            return new ResponseEntity<>(ex.getMessage(), HttpStatus.NOT_FOUND);
+        }        
+    }
+    
+    @RequestMapping(path = "/pacientes/relaciones/familiares/aceptadas", method = RequestMethod.POST)
+    public ResponseEntity<?> manejadorGetRelacionesAceptadasFamiliaresDesdePaciente(@RequestBody Paciente paciente) {
+        try {
+            return new ResponseEntity<>(ems.getRelacionesPacienterAceptadasDesdePaciente(paciente), HttpStatus.CREATED);
+        } catch (PersistenceNotFoundException ex) {
+            Logger.getLogger(EntreMenteController.class.getName()).log(Level.SEVERE, null, ex);
+            return new ResponseEntity<>(ex.getMessage(), HttpStatus.NOT_FOUND);
+        }        
+    }
+    
+    @RequestMapping(path = "/pacientes/relaciones/familiares", method = RequestMethod.POST)
+    public ResponseEntity<?> manejadorRelacionesAdicionarRelacionDesdePaciente(@RequestBody RelacionPacienteFamiliar relacion) {
+        try {
+            ems.adicionarRelacionPacienteDesdePaciente(relacion);
+            return new ResponseEntity<>("Se ha enviado la solicitud!", HttpStatus.CREATED);
+        } catch (PersistenceNotFoundException | PersistenceException ex) {
+            Logger.getLogger(EntreMenteController.class.getName()).log(Level.SEVERE, null, ex);
+            return new ResponseEntity<>(ex.getMessage(), HttpStatus.NOT_FOUND);
+        }    
+    }
 
 //FAMILIARES    
     @RequestMapping(path = "/familiares", method = RequestMethod.POST)
@@ -144,7 +174,15 @@ public class EntreMenteController {
             return new ResponseEntity<>(ex.getMessage(), HttpStatus.NOT_FOUND);
         }    
     }
-    
+    @RequestMapping(path = "/familiares/{dato}", method = RequestMethod.GET)
+    public ResponseEntity<?> manejadorConsultarFamliares(@PathVariable("dato") String dato) {
+        try {
+            return new ResponseEntity<>(ems.consultarFamiliares(dato), HttpStatus.ACCEPTED);
+        } catch (PersistenceNotFoundException | PersistenceException ex) {
+            Logger.getLogger(EntreMenteController.class.getName()).log(Level.SEVERE, null, ex);
+            return new ResponseEntity<>(ex.getMessage(), HttpStatus.NOT_FOUND);
+        }
+    }
 //PERSONAL SALUD 
     @RequestMapping(path = "/personalSalud", method = RequestMethod.POST)
     public ResponseEntity<?> manejadorPostAdicionarPersonalSalud(@RequestBody PersonalSalud personalSalud) {

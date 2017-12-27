@@ -6,6 +6,7 @@
 package edu.eci.pgr1.entremente.persistence;
 
 import edu.eci.pgr1.entremente.model.Familiar;
+import edu.eci.pgr1.entremente.model.Paciente;
 import edu.eci.pgr1.entremente.model.RelacionPacienteFamiliar;
 import java.util.Set;
 
@@ -82,5 +83,13 @@ public interface FamiliarRepository {
      * @throws PersistenceException 
      */
     public boolean existeRelacionPacienteFamiliar(RelacionPacienteFamiliar relacion) throws PersistenceNotFoundException, PersistenceException;
-
+    
+    /**
+     * Metodo encargado de buscar los familiares que contengan por el valor pasado
+     * @param valor
+     * @return
+     * @throws PersistenceNotFoundException
+     * @throws PersistenceException 
+     */
+    public Set<Familiar> busquedaFamiliares(String valor) throws PersistenceNotFoundException, PersistenceException;
 }

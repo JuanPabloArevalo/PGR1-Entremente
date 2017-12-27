@@ -6,6 +6,7 @@
 package edu.eci.pgr1.entremente.persistence.imp;
 
 import edu.eci.pgr1.entremente.model.Familiar;
+import edu.eci.pgr1.entremente.model.Paciente;
 import edu.eci.pgr1.entremente.model.RelacionPacienteFamiliar;
 import edu.eci.pgr1.entremente.persistence.FamiliarRepository;
 import edu.eci.pgr1.entremente.persistence.PersistenceException;
@@ -156,10 +157,14 @@ public class FamiliarRepositoryDatabase implements FamiliarRepository{
     public Set<RelacionPacienteFamiliar> traerRelacionesPacientesDesdeFamiliar(Familiar familiar, String estado) throws PersistenceNotFoundException {
         Set<RelacionPacienteFamiliar> relaciones = new HashSet<>();
         RelacionPacienteFamiliar rel = null;
+        String complemento = "";
+        if(RelacionPacienteFamiliar.ESTADOPENDIENTE.equalsIgnoreCase(estado)){
+            complemento = " AND ENVIADO = '"+RelacionPacienteFamiliar.ENVIADOPACIENTE+"' ";
+        }
         try {
             Class.forName(DatosBD.DRIVER);
             connect = DriverManager.getConnection(DatosBD.CONECTOR);
-            preparedStatement = connect.prepareStatement("SELECT * FROM PACIENTEFAMILIAR PF LEFT JOIN PACIENTE P ON (PF.idPaciente=P.ID) WHERE idFamiliar = '"+familiar.getId()+"' AND ESTADO = '"+estado+"' AND ENVIADO = '"+RelacionPacienteFamiliar.ENVIADOPACIENTE+"' ORDER BY PF.ID");
+            preparedStatement = connect.prepareStatement("SELECT * FROM PACIENTEFAMILIAR PF LEFT JOIN PACIENTE P ON (PF.idPaciente=P.ID) WHERE idFamiliar = '"+familiar.getId()+"' AND ESTADO = '"+estado+"' "+complemento+" ORDER BY PF.ID");
             resultSet = preparedStatement.executeQuery();
             while(resultSet.next()){
                rel = new RelacionPacienteFamiliar();
@@ -263,6 +268,44 @@ public class FamiliarRepositoryDatabase implements FamiliarRepository{
         }
         else{
             return false;
+        }
+    }
+
+    @Override
+    public Set<Familiar> busquedaFamiliares(String valor) throws PersistenceNotFoundException, PersistenceException {
+        Set<Familiar> familiares = new HashSet<>();
+        Familiar familiar = null;
+        
+        try {
+            Class.forName(DatosBD.DRIVER);
+            connect = DriverManager.getConnection(DatosBD.CONECTOR);
+            preparedStatement = connect.prepareStatement("SELECT * FROM "+NOMBRETABLA +" WHERE nombreUsuario LIKE '%"+valor+"%' OR nombres LIKE '%"+valor+"%' OR apellidos LIKE '%"+valor+"%' OR documentoIdentidad LIKE '%"+valor+"%' or correo LIKE '%"+valor+"%' ORDER BY Apellidos, Nombres");
+            System.out.println("SELECT * FROM "+NOMBRETABLA +" WHERE nombreUsuario LIKE '%"+valor+"%' OR nombres LIKE '%"+valor+"%' OR apellidos LIKE '%"+valor+"%' OR documentoIdentidad LIKE '%"+valor+"%' or correo LIKE '%"+valor+"%' ORDER BY Apellidos, Nombres");
+            resultSet = preparedStatement.executeQuery();
+            while(resultSet.next()){
+                familiar = new Familiar();
+                familiar.setApellidos(resultSet.getString("apellidos"));
+                familiar.setCorreo(resultSet.getString("correo"));
+                familiar.setDocumentoIdentidad(resultSet.getString("documentoIdentidad"));
+                familiar.setId(resultSet.getInt("id"));
+                familiar.setNombreUsuario(resultSet.getString("nombreUsuario"));
+                familiar.setNombres(resultSet.getString("nombres"));
+                familiar.setTipoDocumento(resultSet.getString("tipoDocumento"));
+                familiar.setPassword("");
+                familiares.add(familiar);
+            }
+            
+        } catch (ClassNotFoundException | SQLException e) {
+            throw new PersistenceNotFoundException(e.getMessage());
+        } finally {
+            close();
+        }
+    
+        if(familiares.isEmpty()){
+            throw new PersistenceException("No existen familiares con ese dato!");
+        }
+        else{
+            return familiares;
         }
     }
 
