@@ -216,8 +216,6 @@ public class EntreMenteServices {
         }
     }
     
-    
-    
     /**
      * Metodo encargado de traer todas las relaciones pendientes del personal de la salud del paciente pasado por parametro
      * @param personalSalud
@@ -270,4 +268,39 @@ public class EntreMenteServices {
     public void eliminarSolicitudPacientePersonalSalud(Relacion relacion) throws PersistenceNotFoundException, PersistenceException{
         personalSaludRepository.eliminarSolicitudPaciente(relacion);
     }
+    
+    /**
+     * Metodo encargado de adicionar la solicitud del paciente salud
+     * @param relacion
+     * @throws PersistenceNotFoundException
+     * @throws PersistenceException 
+     */
+    public void adicionarRelacionSaludDesdePaciente(Relacion relacion) throws PersistenceNotFoundException, PersistenceException{
+        boolean existe = personalSaludRepository.existeRelacionPacienteSalud(relacion);
+        if(!existe){
+            pacienteRepository.adicionarSolicitudSaludDesdePaciente(relacion);
+        }
+    }
+    
+    /**
+     * Metodo encargado de traer todas las relaciones pendientes del personal de la salud del paciente pasado por parametro
+     * @param paciente
+     * @return
+     * @throws PersistenceNotFoundException 
+     */
+    public Set<Relacion> getRelacionesSaludPendientesDesdePaciente(Paciente paciente) throws PersistenceNotFoundException{
+        return pacienteRepository.traerRelacionesSaludDesdePaciente(paciente, Relacion.ESTADOPENDIENTE);
+    }    
+    /**
+     * Metodo encargado de traer todas las relaciones aceptadas de Personal salud  del pacientes pasado por parametro
+     * @param paciente
+     * @return
+     * @throws PersistenceNotFoundException 
+     */
+    public Set<Relacion> getRelacionesSaludAceptadasDesdePaciente(Paciente paciente) throws PersistenceNotFoundException{
+        return pacienteRepository.traerRelacionesSaludDesdePaciente(paciente, Relacion.ESTADOACEPTADO);
+    }
+    
+    
+    
 }

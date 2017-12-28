@@ -4,8 +4,6 @@
  * and open the template in the editor.
  */
 package edu.eci.pgr1.entremente.persistence;
-
-import edu.eci.pgr1.entremente.model.Familiar;
 import edu.eci.pgr1.entremente.model.Paciente;
 import edu.eci.pgr1.entremente.model.Relacion;
 import java.util.Set;
@@ -49,7 +47,8 @@ public interface PacienteRepository {
      * @throws PersistenceException 
      */
     public Set<Paciente> busquedaPacientes(String valor) throws PersistenceNotFoundException, PersistenceException;
-        /**
+    
+    /**
      * Metodo encargado de traer todas las relaciones pendientes de los familiares
      * @param paciente
      * @param estado
@@ -67,4 +66,21 @@ public interface PacienteRepository {
     public void adicionarSolicitudPacienteDesdePaciente(Relacion relacion) throws PersistenceNotFoundException, PersistenceException;
     
     
+    /**
+     * Metodo encargado de adicionar la solicitud de la realcion paciente-salud
+     * @param relacion
+     * @throws PersistenceNotFoundException
+     * @throws PersistenceException 
+     */
+    public void adicionarSolicitudSaludDesdePaciente(Relacion relacion) throws PersistenceNotFoundException, PersistenceException;
+    
+    /**
+     * Metodo encargado de traer todas las relaciones pendientes de los familiares
+     * @param paciente
+     * @param estado
+     * @return 
+     * @throws edu.eci.pgr1.entremente.persistence.PersistenceNotFoundException 
+     */
+    public Set<Relacion> traerRelacionesSaludDesdePaciente(Paciente paciente, String estado) throws PersistenceNotFoundException;
+
 }

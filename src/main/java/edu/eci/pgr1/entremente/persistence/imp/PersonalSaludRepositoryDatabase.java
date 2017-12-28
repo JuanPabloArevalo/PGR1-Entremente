@@ -229,7 +229,7 @@ public class PersonalSaludRepositoryDatabase implements PersonalSaludRepository{
 
     @Override
     public void adicionarSolicitudPacienteDesdeSalud(Relacion relacion) throws PersistenceNotFoundException, PersistenceException {
-            try {
+        try {
             Class.forName(DatosBD.DRIVER);
             connect = DriverManager.getConnection(DatosBD.CONECTOR);
             statement = connect.createStatement();
@@ -281,7 +281,7 @@ public class PersonalSaludRepositoryDatabase implements PersonalSaludRepository{
 
     @Override
     public void aceptarSolicitudPaciente(Relacion relacion) throws PersistenceNotFoundException, PersistenceException {
-            try {
+        try {
             Class.forName(DatosBD.DRIVER);
             connect = DriverManager.getConnection(DatosBD.CONECTOR);
             statement = connect.createStatement();

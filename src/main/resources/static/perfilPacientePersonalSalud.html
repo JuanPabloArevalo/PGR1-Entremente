@@ -11,9 +11,11 @@
         <link rel="stylesheet" href="css/perfilPaciente.css" />
         <script src="js/cerrarSesion.js"></script> 
         <script src="js/iniciarSesion.js"></script> 
+        <script src="js/apiclientPerfilPacienteSalud.js"></script> 
+        <script src="js/perfilPacienteSalud.js"></script> 
         <title>Mi Perfil - Personal de Salud</title>
     </head>
-    <body>
+    <body onload="perfilPacienteSalud.cargarInformacionPacientes()">
         <div class="container-fluid">
             <nav class="navbar navbar-inverse navbar-fixed-top">
                 <div class="container-fluid">
@@ -94,7 +96,7 @@
                         <div class="input-group">
                             <input type="text" class="form-control" placeholder="Búsqueda">
                             <div class="input-group-btn">
-                                <button onclick="perfilPaciente.consultarPersonalSalud()" class="btn btn-default" type="button">
+                                <button onclick="perfilPacienteSalud.consultarPersonalSalud()" class="btn btn-default" type="button">
                                     <i class="glyphicon glyphicon-search"></i>
                                 </button>
                             </div>
