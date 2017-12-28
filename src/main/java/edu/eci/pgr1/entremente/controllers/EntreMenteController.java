@@ -294,13 +294,13 @@ public class EntreMenteController {
         }    
     }
     
-//    @RequestMapping(path = "/personalSalud/{dato}", method = RequestMethod.GET)
-//    public ResponseEntity<?> manejadorConsultarSalud(@PathVariable("dato") String dato) {
-//        try {
-//            return new ResponseEntity<>(ems.consultarFamiliares(dato), HttpStatus.ACCEPTED);
-//        } catch (PersistenceNotFoundException | PersistenceException ex) {
-//            Logger.getLogger(EntreMenteController.class.getName()).log(Level.SEVERE, null, ex);
-//            return new ResponseEntity<>(ex.getMessage(), HttpStatus.NOT_FOUND);
-//        }
-//    }
+    @RequestMapping(path = "/personalSalud/{dato}", method = RequestMethod.GET)
+    public ResponseEntity<?> manejadorConsultarSalud(@PathVariable("dato") String dato) {
+        try {
+            return new ResponseEntity<>(ems.consultarSalud(dato), HttpStatus.ACCEPTED);
+        } catch (PersistenceNotFoundException | PersistenceException ex) {
+            Logger.getLogger(EntreMenteController.class.getName()).log(Level.SEVERE, null, ex);
+            return new ResponseEntity<>(ex.getMessage(), HttpStatus.NOT_FOUND);
+        }
+    }
 }

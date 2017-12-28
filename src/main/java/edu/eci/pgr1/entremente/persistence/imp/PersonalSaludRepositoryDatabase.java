@@ -5,7 +5,7 @@
  */
 package edu.eci.pgr1.entremente.persistence.imp;
 
-import edu.eci.pgr1.entremente.model.Familiar;
+
 import edu.eci.pgr1.entremente.model.PersonalSalud;
 import edu.eci.pgr1.entremente.model.Relacion;
 import edu.eci.pgr1.entremente.persistence.PersistenceException;
@@ -164,6 +164,7 @@ public class PersonalSaludRepositoryDatabase implements PersonalSaludRepository{
             Class.forName(DatosBD.DRIVER);
             connect = DriverManager.getConnection(DatosBD.CONECTOR);
             preparedStatement = connect.prepareStatement("SELECT * FROM "+NOMBRETABLA +" WHERE nombreUsuario LIKE '%"+valor+"%' OR nombres LIKE '%"+valor+"%' OR apellidos LIKE '%"+valor+"%' OR documentoIdentidad LIKE '%"+valor+"%' or correo LIKE '%"+valor+"%' ORDER BY Apellidos, Nombres");
+            System.out.println("SELECT * FROM "+NOMBRETABLA +" WHERE nombreUsuario LIKE '%"+valor+"%' OR nombres LIKE '%"+valor+"%' OR apellidos LIKE '%"+valor+"%' OR documentoIdentidad LIKE '%"+valor+"%' or correo LIKE '%"+valor+"%' ORDER BY Apellidos, Nombres");
             resultSet = preparedStatement.executeQuery();
             while(resultSet.next()){
                 personalSalud = new PersonalSalud();

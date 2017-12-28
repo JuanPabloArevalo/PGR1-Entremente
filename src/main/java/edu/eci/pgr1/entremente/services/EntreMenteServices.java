@@ -301,6 +301,15 @@ public class EntreMenteServices {
         return pacienteRepository.traerRelacionesSaludDesdePaciente(paciente, Relacion.ESTADOACEPTADO);
     }
     
-    
+    /**
+     * Metodo encargado de consultar todos los Personales de salud que existan con ese dato
+     * @param dato
+     * @return
+     * @throws PersistenceNotFoundException 
+     * @throws edu.eci.pgr1.entremente.persistence.PersistenceException 
+     */
+    public Set<PersonalSalud> consultarSalud(String dato) throws PersistenceNotFoundException, PersistenceException{
+        return personalSaludRepository.busquedaPersonalSalud(dato);
+    }
     
 }

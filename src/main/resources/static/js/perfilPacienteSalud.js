@@ -30,7 +30,7 @@
     
     function adicionarFilaBusqueda(item){
 //        console.info(item);
-        var markup = "<tr class=\"filasB\"><td>" + item.id + "</td><td>" + item.nombreUsuario + "</td><td>" + item.nombres + "</td><td>" + item.apellidos + "</td><td><select class=\"form-control\" id=\"relacion"+item.id+"\"><option>Padres</option><option>Tios</option><option>Hermanos</option><option>Abuelos</option><option selected>Sobrinos</option><option selected>Otros</option></select></td><td><button type=\"button\" class=\"btn btn-success\" onclick=\"perfilPaciente.adicionarRelacion("+item.id+")\">Agregar</button></td></tr>";
+        var markup = "<tr class=\"filasB\"><td>" + item.id + "</td><td>" + item.nombreUsuario + "</td><td>" + item.nombres + "</td><td>" + item.apellidos + "</td><td><select class=\"form-control\" id=\"relacion"+item.id+"\"><option selected>Neurólogo</option><option>Psicólogo</option><option>Psquiatra</option><option>Terapeuta</option><option>Médico General</option><option>Otros</option></select></td><td><button type=\"button\" class=\"btn btn-success\" onclick=\"perfilPacienteSalud.adicionarRelacion("+item.id+")\">Agregar</button></td></tr>";
         $("#idTablaBusqueda").append(markup);
     }
 
@@ -96,7 +96,7 @@ var perfilPacienteSalud = (function () {
                 alert("Para realizar la búsqueda debe ingresar un dato");
             }
             else{
-                var promesaConsulta = apiclientPerfilPacienteSalud.getBusquedaFamiliares(buscar);
+                var promesaConsulta = apiclientPerfilPacienteSalud.getBusquedaPersonalSalud(buscar);
                 promesaConsulta.then(
                     function (datos) { 
                         inicializarElementosBusqueda();
@@ -154,12 +154,12 @@ var perfilPacienteSalud = (function () {
         adicionarRelacion(idFamiliar){
             var relacion = $("select#relacion"+idFamiliar).val();
             var idPaciente = sessionStorage.getItem("id");
-            var promesaConsulta = apiclientPerfilPaciente.adicionarSolicitud(idPaciente, idFamiliar, relacion);
+            var promesaConsulta = apiclientPerfilPacienteSalud.adicionarSolicitud(idPaciente, idFamiliar, relacion);
             promesaConsulta.then(
                 function () { 
                     inicializarElementosAceptadas();
                     inicializarElementosPendientes();
-                    perfilPaciente.cargarSolicitudes();
+                    perfilPacienteSalud.cargarSolicitudes();
                     alert("Se ha enviado la solicitud");
                 },
                 function (dato) {

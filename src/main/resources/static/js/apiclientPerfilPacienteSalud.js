@@ -43,7 +43,7 @@ var apiclientPerfilPacienteSalud = (function(){
         },
         adicionarSolicitud(idPaciente, idFamiliar,relacion){
             return $.ajax({
-                url:  "/entremente/V1/pacientes/relaciones/familiares",
+                url:  "/entremente/V1/pacientes/relaciones/personalSalud",
                 type: "POST",
                 data: '{"id":0 ,"idPaciente":'+idPaciente+',"idFamiliar":'+idFamiliar+', "estado":"","relacion":"'+relacion+'"}',
                 contentType: "application/json"
