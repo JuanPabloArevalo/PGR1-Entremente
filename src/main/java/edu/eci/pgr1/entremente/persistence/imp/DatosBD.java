@@ -10,7 +10,7 @@ package edu.eci.pgr1.entremente.persistence.imp;
  * @author Administrador
  */
 public class DatosBD {
-    public static final String SERVIDOR = "miinstancia.can9cy10ssrr.us-west-2.rds.amazonaws.com";
+    public static final String SERVIDOR = "35.194.9.226";
     public static final String PUERTO = "3306";
     public static final String USUARIO = "Admin";
     public static final String PASSWORD = "devSolutionCo2016!";
