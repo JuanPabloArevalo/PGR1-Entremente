@@ -72,6 +72,7 @@ CREATE TABLE MENSAJES (
 	rol VARCHAR(20),
 	puedeVerPac VARCHAR(1)/* S = Si   /  N = No*/
     FOREIGN KEY (idPaciente) REFERENCES paciente(id),
-    FOREIGN KEY (idPersonalSalud) REFERENCES PERSONALSALUD(id)
+    FOREIGN KEY (idPersonalSalud) REFERENCES PERSONALSALUD(id),
+	FOREIGN KEY (idFamiliar) REFERENCES FAMILIAR(id)
 );
 
