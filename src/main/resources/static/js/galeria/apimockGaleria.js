@@ -140,7 +140,7 @@ var apimockGaleria=(function(){
             	{"opcion":"Burj Al Arab","respuestaCorrecta":"N"},
             	{"opcion":"Burj Khalifa","respuestaCorrecta":"S"}]
             },
-            {"pregunta":"¿ECuál es el nombre de este reconocido personaje animado?","imagen":"image\\Galeria\\pluto.png", "informacion":"Es un personaje de ficción que se hizo famoso mediante los cortos de animación de The Walt Disney Company. Generalmente caracteriza al perro de Mickey Mouse, aunque también ha sido la mascota del Pato Donald y de Tribilín o Goofy. Tomado de wikipedia", "respuestas":[
+            {"pregunta":"¿Cuál es el nombre de este reconocido personaje animado?","imagen":"image\\Galeria\\pluto.png", "informacion":"Es un personaje de ficción que se hizo famoso mediante los cortos de animación de The Walt Disney Company. Generalmente caracteriza al perro de Mickey Mouse, aunque también ha sido la mascota del Pato Donald y de Tribilín o Goofy. Tomado de wikipedia", "respuestas":[
             	{"opcion":"Tom","respuestaCorrecta":"N"},
             	{"opcion":"Scooby-Doo","respuestaCorrecta":"N"},
             	{"opcion":"Coraje","respuestaCorrecta":"N"},
