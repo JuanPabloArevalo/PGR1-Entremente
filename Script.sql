@@ -61,3 +61,17 @@ CREATE TABLE PACIENTESALUD (
 	enviado VARCHAR(1)/* P = Paciente   /  O = Otro*/
 );
 
+CREATE TABLE MENSAJES (
+	id INT(8) UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+    idPaciente INT UNSIGNED NOT NULL,
+    idPersonalSalud INT UNSIGNED NOT NULL,
+	idFamiliar INT UNSIGNED NOT NULL,
+	fecha DATE,
+	mensaje VARCHAR(2000),
+	tipo VARCHAR(20),
+	rol VARCHAR(20),
+	puedeVerPac VARCHAR(1)/* S = Si   /  N = No*/
+    FOREIGN KEY (idPaciente) REFERENCES paciente(id),
+    FOREIGN KEY (idPersonalSalud) REFERENCES PERSONALSALUD(id)
+);
+
