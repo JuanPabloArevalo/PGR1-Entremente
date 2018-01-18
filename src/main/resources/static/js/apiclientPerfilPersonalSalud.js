@@ -60,7 +60,7 @@ var apiclientPerfilPersonalSalud = (function(){
                 contentType: "application/json"
             });
         }
-      };
+    };
     
 }());
 

@@ -48,8 +48,19 @@ var apiclientPerfilFamiliar = (function(){
                 data: '{"id":0 ,"idPaciente":'+idPaciente+',"idFamiliar":'+idFamiliar+', "estado":"","relacion":"'+relacion+'"}',
                 contentType: "application/json"
             });
+        },
+        getTodosMensajes(idPaciente){
+            return $.get("/entremente/V1/mensajes/otros/"+idPaciente);  
+        },
+        enviarMensaje(idPaciente, idFamiliar, fecha, mensaje, tipo, rol, puedeVerPac, nombreRemitente, checkBox){
+            return $.ajax({
+                url:  "/entremente/V1/mensajes",
+                type: "POST",
+                data: '{"id":0 ,"idPaciente":"'+idPaciente+'","idFamiliar":"'+idFamiliar+'", "fecha":"'+fecha+'" ,"mensaje":"'+mensaje+'","tipo":"'+tipo+'","rol":"'+rol+'","puedeVerPac":"'+puedeVerPac+'","nombreRemitente":"'+nombreRemitente+'","checkBox":"'+checkBox+'"}',
+                contentType: "application/json"
+            });
         }
-      };
+    };
     
 }());
 

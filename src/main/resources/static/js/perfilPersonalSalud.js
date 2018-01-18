@@ -13,7 +13,7 @@
     }
     
     function adicionarFilaAceptadas(item){
-        var markup = "<tr class=\"filasA\"><td>" + item.id + "</td><td>" + item.nombresPaciente + "</td><td>" + item.apellidosPaciente + "</td><td>" + item.relacion + "</td><td><button type=\"button\" class=\"btn btn-primary\" onclick=\"perfilPersonalSalud.irAConsultarPaciente("+item.id+",' "+item.nombresPaciente +" "+item.apellidosPaciente+"',' "+item.relacion+"')\">Consultar</button><button type=\"button\" class=\"btn btn-danger\" onclick=\"perfilPersonalSalud.eliminarRelacion("+item.id+", "+item.idPaciente+", "+item.idFamiliar+")\">Eliminar</button></td></tr>";
+        var markup = "<tr class=\"filasA\"><td>" + item.id + "</td><td>" + item.nombresPaciente + "</td><td>" + item.apellidosPaciente + "</td><td>" + item.relacion + "</td><td><button type=\"button\" class=\"btn btn-primary\" onclick=\"perfilPersonalSalud.irAConsultarPaciente("+item.idPaciente+",' "+item.nombresPaciente +" "+item.apellidosPaciente+"',' "+item.relacion+"')\">Consultar</button><button type=\"button\" class=\"btn btn-danger\" onclick=\"perfilPersonalSalud.eliminarRelacion("+item.id+", "+item.idPaciente+", "+item.idFamiliar+")\">Eliminar</button></td></tr>";
         console.info(markup);
         $("#tablaAceptadas").append(markup);
     }
@@ -241,9 +241,9 @@ var perfilPersonalSalud = (function () {
                 else{
                     $("#idNombreUsu").text(sessionStorage.getItem("nombres")+" "+sessionStorage.getItem("apellidos"));
                     $("#idNombrePaciente").text(sessionStorage.getItem("nombrePacienteConsultaPS"));
-                    perfilPersonalSalud.cargarMensajes();
+//                    perfilPersonalSalud.cargarMensajes();
                     //Cargar Historial Medico
-                    perfilPersonalSalud.cargarHistorialMedico();
+//                    perfilPersonalSalud.cargarHistorialMedico();
                 }
             }
         },

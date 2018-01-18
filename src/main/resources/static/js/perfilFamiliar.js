@@ -13,7 +13,7 @@
     }
     
     function adicionarFilaAceptadas(item){
-        var markup = "<tr class=\"filasA\"><td>" + item.id + "</td><td>" + item.nombresPaciente + "</td><td>" + item.apellidosPaciente + "</td><td>" + item.relacion + "</td><td><button type=\"button\" class=\"btn btn-primary\" onclick=\"\">Consultar</button><button type=\"button\" class=\"btn btn-danger\" onclick=\"perfilFamiliar.eliminarRelacion("+item.id+", "+item.idPaciente+", "+item.idFamiliar+")\">Eliminar</button></td></tr>";
+        var markup = "<tr class=\"filasA\"><td>" + item.id + "</td><td>" + item.nombresPaciente + "</td><td>" + item.apellidosPaciente + "</td><td>" + item.relacion + "</td><td><button type=\"button\" class=\"btn btn-primary\" onclick=\"perfilFamiliar.irAConsultarPaciente("+item.idPaciente+",' "+item.nombresPaciente +" "+item.apellidosPaciente+"',' "+item.relacion+"')\">Consultar</button><button type=\"button\" class=\"btn btn-danger\" onclick=\"perfilFamiliar.eliminarRelacion("+item.id+", "+item.idPaciente+", "+item.idFamiliar+")\">Eliminar</button></td></tr>";
         $("#tablaAceptadas").append(markup);
     }
 
@@ -31,7 +31,14 @@
         $(".filasB").remove("tr");
     }
     
+    function adicionarFilaMensajes(item){
+        var markup = "<tr class=\"filasMen\"><td>" + item.id + "</td><td>" + item.fecha + "</td><td>" + item.mensaje + "</td><td>" + item.tipo + "</td><td>" + item.nombreRemitente + "</td><td>" + item.rol + "</td><td><input type=\"checkbox\" disabled  "+item.checkBox+"></td></tr>";
+        $("#tablaMensajes").append(markup);
+    }
 
+    function inicializarElementosMensajes(){
+        $(".filasMen").remove("tr");
+    }
 
 var perfilFamiliar = (function () {
     return{    
@@ -176,7 +183,98 @@ var perfilFamiliar = (function () {
                     alert(dato.responseText);
                 }
             );
+        },
+        irAConsultarPaciente(idPaciente, nombrePaciente, rol){
+            sessionStorage.setItem("idPacienteConsultaPS", idPaciente);
+            sessionStorage.setItem("nombrePacienteConsultaPS", nombrePaciente);
+            sessionStorage.setItem("rolMensaje", rol);
+            window.location.href = "perfilFamiliarConsultarFamiliares.html";
+        },
+        initConsultarPaciente(){
+            if ("undefined" === sessionStorage.getItem("id") || null === sessionStorage.getItem("id")) {
+                //no inicio sesion
+                alert("Para esta función, debe iniciar sesión primero.");
+                window.location.href = "iniciarSesion.html";
+            }else{
+                if ("undefined" === sessionStorage.getItem("idPacienteConsultaPS") || null === sessionStorage.getItem("idPacienteConsultaPS")) {
+                    alert("Para esta función, debe seleccionar un paciente.");
+                    window.location.href = "perfilPersonalSaludPaciente.html";
+                }
+                else{
+                    $("#idNombreUsu").text(sessionStorage.getItem("nombres")+" "+sessionStorage.getItem("apellidos"));
+                    $("#idNombrePaciente").text(sessionStorage.getItem("nombrePacienteConsultaPS"));
+                    perfilFamiliar.cargarMensajes();
+                    //Cargar Historial Medico
+                    perfilFamiliar.cargarHistorialMedico();
+                }
+            }
+        },
+        cargarMensajes(){
+            var promesaConsulta = apiclientPerfilFamiliar.getTodosMensajes(sessionStorage.getItem("idPacienteConsultaPS"));
+            promesaConsulta.then(
+                function (datos) { 
+                    console.info(datos)
+                    inicializarElementosMensajes();
+                    datos.map(adicionarFilaMensajes);
+                },
+                function (dato) {
+                    alert(dato.responseText);
+                }
+            );
+        },
+        cargarHistorialMedico(){
+            
+        },
+        initEnviarMensaje(){
+            if ("undefined" === sessionStorage.getItem("id") || null === sessionStorage.getItem("id")) {
+                //no inicio sesion
+                alert("Para esta función, debe iniciar sesión primero.");
+                window.location.href = "iniciarSesion.html";
+            }else{
+                if ("undefined" === sessionStorage.getItem("idPacienteConsultaPS") || null === sessionStorage.getItem("idPacienteConsultaPS")) {
+                    alert("Para esta función, debe seleccionar un paciente.");
+                    window.location.href = "perfilFamiliarPaciente.html";
+                }
+                else{
+                    $("#idNombreUsu").text(sessionStorage.getItem("nombres")+" "+sessionStorage.getItem("apellidos"));
+                    $("#idNombrePaciente").text(sessionStorage.getItem("nombrePacienteConsultaPS"));
+                }
+            }
+        },
+        enviarMensaje(){
+            var idPaciente = sessionStorage.getItem("idPacienteConsultaPS");
+            var idFamiliar = sessionStorage.getItem("id");
+            var fecha = $("#fecha").val();
+            var mensaje = $("#mensaje").val();
+            var tipo = "Familiar";
+            var rol = sessionStorage.getItem("rolMensaje");
+            var puedeVerPaciente = "N";
+            if($('#puedeVerPaciente').is(':checked')===true){
+                puedeVerPaciente = "S";
+            }
+            
+            
+            if(fecha==="" || fecha === null){
+                alert("La fecha no puede ir vacia");
+            }
+            else if(mensaje==="" || mensaje === null){
+                alert("El mensaje no puede ir vacio!");
+            }
+            else{
+                var promesaConsulta = apiclientPerfilFamiliar.enviarMensaje(idPaciente, idFamiliar, fecha, mensaje, tipo, rol, puedeVerPaciente,"", "");
+                promesaConsulta.then(
+                    function () { 
+                        alert("Se ha enviado el mensaje!");
+                        $("#fecha").val("");
+                        $("#mensaje").val("");
+                    },
+                    function (dato) {
+                        alert(dato.responseText);
+                    }
+                );
+            }
         }
+        
     };
 }());
 
