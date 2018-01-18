@@ -6,10 +6,12 @@
 package edu.eci.pgr1.entremente.services;
 
 import edu.eci.pgr1.entremente.model.Familiar;
+import edu.eci.pgr1.entremente.model.Mensaje;
 import edu.eci.pgr1.entremente.model.Paciente;
 import edu.eci.pgr1.entremente.model.PersonalSalud;
 import edu.eci.pgr1.entremente.model.Relacion;
 import edu.eci.pgr1.entremente.persistence.FamiliarRepository;
+import edu.eci.pgr1.entremente.persistence.MensajeRepository;
 import edu.eci.pgr1.entremente.persistence.PacienteRepository;
 import edu.eci.pgr1.entremente.persistence.PersistenceException;
 import edu.eci.pgr1.entremente.persistence.PersistenceNotFoundException;
@@ -34,6 +36,9 @@ public class EntreMenteServices {
     @Autowired
     private PersonalSaludRepository personalSaludRepository;
     
+    @Autowired
+    private MensajeRepository mensajeRepository;
+        
     /**
      * Metodo encargado de adicionar un nuevo paciente
      * @param paciente
@@ -312,4 +317,51 @@ public class EntreMenteServices {
         return personalSaludRepository.busquedaPersonalSalud(dato);
     }
     
+    
+    
+        /**
+     * Metodo encargado de adicionar nuevos mensajes
+     * @param mensaje
+     * @throws PersistenceNotFoundException
+     * @throws PersistenceException 
+     */
+    public void adicionarMensaje(Mensaje mensaje) throws PersistenceNotFoundException, PersistenceException{
+        mensajeRepository.adicionarMensaje(mensaje);
+    }
+    
+    /**
+     * Metodo encargado de eliminar los mensajes
+     * @param mensaje
+     * @throws PersistenceNotFoundException
+     * @throws PersistenceException 
+     */
+    public void eliminarMensaje(Mensaje mensaje) throws PersistenceNotFoundException, PersistenceException{
+        mensajeRepository.eliminarMensaje(mensaje);
+    }
+    
+    /**
+     * Metodo encargado de consultar todos los Mensajes del paciente y que pueda ver el paciente
+     * @param idPaciente
+     * @return
+     * @throws PersistenceNotFoundException 
+     * @throws edu.eci.pgr1.entremente.persistence.PersistenceException 
+     */
+    public Set<Mensaje> consultarTodosMensajes(int idPaciente) throws PersistenceNotFoundException, PersistenceException{
+        Paciente paciente = new Paciente();
+        paciente.setId(idPaciente);
+        return mensajeRepository.traerMensajesDePaciente(paciente, Mensaje.NOPUEDEVERPACIENTE);
+    }
+    
+        /**
+     * Metodo encargado de consultar todos los Mensajes del paciente y que pueda ver el paciente
+     * @param idPaciente
+     * @return
+     * @throws PersistenceNotFoundException 
+     * @throws edu.eci.pgr1.entremente.persistence.PersistenceException 
+     */
+    public Set<Mensaje> consultarMensajesSiPuedeVerPaciente(int idPaciente) throws PersistenceNotFoundException, PersistenceException{
+        Paciente paciente = new Paciente();
+        paciente.setId(idPaciente);
+        return mensajeRepository.traerMensajesDePaciente(paciente, Mensaje.SIPUEDEVERPACIENTE);
+    }
 }
