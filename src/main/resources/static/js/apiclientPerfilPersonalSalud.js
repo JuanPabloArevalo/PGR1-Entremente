@@ -48,6 +48,9 @@ var apiclientPerfilPersonalSalud = (function(){
                 data: '{"id":0 ,"idPaciente":'+idPaciente+',"idFamiliar":'+idFamiliar+', "estado":"","relacion":"'+relacion+'"}',
                 contentType: "application/json"
             });
+        },
+        getTodosMensajes(idPaciente){
+            return $.get("/entremente/V1/mensajes/otros/"+idPaciente);  
         }
       };
     

@@ -331,14 +331,14 @@ public class EntreMenteController {
     @RequestMapping(path = "/mensajes/pacientes/{Paciente}", method = RequestMethod.GET)
     public ResponseEntity<?> manejadorConsultarMensajes(@PathVariable("idPaciente") int idPaciente) {
         try {
-            return new ResponseEntity<>(ems.consultarMensajesSiPuedeVerPaciente(idPaciente), HttpStatus.ACCEPTED);
+            return new ResponseEntity<>(ems.consultarMensajesPrivados(idPaciente), HttpStatus.ACCEPTED);
         } catch (PersistenceNotFoundException | PersistenceException ex) {
             Logger.getLogger(EntreMenteController.class.getName()).log(Level.SEVERE, null, ex);
             return new ResponseEntity<>(ex.getMessage(), HttpStatus.NOT_FOUND);
         }
     }
     
-    @RequestMapping(path = "/mensajes/otros/{Paciente}", method = RequestMethod.GET)
+    @RequestMapping(path = "/mensajes/otros/{idPaciente}", method = RequestMethod.GET)
     public ResponseEntity<?> manejadorConsultarTodosMensajes(@PathVariable("idPaciente") int idPaciente) {
         try {
             return new ResponseEntity<>(ems.consultarTodosMensajes(idPaciente), HttpStatus.ACCEPTED);

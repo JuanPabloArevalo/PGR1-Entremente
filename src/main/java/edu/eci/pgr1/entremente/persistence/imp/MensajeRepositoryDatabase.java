@@ -79,10 +79,12 @@ public class MensajeRepositoryDatabase implements MensajeRepository{
         if(puedeVerPaciente.trim().equalsIgnoreCase(Mensaje.NOPUEDEVERPACIENTE)){
             complemento = " AND puedeVerPac = '"+Mensaje.NOPUEDEVERPACIENTE+"' ";
         }
+        
         try {
             Class.forName(DatosBD.DRIVER);
             connect = DriverManager.getConnection(DatosBD.CONECTOR);
-            preparedStatement = connect.prepareStatement("SELECT * FROM "+NOMBRETABLA+" M LEFT JOIN PACIENTE P ON (M.idPaciente=P.ID) LEFT JOIN PERSONALSALUD PS ON (M.idPersonalSalud=PS.ID) LEFT JOIN FAMILIAR F ON (M.idFamiliar=F.ID) WHERE idPaciente = '"+paciente.getId()+"' "+complemento+" ORDER BY M.Fecha");
+            preparedStatement = connect.prepareStatement("SELECT *, STR_TO_DATE(M.Fecha, '%d/%m/%Y') as Fech FROM "+NOMBRETABLA+" M LEFT JOIN PACIENTE P ON (M.idPaciente=P.ID) LEFT JOIN PERSONALSALUD PS ON (M.idPersonalSalud=PS.ID) LEFT JOIN FAMILIAR F ON (M.idFamiliar=F.ID) WHERE idPaciente = '"+paciente.getId()+"' "+complemento+" ORDER BY M.Fecha");
+            System.out.println("SELECT * FROM "+NOMBRETABLA+" M LEFT JOIN PACIENTE P ON (M.idPaciente=P.ID) LEFT JOIN PERSONALSALUD PS ON (M.idPersonalSalud=PS.ID) LEFT JOIN FAMILIAR F ON (M.idFamiliar=F.ID) WHERE idPaciente = '"+paciente.getId()+"' "+complemento+" ORDER BY M.Fecha");
             resultSet = preparedStatement.executeQuery();
             while(resultSet.next()){
                mensaje = new Mensaje();
@@ -92,15 +94,21 @@ public class MensajeRepositoryDatabase implements MensajeRepository{
                mensaje.setIdPaciente(resultSet.getString("M.idPaciente"));
                mensaje.setIdPersonalSalud(resultSet.getString("M.idPersonalSalud"));
                mensaje.setMensaje(resultSet.getString("M.Mensaje"));
-               mensaje.setPuedeVerPac(puedeVerPaciente);
+               mensaje.setPuedeVerPac(resultSet.getString("M.puedeVerPac"));
                mensaje.setRol(resultSet.getString("M.ROL"));
                mensaje.setTipo(resultSet.getString("M.TIPO"));
+               if(resultSet.getString("M.puedeVerPac").equalsIgnoreCase("S")){
+                   mensaje.setCheckBox("checked");
+               }
+               else{
+                   mensaje.setCheckBox("");
+               }
                
                if(resultSet.getString("M.idFamiliar")!=null){
-                   mensaje.setNombreRemitente(resultSet.getString("F.nombres")+resultSet.getString("F.apellidos"));
+                   mensaje.setNombreRemitente(resultSet.getString("F.nombres")+" "+resultSet.getString("F.apellidos"));
                }
                else if(resultSet.getString("M.idPersonalSalud")!=null){
-                   mensaje.setNombreRemitente(resultSet.getString("PS.nombres")+resultSet.getString("PS.apellidos"));
+                   mensaje.setNombreRemitente(resultSet.getString("PS.nombres")+" "+resultSet.getString("PS.apellidos"));
                }
                mensajes.add(mensaje);
             }

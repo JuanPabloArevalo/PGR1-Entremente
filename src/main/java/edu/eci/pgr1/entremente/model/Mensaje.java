@@ -22,6 +22,7 @@ public class Mensaje {
     private String rol;
     private String puedeVerPac;
     private String nombreRemitente;
+    private String checkBox;
     
     /**
      * Constructor Vacio
@@ -39,9 +40,11 @@ public class Mensaje {
      * @param mensaje
      * @param tipo
      * @param rol
-     * @param puedeVerPac 
+     * @param puedeVerPac
+     * @param nombreRemitente
+     * @param checkBox
      */
-    public Mensaje(int id, String idPaciente, String idPersonalSalud, String idFamiliar, String fecha, String mensaje, String tipo, String rol, String puedeVerPac){
+    public Mensaje(int id, String idPaciente, String idPersonalSalud, String idFamiliar, String fecha, String mensaje, String tipo, String rol, String puedeVerPac, String nombreRemitente, String checkBox){
         this.id = id;
         this.idPaciente = idPaciente;
         this.idPersonalSalud = idPersonalSalud;
@@ -51,6 +54,8 @@ public class Mensaje {
         this.tipo = tipo;
         this.rol = rol;
         this.puedeVerPac = puedeVerPac;
+        this.nombreRemitente = nombreRemitente;
+        this.checkBox = checkBox;
     }
     /**
      * @return the id
@@ -190,6 +195,20 @@ public class Mensaje {
      */
     public void setNombreRemitente(String nombreRemitente) {
         this.nombreRemitente = nombreRemitente;
+    }
+
+    /**
+     * @return the checkBox
+     */
+    public String getCheckBox() {
+        return checkBox;
+    }
+
+    /**
+     * @param checkBox the checkBox to set
+     */
+    public void setCheckBox(String checkBox) {
+        this.checkBox = checkBox;
     }
     
     

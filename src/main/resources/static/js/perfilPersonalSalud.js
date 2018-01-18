@@ -20,7 +20,7 @@
     }
     
     function adicionarFilaAceptadas(item){
-        var markup = "<tr class=\"filasA\"><td>" + item.id + "</td><td>" + item.nombresPaciente + "</td><td>" + item.apellidosPaciente + "</td><td>" + item.relacion + "</td><td><button type=\"button\" class=\"btn btn-primary\" onclick=\"\">Consultar</button><button type=\"button\" class=\"btn btn-danger\" onclick=\"perfilPersonalSalud.eliminarRelacion("+item.id+", "+item.idPaciente+", "+item.idFamiliar+")\">Eliminar</button></td></tr>";
+        var markup = "<tr class=\"filasA\"><td>" + item.id + "</td><td>" + item.nombresPaciente + "</td><td>" + item.apellidosPaciente + "</td><td>" + item.relacion + "</td><td><button type=\"button\" class=\"btn btn-primary\" onclick=\"perfilPersonalSalud.irAConsultarPaciente("+item.id+",' "+item.nombresPaciente +" "+item.apellidosPaciente+" ')\">Consultar</button><button type=\"button\" class=\"btn btn-danger\" onclick=\"perfilPersonalSalud.eliminarRelacion("+item.id+", "+item.idPaciente+", "+item.idFamiliar+")\">Eliminar</button></td></tr>";
         $("#tablaAceptadas").append(markup);
     }
 
@@ -35,6 +35,15 @@
 
     function inicializarElementosBusqueda(){
         $(".filasB").remove("tr");
+    }
+    
+    function adicionarFilaMensajes(item){
+        var markup = "<tr class=\"filasMen\"><td>" + item.id + "</td><td>" + item.fecha + "</td><td>" + item.mensaje + "</td><td>" + item.tipo + "</td><td>" + item.nombreRemitente + "</td><td>" + item.rol + "</td><td><input type=\"checkbox\" disabled  "+item.checkBox+"></td></tr>";
+        $("#tablaMensajes").append(markup);
+    }
+
+    function inicializarElementosMensajes(){
+        $(".filasMen").remove("tr");
     }
     
 
@@ -183,6 +192,45 @@ var perfilPersonalSalud = (function () {
                     alert(dato.responseText);
                 }
             );
+        },
+        irAConsultarPaciente(idPaciente, nombrePaciente){
+            sessionStorage.setItem("idPacienteConsultaPS", idPaciente);
+            sessionStorage.setItem("nombrePacienteConsultaPS", nombrePaciente);
+            window.location.href = "perfilPersonalSaludConsultaPaciente.html";
+        },
+        initConsultarPaciente(){
+            if ("undefined" === sessionStorage.getItem("id") || null === sessionStorage.getItem("id")) {
+                //no inicio sesion
+                alert("Para esta función, debe iniciar sesión primero.");
+                window.location.href = "iniciarSesion.html";
+            }else{
+                if ("undefined" === sessionStorage.getItem("idPacienteConsultaPS") || null === sessionStorage.getItem("idPacienteConsultaPS")) {
+                    alert("Para esta función, debe seleccionar un paciente.");
+                    window.location.href = "perfilPersonalSaludPaciente.html";
+                }
+                else{
+                    $("#idNombreUsu").text(sessionStorage.getItem("nombres")+" "+sessionStorage.getItem("apellidos"));
+                    $("#idNombrePaciente").text(sessionStorage.getItem("nombrePacienteConsultaPS"));
+                    perfilPersonalSalud.cargarMensajes();
+                    //Cargar Historial Medico
+                    perfilPersonalSalud.cargarHistorialMedico();
+                }
+            }
+        },
+        cargarMensajes(){
+            var promesaConsulta = apiclientPerfilPersonalSalud.getTodosMensajes(sessionStorage.getItem("idPacienteConsultaPS"));
+            promesaConsulta.then(
+                function (datos) { 
+                    inicializarElementosMensajes();
+                    datos.map(adicionarFilaMensajes);
+                },
+                function (dato) {
+                    alert(dato.responseText);
+                }
+            );
+        },
+        cargarHistorialMedico(){
+            
         }
     };
 }());
