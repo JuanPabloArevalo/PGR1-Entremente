@@ -20,7 +20,7 @@
     }
     
     function adicionarFilaAceptadas(item){
-        var markup = "<tr class=\"filasA\"><td>" + item.id + "</td><td>" + item.nombresFamiliar + "</td><td>" + item.apellidosFamiliar + "</td><td>" + item.relacion + "</td><td><button type=\"button\" class=\"btn btn-primary\" onclick=\"\">Consultar</button><button type=\"button\" class=\"btn btn-danger\" onclick=\"perfilPacienteSalud.eliminarRelacion("+item.id+", "+item.idPaciente+", "+item.idFamiliar+")\">Eliminar</button></td></tr>";
+        var markup = "<tr class=\"filasA\"><td>" + item.id + "</td><td>" + item.nombresFamiliar + "</td><td>" + item.apellidosFamiliar + "</td><td>" + item.relacion + "</td><td><button type=\"button\" class=\"btn btn-danger\" onclick=\"perfilPacienteSalud.eliminarRelacion("+item.id+", "+item.idPaciente+", "+item.idFamiliar+")\">Eliminar</button></td></tr>";
         $("#tablaAceptadas").append(markup);
     }
 

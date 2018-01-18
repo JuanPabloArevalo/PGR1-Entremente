@@ -76,8 +76,8 @@ public class MensajeRepositoryDatabase implements MensajeRepository{
         Set<Mensaje> mensajes = new HashSet<>();
         Mensaje mensaje;
         String complemento = "";
-        if(puedeVerPaciente.trim().equalsIgnoreCase(Mensaje.NOPUEDEVERPACIENTE)){
-            complemento = " AND puedeVerPac = '"+Mensaje.NOPUEDEVERPACIENTE+"' ";
+        if(puedeVerPaciente.trim().equalsIgnoreCase(Mensaje.SIPUEDEVERPACIENTE)){
+            complemento = " AND puedeVerPac = '"+Mensaje.SIPUEDEVERPACIENTE+"' ";
         }
         
         try {

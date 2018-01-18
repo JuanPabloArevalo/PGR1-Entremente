@@ -38,7 +38,14 @@
         $(".filasB").remove("tr");
     }
     
+    function adicionarFilaMensajes(item){
+        var markup = "<tr class=\"filasMen\"><td>" + item.id + "</td><td>" + item.fecha + "</td><td>" + item.mensaje + "</td><td>" + item.tipo + "</td><td>" + item.nombreRemitente + "</td><td>" + item.rol + "</td></tr>";
+        $("#tablaMensajesPaciente").append(markup);
+    }
 
+    function inicializarElementosMensajes(){
+        $(".filasMen").remove("tr");
+    }
 
 var perfilPaciente = (function () {
     return{    
@@ -193,6 +200,31 @@ var perfilPaciente = (function () {
                     inicializarElementosPendientes();
                     perfilPaciente.cargarSolicitudes();
                     alert("Se ha enviado la solicitud");
+                },
+                function (dato) {
+                    alert(dato.responseText);
+                }
+            );
+        },
+        initCargarMensajes(){
+            if ("undefined" === sessionStorage.getItem("id") || null === sessionStorage.getItem("id")) {
+                //no inicio sesion
+                alert("Para esta función, debe iniciar sesión primero.");
+                window.location.href = "iniciarSesion.html";
+            }
+            else{
+                //si inicio sesion
+                $("#idNombreUsu").text(sessionStorage.getItem("nombres")+" "+sessionStorage.getItem("apellidos"));
+                perfilPaciente.cargarMensajes();          
+            }
+        },
+        cargarMensajes(){
+            var promesaConsulta = apiclientPerfilPaciente.getTodosMensajes(sessionStorage.getItem("id"));
+            promesaConsulta.then(
+                function (datos) { 
+                    console.info(datos)
+                    inicializarElementosMensajes();
+                    datos.map(adicionarFilaMensajes);
                 },
                 function (dato) {
                     alert(dato.responseText);

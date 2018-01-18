@@ -349,7 +349,7 @@ public class EntreMenteServices {
     public Set<Mensaje> consultarTodosMensajes(int idPaciente) throws PersistenceNotFoundException, PersistenceException{
         Paciente paciente = new Paciente();
         paciente.setId(idPaciente);
-        return mensajeRepository.traerMensajesDePaciente(paciente, Mensaje.SIPUEDEVERPACIENTE);
+        return mensajeRepository.traerMensajesDePaciente(paciente, Mensaje.NOPUEDEVERPACIENTE);
     }
     
         /**
@@ -359,9 +359,9 @@ public class EntreMenteServices {
      * @throws PersistenceNotFoundException 
      * @throws edu.eci.pgr1.entremente.persistence.PersistenceException 
      */
-    public Set<Mensaje> consultarMensajesPrivados(int idPaciente) throws PersistenceNotFoundException, PersistenceException{
+    public Set<Mensaje> consultarMensajesPaciente(int idPaciente) throws PersistenceNotFoundException, PersistenceException{
         Paciente paciente = new Paciente();
         paciente.setId(idPaciente);
-        return mensajeRepository.traerMensajesDePaciente(paciente, Mensaje.NOPUEDEVERPACIENTE);
+        return mensajeRepository.traerMensajesDePaciente(paciente, Mensaje.SIPUEDEVERPACIENTE);
     }
 }
