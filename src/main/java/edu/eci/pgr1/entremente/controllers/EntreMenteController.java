@@ -332,7 +332,6 @@ public class EntreMenteController {
     @RequestMapping(path = "/mensajes/pacientes/{idPaciente}", method = RequestMethod.GET)
     public ResponseEntity<?> manejadorConsultarMensajes(@PathVariable("idPaciente") int idPaciente) {
         try {
-            System.out.println("ENTRO POR ACA CON: "+idPaciente);
             return new ResponseEntity<>(ems.consultarMensajesPaciente(idPaciente), HttpStatus.ACCEPTED);
         } catch (PersistenceNotFoundException | PersistenceException ex) {
             Logger.getLogger(EntreMenteController.class.getName()).log(Level.SEVERE, null, ex);

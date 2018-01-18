@@ -16,6 +16,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Set;
 import org.springframework.stereotype.Service;
@@ -72,8 +73,8 @@ public class MensajeRepositoryDatabase implements MensajeRepository{
     }
 
     @Override
-    public Set<Mensaje> traerMensajesDePaciente(Paciente paciente, String puedeVerPaciente) throws PersistenceNotFoundException {
-        Set<Mensaje> mensajes = new HashSet<>();
+    public ArrayList<Mensaje> traerMensajesDePaciente(Paciente paciente, String puedeVerPaciente) throws PersistenceNotFoundException {
+        ArrayList<Mensaje> mensajes = new ArrayList<>();
         Mensaje mensaje;
         String complemento = "";
         if(puedeVerPaciente.trim().equalsIgnoreCase(Mensaje.SIPUEDEVERPACIENTE)){
@@ -84,7 +85,6 @@ public class MensajeRepositoryDatabase implements MensajeRepository{
             Class.forName(DatosBD.DRIVER);
             connect = DriverManager.getConnection(DatosBD.CONECTOR);
             preparedStatement = connect.prepareStatement("SELECT *, STR_TO_DATE(M.Fecha, '%d/%m/%Y') as Fech FROM "+NOMBRETABLA+" M LEFT JOIN PACIENTE P ON (M.idPaciente=P.ID) LEFT JOIN PERSONALSALUD PS ON (M.idPersonalSalud=PS.ID) LEFT JOIN FAMILIAR F ON (M.idFamiliar=F.ID) WHERE idPaciente = '"+paciente.getId()+"' "+complemento+" ORDER BY M.Fecha");
-            System.out.println("SELECT * FROM "+NOMBRETABLA+" M LEFT JOIN PACIENTE P ON (M.idPaciente=P.ID) LEFT JOIN PERSONALSALUD PS ON (M.idPersonalSalud=PS.ID) LEFT JOIN FAMILIAR F ON (M.idFamiliar=F.ID) WHERE idPaciente = '"+paciente.getId()+"' "+complemento+" ORDER BY M.Fecha");
             resultSet = preparedStatement.executeQuery();
             while(resultSet.next()){
                mensaje = new Mensaje();

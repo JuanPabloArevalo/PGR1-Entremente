@@ -8,6 +8,7 @@ package edu.eci.pgr1.entremente.persistence;
 
 import edu.eci.pgr1.entremente.model.Mensaje;
 import edu.eci.pgr1.entremente.model.Paciente;
+import java.util.ArrayList;
 import java.util.Set;
 
 /**
@@ -37,7 +38,7 @@ public interface MensajeRepository {
      * @return 
      * @throws edu.eci.pgr1.entremente.persistence.PersistenceNotFoundException 
      */
-    public Set<Mensaje> traerMensajesDePaciente(Paciente paciente, String puedeVerPaciente) throws PersistenceNotFoundException;
+    public ArrayList<Mensaje> traerMensajesDePaciente(Paciente paciente, String puedeVerPaciente) throws PersistenceNotFoundException;
 
 
 }

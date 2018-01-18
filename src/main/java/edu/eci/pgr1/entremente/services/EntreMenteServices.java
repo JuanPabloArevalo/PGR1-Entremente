@@ -16,6 +16,7 @@ import edu.eci.pgr1.entremente.persistence.PacienteRepository;
 import edu.eci.pgr1.entremente.persistence.PersistenceException;
 import edu.eci.pgr1.entremente.persistence.PersistenceNotFoundException;
 import edu.eci.pgr1.entremente.persistence.PersonalSaludRepository;
+import java.util.ArrayList;
 import java.util.Set;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -346,7 +347,7 @@ public class EntreMenteServices {
      * @throws PersistenceNotFoundException 
      * @throws edu.eci.pgr1.entremente.persistence.PersistenceException 
      */
-    public Set<Mensaje> consultarTodosMensajes(int idPaciente) throws PersistenceNotFoundException, PersistenceException{
+    public ArrayList<Mensaje> consultarTodosMensajes(int idPaciente) throws PersistenceNotFoundException, PersistenceException{
         Paciente paciente = new Paciente();
         paciente.setId(idPaciente);
         return mensajeRepository.traerMensajesDePaciente(paciente, Mensaje.NOPUEDEVERPACIENTE);
@@ -359,7 +360,7 @@ public class EntreMenteServices {
      * @throws PersistenceNotFoundException 
      * @throws edu.eci.pgr1.entremente.persistence.PersistenceException 
      */
-    public Set<Mensaje> consultarMensajesPaciente(int idPaciente) throws PersistenceNotFoundException, PersistenceException{
+    public ArrayList<Mensaje> consultarMensajesPaciente(int idPaciente) throws PersistenceNotFoundException, PersistenceException{
         Paciente paciente = new Paciente();
         paciente.setId(idPaciente);
         return mensajeRepository.traerMensajesDePaciente(paciente, Mensaje.SIPUEDEVERPACIENTE);
