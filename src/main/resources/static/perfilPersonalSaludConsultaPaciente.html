@@ -19,6 +19,7 @@
         <script src="https://code.highcharts.com/highcharts.src.js"></script>
         <script src="js/apiclientPerfilPersonalSalud.js"></script> 
         <script src="js/perfilPersonalSalud.js"></script> 
+        <script src="js/cerrarSesion.js"></script> 
         <title>Mi Perfil - Paciente</title>
     </head>
     <body onload="perfilPersonalSalud.initConsultarPaciente()">
@@ -60,7 +61,7 @@
                         <div class="modal-footer">
                             <button type="button" class="btn btn-success" data-dismiss="modal">Continuar</button>
                             <a onclick="cerrarSesion.cerrarSesion()"><button type="button" class="btn btn-danger">Cerrar Sesión</button></a>
-                         </div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -422,7 +423,7 @@
                                                     </tbody>
                                                 </table>
                                             </div>
-                                            <a href="/perfilPersonalMedicoEnviarNuevoMensaje.html"><button type="submit" class="btn btn-success">Enviar mensaje</button></a>
+                                            <a href="/perfilPersonalSaludEnviarNuevoMensaje.html"><button type="submit" class="btn btn-success">Enviar mensaje</button></a>
                                         </div>
                                     </div>
                                 </div>
@@ -431,5 +432,7 @@
                         </div>
                     </div>
                 </div>
-                </body>
-                </html>
+            </div>
+        </div>
+    </body>
+</html>

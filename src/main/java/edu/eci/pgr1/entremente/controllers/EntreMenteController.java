@@ -306,9 +306,10 @@ public class EntreMenteController {
     }
     
 //MENSAJES    
-    @RequestMapping(path = "/mensajes/", method = RequestMethod.POST)
+    @RequestMapping(path = "/mensajes", method = RequestMethod.POST)
     public ResponseEntity<?> manejadorMensajesAdicionar(@RequestBody Mensaje mensaje) {
         try {
+            System.out.println("Entro aca con "+mensaje.getFecha());
             ems.adicionarMensaje(mensaje);
             return new ResponseEntity<>("Se ha enviado el mensaje", HttpStatus.CREATED);
         } catch (PersistenceNotFoundException | PersistenceException ex) {

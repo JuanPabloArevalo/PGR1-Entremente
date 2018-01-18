@@ -1,10 +1,3 @@
-//$(document).ready(function(){
-//    $(".nav-tabs a").click(function(){
-//        $(this).tab('show');
-//    });
-//});
-
-
 /* 
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
@@ -20,7 +13,8 @@
     }
     
     function adicionarFilaAceptadas(item){
-        var markup = "<tr class=\"filasA\"><td>" + item.id + "</td><td>" + item.nombresPaciente + "</td><td>" + item.apellidosPaciente + "</td><td>" + item.relacion + "</td><td><button type=\"button\" class=\"btn btn-primary\" onclick=\"perfilPersonalSalud.irAConsultarPaciente("+item.id+",' "+item.nombresPaciente +" "+item.apellidosPaciente+" ')\">Consultar</button><button type=\"button\" class=\"btn btn-danger\" onclick=\"perfilPersonalSalud.eliminarRelacion("+item.id+", "+item.idPaciente+", "+item.idFamiliar+")\">Eliminar</button></td></tr>";
+        var markup = "<tr class=\"filasA\"><td>" + item.id + "</td><td>" + item.nombresPaciente + "</td><td>" + item.apellidosPaciente + "</td><td>" + item.relacion + "</td><td><button type=\"button\" class=\"btn btn-primary\" onclick=\"perfilPersonalSalud.irAConsultarPaciente("+item.id+",' "+item.nombresPaciente +" "+item.apellidosPaciente+"',' "+item.relacion+"')\">Consultar</button><button type=\"button\" class=\"btn btn-danger\" onclick=\"perfilPersonalSalud.eliminarRelacion("+item.id+", "+item.idPaciente+", "+item.idFamiliar+")\">Eliminar</button></td></tr>";
+        console.info(markup);
         $("#tablaAceptadas").append(markup);
     }
 
@@ -193,9 +187,10 @@ var perfilPersonalSalud = (function () {
                 }
             );
         },
-        irAConsultarPaciente(idPaciente, nombrePaciente){
+        irAConsultarPaciente(idPaciente, nombrePaciente, rol){
             sessionStorage.setItem("idPacienteConsultaPS", idPaciente);
             sessionStorage.setItem("nombrePacienteConsultaPS", nombrePaciente);
+            sessionStorage.setItem("rolMensaje", rol);
             window.location.href = "perfilPersonalSaludConsultaPaciente.html";
         },
         initConsultarPaciente(){
@@ -221,6 +216,7 @@ var perfilPersonalSalud = (function () {
             var promesaConsulta = apiclientPerfilPersonalSalud.getTodosMensajes(sessionStorage.getItem("idPacienteConsultaPS"));
             promesaConsulta.then(
                 function (datos) { 
+                    console.info(datos)
                     inicializarElementosMensajes();
                     datos.map(adicionarFilaMensajes);
                 },
@@ -231,6 +227,58 @@ var perfilPersonalSalud = (function () {
         },
         cargarHistorialMedico(){
             
+        },
+        initEnviarMensaje(){
+            if ("undefined" === sessionStorage.getItem("id") || null === sessionStorage.getItem("id")) {
+                //no inicio sesion
+                alert("Para esta función, debe iniciar sesión primero.");
+                window.location.href = "iniciarSesion.html";
+            }else{
+                if ("undefined" === sessionStorage.getItem("idPacienteConsultaPS") || null === sessionStorage.getItem("idPacienteConsultaPS")) {
+                    alert("Para esta función, debe seleccionar un paciente.");
+                    window.location.href = "perfilPersonalSaludPaciente.html";
+                }
+                else{
+                    $("#idNombreUsu").text(sessionStorage.getItem("nombres")+" "+sessionStorage.getItem("apellidos"));
+                    $("#idNombrePaciente").text(sessionStorage.getItem("nombrePacienteConsultaPS"));
+                    perfilPersonalSalud.cargarMensajes();
+                    //Cargar Historial Medico
+                    perfilPersonalSalud.cargarHistorialMedico();
+                }
+            }
+        },
+        enviarMensaje(){
+            var idPaciente = sessionStorage.getItem("idPacienteConsultaPS");
+            var idPersonalSalud = sessionStorage.getItem("id");
+            var fecha = $("#fecha").val();
+            var mensaje = $("#mensaje").val();
+            var tipo = "Personal Salud";
+            var rol = sessionStorage.getItem("rolMensaje");
+            var puedeVerPaciente = "N";
+            if($('#puedeVerPaciente').is(':checked')===true){
+                puedeVerPaciente = "S";
+            }
+            
+            
+            if(fecha==="" || fecha === null){
+                alert("La fecha no puede ir vacia");
+            }
+            else if(mensaje==="" || mensaje === null){
+                alert("El mensaje no puede ir vacio!");
+            }
+            else{
+                var promesaConsulta = apiclientPerfilPersonalSalud.enviarMensaje(idPaciente, idPersonalSalud, fecha, mensaje, tipo, rol, puedeVerPaciente,"", "");
+                promesaConsulta.then(
+                    function () { 
+                        alert("Se ha enviado el mensaje!");
+                        $("#fecha").val("");
+                        $("#mensaje").val("");
+                    },
+                    function (dato) {
+                        alert(dato.responseText);
+                    }
+                );
+            }
         }
     };
 }());
