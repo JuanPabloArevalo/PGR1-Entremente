@@ -15,9 +15,7 @@ public class HistorialMedico {
     private String nombresPaciente;
     private String idPersonalSalud;
     private String nombresPersonalSalud;
-    private String idEnferemedad;
-    private String nombreEnfermedad;
-    private String codigoEnfermedad;
+    private Enfermedad enfermedad;
 
     /**
      * Constructor Vacio
@@ -33,19 +31,14 @@ public class HistorialMedico {
      * @param nombresPaciente
      * @param idPersonalSalud
      * @param nombresPersonalSalud
-     * @param idEnferemedad
-     * @param nombreEnfermedad
-     * @param codigoEnfermedad 
      */
-    public HistorialMedico(int id, String idPaciente, String nombresPaciente, String idPersonalSalud, String nombresPersonalSalud, String idEnferemedad, String nombreEnfermedad, String codigoEnfermedad){
+    public HistorialMedico(int id, String idPaciente, String nombresPaciente, String idPersonalSalud, String nombresPersonalSalud, Enfermedad enfermedad){
         this.id = id;
         this.idPaciente = idPaciente;
         this.nombresPaciente = nombresPaciente;
         this.idPersonalSalud = idPersonalSalud;
         this.nombresPersonalSalud = nombresPersonalSalud;
-        this.idEnferemedad = idEnferemedad;
-        this.nombreEnfermedad = nombreEnfermedad;
-        this.codigoEnfermedad = codigoEnfermedad;   
+        this.enfermedad = enfermedad;   
     }
     
     /**
@@ -116,50 +109,21 @@ public class HistorialMedico {
      */
     public void setNombresPersonalSalud(String nombresPersonalSalud) {
         this.nombresPersonalSalud = nombresPersonalSalud;
+    }  
+
+    /**
+     * @return the enfermedad
+     */
+    public Enfermedad getEnfermedad() {
+        return enfermedad;
     }
 
     /**
-     * @return the idEnferemedad
+     * @param enfermedad the enfermedad to set
      */
-    public String getIdEnferemedad() {
-        return idEnferemedad;
+    public void setEnfermedad(Enfermedad enfermedad) {
+        this.enfermedad = enfermedad;
     }
-
-    /**
-     * @param idEnferemedad the idEnferemedad to set
-     */
-    public void setIdEnferemedad(String idEnferemedad) {
-        this.idEnferemedad = idEnferemedad;
-    }
-
-    /**
-     * @return the nombreEnfermedad
-     */
-    public String getNombreEnfermedad() {
-        return nombreEnfermedad;
-    }
-
-    /**
-     * @param nombreEnfermedad the nombreEnfermedad to set
-     */
-    public void setNombreEnfermedad(String nombreEnfermedad) {
-        this.nombreEnfermedad = nombreEnfermedad;
-    }
-
-    /**
-     * @return the codigoEnfermedad
-     */
-    public String getCodigoEnfermedad() {
-        return codigoEnfermedad;
-    }
-
-    /**
-     * @param codigoEnfermedad the codigoEnfermedad to set
-     */
-    public void setCodigoEnfermedad(String codigoEnfermedad) {
-        this.codigoEnfermedad = codigoEnfermedad;
-    }
-    
     
     
 }

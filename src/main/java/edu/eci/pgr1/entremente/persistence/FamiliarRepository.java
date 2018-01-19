@@ -6,7 +6,6 @@
 package edu.eci.pgr1.entremente.persistence;
 
 import edu.eci.pgr1.entremente.model.Familiar;
-import edu.eci.pgr1.entremente.model.Paciente;
 import edu.eci.pgr1.entremente.model.Relacion;
 import java.util.Set;
 
