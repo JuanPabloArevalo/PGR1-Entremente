@@ -17,8 +17,6 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.Set;
 import org.springframework.stereotype.Service;
 
 /**
@@ -120,7 +118,7 @@ public class MensajeRepositoryDatabase implements MensajeRepository{
         return mensajes;
     }
     
-        /**
+    /**
      * Metodo encargado de cerrar la conexión
      */
     private void close() {

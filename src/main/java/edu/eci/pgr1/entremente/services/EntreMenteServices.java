@@ -6,11 +6,13 @@
 package edu.eci.pgr1.entremente.services;
 
 import edu.eci.pgr1.entremente.model.Familiar;
+import edu.eci.pgr1.entremente.model.HistorialMedico;
 import edu.eci.pgr1.entremente.model.Mensaje;
 import edu.eci.pgr1.entremente.model.Paciente;
 import edu.eci.pgr1.entremente.model.PersonalSalud;
 import edu.eci.pgr1.entremente.model.Relacion;
 import edu.eci.pgr1.entremente.persistence.FamiliarRepository;
+import edu.eci.pgr1.entremente.persistence.HistorialMedicoRepository;
 import edu.eci.pgr1.entremente.persistence.MensajeRepository;
 import edu.eci.pgr1.entremente.persistence.PacienteRepository;
 import edu.eci.pgr1.entremente.persistence.PersistenceException;
@@ -39,6 +41,9 @@ public class EntreMenteServices {
     
     @Autowired
     private MensajeRepository mensajeRepository;
+    
+    @Autowired
+    private HistorialMedicoRepository historialMedico;
         
     /**
      * Metodo encargado de adicionar un nuevo paciente
@@ -320,7 +325,7 @@ public class EntreMenteServices {
     
     
     
-        /**
+    /**
      * Metodo encargado de adicionar nuevos mensajes
      * @param mensaje
      * @throws PersistenceNotFoundException
@@ -353,7 +358,7 @@ public class EntreMenteServices {
         return mensajeRepository.traerMensajesDePaciente(paciente, Mensaje.NOPUEDEVERPACIENTE);
     }
     
-        /**
+    /**
      * Metodo encargado de consultar todos los Mensajes del paciente y que pueda ver el paciente
      * @param idPaciente
      * @return
@@ -364,5 +369,40 @@ public class EntreMenteServices {
         Paciente paciente = new Paciente();
         paciente.setId(idPaciente);
         return mensajeRepository.traerMensajesDePaciente(paciente, Mensaje.SIPUEDEVERPACIENTE);
+    }
+    
+    
+    
+    /**
+     * Metodo encargado de adicionar historial médico
+     * @param historialM
+     * @throws PersistenceNotFoundException
+     * @throws PersistenceException 
+     */
+    public void adicionarHistorialMedico(HistorialMedico historialM) throws PersistenceNotFoundException, PersistenceException{
+        historialMedico.adicionar(historialM);
+    }
+    
+    /**
+     * Metodo encargado de eliminar el historial médico
+     * @param historialM
+     * @throws PersistenceNotFoundException
+     * @throws PersistenceException 
+     */
+    public void eliminarHistorialMedico(HistorialMedico historialM) throws PersistenceNotFoundException, PersistenceException{
+        historialMedico.eliminar(historialM);
+    }
+    
+    /**
+     * Metodo encargado de consultar todo el historial médico del paciente
+     * @param idPaciente
+     * @return
+     * @throws PersistenceNotFoundException 
+     * @throws edu.eci.pgr1.entremente.persistence.PersistenceException 
+     */
+    public ArrayList<HistorialMedico> consultarHistorialMedicoPaciente(int idPaciente) throws PersistenceNotFoundException, PersistenceException{
+        Paciente paciente = new Paciente();
+        paciente.setId(idPaciente);
+        return historialMedico.traerHistorialMedicoDePaciente(paciente);
     }
 }

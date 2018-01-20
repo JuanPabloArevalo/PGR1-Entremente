@@ -16,6 +16,7 @@ public class HistorialMedico {
     private String idPersonalSalud;
     private String nombresPersonalSalud;
     private Enfermedad enfermedad;
+    private String fecha;
 
     /**
      * Constructor Vacio
@@ -123,6 +124,20 @@ public class HistorialMedico {
      */
     public void setEnfermedad(Enfermedad enfermedad) {
         this.enfermedad = enfermedad;
+    }
+
+    /**
+     * @return the fecha
+     */
+    public String getFecha() {
+        return fecha;
+    }
+
+    /**
+     * @param fecha the fecha to set
+     */
+    public void setFecha(String fecha) {
+        this.fecha = fecha;
     }
     
     
