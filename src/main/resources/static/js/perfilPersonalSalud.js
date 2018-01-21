@@ -40,7 +40,20 @@
         $(".filasMen").remove("tr");
     }
     
+    function adicionarEnfermedad(item){
+        $('#listaEnfermedades').append('<option value='+item.id+' >'+item.nombre+'</option>');
+    }
+    
+    
+    
+    function adicionarFilaHistorialMedico(item){
+        var markup = "<tr class=\"filasHM\"><td>" + item.id + "</td><td>" + item.enfermedad.codigo + "</td><td>" + item.enfermedad.nombre + "</td><td>" + item.fecha + "</td><td>" + item.nombresPersonalSalud + "</td><td>" + item.rol + "</td><td><button type='button' class='btn btn-danger' onclick=\"perfilPersonalSalud.eliminarHistorialMedico("+item.id+")\" >Eliminar</button></td></tr>";
+        $("#idTablaHistorialM").append(markup);
+    }
 
+    function inicializarElementosHistorialMedico(){
+        $(".filasHM").remove("tr");
+    }
 
 var perfilPersonalSalud = (function () {
     return{    
@@ -206,9 +219,12 @@ var perfilPersonalSalud = (function () {
                 else{
                     $("#idNombreUsu").text(sessionStorage.getItem("nombres")+" "+sessionStorage.getItem("apellidos"));
                     $("#idNombrePaciente").text(sessionStorage.getItem("nombrePacienteConsultaPS"));
+                    perfilPersonalSalud.cargarSelectEnfermedades();
                     perfilPersonalSalud.cargarMensajes();
                     //Cargar Historial Medico
+                    
                     perfilPersonalSalud.cargarHistorialMedico();
+                    
                 }
             }
         },
@@ -216,7 +232,6 @@ var perfilPersonalSalud = (function () {
             var promesaConsulta = apiclientPerfilPersonalSalud.getTodosMensajes(sessionStorage.getItem("idPacienteConsultaPS"));
             promesaConsulta.then(
                 function (datos) { 
-                    console.info(datos)
                     inicializarElementosMensajes();
                     datos.map(adicionarFilaMensajes);
                 },
@@ -226,7 +241,17 @@ var perfilPersonalSalud = (function () {
             );
         },
         cargarHistorialMedico(){
-            
+            var idPaciente = sessionStorage.getItem("idPacienteConsultaPS");
+            var promesaConsulta = apiclientPerfilPersonalSalud.getHistorialMedico(idPaciente);
+            promesaConsulta.then(
+                function (datos) { 
+                        inicializarElementosHistorialMedico();
+                    datos.map(adicionarFilaHistorialMedico);
+                },
+                function (dato) {
+                    alert(dato.responseText);
+                }
+            );
         },
         initEnviarMensaje(){
             if ("undefined" === sessionStorage.getItem("id") || null === sessionStorage.getItem("id")) {
@@ -279,7 +304,59 @@ var perfilPersonalSalud = (function () {
                     }
                 );
             }
-        }
+        },
+        cargarSelectEnfermedades(){
+            var promesaConsulta = apiclientPerfilPersonalSalud.getEnfermedades();
+            promesaConsulta.then(
+                function (datos) { 
+                    datos.map(adicionarEnfermedad);
+                },
+                function (dato) {
+                    alert(dato.responseText);
+                }
+            );
+        },
+        guardarHistorialMedico(){
+            var fecha = $("#fechaHM").val();
+            var idEnfermedad = $("select#listaEnfermedades").val();
+            var idPaciente = sessionStorage.getItem("idPacienteConsultaPS");
+            var idPersonalSalud = sessionStorage.getItem("id");
+            var rol = sessionStorage.getItem("rolMensaje");
+            if(fecha==="" || fecha === null){
+                alert("La fecha no puede ir vacia");
+            }
+            else if(idEnfermedad==="" || idEnfermedad === null){
+                alert("Seleccione una enfermedad!");
+            }
+            else{
+                var promesaConsulta = apiclientPerfilPersonalSalud.guardarHistorialMedico(idPaciente, idEnfermedad, idPersonalSalud, fecha, rol);
+                promesaConsulta.then(
+                    function () { 
+                        alert("Se ha actualizado el historial médico del paciente!");
+                        //Cargar HM
+                        inicializarElementosHistorialMedico();
+                        perfilPersonalSalud.cargarHistorialMedico();
+                        $("#fechaHM").val("");
+                    },
+                    function (dato) {
+                        alert(dato.responseText);
+                    }
+                );
+            }
+        },
+        eliminarHistorialMedico(id){
+            var promesaConsulta = apiclientPerfilPersonalSalud.eliminarHistorialMedico(id);
+            promesaConsulta.then(
+                function () { 
+                    inicializarElementosHistorialMedico();
+                    perfilPersonalSalud.cargarHistorialMedico();
+                    alert("Se ha actualizado el historial médico del paciente");
+                },
+                function (dato) {
+                    alert(dato.responseText);
+                }
+            );
+        },
     };
 }());
 

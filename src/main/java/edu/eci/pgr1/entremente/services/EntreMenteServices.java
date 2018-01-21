@@ -5,12 +5,14 @@
  */
 package edu.eci.pgr1.entremente.services;
 
+import edu.eci.pgr1.entremente.model.Enfermedad;
 import edu.eci.pgr1.entremente.model.Familiar;
 import edu.eci.pgr1.entremente.model.HistorialMedico;
 import edu.eci.pgr1.entremente.model.Mensaje;
 import edu.eci.pgr1.entremente.model.Paciente;
 import edu.eci.pgr1.entremente.model.PersonalSalud;
 import edu.eci.pgr1.entremente.model.Relacion;
+import edu.eci.pgr1.entremente.persistence.EnfermedadRepository;
 import edu.eci.pgr1.entremente.persistence.FamiliarRepository;
 import edu.eci.pgr1.entremente.persistence.HistorialMedicoRepository;
 import edu.eci.pgr1.entremente.persistence.MensajeRepository;
@@ -44,6 +46,9 @@ public class EntreMenteServices {
     
     @Autowired
     private HistorialMedicoRepository historialMedico;
+    
+    @Autowired
+    private EnfermedadRepository enfermedad;
         
     /**
      * Metodo encargado de adicionar un nuevo paciente
@@ -405,4 +410,13 @@ public class EntreMenteServices {
         paciente.setId(idPaciente);
         return historialMedico.traerHistorialMedicoDePaciente(paciente);
     }
+    /**
+     * Metodo encargado de cargar las enfermedades
+     * @return
+     * @throws PersistenceNotFoundException 
+     * @throws edu.eci.pgr1.entremente.persistence.PersistenceException 
+     */
+    public ArrayList<Enfermedad> consultarEnfermedades() throws PersistenceNotFoundException, PersistenceException{
+        return enfermedad.cargarEnfermedades();
+    }    
 }

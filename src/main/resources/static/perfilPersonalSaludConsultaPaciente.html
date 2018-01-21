@@ -89,22 +89,18 @@
                                                     <div class="form-group">
                                                         <label for="sel1">Enfermedad:</label>
                                                         <select class="form-control" id="listaEnfermedades">
-                                                            <option>Alzheimer Nivel 1</option>
-                                                            <option>Alzheimer Nivel 2</option>
-                                                            <option>Alzheimer Nivel 3</option>
-                                                            <option>Alzheimer Nivel 4</option>
                                                         </select>
                                                         <label for="fecha">Fecha:</label>
-                                                        <input type="date" class="form-control" id="fecha">
+                                                        <input type="date" class="form-control" id="fechaHM">
                                                         <br>
-                                                        <button type="button" class="btn btn-success" data-dismiss="modal">Guardar</button>
+                                                        <button type="button" class="btn btn-success" onclick="perfilPersonalSalud.guardarHistorialMedico()">Guardar</button>
                                                     </div>
                                                 </form>
                                             </div>
                                             <div class="col-xs-0 col-sm-2 col-md-3 col-lg-4"></div>
                                         </div>
                                         <div class="table-responsive">          
-                                            <table class="table">
+                                            <table class="table" id="idTablaHistorialM">
                                                 <thead>
                                                     <tr>
                                                         <th>#</th>
@@ -117,33 +113,6 @@
                                                     </tr>
                                                 </thead>
                                                 <tbody>
-                                                    <tr>
-                                                        <td>1</td>
-                                                        <td>ALZ1</td>
-                                                        <td>Alzheimer Nivel 1</td>
-                                                        <td>01/01/2000</td>
-                                                        <td></td>
-                                                        <td></td>
-                                                        <td><a href=""><button type="button" class="btn btn-danger">Eliminar</button></a></td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td>2</td>
-                                                        <td>ALZ2</td>
-                                                        <td>Alzheimer Nivel 2</td>
-                                                        <td>01/01/2015</td>
-                                                        <td>Pepito perez</td>
-                                                        <td>Médico General</td>
-                                                        <td></td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td>3</td>
-                                                        <td>ALZ3</td>
-                                                        <td>Alzheimer Nivel 3</td>
-                                                        <td>01/01/2018</td>
-                                                        <td></td>
-                                                        <td></td>
-                                                        <td><a href=""><button type="button" class="btn btn-danger">Eliminar</button></a></td>
-                                                    </tr>
                                                 </tbody>
                                             </table>
                                         </div>

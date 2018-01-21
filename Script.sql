@@ -106,7 +106,8 @@ CREATE TABLE ENFERMEDAD (
     idPaciente INT UNSIGNED NOT NULL,
     idEnfermedad INT UNSIGNED NOT NULL,
     idPersonalSalud INT UNSIGNED NOT NULL,
-	fecha DATE
+	fecha DATE,
+	rol VARCHAR(20)
 ); 
 
 ALTER TABLE `entremente`.`HISTORIALMEDICO`

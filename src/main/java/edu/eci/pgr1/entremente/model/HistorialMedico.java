@@ -17,7 +17,7 @@ public class HistorialMedico {
     private String nombresPersonalSalud;
     private Enfermedad enfermedad;
     private String fecha;
-
+    private String rol;
     /**
      * Constructor Vacio
      */
@@ -138,6 +138,20 @@ public class HistorialMedico {
      */
     public void setFecha(String fecha) {
         this.fecha = fecha;
+    }
+
+    /**
+     * @return the rol
+     */
+    public String getRol() {
+        return rol;
+    }
+
+    /**
+     * @param rol the rol to set
+     */
+    public void setRol(String rol) {
+        this.rol = rol;
     }
     
     

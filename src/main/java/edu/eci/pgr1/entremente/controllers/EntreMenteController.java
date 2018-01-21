@@ -364,7 +364,7 @@ public class EntreMenteController {
         }    
     }
     
-    @RequestMapping(path = "/historialMedico/", method = RequestMethod.DELETE)
+    @RequestMapping(path = "/historialMedico", method = RequestMethod.DELETE)
     public ResponseEntity<?> manejadorHistorialMedicoEliminar(@RequestBody HistorialMedico historialMedico) {
         try {
             ems.eliminarHistorialMedico(historialMedico);
@@ -379,6 +379,16 @@ public class EntreMenteController {
     public ResponseEntity<?> manejadorConsultarHistorialMedico(@PathVariable("idPaciente") int idPaciente) {
         try {
             return new ResponseEntity<>(ems.consultarHistorialMedicoPaciente(idPaciente), HttpStatus.ACCEPTED);
+        } catch (PersistenceNotFoundException | PersistenceException ex) {
+            Logger.getLogger(EntreMenteController.class.getName()).log(Level.SEVERE, null, ex);
+            return new ResponseEntity<>(ex.getMessage(), HttpStatus.NOT_FOUND);
+        }
+    }
+    
+    @RequestMapping(path = "/enfermedades", method = RequestMethod.GET)
+    public ResponseEntity<?> manejadorEnfermedadesCargar() {
+        try {
+            return new ResponseEntity<>(ems.consultarEnfermedades(), HttpStatus.ACCEPTED);
         } catch (PersistenceNotFoundException | PersistenceException ex) {
             Logger.getLogger(EntreMenteController.class.getName()).log(Level.SEVERE, null, ex);
             return new ResponseEntity<>(ex.getMessage(), HttpStatus.NOT_FOUND);

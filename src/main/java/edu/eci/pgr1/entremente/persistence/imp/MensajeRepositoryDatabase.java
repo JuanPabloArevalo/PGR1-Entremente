@@ -82,7 +82,8 @@ public class MensajeRepositoryDatabase implements MensajeRepository{
         try {
             Class.forName(DatosBD.DRIVER);
             connect = DriverManager.getConnection(DatosBD.CONECTOR);
-            preparedStatement = connect.prepareStatement("SELECT *, STR_TO_DATE(M.Fecha, '%d/%m/%Y') as Fech FROM "+NOMBRETABLA+" M LEFT JOIN PACIENTE P ON (M.idPaciente=P.ID) LEFT JOIN PERSONALSALUD PS ON (M.idPersonalSalud=PS.ID) LEFT JOIN FAMILIAR F ON (M.idFamiliar=F.ID) WHERE idPaciente = '"+paciente.getId()+"' "+complemento+" ORDER BY M.Fecha");
+            preparedStatement = connect.prepareStatement("SELECT * FROM "+NOMBRETABLA+" M LEFT JOIN PACIENTE P ON (M.idPaciente=P.ID) LEFT JOIN PERSONALSALUD PS ON (M.idPersonalSalud=PS.ID) LEFT JOIN FAMILIAR F ON (M.idFamiliar=F.ID) WHERE idPaciente = '"+paciente.getId()+"' "+complemento+" ORDER BY M.Fecha");
+            System.out.println("SELECT *, STR_TO_DATE(M.Fecha, '%d/%m/%Y') as Fech FROM "+NOMBRETABLA+" M LEFT JOIN PACIENTE P ON (M.idPaciente=P.ID) LEFT JOIN PERSONALSALUD PS ON (M.idPersonalSalud=PS.ID) LEFT JOIN FAMILIAR F ON (M.idFamiliar=F.ID) WHERE idPaciente = '"+paciente.getId()+"' "+complemento+" ORDER BY M.Fecha");
             resultSet = preparedStatement.executeQuery();
             while(resultSet.next()){
                mensaje = new Mensaje();

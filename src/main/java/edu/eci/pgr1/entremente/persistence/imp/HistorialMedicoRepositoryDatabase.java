@@ -18,11 +18,13 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
+import org.springframework.stereotype.Service;
 
 /**
  *
  * @author JuanArevaloMerchan
  */
+@Service
 public class HistorialMedicoRepositoryDatabase implements HistorialMedicoRepository{
 
     private Connection connect = null;
@@ -37,11 +39,12 @@ public class HistorialMedicoRepositoryDatabase implements HistorialMedicoReposit
             Class.forName(DatosBD.DRIVER);
             connect = DriverManager.getConnection(DatosBD.CONECTOR);
             statement = connect.createStatement();
-            preparedStatement = connect.prepareStatement("INSERT INTO  "+NOMBRETABLA+" (idPaciente, idEnfermedad, idPersonalSalud, fecha) values (?, ?, ?, ?)");
+            preparedStatement = connect.prepareStatement("INSERT INTO  "+NOMBRETABLA+" (idPaciente, idEnfermedad, idPersonalSalud, fecha, rol) values (?, ?, ?, ?, ?)");
             preparedStatement.setString(1, historialM.getIdPaciente());
             preparedStatement.setInt(2, historialM.getEnfermedad().getId());
             preparedStatement.setString(3, historialM.getIdPersonalSalud());
             preparedStatement.setString(4, historialM.getFecha());
+            preparedStatement.setString(5, historialM.getRol());
             preparedStatement.executeUpdate();
         } catch (ClassNotFoundException | SQLException e) {
             throw new PersistenceNotFoundException(e.getMessage());
@@ -74,7 +77,7 @@ public class HistorialMedicoRepositoryDatabase implements HistorialMedicoReposit
         try {
             Class.forName(DatosBD.DRIVER);
             connect = DriverManager.getConnection(DatosBD.CONECTOR);
-            preparedStatement = connect.prepareStatement("SELECT * FROM "+NOMBRETABLA+" HM LEFT JOIN PACIENTE P ON (HM.idPaciente=P.ID) LEFT JOIN PERSONALSALUD PS ON (HM.idPersonalSalud=PS.ID) LEFT JOIN ENFERMEDAD E ON (HM.idEnfermedad=E.Id) WHERE HM.idPaciente = '"+paciente.getId()+"' ORDER BY M.Fecha");
+            preparedStatement = connect.prepareStatement("SELECT * FROM "+NOMBRETABLA+" HM LEFT JOIN PACIENTE P ON (HM.idPaciente=P.ID) LEFT JOIN PERSONALSALUD PS ON (HM.idPersonalSalud=PS.ID) LEFT JOIN ENFERMEDAD E ON (HM.idEnfermedad=E.Id) WHERE HM.idPaciente = '"+paciente.getId()+"' ORDER BY HM.Fecha");
             resultSet = preparedStatement.executeQuery();
             while(resultSet.next()){
                 historial = new HistorialMedico();
@@ -89,6 +92,7 @@ public class HistorialMedicoRepositoryDatabase implements HistorialMedicoReposit
                 historial.setIdPersonalSalud(resultSet.getString("HM.idPersonalSalud"));
                 historial.setNombresPaciente(resultSet.getString("P.nombres") + " "+resultSet.getString("P.apellidos"));
                 historial.setNombresPersonalSalud(resultSet.getString("PS.nombres") + " "+resultSet.getString("PS.apellidos"));
+                historial.setRol(resultSet.getString("HM.rol"));
                 historialMed.add(historial);
             }
         } catch (ClassNotFoundException | SQLException e) {

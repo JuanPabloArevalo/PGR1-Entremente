@@ -59,7 +59,29 @@ var apiclientPerfilPersonalSalud = (function(){
                 data: '{"id":0 ,"idPaciente":"'+idPaciente+'","idPersonalSalud":"'+idPersonalSalud+'", "fecha":"'+fecha+'" ,"mensaje":"'+mensaje+'","tipo":"'+tipo+'","rol":"'+rol+'","puedeVerPac":"'+puedeVerPac+'","nombreRemitente":"'+nombreRemitente+'","checkBox":"'+checkBox+'"}',
                 contentType: "application/json"
             });
-        }
+        },
+        getEnfermedades(){
+            return $.get("/entremente/V1/enfermedades");  
+        },
+        guardarHistorialMedico(idPaciente, idEnfermedad, idPersonalSalud, fecha, rol){
+            return $.ajax({
+                url:  "/entremente/V1/historialMedico",
+                type: "POST",
+                data: '{"id":0 ,"idPaciente":"'+idPaciente+'","idPersonalSalud":"'+idPersonalSalud+'", "fecha":"'+fecha+'" , "rol":"'+rol+'", "enfermedad" : {"id":'+idEnfermedad+'}}',
+                contentType: "application/json"
+            });
+        },
+        getHistorialMedico(idPaciente){
+            return $.get("/entremente/V1/historialMedico/"+idPaciente);  
+        },
+        eliminarHistorialMedico(id){
+            return $.ajax({
+                url:  "/entremente/V1/historialMedico",
+                type: "DELETE",
+                data: '{"id":'+id+',"idPaciente":"0"}',
+                contentType: "application/json"
+            });
+        },
     };
     
 }());

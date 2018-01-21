@@ -5,6 +5,7 @@
  */
 package edu.eci.pgr1.entremente.persistence;
 
+import edu.eci.pgr1.entremente.model.Enfermedad;
 import edu.eci.pgr1.entremente.model.HistorialMedico;
 import edu.eci.pgr1.entremente.model.Mensaje;
 import edu.eci.pgr1.entremente.model.Paciente;
@@ -37,5 +38,6 @@ public interface HistorialMedicoRepository {
      * @throws edu.eci.pgr1.entremente.persistence.PersistenceNotFoundException 
      */
     public ArrayList<HistorialMedico> traerHistorialMedicoDePaciente(Paciente paciente) throws PersistenceNotFoundException;
+
 
 }
