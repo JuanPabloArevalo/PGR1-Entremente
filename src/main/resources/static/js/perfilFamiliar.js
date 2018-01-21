@@ -39,6 +39,16 @@
     function inicializarElementosMensajes(){
         $(".filasMen").remove("tr");
     }
+    
+    
+    function adicionarFilaHistorialMedico(item){
+        var markup = "<tr class=\"filasHM\"><td>" + item.id + "</td><td>" + item.enfermedad.codigo + "</td><td>" + item.enfermedad.nombre + "</td><td>" + item.fecha + "</td><td>" + item.nombresPersonalSalud + "</td><td>" + item.rol + "</td></tr>";
+        $("#idTablaHistorialM").append(markup);
+    }
+
+    function inicializarElementosHistorialMedico(){
+        $(".filasHM").remove("tr");
+    }
 
 var perfilFamiliar = (function () {
     return{    
@@ -206,6 +216,7 @@ var perfilFamiliar = (function () {
                     perfilFamiliar.cargarMensajes();
                     //Cargar Historial Medico
                     perfilFamiliar.cargarHistorialMedico();
+                    
                 }
             }
         },
@@ -223,7 +234,17 @@ var perfilFamiliar = (function () {
             );
         },
         cargarHistorialMedico(){
-            
+            var idPaciente = sessionStorage.getItem("idPacienteConsultaPS");
+            var promesaConsulta = apiclientPerfilFamiliar.getHistorialMedico(idPaciente);
+            promesaConsulta.then(
+                function (datos) { 
+                    inicializarElementosHistorialMedico();
+                    datos.map(adicionarFilaHistorialMedico);
+                },
+                function (dato) {
+                    alert(dato.responseText);
+                }
+            );
         },
         initEnviarMensaje(){
             if ("undefined" === sessionStorage.getItem("id") || null === sessionStorage.getItem("id")) {

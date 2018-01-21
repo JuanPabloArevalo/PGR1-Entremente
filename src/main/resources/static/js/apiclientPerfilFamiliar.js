@@ -59,6 +59,9 @@ var apiclientPerfilFamiliar = (function(){
                 data: '{"id":0 ,"idPaciente":"'+idPaciente+'","idFamiliar":"'+idFamiliar+'", "fecha":"'+fecha+'" ,"mensaje":"'+mensaje+'","tipo":"'+tipo+'","rol":"'+rol+'","puedeVerPac":"'+puedeVerPac+'","nombreRemitente":"'+nombreRemitente+'","checkBox":"'+checkBox+'"}',
                 contentType: "application/json"
             });
+        },
+        getHistorialMedico(idPaciente){
+            return $.get("/entremente/V1/historialMedico/"+idPaciente);  
         }
     };
     
