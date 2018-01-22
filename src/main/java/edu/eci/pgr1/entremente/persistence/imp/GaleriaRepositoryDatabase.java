@@ -10,6 +10,7 @@ import edu.eci.pgr1.entremente.model.PreguntaGaleria;
 import edu.eci.pgr1.entremente.model.Relacion;
 import edu.eci.pgr1.entremente.model.RespuestaGaleria;
 import edu.eci.pgr1.entremente.persistence.GaleriaRepository;
+import edu.eci.pgr1.entremente.persistence.PersistenceException;
 import edu.eci.pgr1.entremente.persistence.PersistenceNotFoundException;
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -35,7 +36,7 @@ public class GaleriaRepositoryDatabase implements GaleriaRepository{
     
     
     @Override
-    public Set<PreguntaGaleria> traerPreguntas(int nivel, Paciente paciente) throws PersistenceNotFoundException {
+    public Set<PreguntaGaleria> traerPreguntas(int nivel, Paciente paciente) throws PersistenceNotFoundException, PersistenceException {
         Set<PreguntaGaleria> preguntas = new HashSet<>();
         Set<RespuestaGaleria> respuestas = null;
         PreguntaGaleria pregunta = null;
@@ -46,7 +47,7 @@ public class GaleriaRepositoryDatabase implements GaleriaRepository{
         try {
             Class.forName(DatosBD.DRIVER);
             connect = DriverManager.getConnection(DatosBD.CONECTOR);
-            preparedStatement = connect.prepareStatement("SELECT * FROM "+NOMBRETABLA+" JGP LEFT JOIN PREGUNTAGALERIA PG ON (JGP.idPreguntaGaleria=PG.ID) WHERE JGP.nivelPersonalizado = '"+nivel+"' AND JGP.idPaciente = '"+paciente.getId()+"'");
+            preparedStatement = connect.prepareStatement("SELECT * FROM "+NOMBRETABLA+" JGP LEFT JOIN PREGUNTAGALERIA PG ON (JGP.idPreguntaGaleria=PG.ID) WHERE JGP.nivelPersonalizado = '"+nivel+"' AND JGP.idPaciente = '"+paciente.getId()+"' AND ESTADO = '"+PreguntaGaleria.ESTADOACTIVO+"'");
             resultSet = preparedStatement.executeQuery();
             while(resultSet.next()){
                 pregunta = new PreguntaGaleria();
@@ -87,11 +88,15 @@ public class GaleriaRepositoryDatabase implements GaleriaRepository{
         } finally {
             close();
         }
+        if(preguntas.isEmpty()){
+            throw new PersistenceException("No hay preguntas para el nivel "+nivel);
+        }
+        
         return preguntas;
     }
 
     @Override
-    public Set<PreguntaGaleria> traerPreguntasPredeterminadas(int nivel) {
+    public Set<PreguntaGaleria> traerPreguntasPredeterminadas(int nivel) throws PersistenceNotFoundException, PersistenceException{
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
     

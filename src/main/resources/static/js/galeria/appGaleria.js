@@ -49,7 +49,7 @@ var appGaleria = (function(){
             
         },
         trearSiguientePregunta:function(){
-            apimockGaleria.getPreguntaAleatorea(nivel, function(preguntaToda){
+            apiclientGaleria.getPreguntaAleatorea(nivel, function(preguntaToda){
             	pregunta = preguntaToda;
             	$("#idNivel").text(nivel);
             	$("#idCantidadPreguntasBien").text(preguntasCorrectasTemporales );
@@ -65,7 +65,22 @@ var appGaleria = (function(){
     		} });
         },
         init:function(){
-            appGaleria.trearSiguientePregunta();
+            console.info(sessionStorage.getItem("id"));
+            apiclientGaleria.cargarPreguntas(sessionStorage.getItem("id"),nivel, function(preguntaToda){
+            	pregunta = preguntaToda;
+            	$("#idNivel").text(nivel);
+            	$("#idCantidadPreguntasBien").text(preguntasCorrectasTemporales );
+            	$("#idCantidadPreguntasTotalNivel").text(cantidaPreguntasPorNivel );
+            	$("#idImagenPregunta").attr("src",preguntaToda.imagen);
+		$("#idPregunta").text(preguntaToda.pregunta);
+		$("#idMasInformacion").text(preguntaToda.informacion);
+		preguntaToda.respuestas= preguntaToda.respuestas.sort(function() {return Math.random() - 0.5});
+		for (var i=0; i<4; i++) {
+			$("#idBoton"+i).text(preguntaToda.respuestas[i].opcion);
+			$("#idBoton"+i).attr("onclick","appGaleria.validarRespuesta('"+preguntaToda.respuestas[i].opcion+"')");
+			$("#idBoton"+i).attr("class","btn btn-success letraTextos "+preguntaToda.respuestas[i].opcion);
+    		} }
+            );
         },
         getPReguntasCorrectas:function(){
         	return preguntasCorrectas ;
@@ -75,12 +90,12 @@ var appGaleria = (function(){
         		nivelMaximoAlcanzado++;
         	}
         	nivel ++;
-        	apimockGaleria.cambiarNivel(nivel);
+        	apiclientGaleria.cambiarNivel(nivel);
         	preguntasCorrectasTemporales = 1;
         },
         bajarNivel: function(){
         	nivel --;
-        	apimockGaleria.cambiarNivel(nivel);
+        	apiclientGaleria.cambiarNivel(nivel);
         	preguntasCorrectasTemporales = cantidaPreguntasPorNivel;
         	
         },
@@ -101,7 +116,7 @@ var appGaleria = (function(){
         }, 
         iniciarNivel : function(){
         	nivel=1; 
-        	apimockGaleria.cambiarNivel(nivel);
+        	apiclientGaleria.cambiarNivel(nivel);
         	preguntasCorrectasTemporales = 1;
         },
         traerTiempoJugado:function(){

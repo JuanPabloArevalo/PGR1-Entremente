@@ -19,8 +19,10 @@ public interface GaleriaRepository {
      * @param nivel
      * @param paciente
      * @return 
+     * @throws edu.eci.pgr1.entremente.persistence.PersistenceNotFoundException 
+     * @throws edu.eci.pgr1.entremente.persistence.PersistenceException 
      */
-    public Set<PreguntaGaleria> traerPreguntas(int nivel, Paciente paciente) throws PersistenceNotFoundException;
+    public Set<PreguntaGaleria> traerPreguntas(int nivel, Paciente paciente) throws PersistenceNotFoundException, PersistenceException;
     
     /**
      * Metodo encargado de traer las preguntas de la galeria, pasandole el nivel por parametro
@@ -28,5 +30,5 @@ public interface GaleriaRepository {
      * @return 
      * @throws edu.eci.pgr1.entremente.persistence.PersistenceNotFoundException 
      */
-    public Set<PreguntaGaleria> traerPreguntasPredeterminadas(int nivel) throws PersistenceNotFoundException;    
+    public Set<PreguntaGaleria> traerPreguntasPredeterminadas(int nivel) throws PersistenceNotFoundException, PersistenceException;    
 }

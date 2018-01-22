@@ -30,11 +30,11 @@ public class EntreMenteControllerJuegos {
     @Autowired
     private EntreMenteServicesJuegos emsj = null;
     
-    @RequestMapping(path = "/galeria/{idPaciente}/{nivel}", method = RequestMethod.GET)
-    public ResponseEntity<?> manejadorConsultarGaleria(@PathVariable("idPaciente") int idPaciente, @PathVariable("nivel") int nivel) {
+    @RequestMapping(path = "/galeria/{idPaciente}", method = RequestMethod.GET)
+    public ResponseEntity<?> manejadorConsultarGaleria(@PathVariable("idPaciente") int idPaciente) {
         try {
-            return new ResponseEntity<>(emsj.getPreguntas(nivel, idPaciente), HttpStatus.ACCEPTED);
-        } catch (PersistenceNotFoundException ex) {
+            return new ResponseEntity<>(emsj.getPreguntas(idPaciente), HttpStatus.ACCEPTED);
+        } catch (PersistenceNotFoundException  | PersistenceException ex) {
             Logger.getLogger(EntreMenteController.class.getName()).log(Level.SEVERE, null, ex);
             return new ResponseEntity<>(ex.getMessage(), HttpStatus.NOT_FOUND);
         }

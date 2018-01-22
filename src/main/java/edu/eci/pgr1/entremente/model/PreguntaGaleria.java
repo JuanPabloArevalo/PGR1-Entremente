@@ -13,6 +13,9 @@ import java.util.Set;
  */
 public class PreguntaGaleria {
     
+    public static final String ESTADOACTIVO = "A";
+    public static final String ESTADOINACTIVO = "I";
+    
     private String pregunta;
     private String imagen;
     private String informacion;

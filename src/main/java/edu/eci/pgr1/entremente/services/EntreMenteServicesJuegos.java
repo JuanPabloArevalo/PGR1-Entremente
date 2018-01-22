@@ -10,7 +10,9 @@ import edu.eci.pgr1.entremente.model.PreguntaGaleria;
 import edu.eci.pgr1.entremente.model.Relacion;
 import edu.eci.pgr1.entremente.persistence.GaleriaRepository;
 import edu.eci.pgr1.entremente.persistence.PacienteRepository;
+import edu.eci.pgr1.entremente.persistence.PersistenceException;
 import edu.eci.pgr1.entremente.persistence.PersistenceNotFoundException;
+import java.util.ArrayList;
 import java.util.Set;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -26,15 +28,19 @@ public class EntreMenteServicesJuegos {
     private GaleriaRepository galeria;
     
     /**
-     * Metodo encargado de traer todas las preguntas segun Nivel y paciente pasado por parametro
-     * @param nivel
+     * Metodo encargado de traer todas las preguntas del juego Galeria
      * @param idPaciente
      * @return
      * @throws PersistenceNotFoundException 
      */
-    public Set<PreguntaGaleria> getPreguntas(int nivel, int idPaciente) throws PersistenceNotFoundException{
+    public ArrayList<Set<PreguntaGaleria>> getPreguntas(int idPaciente) throws PersistenceNotFoundException, PersistenceException{
         Paciente paciente = new Paciente();
         paciente.setId(idPaciente);
-        return galeria.traerPreguntas(nivel, paciente);
+        ArrayList<Set<PreguntaGaleria>> arreglo = new ArrayList<>();
+        arreglo.add(galeria.traerPreguntas(1, paciente));
+        arreglo.add(galeria.traerPreguntas(2, paciente));
+        arreglo.add(galeria.traerPreguntas(3, paciente));
+        arreglo.add(galeria.traerPreguntas(4, paciente));
+        return arreglo;
     }
 }
