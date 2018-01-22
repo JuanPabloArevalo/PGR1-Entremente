@@ -94,12 +94,6 @@ public class GaleriaRepositoryDatabase implements GaleriaRepository{
         
         return preguntas;
     }
-
-    @Override
-    public Set<PreguntaGaleria> traerPreguntasPredeterminadas(int nivel) throws PersistenceNotFoundException, PersistenceException{
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-    
     /**
      * Metodo encargado de cerrar la conexión
      */

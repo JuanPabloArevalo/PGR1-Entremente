@@ -24,11 +24,4 @@ public interface GaleriaRepository {
      */
     public Set<PreguntaGaleria> traerPreguntas(int nivel, Paciente paciente) throws PersistenceNotFoundException, PersistenceException;
     
-    /**
-     * Metodo encargado de traer las preguntas de la galeria, pasandole el nivel por parametro
-     * @param nivel
-     * @return 
-     * @throws edu.eci.pgr1.entremente.persistence.PersistenceNotFoundException 
-     */
-    public Set<PreguntaGaleria> traerPreguntasPredeterminadas(int nivel) throws PersistenceNotFoundException, PersistenceException;    
 }
