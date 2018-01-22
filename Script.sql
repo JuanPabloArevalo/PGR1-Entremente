@@ -129,6 +129,30 @@ ADD CONSTRAINT `FK_HMPS`
   REFERENCES `entremente`.`PERSONALSALUD` (`id`)
   ON DELETE NO ACTION
   ON UPDATE NO ACTION;
-   
+
+ CREATE TABLE PREGUNTAGALERIA (
+	id INT(8) UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+	pregunta VARCHAR(500),
+	imagen VARCHAR(1500),
+	informacion VARCHAR(3000),
+	opcionA VARCHAR(80),
+	opcionB VARCHAR(80),
+	opcionC VARCHAR(80),
+	opcionD VARCHAR(80),
+	nivelPredeterminado INT(5),
+	personalizado VARCHAR(1),
+	correctaA VARCHAR(1),
+	correctaB VARCHAR(1),
+	correctaC VARCHAR(1),
+	correctaD VARCHAR(1)
+);   
+  
+ CREATE TABLE JUEGOGALERIAPACIENTE (
+	id INT(8) UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+    idPaciente INT UNSIGNED NOT NULL,
+    idPreguntaGaleria INT UNSIGNED NOT NULL,
+    nivelPersonalizado INT(5),
+	estado VARCHAR(1)
+); 
   
 

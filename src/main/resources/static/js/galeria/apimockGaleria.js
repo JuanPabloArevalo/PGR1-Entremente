@@ -52,7 +52,7 @@ var apimockGaleria=(function(){
             },
             {"pregunta":"¿Como es el nombre de este famoso personaje animado?","imagen":"image\\Galeria\\MickeyMouse.jpg", "informacion":"Emblema de la compañía Disney. Creado el 18 de noviembre de 1928. Tomado de wikipedia", "respuestas":[
             	{"opcion":"Mickey Mouse","respuestaCorrecta":"S"},
-            	{"opcion":"Minnie mouse","respuestaCorrecta":"N"},
+            	{"opcion":"Minnie Mouse","respuestaCorrecta":"N"},
             	{"opcion":"Pluto","respuestaCorrecta":"N"},
             	{"opcion":"Jerry","respuestaCorrecta":"N"}]
             }
@@ -245,7 +245,7 @@ var apimockGaleria=(function(){
 	return {
 		getPreguntaAleatorea:function(nivel,callback){
 			if(arregloIndices.length===0){
-				apimockGaleria.llenarArreglo(nivel);
+                            apimockGaleria.llenarArreglo(nivel);
 			}
 			
 			var numero = getRandomArbitrary(arregloIndices);
