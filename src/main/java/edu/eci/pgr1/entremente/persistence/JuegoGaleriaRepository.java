@@ -13,7 +13,7 @@ import java.util.Set;
  *
  * @author JuanArevaloMerchan
  */
-public interface GaleriaRepository {
+public interface JuegoGaleriaRepository {
     /**
      * Metodo encargado de traer las preguntas de la galeria, pasandole el nivel por parametro del paciente pasado
      * @param nivel

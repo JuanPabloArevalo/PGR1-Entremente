@@ -7,7 +7,6 @@ package edu.eci.pgr1.entremente.controllers;
 
 import edu.eci.pgr1.entremente.persistence.PersistenceException;
 import edu.eci.pgr1.entremente.persistence.PersistenceNotFoundException;
-import edu.eci.pgr1.entremente.services.EntreMenteServices;
 import edu.eci.pgr1.entremente.services.EntreMenteServicesJuegos;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -33,10 +32,20 @@ public class EntreMenteControllerJuegos {
     @RequestMapping(path = "/galeria/{idPaciente}", method = RequestMethod.GET)
     public ResponseEntity<?> manejadorConsultarGaleria(@PathVariable("idPaciente") int idPaciente) {
         try {
-            return new ResponseEntity<>(emsj.getPreguntas(idPaciente), HttpStatus.ACCEPTED);
+            return new ResponseEntity<>(emsj.getPreguntasGaleria(idPaciente), HttpStatus.ACCEPTED);
         } catch (PersistenceNotFoundException  | PersistenceException ex) {
             Logger.getLogger(EntreMenteController.class.getName()).log(Level.SEVERE, null, ex);
             return new ResponseEntity<>(ex.getMessage(), HttpStatus.NOT_FOUND);
         }
     }    
+    
+    @RequestMapping(path = "/atencion/{idPaciente}", method = RequestMethod.GET)
+    public ResponseEntity<?> manejadorConsultarAtencion(@PathVariable("idPaciente") int idPaciente) {
+        try {
+            return new ResponseEntity<>(emsj.getPreguntasAtencion(idPaciente), HttpStatus.ACCEPTED);
+        } catch (PersistenceNotFoundException  | PersistenceException ex) {
+            Logger.getLogger(EntreMenteController.class.getName()).log(Level.SEVERE, null, ex);
+            return new ResponseEntity<>(ex.getMessage(), HttpStatus.NOT_FOUND);
+        }
+    }  
 }

@@ -7,9 +7,7 @@ package edu.eci.pgr1.entremente.persistence.imp;
 
 import edu.eci.pgr1.entremente.model.Paciente;
 import edu.eci.pgr1.entremente.model.PreguntaGaleria;
-import edu.eci.pgr1.entremente.model.Relacion;
 import edu.eci.pgr1.entremente.model.RespuestaGaleria;
-import edu.eci.pgr1.entremente.persistence.GaleriaRepository;
 import edu.eci.pgr1.entremente.persistence.PersistenceException;
 import edu.eci.pgr1.entremente.persistence.PersistenceNotFoundException;
 import java.sql.Connection;
@@ -21,13 +19,14 @@ import java.sql.Statement;
 import java.util.HashSet;
 import java.util.Set;
 import org.springframework.stereotype.Service;
+import edu.eci.pgr1.entremente.persistence.JuegoGaleriaRepository;
 
 /**
  *
  * @author JuanArevaloMerchan
  */
 @Service
-public class GaleriaRepositoryDatabase implements GaleriaRepository{
+public class JuegoGaleriaRepositoryDatabase implements JuegoGaleriaRepository{
     private Connection connect = null;
     private Statement statement = null;
     private PreparedStatement preparedStatement = null;
@@ -54,7 +53,7 @@ public class GaleriaRepositoryDatabase implements GaleriaRepository{
                 pregunta.setImagen(resultSet.getString("PG.Imagen"));
                 pregunta.setInformacion(resultSet.getString("PG.informacion"));
                 pregunta.setNivel(nivel);
-                pregunta.setPersonalizado("S");
+                pregunta.setPersonalizado("N");
                 pregunta.setPregunta(resultSet.getString("PG.pregunta"));
                 pregunta.setId(resultSet.getInt("JGP.id"));
                 pregunta.setIdPregunta(resultSet.getInt("JGP.idPreguntaGaleria"));
