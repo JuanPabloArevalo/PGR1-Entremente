@@ -9,7 +9,6 @@ import edu.eci.pgr1.entremente.model.Paciente;
 import edu.eci.pgr1.entremente.model.PreguntaAtencion;
 import edu.eci.pgr1.entremente.model.PreguntaGaleria;
 import edu.eci.pgr1.entremente.model.RespuestaAtencion;
-import edu.eci.pgr1.entremente.model.RespuestaGaleria;
 import edu.eci.pgr1.entremente.persistence.JuegoAtencionRepository;
 import edu.eci.pgr1.entremente.persistence.PersistenceException;
 import edu.eci.pgr1.entremente.persistence.PersistenceNotFoundException;
@@ -21,11 +20,13 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.HashSet;
 import java.util.Set;
+import org.springframework.stereotype.Service;
 
 /**
  *
  * @author Administrador
  */
+@Service
 public class JuegoAtencionRepositoryDatabase implements JuegoAtencionRepository{
     private Connection connect = null;
     private Statement statement = null;

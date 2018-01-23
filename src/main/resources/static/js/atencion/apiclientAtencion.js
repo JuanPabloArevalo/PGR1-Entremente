@@ -3,21 +3,26 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
+/* 
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
 var arregloIndices= [];
 var mockdata=[];
 var arreglo;
 
-var apiclientGaleria = (function(){
+var apiclientAtencion = (function(){
     return{
         cargarPreguntas(idPaciente, nivel, callback){
-            var promesa2 = $.get("/entremente/V1/juegos/galeria/"+idPaciente);
+            var promesa2 = $.get("/entremente/V1/juegos/atencion/"+idPaciente);
             promesa2.then(
                 function () { 
                     mockdata[1] = promesa2.responseJSON[0];
                     mockdata[2] = promesa2.responseJSON[1];
                     mockdata[3] = promesa2.responseJSON[2];
                     mockdata[4] = promesa2.responseJSON[3];
-                    apiclientGaleria.getPreguntaAleatorea(nivel,callback);
+                    apiclientAtencion.getPreguntaAleatorea(nivel,callback);
                 },
                 function (dato) {
                     alert(dato.responseText);
@@ -26,7 +31,7 @@ var apiclientGaleria = (function(){
         },
         getPreguntaAleatorea:function(nivel,callback){
             if(arregloIndices.length===0){
-                apiclientGaleria.llenarArreglo(nivel);
+                apiclientAtencion.llenarArreglo(nivel);
             }
             
             var numero = getRandomArbitrary(arregloIndices);
@@ -45,7 +50,7 @@ var apiclientGaleria = (function(){
         },
         cambiarNivel:function(nivel){
                 arregloIndices= [];
-                apiclientGaleria.llenarArreglo(nivel);	
+                apiclientAtencion.llenarArreglo(nivel);	
         },
         getArreglo:function(nivel){
                 return arregloIndices;
@@ -57,3 +62,4 @@ var apiclientGaleria = (function(){
 function getRandomArbitrary(arrgloIndices) {
   	return parseInt(Math.random() * (arrgloIndices.length));
 }
+

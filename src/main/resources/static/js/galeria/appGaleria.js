@@ -65,7 +65,6 @@ var appGaleria = (function(){
     		} });
         },
         init:function(){
-            console.info(sessionStorage.getItem("id"));
             apiclientGaleria.cargarPreguntas(sessionStorage.getItem("id"),nivel, function(preguntaToda){
             	pregunta = preguntaToda;
             	$("#idNivel").text(nivel);

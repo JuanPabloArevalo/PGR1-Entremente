@@ -14,7 +14,7 @@ var appAtencion = (function(){
     
     return{
         validarRespuesta:function(Boton){
-        	console.info(opcionesQueTieneQueSeleccionar );
+//        	console.info(opcionesQueTieneQueSeleccionar );
         	var palabraClave = pregunta.palabraClave;
         	var id = "#"+Boton.id;
         	var respuesta = Boton.name;
@@ -66,7 +66,7 @@ var appAtencion = (function(){
         },
         
         trearSiguientePregunta:function(){
-            apimockAtencion.getPreguntaAleatorea(nivel, function(preguntaToda){
+            apiclientAtencion.getPreguntaAleatorea(nivel, function(preguntaToda){
             	pregunta = preguntaToda;
             	opcionesQueTieneQueSeleccionar =0;
             	for(var i=0; i<4;i++){
@@ -90,7 +90,30 @@ var appAtencion = (function(){
     		} });
         },
         init:function(){
-            appAtencion.trearSiguientePregunta();
+            
+            apiclientAtencion.cargarPreguntas(sessionStorage.getItem("id"),nivel, function(preguntaToda){
+            	pregunta = preguntaToda;
+            	opcionesQueTieneQueSeleccionar =0;
+            	for(var i=0; i<4;i++){
+			if(pregunta.respuestas[i].respuestaCorrecta === "S"){
+				opcionesQueTieneQueSeleccionar ++; 
+			}
+		}
+		
+            	opcionesSeleccionadas  = 0;
+            	$("#idNivel").text(nivel);
+            	$("#idCantidadPreguntasBien").text(preguntasCorrectasTemporales );
+            	$("#idCantidadPreguntasTotalNivel").text(cantidaPreguntasPorNivel );
+            	$("#idImagenPregunta").attr("src",preguntaToda.imagen);
+		$("#idPregunta").text(preguntaToda.pregunta);
+		preguntaToda.respuestas= preguntaToda.respuestas.sort(function() {return Math.random() - 0.5});
+		for (var i=0; i<4; i++) {
+			var idP ="#idImagen"+i;
+			$("#idImagen"+i).attr("src",preguntaToda.respuestas[i].opcion);
+			$("#idImagen"+i).attr("name",preguntaToda.respuestas[i].palabraClave);
+			$("#idImagen"+i).attr("onclick","appAtencion.validarRespuesta(this)");
+    		} }
+            );
         },
         getPReguntasCorrectas:function(){
         	return preguntasCorrectas ;
@@ -100,12 +123,12 @@ var appAtencion = (function(){
         		nivelMaximoAlcanzado++;
         	}
         	nivel ++;
-        	apimockAtencion.cambiarNivel(nivel);
+        	apiclientAtencion.cambiarNivel(nivel);
         	preguntasCorrectasTemporales = 1;
         },
         bajarNivel: function(){
         	nivel --;
-        	apimockAtencion.cambiarNivel(nivel);
+        	apiclientAtencion.cambiarNivel(nivel);
         	preguntasCorrectasTemporales = cantidaPreguntasPorNivel;
         	
         },
@@ -123,7 +146,7 @@ var appAtencion = (function(){
         }, 
         iniciarNivel : function(){
         	nivel=1; 
-        	apimockAtencion.cambiarNivel(nivel);
+        	apiclientAtencion.cambiarNivel(nivel);
         	preguntasCorrectasTemporales = 1;
         },
         traerTiempoJugado:function(){
