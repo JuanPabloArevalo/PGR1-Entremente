@@ -216,3 +216,127 @@ ADD CONSTRAINT `FK_JAPPAt`
   REFERENCES `entremente`.`PREGUNTAATENCION` (`id`)
   ON DELETE NO ACTION
   ON UPDATE NO ACTION;
+  
+ CREATE TABLE PREGUNTAFORMAS (
+	id INT(8) UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+	pregunta VARCHAR(500),
+	imagen VARCHAR(1500),
+	opcionA VARCHAR(80),
+	opcionB VARCHAR(80),
+	opcionC VARCHAR(80),
+	opcionD VARCHAR(80),
+	nivelPredeterminado INT(5),
+	personalizado VARCHAR(1),
+	correctaA VARCHAR(1),
+	correctaB VARCHAR(1),
+	correctaC VARCHAR(1),
+	correctaD VARCHAR(1)
+);   
+  
+ CREATE TABLE JUEGOFORMASPACIENTE (
+	id INT(8) UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+    idPaciente INT UNSIGNED NOT NULL,
+    idPreguntaFormas INT UNSIGNED NOT NULL,
+    nivelPersonalizado INT(5),
+	estado VARCHAR(1)
+); 
+  
+
+ALTER TABLE `entremente`.`JUEGOFORMASPACIENTE`
+ADD INDEX `FK_JFPPac_idx` (`idPaciente` ASC),
+ADD INDEX `FK_JFPPG_idx` (`idPreguntaGaleria` ASC);
+ALTER TABLE `entremente`.`JUEGOFORMASPACIENTE`
+ADD CONSTRAINT `FK_JFPPa`
+  FOREIGN KEY (`idPaciente`)
+  REFERENCES `entremente`.`PACIENTE` (`id`)
+  ON DELETE NO ACTION
+  ON UPDATE NO ACTION,
+ADD CONSTRAINT `FK_JFPPG`
+  FOREIGN KEY (`idPreguntaFormas`)
+  REFERENCES `entremente`.`PREGUNTAFORMAS` (`id`)
+  ON DELETE NO ACTION
+  ON UPDATE NO ACTION;  
+  
+  
+ CREATE TABLE PREGUNTAPERCEPCION (
+	id INT(8) UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+	pregunta VARCHAR(500),
+	imagen VARCHAR(1500),
+	opcionA VARCHAR(80),
+	opcionB VARCHAR(80),
+	opcionC VARCHAR(80),
+	opcionD VARCHAR(80),
+	nivelPredeterminado INT(5),
+	personalizado VARCHAR(1),
+	correctaA VARCHAR(1),
+	correctaB VARCHAR(1),
+	correctaC VARCHAR(1),
+	correctaD VARCHAR(1)
+);   
+  
+ CREATE TABLE JUEGOPERCEPCIONPACIENTE (
+	id INT(8) UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+    idPaciente INT UNSIGNED NOT NULL,
+    idPreguntaPercepcion INT UNSIGNED NOT NULL,
+    nivelPersonalizado INT(5),
+	estado VARCHAR(1)
+); 
+  
+
+ALTER TABLE `entremente`.`JUEGOPERCEPCIONPACIENTE`
+ADD INDEX `FK_JPPPac_idx` (`idPaciente` ASC),
+ADD INDEX `FK_JPPPG_idx` (`idPreguntaPercepcion` ASC);
+ALTER TABLE `entremente`.`JUEGOPERCEPCIONPACIENTE`
+ADD CONSTRAINT `FK_JPPPa`
+  FOREIGN KEY (`idPaciente`)
+  REFERENCES `entremente`.`PACIENTE` (`id`)
+  ON DELETE NO ACTION
+  ON UPDATE NO ACTION,
+ADD CONSTRAINT `FK_JPPPG`
+  FOREIGN KEY (`idPreguntaPercepcion`)
+  REFERENCES `entremente`.`PREGUNTAPERCEPCION` (`id`)
+  ON DELETE NO ACTION
+  ON UPDATE NO ACTION;  
+  
+  
+  
+ CREATE TABLE PREGUNTACALCULO (
+	id INT(8) UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+	operacion VARCHAR(500),
+	opcionA VARCHAR(80),
+	opcionB VARCHAR(80),
+	opcionC VARCHAR(80),
+	opcionD VARCHAR(80),
+	nivelPredeterminado INT(5),
+	personalizado VARCHAR(1),
+	correctaA VARCHAR(1),
+	correctaB VARCHAR(1),
+	correctaC VARCHAR(1),
+	correctaD VARCHAR(1)
+);   
+  
+ CREATE TABLE JUEGOCALCULOPACIENTE (
+	id INT(8) UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+    idPaciente INT UNSIGNED NOT NULL,
+    idPreguntaCalculo INT UNSIGNED NOT NULL,
+    nivelPersonalizado INT(5),
+	estado VARCHAR(1)
+); 
+  
+
+ALTER TABLE `entremente`.`JUEGOCALCULOPACIENTE`
+ADD INDEX `FK_JCPPac_idx` (`idPaciente` ASC),
+ADD INDEX `FK_JCPPG_idx` (`idPreguntaCalculo` ASC);
+ALTER TABLE `entremente`.`JUEGOCALCULOPACIENTE`
+ADD CONSTRAINT `FK_JCPPa`
+  FOREIGN KEY (`idPaciente`)
+  REFERENCES `entremente`.`PACIENTE` (`id`)
+  ON DELETE NO ACTION
+  ON UPDATE NO ACTION,
+ADD CONSTRAINT `FK_JCPPG`
+  FOREIGN KEY (`idPreguntaCalculo`)
+  REFERENCES `entremente`.`PREGUNTACALCULO` (`id`)
+  ON DELETE NO ACTION
+  ON UPDATE NO ACTION;  
+  
+  
