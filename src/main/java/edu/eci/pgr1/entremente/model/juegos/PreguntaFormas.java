@@ -3,31 +3,31 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package edu.eci.pgr1.entremente.model;
+package edu.eci.pgr1.entremente.model.juegos;
 
+import edu.eci.pgr1.entremente.model.juegos.RespuestaFormas;
 import java.util.Set;
 
 /**
  *
  * @author JuanArevaloMerchan
  */
-public class PreguntaGaleria {
-    
+public class PreguntaFormas {
     public static final String ESTADOACTIVO = "A";
     public static final String ESTADOINACTIVO = "I";
     
     private String pregunta;
     private String imagen;
-    private String informacion;
-    private Set<RespuestaGaleria> respuestas;
+    private Set<RespuestaFormas> respuestas;
     private int nivel;
     private String personalizado;
     private int id;
     private int idPregunta;
+    
     /**
      * Constructor Vacio
      */
-    public PreguntaGaleria(){
+    public PreguntaFormas(){
         
     }
 
@@ -35,17 +35,15 @@ public class PreguntaGaleria {
      * Constructor con datos
      * @param pregunta
      * @param imagen
-     * @param informacion
      * @param respuestas
      * @param nivel
      * @param personalizado 
      * @param id 
      * @param idPregunta 
      */
-    public PreguntaGaleria(String pregunta, String imagen, String informacion, Set<RespuestaGaleria> respuestas, int nivel, String personalizado, int id, int idPregunta){
+    public PreguntaFormas(String pregunta, String imagen, Set<RespuestaFormas> respuestas, int nivel, String personalizado, int id, int idPregunta){
         this.pregunta = pregunta;
         this.imagen = imagen;
-        this.informacion = informacion;
         this.respuestas = respuestas;
         this.nivel = nivel;
         this.personalizado = personalizado;
@@ -80,31 +78,18 @@ public class PreguntaGaleria {
         this.imagen = imagen;
     }
 
-    /**
-     * @return the informacion
-     */
-    public String getInformacion() {
-        return informacion;
-    }
-
-    /**
-     * @param informacion the informacion to set
-     */
-    public void setInformacion(String informacion) {
-        this.informacion = informacion;
-    }
 
     /**
      * @return the respuestas
      */
-    public Set<RespuestaGaleria> getRespuestas() {
+    public Set<RespuestaFormas> getRespuestas() {
         return respuestas;
     }
 
     /**
      * @param respuestas the respuestas to set
      */
-    public void setRespuestas(Set<RespuestaGaleria> respuestas) {
+    public void setRespuestas(Set<RespuestaFormas> respuestas) {
         this.respuestas = respuestas;
     }
 
@@ -163,7 +148,4 @@ public class PreguntaGaleria {
     public void setIdPregunta(int idPregunta) {
         this.idPregunta = idPregunta;
     }
-    
-    
-    
 }

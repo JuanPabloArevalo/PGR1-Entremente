@@ -1,3 +1,5 @@
+/* global apiclientCalculemos */
+
 var appCalculemos = (function(){
     const cantidaPreguntasPorNivel = 8;
     const nivelMaximo = 4;
@@ -14,7 +16,7 @@ var appCalculemos = (function(){
     return{
         validarRespuesta:function(Nombre){
         	var respuesta = pregunta.respuestas.filter(traerNombreCorrecto);
-        	if(respuesta[0].opcion == Nombre){
+        	if(respuesta[0].opcion === Nombre){
         		preguntasCorrectasTemporales ++;
         		if(preguntasCorrectasTemporales > cantidaPreguntasPorNivel && nivel<nivelMaximo){
 		        	$('#modalSubirNivel').modal('show');
@@ -51,13 +53,13 @@ var appCalculemos = (function(){
             
         },
         trearSiguientePregunta:function(){
-            apimockCalculemos.getPreguntaAleatorea(nivel, function(preguntaToda){
+            apiclientCalculemos.getPreguntaAleatorea(nivel, function(preguntaToda){
             	pregunta = preguntaToda;
             	$("#idNivel").text(nivel);
             	$("#idCantidadPreguntasBien").text(preguntasCorrectasTemporales );
             	$("#idCantidadPreguntasTotalNivel").text(cantidaPreguntasPorNivel );
 		$("#idOperacion").text(preguntaToda.operacion);
-		preguntaToda.respuestas= preguntaToda.respuestas.sort(function() {return Math.random() - 0.5});
+		preguntaToda.respuestas= preguntaToda.respuestas.sort(function() {return Math.random() - 0.5;});
 		for (var i=0; i<4; i++) {
 			$("#idBoton"+i).text(preguntaToda.respuestas[i].opcion);
 			$("#idBoton"+i).attr("onclick","appCalculemos.validarRespuesta('"+preguntaToda.respuestas[i].opcion+"')");
@@ -65,32 +67,43 @@ var appCalculemos = (function(){
     		} });
         },
         init:function(){
-            appCalculemos.trearSiguientePregunta();
+            apiclientCalculemos.cargarPreguntas(sessionStorage.getItem("id"),nivel, function(preguntaToda){
+            	pregunta = preguntaToda;
+            	$("#idNivel").text(nivel);
+            	$("#idCantidadPreguntasBien").text(preguntasCorrectasTemporales );
+            	$("#idCantidadPreguntasTotalNivel").text(cantidaPreguntasPorNivel );
+		$("#idOperacion").text(preguntaToda.operacion);
+		preguntaToda.respuestas= preguntaToda.respuestas.sort(function() {return Math.random() - 0.5;});
+		for (var i=0; i<4; i++) {
+			$("#idBoton"+i).text(preguntaToda.respuestas[i].opcion);
+			$("#idBoton"+i).attr("onclick","appCalculemos.validarRespuesta('"+preguntaToda.respuestas[i].opcion+"')");
+			$("#idBoton"+i).attr("class","btn btn-success botonOperacion "+preguntaToda.respuestas[i].opcion);
+    		} });
         },
         getPReguntasCorrectas:function(){
         	return preguntasCorrectas ;
         },
         subirNivel: function(){
-                if(nivelMaximoAlcanzado!=nivelMaximo && !llegoNivelMaximo ){
+                if(nivelMaximoAlcanzado!==nivelMaximo && !llegoNivelMaximo ){
         		nivelMaximoAlcanzado++;
         	}
         	nivel ++;
-        	apimockCalculemos.cambiarNivel(nivel);
+        	apiclientCalculemos.cambiarNivel(nivel);
         	preguntasCorrectasTemporales = 1;
         },
         bajarNivel: function(){
         	nivel --;
-        	apimockCalculemos.cambiarNivel(nivel);
+        	apiclientCalculemos.cambiarNivel(nivel);
         	preguntasCorrectasTemporales = cantidaPreguntasPorNivel;
         	
         },
         ayuda5050:function(){
         	var arregloRespuestasIncorrectas = pregunta.respuestas.filter(traerRespuestasIncorrectas);
-        	console.log(arregloRespuestasIncorrectas );
+//        	console.log(arregloRespuestasIncorrectas );
         	var numero = getRandomArbitrary(arregloRespuestasIncorrectas);
-        	console.log(numero );
+//        	console.log(numero );
         	arregloRespuestasIncorrectas.splice(numero ,1);
-        	console.log(arregloRespuestasIncorrectas );
+//        	console.log(arregloRespuestasIncorrectas );
         	arregloRespuestasIncorrectas.map(deshabilitarBotones5050);
         	
         }, 
@@ -101,7 +114,7 @@ var appCalculemos = (function(){
         }, 
         iniciarNivel : function(){
         	nivel=1; 
-        	apimockCalculemos.cambiarNivel(nivel);
+        	apiclientCalculemos.cambiarNivel(nivel);
         	preguntasCorrectasTemporales = 1;
         },
         traerTiempoJugado:function(){

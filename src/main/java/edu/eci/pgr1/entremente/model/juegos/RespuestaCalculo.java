@@ -3,34 +3,32 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package edu.eci.pgr1.entremente.model;
+package edu.eci.pgr1.entremente.model.juegos;
 
 /**
  *
- * @author Administrador
+ * @author JuanArevaloMerchan
  */
-public class RespuestaAtencion {
+public class RespuestaCalculo {
     private String opcion;
     private String respuestaCorrecta;
-    private String palabraClave;
-
+    
     /**
-     * Cosntructor Vacio
+     * Constructor Vacio
      */
-    public RespuestaAtencion(){
+    public RespuestaCalculo(){
         
     }
     /**
      * Constructor con datos
      * @param opcion
-     * @param respuestaCorrecta
-     * @param palabraClave 
+     * @param respuestaCorrecta 
      */
-    public RespuestaAtencion(String opcion, String respuestaCorrecta, String palabraClave){
+    public RespuestaCalculo(String opcion, String respuestaCorrecta){
         this.opcion = opcion;
         this.respuestaCorrecta = respuestaCorrecta;
-        this.palabraClave = palabraClave;
     }
+
     /**
      * @return the opcion
      */
@@ -58,20 +56,4 @@ public class RespuestaAtencion {
     public void setRespuestaCorrecta(String respuestaCorrecta) {
         this.respuestaCorrecta = respuestaCorrecta;
     }
-
-    /**
-     * @return the palabraClave
-     */
-    public String getPalabraClave() {
-        return palabraClave;
-    }
-
-    /**
-     * @param palabraClave the palabraClave to set
-     */
-    public void setPalabraClave(String palabraClave) {
-        this.palabraClave = palabraClave;
-    }
-    
-    
 }

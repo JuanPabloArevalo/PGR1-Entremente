@@ -3,20 +3,20 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package edu.eci.pgr1.entremente.model;
+package edu.eci.pgr1.entremente.model.juegos;
 
 /**
  *
  * @author JuanArevaloMerchan
  */
-public class RespuestaGaleria {
+public class RespuestaFormas {
     private String opcion;
     private String respuestaCorrecta;
     
     /**
      * Constructor Vacio
      */
-    public RespuestaGaleria(){
+    public RespuestaFormas(){
         
     }
     /**
@@ -24,7 +24,7 @@ public class RespuestaGaleria {
      * @param opcion
      * @param respuestaCorrecta 
      */
-    public RespuestaGaleria(String opcion, String respuestaCorrecta){
+    public RespuestaFormas(String opcion, String respuestaCorrecta){
         this.opcion = opcion;
         this.respuestaCorrecta = respuestaCorrecta;
     }
@@ -56,6 +56,4 @@ public class RespuestaGaleria {
     public void setRespuestaCorrecta(String respuestaCorrecta) {
         this.respuestaCorrecta = respuestaCorrecta;
     }
-    
-    
 }

@@ -3,17 +3,19 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package edu.eci.pgr1.entremente.persistence;
+package edu.eci.pgr1.entremente.persistence.juegos;
 
 import edu.eci.pgr1.entremente.model.Paciente;
-import edu.eci.pgr1.entremente.model.PreguntaGaleria;
+import edu.eci.pgr1.entremente.model.juegos.PreguntaFormas;
+import edu.eci.pgr1.entremente.persistence.PersistenceException;
+import edu.eci.pgr1.entremente.persistence.PersistenceNotFoundException;
 import java.util.Set;
 
 /**
  *
  * @author JuanArevaloMerchan
  */
-public interface JuegoGaleriaRepository {
+public interface JuegoFormasRepository {
     /**
      * Metodo encargado de traer las preguntas de la galeria, pasandole el nivel por parametro del paciente pasado
      * @param nivel
@@ -22,6 +24,6 @@ public interface JuegoGaleriaRepository {
      * @throws edu.eci.pgr1.entremente.persistence.PersistenceNotFoundException 
      * @throws edu.eci.pgr1.entremente.persistence.PersistenceException 
      */
-    public Set<PreguntaGaleria> traerPreguntas(int nivel, Paciente paciente) throws PersistenceNotFoundException, PersistenceException;
-    
+    public Set<PreguntaFormas> traerPreguntas(int nivel, Paciente paciente) throws PersistenceNotFoundException, PersistenceException;
+        
 }

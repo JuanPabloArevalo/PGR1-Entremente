@@ -3,15 +3,16 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package edu.eci.pgr1.entremente.persistence.imp;
+package edu.eci.pgr1.entremente.persistence.imp.juegos;
 
 import edu.eci.pgr1.entremente.model.Paciente;
-import edu.eci.pgr1.entremente.model.PreguntaAtencion;
-import edu.eci.pgr1.entremente.model.PreguntaGaleria;
-import edu.eci.pgr1.entremente.model.RespuestaAtencion;
-import edu.eci.pgr1.entremente.persistence.JuegoAtencionRepository;
+import edu.eci.pgr1.entremente.model.juegos.PreguntaAtencion;
+import edu.eci.pgr1.entremente.model.juegos.PreguntaGaleria;
+import edu.eci.pgr1.entremente.model.juegos.RespuestaAtencion;
+import edu.eci.pgr1.entremente.persistence.juegos.JuegoAtencionRepository;
 import edu.eci.pgr1.entremente.persistence.PersistenceException;
 import edu.eci.pgr1.entremente.persistence.PersistenceNotFoundException;
+import edu.eci.pgr1.entremente.persistence.imp.DatosBD;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;

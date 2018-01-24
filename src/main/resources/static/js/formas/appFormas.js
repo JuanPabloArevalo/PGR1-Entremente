@@ -1,3 +1,5 @@
+/* global apiclientFormas */
+
 var appFormas = (function(){
     const cantidaPreguntasPorNivel = 8;
     const nivelMaximo = 4;
@@ -50,14 +52,14 @@ var appFormas = (function(){
             
         },
         trearSiguientePregunta:function(){
-            apimockFormas.getPreguntaAleatorea(nivel, function(preguntaToda){
+            apiclientFormas.getPreguntaAleatorea(nivel, function(preguntaToda){
             	pregunta = preguntaToda;
             	$("#idNivel").text(nivel);
             	$("#idCantidadPreguntasBien").text(preguntasCorrectasTemporales );
             	$("#idCantidadPreguntasTotalNivel").text(cantidaPreguntasPorNivel );
             	$("#idImagenPregunta").attr("src",preguntaToda.imagen);
 		$("#idPregunta").text(preguntaToda.pregunta);
-		preguntaToda.respuestas= preguntaToda.respuestas.sort(function() {return Math.random() - 0.5});
+		preguntaToda.respuestas= preguntaToda.respuestas.sort(function() {return Math.random() - 0.5;});
 		for (var i=0; i<4; i++) {
 			$("#idImagen"+i).attr("src",preguntaToda.respuestas[i].opcion);
 			$("#idImagen"+i).attr("onclick","appFormas.validarRespuesta(this)");
@@ -65,22 +67,35 @@ var appFormas = (function(){
     		} });
         },
         init:function(){
-            appFormas.trearSiguientePregunta();
+            apiclientFormas.cargarPreguntas(sessionStorage.getItem("id"),nivel, function(preguntaToda){
+            	pregunta = preguntaToda;
+            	$("#idNivel").text(nivel);
+            	$("#idCantidadPreguntasBien").text(preguntasCorrectasTemporales );
+            	$("#idCantidadPreguntasTotalNivel").text(cantidaPreguntasPorNivel );
+            	$("#idImagenPregunta").attr("src",preguntaToda.imagen);
+		$("#idPregunta").text(preguntaToda.pregunta);
+		preguntaToda.respuestas= preguntaToda.respuestas.sort(function() {return Math.random() - 0.5;});
+		for (var i=0; i<4; i++) {
+			$("#idImagen"+i).attr("src",preguntaToda.respuestas[i].opcion);
+			$("#idImagen"+i).attr("onclick","appFormas.validarRespuesta(this)");
+			$("#idImagen"+i).attr("name",preguntaToda.respuestas[i].respuestaCorrecta);
+    		} }
+            );
         },
         getPReguntasCorrectas:function(){
         	return preguntasCorrectas ;
         },
         subirNivel: function(){
-                if(nivelMaximoAlcanzado!=nivelMaximo && !llegoNivelMaximo ){
+                if(nivelMaximoAlcanzado!==nivelMaximo && !llegoNivelMaximo ){
         		nivelMaximoAlcanzado++;
         	}
         	nivel ++;
-        	apimockFormas.cambiarNivel(nivel);
+        	apiclientFormas.cambiarNivel(nivel);
         	preguntasCorrectasTemporales = 1;
         },
         bajarNivel: function(){
         	nivel --;
-        	apimockFormas.cambiarNivel(nivel);
+        	apiclientFormas.cambiarNivel(nivel);
         	preguntasCorrectasTemporales = cantidaPreguntasPorNivel;
         	
         },
@@ -98,7 +113,7 @@ var appFormas = (function(){
         }, 
         iniciarNivel : function(){
         	nivel=1; 
-        	apimockFormas.cambiarNivel(nivel);
+        	apiclientFormas.cambiarNivel(nivel);
         	preguntasCorrectasTemporales = 1;
         },
         traerTiempoJugado:function(){

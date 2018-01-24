@@ -65,6 +65,7 @@ var appAtencion = (function(){
             
         },
         
+        
         trearSiguientePregunta:function(){
             apiclientAtencion.getPreguntaAleatorea(nivel, function(preguntaToda){
             	pregunta = preguntaToda;

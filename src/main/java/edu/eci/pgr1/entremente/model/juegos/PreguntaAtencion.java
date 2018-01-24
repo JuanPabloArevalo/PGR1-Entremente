@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package edu.eci.pgr1.entremente.model;
+package edu.eci.pgr1.entremente.model.juegos;
 
 import java.util.Set;
 
