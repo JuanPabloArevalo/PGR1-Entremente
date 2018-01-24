@@ -1,73 +1,70 @@
 <!DOCTYPE html>
 <html lang="es">
-  <head><meta http-equiv="Content-Type" content="text/html; charset=windows-1252">
-  	<!--librerias Bootstrap>
-  	<!-- Latest compiled and minified CSS -->
-	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-	<!-- jQuery library -->
-	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-	<!-- Latest compiled JavaScript -->
-	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script> 
-    	
-    	<meta name="viewport" content="width=device-width, initial-scale=1">
-    	<!--importarCSS-->
-    	<link rel="stylesheet" href="css/css.css" />
-    	<link rel="stylesheet" href="css/menuPaciente.css" />
-    	<!--importarJS-->
-    	
-    	<title>Menú</title>
-  </head>
-  <body id = "idFondoIndex">
-  	<div class="container-fluid">
-		<div class="row">
-			<div class="panelLogo">
-				<div class="col-xs-1 col-sm-2 col-md-3 col-lg-3"></div>
-				<div class="col-xs-10 col-sm-8 col-md-6 col-lg-6" >
-					<img id="imagenLogo" class="img-responsive img-rounded" src="image/logo.png" alt="Logo"> 
-				</div>
-				<div class="col-xs-1 col-sm-2 col-md-3 col-lg-3"></div>
-			</div>
-		</div>
-		<br  class="hidden-xs"><br class="hidden-xs">
-		<div class="row">
-			<div class="panelBotones">
-				<div class="col-xs-0 col-sm-2 col-md-3 col-lg-3"></div>
-				<div class="col-xs-12 col-sm-4 col-md-3 col-lg-3">
-					<a href="/atencion.html"><img class="img-responsive img-rounded" src="image/btnAtencion.png" alt="BotonAtencion"> </a>
-				</div>
-				<div class="col-xs-12 col-sm-4 col-md-3 col-lg-3">
-					<a href="/calculemos.html"><img class="img-responsive img-rounded" src="image/btnOperaciones.png" alt="BotonMiPerfil"> </a>
-				</div>
-				<div class="col-xs-0 col-sm-2 col-md-3 col-lg-3"></div>
-			</div>
-		</div>
-<!--Boton Galeria-->
-		<div class="row">
-			<div class="panelBotones">
-				<div class="col-xs-0 col-sm-2 col-md-3 col-lg-3"></div>
-				<div class="col-xs-12 col-sm-4 col-md-3 col-lg-3">
-					<a href="/galeria.html"><img class="img-responsive img-rounded" src="image/btnGaleria.png" alt="BotonGaleria"> </a>
-				</div>
-				<div class="col-xs-12 col-sm-4 col-md-3 col-lg-3">
-					<a href="/percepcion.html"><img class="img-responsive img-rounded" src="image/btnPercepcion.png" alt="BotonPercepcion"> </a>
-				</div>
-				<div class="col-xs-0 col-sm-2 col-md-3 col-lg-3"></div>
-			</div>
-		</div>
-<!--Boton Formas-->
-		<div class="row">
-			<div class="panelBotones">
-				<div class="col-xs-0 col-sm-2 col-md-3 col-lg-3"></div>
-				<div class="col-xs-12 col-sm-4 col-md-3 col-lg-3">
-					<a href="/formas.html"><img class="img-responsive img-rounded" src="image/btnFormas.png" alt="BotonFormas"> </a>
-				</div>
-				<div class="col-xs-12 col-sm-4 col-md-3 col-lg-3">
-					<a href="/perfilPaciente.html"><img class="img-responsive img-rounded" src="image/btnMiPerfil.png" alt="BotonOperaciones"> </a>
-				</div>
-				<div class="col-xs-0 col-sm-2 col-md-3 col-lg-3"></div>
-			</div>
-		</div>
+    <head>
+        <meta charset="utf-8">
+        <script src="/webjars/jquery/jquery.min.js"></script>
+        <script src="/webjars/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+        <link rel="stylesheet" href="/webjars/bootstrap/3.3.7/css/bootstrap.min.css" />
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <!--importarCSS-->
+        <link rel="stylesheet" href="css/css.css" />
+        <link rel="stylesheet" href="css/menuPaciente.css" />
+        <script src="js/menuPaciente.js"></script> 
+        <!--importarJS-->
 
-	</div>
-  </body>
+        <title>MenÃº</title>
+    </head>
+    <body id = "idFondoIndex" onload="menuPaciente.init()">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="panelLogo">
+                    <div class="col-xs-1 col-sm-2 col-md-3 col-lg-3"></div>
+                    <div class="col-xs-10 col-sm-8 col-md-6 col-lg-6" >
+                        <img id="imagenLogo" class="img-responsive img-rounded" src="image/logo.png" alt="Logo"> 
+                    </div>
+                    <div class="col-xs-1 col-sm-2 col-md-3 col-lg-3"></div>
+                </div>
+            </div>
+            <br  class="hidden-xs"><br class="hidden-xs">
+            <div class="row">
+                <div class="panelBotones">
+                    <div class="col-xs-0 col-sm-2 col-md-3 col-lg-3"></div>
+                    <div class="col-xs-12 col-sm-4 col-md-3 col-lg-3">
+                        <a href="/atencion.html"><img class="img-responsive img-rounded" src="image/btnAtencion.png" alt="BotonAtencion"> </a>
+                    </div>
+                    <div class="col-xs-12 col-sm-4 col-md-3 col-lg-3">
+                        <a href="/calculemos.html"><img class="img-responsive img-rounded" src="image/btnOperaciones.png" alt="BotonMiPerfil"> </a>
+                    </div>
+                    <div class="col-xs-0 col-sm-2 col-md-3 col-lg-3"></div>
+                </div>
+            </div>
+            <!--Boton Galeria-->
+            <div class="row">
+                <div class="panelBotones">
+                    <div class="col-xs-0 col-sm-2 col-md-3 col-lg-3"></div>
+                    <div class="col-xs-12 col-sm-4 col-md-3 col-lg-3">
+                        <a href="/galeria.html"><img class="img-responsive img-rounded" src="image/btnGaleria.png" alt="BotonGaleria"> </a>
+                    </div>
+                    <div class="col-xs-12 col-sm-4 col-md-3 col-lg-3">
+                        <a href="/percepcion.html"><img class="img-responsive img-rounded" src="image/btnPercepcion.png" alt="BotonPercepcion"> </a>
+                    </div>
+                    <div class="col-xs-0 col-sm-2 col-md-3 col-lg-3"></div>
+                </div>
+            </div>
+            <!--Boton Formas-->
+            <div class="row">
+                <div class="panelBotones">
+                    <div class="col-xs-0 col-sm-2 col-md-3 col-lg-3"></div>
+                    <div class="col-xs-12 col-sm-4 col-md-3 col-lg-3">
+                        <a href="/formas.html"><img class="img-responsive img-rounded" src="image/btnFormas.png" alt="BotonFormas"> </a>
+                    </div>
+                    <div class="col-xs-12 col-sm-4 col-md-3 col-lg-3">
+                        <a href="/perfilPaciente.html" id="idBotonMiPerfil"><img class="img-responsive img-rounded" src="image/btnMiPerfil.png" alt="BotonOperaciones" > </a>
+                    </div>
+                    <div class="col-xs-0 col-sm-2 col-md-3 col-lg-3"></div>
+                </div>
+            </div>
+
+        </div>
+    </body>
 </html>
