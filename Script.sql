@@ -340,3 +340,24 @@ ADD CONSTRAINT `FK_JCPPG`
   ON UPDATE NO ACTION;  
   
   
+ CREATE TABLE RESULTADO (
+	id INT(8) UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+	tipoJuego VARCHAR(1),
+    idPaciente INT UNSIGNED NOT NULL,
+	fecha DATE,
+	acertadas INT(5),
+    erroneas INT(5),
+	tiempo DOUBLE,
+	nivelMaximo INT(5)
+); 
+
+ALTER TABLE `entremente`.`RESULTADO`
+ADD INDEX `FK_ResulPac_idx` (`idPaciente` ASC);
+ALTER TABLE `entremente`.`RESULTADO`
+ADD CONSTRAINT `FK_Respac`
+  FOREIGN KEY (`idPaciente`)
+  REFERENCES `entremente`.`PACIENTE` (`id`)
+  ON DELETE NO ACTION
+  ON UPDATE NO ACTION;   
+  
+  

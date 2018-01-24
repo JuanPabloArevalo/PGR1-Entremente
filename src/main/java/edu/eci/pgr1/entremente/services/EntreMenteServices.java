@@ -12,6 +12,7 @@ import edu.eci.pgr1.entremente.model.Mensaje;
 import edu.eci.pgr1.entremente.model.Paciente;
 import edu.eci.pgr1.entremente.model.PersonalSalud;
 import edu.eci.pgr1.entremente.model.Relacion;
+import edu.eci.pgr1.entremente.model.Resultado;
 import edu.eci.pgr1.entremente.persistence.EnfermedadRepository;
 import edu.eci.pgr1.entremente.persistence.FamiliarRepository;
 import edu.eci.pgr1.entremente.persistence.HistorialMedicoRepository;
@@ -419,4 +420,8 @@ public class EntreMenteServices {
     public ArrayList<Enfermedad> consultarEnfermedades() throws PersistenceNotFoundException, PersistenceException{
         return enfermedad.cargarEnfermedades();
     }    
+    
+    
+   
+    
 }

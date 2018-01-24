@@ -6,6 +6,7 @@
 package edu.eci.pgr1.entremente.services;
 
 import edu.eci.pgr1.entremente.model.Paciente;
+import edu.eci.pgr1.entremente.model.Resultado;
 import edu.eci.pgr1.entremente.model.juegos.PreguntaAtencion;
 import edu.eci.pgr1.entremente.model.juegos.PreguntaCalculo;
 import edu.eci.pgr1.entremente.model.juegos.PreguntaFormas;
@@ -16,6 +17,7 @@ import edu.eci.pgr1.entremente.persistence.juegos.JuegoCalculoRepository;
 import edu.eci.pgr1.entremente.persistence.juegos.JuegoFormasRepository;
 import edu.eci.pgr1.entremente.persistence.PersistenceException;
 import edu.eci.pgr1.entremente.persistence.PersistenceNotFoundException;
+import edu.eci.pgr1.entremente.persistence.ResultadoRepository;
 import java.util.ArrayList;
 import java.util.Set;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -40,6 +42,8 @@ public class EntreMenteServicesJuegos {
     private JuegoCalculoRepository calculo;  
     @Autowired
     private JuegoPercepcionRepository percepcion;  
+    @Autowired
+    private ResultadoRepository resultado;
     /**
      * Metodo encargado de traer todas las preguntas del juego Galeria
      * @param idPaciente
@@ -128,4 +132,73 @@ public class EntreMenteServicesJuegos {
         arreglo.add(percepcion.traerPreguntas(3, paciente));
         return arreglo;
     }    
+    
+//RESULTADOS
+    /**
+     * Metodo encargado de adicionar el resultado del juego Galeria
+     * @param resultadoA
+     * @throws PersistenceNotFoundException
+     */
+    public void adicionarResultadoGaleria(Resultado resultadoA) throws PersistenceNotFoundException{
+        resultadoA.setTipoJuego(Resultado.TIPOJUEGOGALERIA);
+        this.resultado.adicionarResultado(resultadoA);
+    } 
+    /**
+     * Metodo encargado de adicionar el resultado del juego Atencion
+     * @param resultadoA
+     * @throws PersistenceNotFoundException
+     */
+    public void adicionarResultadoAtencion(Resultado resultadoA) throws PersistenceNotFoundException{
+        resultadoA.setTipoJuego(Resultado.TIPOJUEGOATENCION);
+        this.resultado.adicionarResultado(resultadoA);
+    } 
+    /**
+     * Metodo encargado de adicionar el resultado del juego Percepcion
+     * @param resultadoA
+     * @throws PersistenceNotFoundException
+     */
+    public void adicionarResultadoPercepcion(Resultado resultadoA) throws PersistenceNotFoundException{
+        resultadoA.setTipoJuego(Resultado.TIPOJUEGOPERCEPCION);
+        this.resultado.adicionarResultado(resultadoA);
+    }
+    
+    /**
+     * Metodo encargado de adicionar el resultado del juego Calculemos
+     * @param resultadoA
+     * @throws PersistenceNotFoundException
+     */
+    public void adicionarResultadoCalculemos(Resultado resultadoA) throws PersistenceNotFoundException{
+        resultadoA.setTipoJuego(Resultado.TIPOJUEGOCALCULEMOS);
+        this.resultado.adicionarResultado(resultadoA);
+    }
+    
+    /**
+     * Metodo encargado de adicionar el resultado del juego Formas
+     * @param resultadoA
+     * @throws PersistenceNotFoundException
+     */
+    public void adicionarResultadoFormas(Resultado resultadoA) throws PersistenceNotFoundException{
+        resultadoA.setTipoJuego(Resultado.TIPOJUEGOFORMAS);
+        this.resultado.adicionarResultado(resultadoA);
+    }
+    
+    /**
+     * Metodo encargado de adicionar el resultado del juego Musicoterapia
+     * @param resultadoA
+     * @throws PersistenceNotFoundException
+     */
+    public void adicionarResultadoMusicoterapia(Resultado resultadoA) throws PersistenceNotFoundException{
+        resultadoA.setTipoJuego(Resultado.TIPOJUEGOMUSICOTERAPIA);
+        this.resultado.adicionarResultado(resultadoA);
+    }
+    
+    /**
+     * Metodo encargado de adicionar el resultado del juego Rutinas
+     * @param resultadoA
+     * @throws PersistenceNotFoundException
+     */
+    public void adicionarResultadoRutinas(Resultado resultadoA) throws PersistenceNotFoundException{
+        resultadoA.setTipoJuego(Resultado.TIPOJUEGORUTINA);
+        this.resultado.adicionarResultado(resultadoA);
+    }
 }
