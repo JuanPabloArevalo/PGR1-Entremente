@@ -306,13 +306,77 @@ var perfilFamiliar = (function () {
                 }
                 else{
                     $("#idNombreUsu").text(sessionStorage.getItem("nombres")+" "+sessionStorage.getItem("apellidos"));
-                    console.info(sessionStorage.getItem("nombrePacienteConsultaPS"))
+                    console.info(sessionStorage.getItem("nombrePacienteConsultaPS"));
                     $("#idNombrePaciente").text(sessionStorage.getItem("nombrePacienteConsultaPS"));
                     appGaleria.cargarParaEditar();
-//                    perfilFamiliar.cargarMensajes();
-//                    //Cargar Historial Medico
-//                    perfilFamiliar.cargarHistorialMedico();
-                    
+                }
+            }
+        },
+        initPersonalizarAtencion(){
+            if ("undefined" === sessionStorage.getItem("id") || null === sessionStorage.getItem("id")) {
+                alert("Para esta función, debe iniciar sesión primero.");
+                window.location.href = "iniciarSesion.html";
+            }else{
+                if ("undefined" === sessionStorage.getItem("idPacienteConsultaPS") || null === sessionStorage.getItem("idPacienteConsultaPS")) {
+                    alert("Para esta función, debe seleccionar un paciente.");
+                    window.location.href = "perfilFamiliarFamiliares.html";
+                }
+                else{
+                    $("#idNombreUsu").text(sessionStorage.getItem("nombres")+" "+sessionStorage.getItem("apellidos"));
+                    console.info(sessionStorage.getItem("nombrePacienteConsultaPS"));
+                    $("#idNombrePaciente").text(sessionStorage.getItem("nombrePacienteConsultaPS"));
+                    appAtencion.cargarParaEditar();
+                }
+            }
+        },
+        initPersonalizarCalculemos(){
+            if ("undefined" === sessionStorage.getItem("id") || null === sessionStorage.getItem("id")) {
+                alert("Para esta función, debe iniciar sesión primero.");
+                window.location.href = "iniciarSesion.html";
+            }else{
+                if ("undefined" === sessionStorage.getItem("idPacienteConsultaPS") || null === sessionStorage.getItem("idPacienteConsultaPS")) {
+                    alert("Para esta función, debe seleccionar un paciente.");
+                    window.location.href = "perfilFamiliarFamiliares.html";
+                }
+                else{
+                    $("#idNombreUsu").text(sessionStorage.getItem("nombres")+" "+sessionStorage.getItem("apellidos"));
+                    console.info(sessionStorage.getItem("nombrePacienteConsultaPS"));
+                    $("#idNombrePaciente").text(sessionStorage.getItem("nombrePacienteConsultaPS"));
+                    appCalculemos.cargarParaEditar();
+                }
+            }
+        },
+        initPersonalizarFormas(){
+            if ("undefined" === sessionStorage.getItem("id") || null === sessionStorage.getItem("id")) {
+                alert("Para esta función, debe iniciar sesión primero.");
+                window.location.href = "iniciarSesion.html";
+            }else{
+                if ("undefined" === sessionStorage.getItem("idPacienteConsultaPS") || null === sessionStorage.getItem("idPacienteConsultaPS")) {
+                    alert("Para esta función, debe seleccionar un paciente.");
+                    window.location.href = "perfilFamiliarFamiliares.html";
+                }
+                else{
+                    $("#idNombreUsu").text(sessionStorage.getItem("nombres")+" "+sessionStorage.getItem("apellidos"));
+                    console.info(sessionStorage.getItem("nombrePacienteConsultaPS"));
+                    $("#idNombrePaciente").text(sessionStorage.getItem("nombrePacienteConsultaPS"));
+                    appFormas.cargarParaEditar();
+                }
+            }
+        },
+        initPersonalizarPercepcion(){
+            if ("undefined" === sessionStorage.getItem("id") || null === sessionStorage.getItem("id")) {
+                alert("Para esta función, debe iniciar sesión primero.");
+                window.location.href = "iniciarSesion.html";
+            }else{
+                if ("undefined" === sessionStorage.getItem("idPacienteConsultaPS") || null === sessionStorage.getItem("idPacienteConsultaPS")) {
+                    alert("Para esta función, debe seleccionar un paciente.");
+                    window.location.href = "perfilFamiliarFamiliares.html";
+                }
+                else{
+                    $("#idNombreUsu").text(sessionStorage.getItem("nombres")+" "+sessionStorage.getItem("apellidos"));
+                    console.info(sessionStorage.getItem("nombrePacienteConsultaPS"));
+                    $("#idNombrePaciente").text(sessionStorage.getItem("nombrePacienteConsultaPS"));
+                    appPercepcion.cargarParaEditar();
                 }
             }
         }

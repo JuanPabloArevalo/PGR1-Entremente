@@ -129,7 +129,7 @@ public class JuegoPercepcionRepositoryDatabase implements JuegoPercepcionReposit
         try {
             Class.forName(DatosBD.DRIVER);
             connect = DriverManager.getConnection(DatosBD.CONECTOR);
-            preparedStatement = connect.prepareStatement("SELECT * FROM "+NOMBRETABLA+" JAP LEFT JOIN PREGUNTAPERCEPCION PA ON (JAP.idPreguntaPercepcion=PA.ID) WHERE JAP.idPaciente = '"+paciente.getId()+"'");
+            preparedStatement = connect.prepareStatement("SELECT * FROM "+NOMBRETABLA+" JAP LEFT JOIN PREGUNTAPERCEPCION PA ON (JAP.idPreguntaPercepcion=PA.ID) WHERE JAP.idPaciente = '"+paciente.getId()+"' ORDER BY nivelPersonalizado");
             resultSet = preparedStatement.executeQuery();
             while(resultSet.next()){
                 pregunta = new PreguntaPercepcion();

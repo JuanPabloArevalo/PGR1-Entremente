@@ -62,6 +62,17 @@ var apiclientCalculemos = (function(){
                 data: '{"idPaciente":"'+idPaciente+'" ,"fecha":"'+fecha+'","acertadas":'+acertadas+', "erroneas":'+erroneas+',"tiempo":'+tiempo+',"nivelMaximo":'+nivelMaximo+'}',
                 contentType: "application/json"
             });
+        },
+        getTodasPreguntas(idPaciente){
+            return $.get("/entremente/V1/juegos/calculo/todas/"+idPaciente);;
+        },
+        modificarPregunta(id, nivelPersonalizado, estado){
+            return $.ajax({
+                url:  "/entremente/V1/juegos/calculo",
+                type: "POST",
+                data: '{"id":'+id+' ,"nivel":'+nivelPersonalizado+',"estado":"'+estado+'"}',
+                contentType: "application/json"
+            });
         }
     };
     

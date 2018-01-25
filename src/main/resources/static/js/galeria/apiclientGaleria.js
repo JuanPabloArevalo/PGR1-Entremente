@@ -62,9 +62,6 @@ var apiclientGaleria = (function(){
             return $.get("/entremente/V1/juegos/galeria/todas/"+idPaciente);;
         },
         modificarPregunta(id, nivelPersonalizado, estado){
-            console.info(id)
-    console.info(nivelPersonalizado)
-    console.info(estado)
             return $.ajax({
                 url:  "/entremente/V1/juegos/galeria",
                 type: "POST",

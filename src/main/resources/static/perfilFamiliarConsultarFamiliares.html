@@ -189,7 +189,7 @@
                                         <div class="row">
                                             <div class="col-xs-3 col-sm-3 col-md-4 col-lg-4"></div>
                                             <div class="col-xs-6 col-sm-6 col-md-4 col-lg-4">
-                                                <button class="btn btn-info btn-block">Personalizar</button>
+                                                <a class="btn btn-info btn-block" href="/pFEditarCalculemos.html">Personalizar</a>
                                             </div>
                                             <div class="col-xs-3 col-sm-3 col-md-4 col-lg-4"></div>
                                         </div>
@@ -264,7 +264,7 @@
                                         <div class="row">
                                             <div class="col-xs-3 col-sm-3 col-md-4 col-lg-4"></div>
                                             <div class="col-xs-6 col-sm-6 col-md-4 col-lg-4">
-                                                <button class="btn btn-info btn-block">Personalizar</button>
+                                                <a class="btn btn-info btn-block" href="/pFEditarPercepcion.html">Personalizar</a>
                                             </div>
                                             <div class="col-xs-3 col-sm-3 col-md-4 col-lg-4"></div>
                                         </div>
@@ -297,30 +297,6 @@
                                                     </tr>
                                                 </thead>
                                                 <tbody>
-                                                    <tr>
-                                                        <td>1</td>
-                                                        <td>0</td>
-                                                        <td>8</td>
-                                                        <td>1874</td>
-                                                        <td>1</td>
-                                                        <td>15/09/2017</td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td>2</td>
-                                                        <td>12</td>
-                                                        <td>15</td>
-                                                        <td>158</td>
-                                                        <td>2</td>
-                                                        <td>16/09/2017</td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td>3</td>
-                                                        <td>45</td>
-                                                        <td>14</td>
-                                                        <td>15827</td>
-                                                        <td>4</td>
-                                                        <td>17/09/2017</td>
-                                                    </tr>
                                                 </tbody>
                                             </table>
                                         </div>
@@ -335,14 +311,136 @@
                             </div>
                         </div>
                         <!--Fin Perceciones-->
+                        <!--Atencion-->
+                        <div class="panel panel-warning">
+                            <div class="panel-heading">
+                                <h4 class="panel-title">
+                                    <a data-toggle="collapse" data-parent="#accordion" href="#collapse5"><h5 class="subTitulo ">Atención</h5></a>
+                                </h4>
+                            </div>
+                            <div id="collapse5" class="panel-collapse collapse">
+                                <div class="panel-body">
+                                    <div class="panel-body">
+                                        <div class="row">
+                                            <div class="col-xs-3 col-sm-3 col-md-4 col-lg-4"></div>
+                                            <div class="col-xs-6 col-sm-6 col-md-4 col-lg-4">
+                                                <a class="btn btn-info btn-block" href="/pFEditarAtencion.html">Personalizar</a>
+                                            </div>
+                                            <div class="col-xs-3 col-sm-3 col-md-4 col-lg-4"></div>
+                                        </div>
+                                        <label>Filtro:</label>
+                                        <select class="form-control" id="sel1">
+                                            <option>Días</option>
+                                            <option>Semanas</option>
+                                            <option>Meses</option>
+                                            <option>Años</option>
+                                        </select>
+                                        <div class="form-group">
+                                            <label>Fecha Inicial:</label>
+                                            <input type="date" class="form-control" id="fechaIA">
+                                            <label>Fecha Final:</label>
+                                            <input type="date" class="form-control" id="fechaFA">
+                                            <button class="btn btn-success btn-block">Buscar</button>
+                                        </div>
+                                        <br>
+                                        <div class="table-responsive">          
+                                            <table class="table">
+                                                <thead>
+                                                    <tr>
+                                                        <th>#</th>
+                                                        <th>Preguntas Acertadas</th>
+                                                        <th>Preguntas Erroneas</th>
+                                                        <th>Tiempo Jugado (Min.)</th>
+                                                        <th>Nivel Máximo</th>
+                                                        <th>Fecha</th>
+                                                        <th></th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                        <div class="row">
+                                            <div id="preguntasAcertadasPercepciones" class = "diagramasBarras"></div>
+                                            <div id="preguntasErroneasPercepciones" class = "diagramasBarras"></div>
+                                            <div id="tiempoJugadoPercepciones" class = "diagramasBarras"></div>
+                                            <div id="nivelMaximoPercepciones" class = "diagramasBarras"></div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!--Fin Atencion-->
+                        <!--Formas-->
+                        <div class="panel panel-warning">
+                            <div class="panel-heading">
+                                <h4 class="panel-title">
+                                    <a data-toggle="collapse" data-parent="#accordion" href="#collapse6"><h5 class="subTitulo ">Formas</h5></a>
+                                </h4>
+                            </div>
+                            <div id="collapse6" class="panel-collapse collapse">
+                                <div class="panel-body">
+                                    <div class="panel-body">
+                                        <div class="row">
+                                            <div class="col-xs-3 col-sm-3 col-md-4 col-lg-4"></div>
+                                            <div class="col-xs-6 col-sm-6 col-md-4 col-lg-4">
+                                                <a class="btn btn-info btn-block" href="/pFEditarFormas.html">Personalizar</a>
+                                            </div>
+                                            <div class="col-xs-3 col-sm-3 col-md-4 col-lg-4"></div>
+                                        </div>
+                                        <label for="tipoDocumento">Filtro:</label>
+                                        <select class="form-control" id="sel1">
+                                            <option>Días</option>
+                                            <option>Semanas</option>
+                                            <option>Meses</option>
+                                            <option>Años</option>
+                                        </select>
+                                        <div class="form-group">
+                                            <label>Fecha Inicial:</label>
+                                            <input type="date" class="form-control" id="fechaIF">
+                                            <label>Fecha Final:</label>
+                                            <input type="date" class="form-control" id="fechaFF">
+                                            <button class="btn btn-success btn-block">Buscar</button>
+                                        </div>
+                                        <br>
+                                        <div class="table-responsive">          
+                                            <table class="table">
+                                                <thead>
+                                                    <tr>
+                                                        <th>#</th>
+                                                        <th>Preguntas Acertadas</th>
+                                                        <th>Preguntas Erroneas</th>
+                                                        <th>Tiempo Jugado (Min.)</th>
+                                                        <th>Nivel Máximo</th>
+                                                        <th>Fecha</th>
+                                                        <th></th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                        <div class="row">
+                                            <div id="preguntasAcertadasPercepciones" class = "diagramasBarras"></div>
+                                            <div id="preguntasErroneasPercepciones" class = "diagramasBarras"></div>
+                                            <div id="tiempoJugadoPercepciones" class = "diagramasBarras"></div>
+                                            <div id="nivelMaximoPercepciones" class = "diagramasBarras"></div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!--Fin Formas-->
                         <!--Resumen-->
                         <div class="panel panel-warning">
                             <div class="panel-heading">
                                 <h4 class="panel-title">
-                                    <a data-toggle="collapse" data-parent="#accordion" href="#collapse5"><h5 class="subTitulo ">Resumen</h5></a>
+                                    <a data-toggle="collapse" data-parent="#accordion" href="#collapse7"><h5 class="subTitulo ">Resumen</h5></a>
                                 </h4>
                             </div>
-                            <div id="collapse5" class="panel-collapse collapse">
+                            <div id="collapse7" class="panel-collapse collapse">
                                 <div class="panel-body">
                                     <div class="table-responsive">          
                                         <table class="table">
@@ -375,10 +473,10 @@
                         <div class="panel panel-warning">
                             <div class="panel-heading">
                                 <h4 class="panel-title">
-                                    <a data-toggle="collapse" data-parent="#accordion" href="#collapse6"><h5 class="subTitulo ">Mensajes</h5></a>
+                                    <a data-toggle="collapse" data-parent="#accordion" href="#collapse8"><h5 class="subTitulo ">Mensajes</h5></a>
                                 </h4>
                             </div>
-                            <div id="collapse6" class="panel-collapse collapse">
+                            <div id="collapse8" class="panel-collapse collapse">
                                 <div class="panel-body">
                                     <div class="table-responsive">          
                                         <table class="table" id="tablaMensajes">

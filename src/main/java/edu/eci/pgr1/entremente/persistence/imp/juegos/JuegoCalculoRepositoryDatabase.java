@@ -128,7 +128,7 @@ public class JuegoCalculoRepositoryDatabase implements JuegoCalculoRepository{
         try {
             Class.forName(DatosBD.DRIVER);
             connect = DriverManager.getConnection(DatosBD.CONECTOR);
-            preparedStatement = connect.prepareStatement("SELECT * FROM "+NOMBRETABLA+" JGP LEFT JOIN PREGUNTACALCULO PG ON (JGP.idPreguntaCalculo=PG.ID) WHERE JGP.idPaciente = '"+paciente.getId()+"'");
+            preparedStatement = connect.prepareStatement("SELECT * FROM "+NOMBRETABLA+" JGP LEFT JOIN PREGUNTACALCULO PG ON (JGP.idPreguntaCalculo=PG.ID) WHERE JGP.idPaciente = '"+paciente.getId()+"' ORDER BY nivelPersonalizado");
             resultSet = preparedStatement.executeQuery();
             while(resultSet.next()){
                 pregunta = new PreguntaCalculo();

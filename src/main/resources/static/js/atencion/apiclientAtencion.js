@@ -62,6 +62,17 @@ var apiclientAtencion = (function(){
                 data: '{"idPaciente":"'+idPaciente+'" ,"fecha":"'+fecha+'","acertadas":'+acertadas+', "erroneas":'+erroneas+',"tiempo":'+tiempo+',"nivelMaximo":'+nivelMaximo+'}',
                 contentType: "application/json"
             });
+        },
+        getTodasPreguntas(idPaciente){
+            return $.get("/entremente/V1/juegos/atencion/todas/"+idPaciente);;
+        },
+        modificarPregunta(id, nivelPersonalizado, estado){
+            return $.ajax({
+                url:  "/entremente/V1/juegos/atencion",
+                type: "POST",
+                data: '{"id":'+id+' ,"nivel":'+nivelPersonalizado+',"estado":"'+estado+'"}',
+                contentType: "application/json"
+            });
         }
     };
     
