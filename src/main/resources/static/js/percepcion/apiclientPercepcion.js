@@ -49,6 +49,14 @@ var apiclientPercepcion = (function(){
         },
         getArreglo:function(nivel){
                 return arregloIndices;
+        },
+        enviarResultados(idPaciente, fecha, acertadas, erroneas, tiempo, nivelMaximo){
+            return $.ajax({
+                url:  "/entremente/V1/juegos/resultados/percepcion",
+                type: "POST",
+                data: '{"idPaciente":"'+idPaciente+'" ,"fecha":"'+fecha+'","acertadas":'+acertadas+', "erroneas":'+erroneas+',"tiempo":'+tiempo+',"nivelMaximo":'+nivelMaximo+'}',
+                contentType: "application/json"
+            });
         }
     };
     

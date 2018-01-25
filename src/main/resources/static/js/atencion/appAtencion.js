@@ -99,13 +99,11 @@ var appAtencion = (function () {
         init: function () {
             if ("undefined" === sessionStorage.getItem("esTemporal") || null === sessionStorage.getItem("esTemporal")) {
                 window.location.href = "index.html";
-            }else if("S" === sessionStorage.getItem("esTemporal")){
-                sessionStorage.setItem("id",1);
+            } else if ("S" === sessionStorage.getItem("esTemporal")) {
+                sessionStorage.setItem("id", 1);
                 $('#idUsuarioDib').hide();
-            }
-            else{
+            } else {
                 $('#idUsuarioDib').show();
-                $('#nombreUs').text(sessionStorage.getItem("apellidos"));
             }
 
 
@@ -182,25 +180,32 @@ var appAtencion = (function () {
             alert("Tiempo Jugado: " + appAtencion.traerTiempoJugado() + ". Preguntas Correctas: " + preguntasCorrectas + ". Preguntas Erroneas: " + preguntasErroneas + " . Nivel Máximo: " + nivelMaximoAlcanzado);
             console.info("Tiempo Jugado: " + appAtencion.traerTiempoJugado() + ". Preguntas Correctas: " + preguntasCorrectas + ". Preguntas Erroneas: " + preguntasErroneas + " . Nivel Máximo: " + nivelMaximoAlcanzado);
         },
-        salir(){
-            if("S" === sessionStorage.getItem("esTemporal")){
+        salir() {
+            if ("S" === sessionStorage.getItem("esTemporal")) {
                 window.location.href = "/menuPaciente.html";
-            }
-            else{
+            } else {
                 var fec = new Date();
-                var dia = fec.getDay()+1;
+                var dia = fec.getDay() + 1;
                 var mes = fec.getMonth() + 1;
                 var anio = fec.getFullYear();
-                console.info(anio+"/"+mes+"/"+dia);
-                var promesa = apiclientAtencion.enviarResultados(sessionStorage.getItem("id"), anio+"/"+mes+"/"+dia, preguntasCorrectas, preguntasErroneas, appAtencion.traerTiempoJugado(), nivelMaximoAlcanzado); 
+
+                var tiempoJugado = appAtencion.traerTiempoJugado();
+                tiempoJugado = tiempoJugado.toFixed(0);
+//                console.info(tiempoJugado);
+                if (tiempoJugado === "0") {
+//                    console.info("tiempoJugado");
+                    tiempoJugado = 1;
+                }
+//                console.info(tiempoJugado);
+                var promesa = apiclientAtencion.enviarResultados(sessionStorage.getItem("id"), anio + "/" + mes + "/" + dia, preguntasCorrectas, preguntasErroneas, tiempoJugado, nivelMaximoAlcanzado);
                 promesa.then(
-                    function(){
-                        window.location.href = "/menuPaciente.html";
-                    },
-                    function(datos){
-                        alert(datos.responseText);
-                        window.location.href = "/menuPaciente.html";
-                    }
+                        function () {
+                            window.location.href = "/menuPaciente.html";
+                        },
+                        function (datos) {
+                            alert(datos.responseText);
+                            window.location.href = "/menuPaciente.html";
+                        }
                 );
             }
         }

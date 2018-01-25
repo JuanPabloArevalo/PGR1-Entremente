@@ -54,6 +54,14 @@ var apiclientCalculemos = (function(){
         },
         getArreglo:function(nivel){
                 return arregloIndices;
+        },
+        enviarResultados(idPaciente, fecha, acertadas, erroneas, tiempo, nivelMaximo){
+            return $.ajax({
+                url:  "/entremente/V1/juegos/resultados/calculo",
+                type: "POST",
+                data: '{"idPaciente":"'+idPaciente+'" ,"fecha":"'+fecha+'","acertadas":'+acertadas+', "erroneas":'+erroneas+',"tiempo":'+tiempo+',"nivelMaximo":'+nivelMaximo+'}',
+                contentType: "application/json"
+            });
         }
     };
     
