@@ -1,4 +1,4 @@
-/* global apiclientGaleria */
+/* global apiclientGaleria, estado */
 
 var appGaleria = (function () {
     const cantidaPreguntasPorNivel = 8;
@@ -176,9 +176,73 @@ var appGaleria = (function () {
                         }
                 );
             }
+        },
+        cargarParaEditar(){
+            var promesaConsulta = apiclientGaleria.getTodasPreguntas(sessionStorage.getItem("idPacienteConsultaPS"))
+            promesaConsulta.then(
+                function (datos) { 
+                    inicializarPregunta();
+                    datos.map(adicionarPregunta);
+                },
+                function (dato) {
+                    alert(dato.responseText);
+                }
+            );
+        },
+        modificarPregunta(idPreguntaPaciente){
+            var nivelPersonalizado = $('select#nivel'+idPreguntaPaciente).val();
+            var estado = $('#estado'+idPreguntaPaciente);
+            if($('#estado'+idPreguntaPaciente).is(':checked')===true){
+                estado = "A";
+            }
+            else{
+                estado = "D";
+            }
+            var promesa = apiclientGaleria.modificarPregunta(idPreguntaPaciente, nivelPersonalizado, estado);
+            promesa.then(
+                function () { 
+                    $('#idPanel'+idPreguntaPaciente).show();
+                    setTimeout(function () {
+                        $('#idPanel'+idPreguntaPaciente).hide();
+                    }, 1000);
+                },
+                function (dato) {
+                    alert(dato.responseText);
+                }
+            );
         }
     };
 })();
+
+function adicionarPregunta(item){
+    var nivel;
+    if(item.nivel===1){
+        nivel = "<option value = 1 selected>1</option><option value = 2>2</option><option value = 3 >3</option><option value = 4 >4</option>";
+    }
+    else if(item.nivel===2){
+        nivel = "<option value = 1 >1</option><option value = 2 selected>2</option><option value = 3 >3</option><option value = 4 >4</option>";
+    }
+    else if(item.nivel===3){
+        nivel = "<option value = 1 >1</option><option value = 2 >2</option><option value = 3 selected>3</option><option value = 4 >4</option>";
+    }  
+    else{
+        nivel = "<option value = 1 >1</option><option value = 2 >2</option><option value = 3 >3</option><option value = 4 selected>4</option>";
+    }
+    
+    var activo = "";
+    if(item.estado==="A"){
+        activo = "checked";
+    }
+
+    
+    var markup = "<tr class=\"filasPG\"><td>" + item.id + "</td><td><img src=\"" + item.imagen + "\" class=\"img-rounded img-responsive imagenGaleriaEditar\" alt=\"ImagenPregunta\"></td><td>" + item.pregunta + "</td><td><select class=\"form-control\" id=\"nivel"+item.id+"\">"+nivel+"</select></td><td><input type=\"checkbox\" "+activo+" id=\"estado"+item.id+"\"></td><td><button class=\"btn btn-info btn-block\" onclick=\"appGaleria.modificarPregunta(" + item.id + ")\"> Guardar</button><div class=\"alert alert-success\" style=\"display:none;\" id=\"idPanel"+item.id+"\"><strong >Bien!</strong></div></td></tr>";
+    $("#idTablaG").append(markup);
+}
+
+function inicializarPregunta(){
+    $(".filasPG").remove("tr");
+}
+    
 
 function traerNombreCorrecto(filter) {
     if (filter.respuestaCorrecta === "S") {

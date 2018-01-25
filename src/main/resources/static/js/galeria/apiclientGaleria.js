@@ -57,6 +57,20 @@ var apiclientGaleria = (function(){
                 data: '{"idPaciente":"'+idPaciente+'" ,"fecha":"'+fecha+'","acertadas":'+acertadas+', "erroneas":'+erroneas+',"tiempo":'+tiempo+',"nivelMaximo":'+nivelMaximo+'}',
                 contentType: "application/json"
             });
+        },
+        getTodasPreguntas(idPaciente){
+            return $.get("/entremente/V1/juegos/galeria/todas/"+idPaciente);;
+        },
+        modificarPregunta(id, nivelPersonalizado, estado){
+            console.info(id)
+    console.info(nivelPersonalizado)
+    console.info(estado)
+            return $.ajax({
+                url:  "/entremente/V1/juegos/galeria",
+                type: "POST",
+                data: '{"id":'+id+' ,"nivel":'+nivelPersonalizado+',"estado":"'+estado+'"}',
+                contentType: "application/json"
+            });
         }
     };
     

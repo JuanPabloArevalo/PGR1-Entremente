@@ -5,7 +5,9 @@
  */
 package edu.eci.pgr1.entremente.controllers;
 
+import edu.eci.pgr1.entremente.model.Paciente;
 import edu.eci.pgr1.entremente.model.Resultado;
+import edu.eci.pgr1.entremente.model.juegos.PreguntaGaleria;
 import edu.eci.pgr1.entremente.persistence.PersistenceException;
 import edu.eci.pgr1.entremente.persistence.PersistenceNotFoundException;
 import edu.eci.pgr1.entremente.services.EntreMenteServicesJuegos;
@@ -159,4 +161,25 @@ public class EntreMenteControllerJuegos {
             return new ResponseEntity<>(ex.getMessage(), HttpStatus.NOT_FOUND);
         }        
     }
+    
+    @RequestMapping(path = "/galeria/todas/{idPaciente}", method = RequestMethod.GET)
+    public ResponseEntity<?> manejadorConsultarGaleriaTodas(@PathVariable("idPaciente") int idPaciente) {
+        try {
+            return new ResponseEntity<>(emsj.getTodasPreguntasGaleria(idPaciente), HttpStatus.ACCEPTED);
+        } catch (PersistenceNotFoundException  | PersistenceException ex) {
+            Logger.getLogger(EntreMenteController.class.getName()).log(Level.SEVERE, null, ex);
+            return new ResponseEntity<>(ex.getMessage(), HttpStatus.NOT_FOUND);
+        }
+    } 
+    
+    @RequestMapping(path = "/galeria", method = RequestMethod.POST)
+    public ResponseEntity<?> manejadorModificarGaleria(@RequestBody PreguntaGaleria pregunta) {
+        try {
+            emsj.modificarPreguntaGaleria(pregunta);
+            return new ResponseEntity<>("Modifico", HttpStatus.ACCEPTED);
+        } catch (PersistenceNotFoundException  | PersistenceException ex) {
+            Logger.getLogger(EntreMenteController.class.getName()).log(Level.SEVERE, null, ex);
+            return new ResponseEntity<>(ex.getMessage(), HttpStatus.NOT_FOUND);
+        }
+    } 
 }

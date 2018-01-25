@@ -61,7 +61,28 @@ public class EntreMenteServicesJuegos {
         arreglo.add(galeria.traerPreguntas(4, paciente));
         return arreglo;
     }
+    /**
+     * Metodo encargado de traer todas las preguntas del juego Galeria
+     * @param idPaciente
+     * @return
+     * @throws PersistenceNotFoundException 
+     * @throws edu.eci.pgr1.entremente.persistence.PersistenceException 
+     */
+    public ArrayList<PreguntaGaleria> getTodasPreguntasGaleria(int idPaciente) throws PersistenceNotFoundException, PersistenceException{
+        Paciente paciente = new Paciente();
+        paciente.setId(idPaciente);
+        return galeria.traerTODASPreguntas(paciente);
+    }
     
+    /**
+     * Metodo encargado de modificar la pregunta de Galeria
+     * @param pregunta
+     * @throws PersistenceNotFoundException 
+     * @throws edu.eci.pgr1.entremente.persistence.PersistenceException 
+     */
+    public void modificarPreguntaGaleria(PreguntaGaleria pregunta) throws PersistenceNotFoundException, PersistenceException{
+        galeria.modificarPregunta(pregunta);
+    }
     /**
      * Metodo encargado de traer todas las preguntas del juego Atencion
      * @param idPaciente
