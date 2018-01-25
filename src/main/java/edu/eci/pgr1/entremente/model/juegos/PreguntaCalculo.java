@@ -21,7 +21,7 @@ public class PreguntaCalculo {
     private String personalizado;
     private int id;
     private int idPregunta;
-    
+    private String estado;
     
         /**
      * Constructor Vacio
@@ -38,14 +38,16 @@ public class PreguntaCalculo {
      * @param personalizado 
      * @param id 
      * @param idPregunta 
+     * @param estado 
      */
-    public PreguntaCalculo(String operacion, Set<RespuestaCalculo> respuestas, int nivel, String personalizado, int id, int idPregunta){
+    public PreguntaCalculo(String operacion, Set<RespuestaCalculo> respuestas, int nivel, String personalizado, int id, int idPregunta, String estado){
         this.operacion = operacion;
         this.respuestas = respuestas;
         this.nivel = nivel;
         this.personalizado = personalizado;
         this.id = id;
         this.idPregunta = idPregunta;
+        this.estado = estado;
     }
     /**
      * @return the pregunta
@@ -131,4 +133,20 @@ public class PreguntaCalculo {
     public void setIdPregunta(int idPregunta) {
         this.idPregunta = idPregunta;
     }
+
+    /**
+     * @return the estado
+     */
+    public String getEstado() {
+        return estado;
+    }
+
+    /**
+     * @param estado the estado to set
+     */
+    public void setEstado(String estado) {
+        this.estado = estado;
+    }
+    
+    
 }

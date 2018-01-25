@@ -100,7 +100,28 @@ public class EntreMenteServicesJuegos {
         arreglo.add(atencion.traerPreguntas(4, paciente));
         return arreglo;
     }
+    /**
+     * Metodo encargado de traer todas las preguntas del juego Atencion
+     * @param idPaciente
+     * @return
+     * @throws PersistenceNotFoundException 
+     * @throws edu.eci.pgr1.entremente.persistence.PersistenceException 
+     */
+    public ArrayList<PreguntaAtencion> getTodasPreguntasAtencion(int idPaciente) throws PersistenceNotFoundException, PersistenceException{
+        Paciente paciente = new Paciente();
+        paciente.setId(idPaciente);
+        return atencion.traerTODASPreguntas(paciente);
+    }
     
+    /**
+     * Metodo encargado de modificar la pregunta de Atencion
+     * @param pregunta
+     * @throws PersistenceNotFoundException 
+     * @throws edu.eci.pgr1.entremente.persistence.PersistenceException 
+     */
+    public void modificarPreguntaAtencion(PreguntaAtencion pregunta) throws PersistenceNotFoundException, PersistenceException{
+        atencion.modificarPregunta(pregunta);
+    }
     /**
      * Metodo encargado de traer todas las preguntas del juego Formas
      * @param idPaciente
@@ -118,7 +139,28 @@ public class EntreMenteServicesJuegos {
         arreglo.add(formas.traerPreguntas(4, paciente));
         return arreglo;
     }
-
+   /**
+     * Metodo encargado de traer todas las preguntas del juego Atencion
+     * @param idPaciente
+     * @return
+     * @throws PersistenceNotFoundException 
+     * @throws edu.eci.pgr1.entremente.persistence.PersistenceException 
+     */
+    public ArrayList<PreguntaFormas> getTodasPreguntasFormas(int idPaciente) throws PersistenceNotFoundException, PersistenceException{
+        Paciente paciente = new Paciente();
+        paciente.setId(idPaciente);
+        return formas.traerTODASPreguntas(paciente);
+    }
+    
+    /**
+     * Metodo encargado de modificar la pregunta de Formas
+     * @param pregunta
+     * @throws PersistenceNotFoundException 
+     * @throws edu.eci.pgr1.entremente.persistence.PersistenceException 
+     */
+    public void modificarPreguntaFormas(PreguntaFormas pregunta) throws PersistenceNotFoundException, PersistenceException{
+        formas.modificarPregunta(pregunta);
+    }
     /**
      * Metodo encargado de traer todas las preguntas del juego Calculo
      * @param idPaciente
@@ -136,7 +178,28 @@ public class EntreMenteServicesJuegos {
         arreglo.add(calculo.traerPreguntas(4, paciente));
         return arreglo;
     }   
+    /**
+     * Metodo encargado de traer todas las preguntas del juego Atencion
+     * @param idPaciente
+     * @return
+     * @throws PersistenceNotFoundException 
+     * @throws edu.eci.pgr1.entremente.persistence.PersistenceException 
+     */
+    public ArrayList<PreguntaCalculo> getTodasPreguntasCalculo(int idPaciente) throws PersistenceNotFoundException, PersistenceException{
+        Paciente paciente = new Paciente();
+        paciente.setId(idPaciente);
+        return calculo.traerTODASPreguntas(paciente);
+    }
     
+    /**
+     * Metodo encargado de modificar la pregunta de Calculo
+     * @param pregunta
+     * @throws PersistenceNotFoundException 
+     * @throws edu.eci.pgr1.entremente.persistence.PersistenceException 
+     */
+    public void modificarPreguntaCalculo(PreguntaCalculo pregunta) throws PersistenceNotFoundException, PersistenceException{
+        calculo.modificarPregunta(pregunta);
+    }
     /**
      * Metodo encargado de traer todas las preguntas del juego Percepcion
      * @param idPaciente
@@ -153,7 +216,28 @@ public class EntreMenteServicesJuegos {
         arreglo.add(percepcion.traerPreguntas(3, paciente));
         return arreglo;
     }    
+    /**
+     * Metodo encargado de traer todas las preguntas del juego Percepcion
+     * @param idPaciente
+     * @return
+     * @throws PersistenceNotFoundException 
+     * @throws edu.eci.pgr1.entremente.persistence.PersistenceException 
+     */
+    public ArrayList<PreguntaPercepcion> getTodasPreguntasPercepcion(int idPaciente) throws PersistenceNotFoundException, PersistenceException{
+        Paciente paciente = new Paciente();
+        paciente.setId(idPaciente);
+        return percepcion.traerTODASPreguntas(paciente);
+    }
     
+    /**
+     * Metodo encargado de modificar la pregunta de Percepcion
+     * @param pregunta
+     * @throws PersistenceNotFoundException 
+     * @throws edu.eci.pgr1.entremente.persistence.PersistenceException 
+     */
+    public void modificarPreguntaPercepcion(PreguntaPercepcion pregunta) throws PersistenceNotFoundException, PersistenceException{
+        percepcion.modificarPregunta(pregunta);
+    }    
 //RESULTADOS
     /**
      * Metodo encargado de adicionar el resultado del juego Galeria

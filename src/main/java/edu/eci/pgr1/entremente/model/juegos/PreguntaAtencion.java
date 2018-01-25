@@ -23,6 +23,7 @@ public class PreguntaAtencion {
     private int nivel;
     private String personalizado;
     private int idPregunta;
+    private String estado;
 
     /**
      * Constructor Vacio
@@ -39,8 +40,9 @@ public class PreguntaAtencion {
      * @param nivel
      * @param personalizado
      * @param idPregunta 
+     * @param estado 
      */
-    public PreguntaAtencion(int id, String pregunta, String imagen, String palabraClave, Set<RespuestaAtencion> respuestas, int nivel, String personalizado, int idPregunta){
+    public PreguntaAtencion(int id, String pregunta, String imagen, String palabraClave, Set<RespuestaAtencion> respuestas, int nivel, String personalizado, int idPregunta, String estado){
         this.id = id;
         this.pregunta = pregunta;
         this.imagen = imagen;
@@ -49,6 +51,7 @@ public class PreguntaAtencion {
         this.nivel = nivel;
         this.personalizado = personalizado;
         this.idPregunta = idPregunta;
+        this.estado = estado;
     }
     
     /**
@@ -161,6 +164,20 @@ public class PreguntaAtencion {
      */
     public void setIdPregunta(int idPregunta) {
         this.idPregunta = idPregunta;
+    }
+
+    /**
+     * @return the estado
+     */
+    public String getEstado() {
+        return estado;
+    }
+
+    /**
+     * @param estado the estado to set
+     */
+    public void setEstado(String estado) {
+        this.estado = estado;
     }
     
     

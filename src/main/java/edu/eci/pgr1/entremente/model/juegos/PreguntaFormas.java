@@ -23,7 +23,7 @@ public class PreguntaFormas {
     private String personalizado;
     private int id;
     private int idPregunta;
-    
+    private String estado;    
     /**
      * Constructor Vacio
      */
@@ -40,8 +40,9 @@ public class PreguntaFormas {
      * @param personalizado 
      * @param id 
      * @param idPregunta 
+     * @param estado 
      */
-    public PreguntaFormas(String pregunta, String imagen, Set<RespuestaFormas> respuestas, int nivel, String personalizado, int id, int idPregunta){
+    public PreguntaFormas(String pregunta, String imagen, Set<RespuestaFormas> respuestas, int nivel, String personalizado, int id, int idPregunta, String estado){
         this.pregunta = pregunta;
         this.imagen = imagen;
         this.respuestas = respuestas;
@@ -49,6 +50,7 @@ public class PreguntaFormas {
         this.personalizado = personalizado;
         this.id = id;
         this.idPregunta = idPregunta;
+        this.estado = estado;
     }
     /**
      * @return the pregunta
@@ -148,4 +150,20 @@ public class PreguntaFormas {
     public void setIdPregunta(int idPregunta) {
         this.idPregunta = idPregunta;
     }
+
+    /**
+     * @return the estado
+     */
+    public String getEstado() {
+        return estado;
+    }
+
+    /**
+     * @param estado the estado to set
+     */
+    public void setEstado(String estado) {
+        this.estado = estado;
+    }
+    
+    
 }

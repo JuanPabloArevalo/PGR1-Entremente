@@ -19,6 +19,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Set;
 import org.springframework.stereotype.Service;
@@ -115,5 +116,83 @@ public class JuegoPercepcionRepositoryDatabase implements JuegoPercepcionReposit
 
         }
     } 
+
+    @Override
+    public ArrayList<PreguntaPercepcion> traerTODASPreguntas(Paciente paciente) throws PersistenceNotFoundException, PersistenceException {
+        ArrayList<PreguntaPercepcion> preguntas = new ArrayList<>();
+        Set<RespuestaPercepcion> respuestas = null;
+        PreguntaPercepcion pregunta = null;
+        RespuestaPercepcion respuestaA = null;
+        RespuestaPercepcion respuestaB = null;
+        RespuestaPercepcion respuestaC = null;
+        RespuestaPercepcion respuestaD = null;
+        try {
+            Class.forName(DatosBD.DRIVER);
+            connect = DriverManager.getConnection(DatosBD.CONECTOR);
+            preparedStatement = connect.prepareStatement("SELECT * FROM "+NOMBRETABLA+" JAP LEFT JOIN PREGUNTAPERCEPCION PA ON (JAP.idPreguntaPercepcion=PA.ID) WHERE JAP.idPaciente = '"+paciente.getId()+"'");
+            resultSet = preparedStatement.executeQuery();
+            while(resultSet.next()){
+                pregunta = new PreguntaPercepcion();
+                pregunta.setImagen(resultSet.getString("PA.Imagen"));
+                pregunta.setNivel(resultSet.getInt("JAP.nivelPersonalizado"));
+                pregunta.setPersonalizado("S");
+                pregunta.setPregunta(resultSet.getString("PA.pregunta"));
+                pregunta.setId(resultSet.getInt("JAP.id"));
+                pregunta.setIdPregunta(resultSet.getInt("JAP.idPreguntaPercepcion"));
+                pregunta.setEstado(resultSet.getString("JAP.estado"));
+                
+                respuestas = new HashSet<>();
+                respuestaA = new RespuestaPercepcion();
+                respuestaA.setOpcion(resultSet.getString("PA.opcionA"));
+                respuestaA.setRespuestaCorrecta(resultSet.getString("PA.correctaA"));
+                respuestas.add(respuestaA);
+
+                respuestaB = new RespuestaPercepcion();
+                respuestaB.setOpcion(resultSet.getString("PA.opcionB"));
+                respuestaB.setRespuestaCorrecta(resultSet.getString("PA.correctaB"));
+                respuestas.add(respuestaB);
+                
+                respuestaC = new RespuestaPercepcion();
+                respuestaC.setOpcion(resultSet.getString("PA.opcionC"));
+                respuestaC.setRespuestaCorrecta(resultSet.getString("PA.correctaC"));
+                respuestas.add(respuestaC);
+                
+                respuestaD = new RespuestaPercepcion();
+                respuestaD.setOpcion(resultSet.getString("PA.opcionD"));
+                respuestaD.setRespuestaCorrecta(resultSet.getString("PA.correctaD"));
+                respuestas.add(respuestaD);
+                
+                pregunta.setRespuestas(respuestas);
+                preguntas.add(pregunta);
+            }
+        } catch (ClassNotFoundException | SQLException e) {
+            throw new PersistenceNotFoundException(e.getMessage());
+        } finally {
+            close();
+        }
+        if(preguntas.isEmpty()){
+            throw new PersistenceException("No hay preguntas");
+        }
+        
+        return preguntas;
+    }
+
+    @Override
+    public void modificarPregunta(PreguntaPercepcion pregunta) throws PersistenceNotFoundException, PersistenceException {
+        try {
+            Class.forName(DatosBD.DRIVER);
+            connect = DriverManager.getConnection(DatosBD.CONECTOR);
+            statement = connect.createStatement();
+            preparedStatement = connect.prepareStatement("UPDATE "+NOMBRETABLA+" SET nivelPersonalizado = ?, estado = ? WHERE id = ?");
+            preparedStatement.setInt(1, pregunta.getNivel());
+            preparedStatement.setString(2, pregunta.getEstado());
+            preparedStatement.setInt(3, pregunta.getId());
+            preparedStatement.executeUpdate();
+        } catch (ClassNotFoundException | SQLException e) {
+            throw new PersistenceNotFoundException(e.getMessage());
+        } finally {
+            close();
+        }  
+    }
     
 }
