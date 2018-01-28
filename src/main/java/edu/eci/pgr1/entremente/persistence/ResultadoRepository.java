@@ -6,7 +6,9 @@
 package edu.eci.pgr1.entremente.persistence;
 
 
+import edu.eci.pgr1.entremente.model.Paciente;
 import edu.eci.pgr1.entremente.model.Resultado;
+import java.util.ArrayList;
 
 /**
  *
@@ -19,4 +21,43 @@ public interface ResultadoRepository {
      * @throws PersistenceNotFoundException 
      */
     public void adicionarResultado(Resultado resultado) throws PersistenceNotFoundException;
+    
+    /**
+     * Metodo encargado de traer los resultados, ordenados por dias.
+     * @param paciente
+     * @param fechaInicial
+     * @param fechaFinal
+     * @param tipoJuego
+     * @return
+     * @throws PersistenceNotFoundException
+     * @throws PersistenceException 
+     */
+    public ArrayList<Resultado> traerResultadosDias(Paciente paciente, String fechaInicial, String fechaFinal, String tipoJuego) throws PersistenceNotFoundException, PersistenceException;
+    
+    /**
+     * Metodo encargado de traer los resultados, ordenados por dias.
+     * @param paciente
+     * @param fechaInicial
+     * @param fechaFinal
+     * @param tipoJuego
+     * @return
+     * @throws PersistenceNotFoundException
+     * @throws PersistenceException 
+     */
+    public ArrayList<Resultado> traerResultadosMeses(Paciente paciente, String fechaInicial, String fechaFinal, String tipoJuego) throws PersistenceNotFoundException, PersistenceException;
+    
+    /**
+     * Metodo encargado de traer los resultados, ordenados por dias.
+     * @param paciente
+     * @param fechaInicial
+     * @param fechaFinal
+     * @param tipoJuego
+     * @return
+     * @throws PersistenceNotFoundException
+     * @throws PersistenceException 
+     */
+    public ArrayList<Resultado> traerResultadosAnios(Paciente paciente, String fechaInicial, String fechaFinal, String tipoJuego) throws PersistenceNotFoundException, PersistenceException;
+            
+    
+    
 }
