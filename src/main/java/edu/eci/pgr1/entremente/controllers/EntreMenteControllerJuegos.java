@@ -5,7 +5,6 @@
  */
 package edu.eci.pgr1.entremente.controllers;
 
-import edu.eci.pgr1.entremente.model.Paciente;
 import edu.eci.pgr1.entremente.model.Resultado;
 import edu.eci.pgr1.entremente.model.juegos.PreguntaAtencion;
 import edu.eci.pgr1.entremente.model.juegos.PreguntaCalculo;
@@ -165,6 +164,220 @@ public class EntreMenteControllerJuegos {
             return new ResponseEntity<>(ex.getMessage(), HttpStatus.NOT_FOUND);
         }        
     }
+    
+    
+//CONSULTAR    
+    //ATENCION
+    @RequestMapping(path = "/resultados/atencion/dia/{idPaciente}/{fechaInicial}/{fechaFinal}", method = RequestMethod.GET)
+    public ResponseEntity<?> manejadorGetConsultarResultadoAtencionDia(@PathVariable("idPaciente") int idPaciente, @PathVariable("fechaInicial") String fechaInicial, @PathVariable("fechaFinal") String fechaFinal) {
+        try {
+            return new ResponseEntity<>(emsj.consultarResultadosDiasAtencion(idPaciente, fechaInicial, fechaFinal), HttpStatus.CREATED);
+        } catch (PersistenceNotFoundException | PersistenceException ex) {
+            Logger.getLogger(EntreMenteController.class.getName()).log(Level.SEVERE, null, ex);
+            return new ResponseEntity<>(ex.getMessage(), HttpStatus.NOT_FOUND);
+        }        
+    }
+    
+    @RequestMapping(path = "/resultados/atencion/mes/{idPaciente}/{fechaInicial}/{fechaFinal}", method = RequestMethod.GET)
+    public ResponseEntity<?> manejadorGetConsultarResultadoAtencionMes(@PathVariable("idPaciente") int idPaciente, @PathVariable("fechaInicial") String fechaInicial, @PathVariable("fechaFinal") String fechaFinal) {
+        try {
+            return new ResponseEntity<>(emsj.consultarResultadosMesAtencion(idPaciente, fechaInicial, fechaFinal), HttpStatus.CREATED);
+        } catch (PersistenceNotFoundException | PersistenceException ex) {
+            Logger.getLogger(EntreMenteController.class.getName()).log(Level.SEVERE, null, ex);
+            return new ResponseEntity<>(ex.getMessage(), HttpStatus.NOT_FOUND);
+        }        
+    }
+    
+    @RequestMapping(path = "/resultados/atencion/anio/{idPaciente}/{fechaInicial}/{fechaFinal}", method = RequestMethod.GET)
+    public ResponseEntity<?> manejadorGetConsultarResultadoAtencionAnio(@PathVariable("idPaciente") int idPaciente, @PathVariable("fechaInicial") String fechaInicial, @PathVariable("fechaFinal") String fechaFinal) {
+        try {
+            return new ResponseEntity<>(emsj.consultarResultadosAnualAtencion(idPaciente, fechaInicial, fechaFinal), HttpStatus.CREATED);
+        } catch (PersistenceNotFoundException | PersistenceException ex) {
+            Logger.getLogger(EntreMenteController.class.getName()).log(Level.SEVERE, null, ex);
+            return new ResponseEntity<>(ex.getMessage(), HttpStatus.NOT_FOUND);
+        }        
+    }
+    //GALERIA
+    @RequestMapping(path = "/resultados/galeria/dia/{idPaciente}/{fechaInicial}/{fechaFinal}", method = RequestMethod.GET)
+    public ResponseEntity<?> manejadorGetConsultarResultadoGaleriaDia(@PathVariable("idPaciente") int idPaciente, @PathVariable("fechaInicial") String fechaInicial, @PathVariable("fechaFinal") String fechaFinal) {
+        try {
+            return new ResponseEntity<>(emsj.consultarResultadosDiasGaleria(idPaciente, fechaInicial, fechaFinal), HttpStatus.CREATED);
+        } catch (PersistenceNotFoundException | PersistenceException ex) {
+            Logger.getLogger(EntreMenteController.class.getName()).log(Level.SEVERE, null, ex);
+            return new ResponseEntity<>(ex.getMessage(), HttpStatus.NOT_FOUND);
+        }        
+    }
+    
+    @RequestMapping(path = "/resultados/galeria/mes/{idPaciente}/{fechaInicial}/{fechaFinal}", method = RequestMethod.GET)
+    public ResponseEntity<?> manejadorGetConsultarResultadoGaleriaMes(@PathVariable("idPaciente") int idPaciente, @PathVariable("fechaInicial") String fechaInicial, @PathVariable("fechaFinal") String fechaFinal) {
+        try {
+            return new ResponseEntity<>(emsj.consultarResultadosMesGaleria(idPaciente, fechaInicial, fechaFinal), HttpStatus.CREATED);
+        } catch (PersistenceNotFoundException | PersistenceException ex) {
+            Logger.getLogger(EntreMenteController.class.getName()).log(Level.SEVERE, null, ex);
+            return new ResponseEntity<>(ex.getMessage(), HttpStatus.NOT_FOUND);
+        }        
+    }
+    
+    @RequestMapping(path = "/resultados/galeria/anio/{idPaciente}/{fechaInicial}/{fechaFinal}", method = RequestMethod.GET)
+    public ResponseEntity<?> manejadorGetConsultarResultadoGaleriaAnio(@PathVariable("idPaciente") int idPaciente, @PathVariable("fechaInicial") String fechaInicial, @PathVariable("fechaFinal") String fechaFinal) {
+        try {
+            return new ResponseEntity<>(emsj.consultarResultadosAnualGaleria(idPaciente, fechaInicial, fechaFinal), HttpStatus.CREATED);
+        } catch (PersistenceNotFoundException | PersistenceException ex) {
+            Logger.getLogger(EntreMenteController.class.getName()).log(Level.SEVERE, null, ex);
+            return new ResponseEntity<>(ex.getMessage(), HttpStatus.NOT_FOUND);
+        }        
+    } 
+    //PERCEPCION
+    @RequestMapping(path = "/resultados/percepcion/dia/{idPaciente}/{fechaInicial}/{fechaFinal}", method = RequestMethod.GET)
+    public ResponseEntity<?> manejadorGetConsultarResultadoPercepcionDia(@PathVariable("idPaciente") int idPaciente, @PathVariable("fechaInicial") String fechaInicial, @PathVariable("fechaFinal") String fechaFinal) {
+        try {
+            return new ResponseEntity<>(emsj.consultarResultadosDiasPercepcion(idPaciente, fechaInicial, fechaFinal), HttpStatus.CREATED);
+        } catch (PersistenceNotFoundException | PersistenceException ex) {
+            Logger.getLogger(EntreMenteController.class.getName()).log(Level.SEVERE, null, ex);
+            return new ResponseEntity<>(ex.getMessage(), HttpStatus.NOT_FOUND);
+        }        
+    }
+    
+    @RequestMapping(path = "/resultados/percepcion/mes/{idPaciente}/{fechaInicial}/{fechaFinal}", method = RequestMethod.GET)
+    public ResponseEntity<?> manejadorGetConsultarResultadoPercepcionMes(@PathVariable("idPaciente") int idPaciente, @PathVariable("fechaInicial") String fechaInicial, @PathVariable("fechaFinal") String fechaFinal) {
+        try {
+            return new ResponseEntity<>(emsj.consultarResultadosMesPercepcion(idPaciente, fechaInicial, fechaFinal), HttpStatus.CREATED);
+        } catch (PersistenceNotFoundException | PersistenceException ex) {
+            Logger.getLogger(EntreMenteController.class.getName()).log(Level.SEVERE, null, ex);
+            return new ResponseEntity<>(ex.getMessage(), HttpStatus.NOT_FOUND);
+        }        
+    }
+    
+    @RequestMapping(path = "/resultados/percepcion/anio/{idPaciente}/{fechaInicial}/{fechaFinal}", method = RequestMethod.GET)
+    public ResponseEntity<?> manejadorGetConsultarResultadoPercepcionAnio(@PathVariable("idPaciente") int idPaciente, @PathVariable("fechaInicial") String fechaInicial, @PathVariable("fechaFinal") String fechaFinal) {
+        try {
+            return new ResponseEntity<>(emsj.consultarResultadosAnualPercepcion(idPaciente, fechaInicial, fechaFinal), HttpStatus.CREATED);
+        } catch (PersistenceNotFoundException | PersistenceException ex) {
+            Logger.getLogger(EntreMenteController.class.getName()).log(Level.SEVERE, null, ex);
+            return new ResponseEntity<>(ex.getMessage(), HttpStatus.NOT_FOUND);
+        }        
+    }     
+    //FORMAS
+    @RequestMapping(path = "/resultados/formas/dia/{idPaciente}/{fechaInicial}/{fechaFinal}", method = RequestMethod.GET)
+    public ResponseEntity<?> manejadorGetConsultarResultadoFormasDia(@PathVariable("idPaciente") int idPaciente, @PathVariable("fechaInicial") String fechaInicial, @PathVariable("fechaFinal") String fechaFinal) {
+        try {
+            return new ResponseEntity<>(emsj.consultarResultadosDiasFormas(idPaciente, fechaInicial, fechaFinal), HttpStatus.CREATED);
+        } catch (PersistenceNotFoundException | PersistenceException ex) {
+            Logger.getLogger(EntreMenteController.class.getName()).log(Level.SEVERE, null, ex);
+            return new ResponseEntity<>(ex.getMessage(), HttpStatus.NOT_FOUND);
+        }        
+    }
+    
+    @RequestMapping(path = "/resultados/formas/mes/{idPaciente}/{fechaInicial}/{fechaFinal}", method = RequestMethod.GET)
+    public ResponseEntity<?> manejadorGetConsultarResultadoFormasMes(@PathVariable("idPaciente") int idPaciente, @PathVariable("fechaInicial") String fechaInicial, @PathVariable("fechaFinal") String fechaFinal) {
+        try {
+            return new ResponseEntity<>(emsj.consultarResultadosMesFormas(idPaciente, fechaInicial, fechaFinal), HttpStatus.CREATED);
+        } catch (PersistenceNotFoundException | PersistenceException ex) {
+            Logger.getLogger(EntreMenteController.class.getName()).log(Level.SEVERE, null, ex);
+            return new ResponseEntity<>(ex.getMessage(), HttpStatus.NOT_FOUND);
+        }        
+    }
+    
+    @RequestMapping(path = "/resultados/formas/anio/{idPaciente}/{fechaInicial}/{fechaFinal}", method = RequestMethod.GET)
+    public ResponseEntity<?> manejadorGetConsultarResultadoFormasAnio(@PathVariable("idPaciente") int idPaciente, @PathVariable("fechaInicial") String fechaInicial, @PathVariable("fechaFinal") String fechaFinal) {
+        try {
+            return new ResponseEntity<>(emsj.consultarResultadosAnualFormas(idPaciente, fechaInicial, fechaFinal), HttpStatus.CREATED);
+        } catch (PersistenceNotFoundException | PersistenceException ex) {
+            Logger.getLogger(EntreMenteController.class.getName()).log(Level.SEVERE, null, ex);
+            return new ResponseEntity<>(ex.getMessage(), HttpStatus.NOT_FOUND);
+        }        
+    }     
+    //CALCULO
+    @RequestMapping(path = "/resultados/calculo/dia/{idPaciente}/{fechaInicial}/{fechaFinal}", method = RequestMethod.GET)
+    public ResponseEntity<?> manejadorGetConsultarResultadoCalculoDia(@PathVariable("idPaciente") int idPaciente, @PathVariable("fechaInicial") String fechaInicial, @PathVariable("fechaFinal") String fechaFinal) {
+        try {
+            return new ResponseEntity<>(emsj.consultarResultadosDiasCalculo(idPaciente, fechaInicial, fechaFinal), HttpStatus.CREATED);
+        } catch (PersistenceNotFoundException | PersistenceException ex) {
+            Logger.getLogger(EntreMenteController.class.getName()).log(Level.SEVERE, null, ex);
+            return new ResponseEntity<>(ex.getMessage(), HttpStatus.NOT_FOUND);
+        }        
+    }
+    
+    @RequestMapping(path = "/resultados/calculo/mes/{idPaciente}/{fechaInicial}/{fechaFinal}", method = RequestMethod.GET)
+    public ResponseEntity<?> manejadorGetConsultarResultadoCalculoMes(@PathVariable("idPaciente") int idPaciente, @PathVariable("fechaInicial") String fechaInicial, @PathVariable("fechaFinal") String fechaFinal) {
+        try {
+            return new ResponseEntity<>(emsj.consultarResultadosMesCalculo(idPaciente, fechaInicial, fechaFinal), HttpStatus.CREATED);
+        } catch (PersistenceNotFoundException | PersistenceException ex) {
+            Logger.getLogger(EntreMenteController.class.getName()).log(Level.SEVERE, null, ex);
+            return new ResponseEntity<>(ex.getMessage(), HttpStatus.NOT_FOUND);
+        }        
+    }
+    
+    @RequestMapping(path = "/resultados/calculo/anio/{idPaciente}/{fechaInicial}/{fechaFinal}", method = RequestMethod.GET)
+    public ResponseEntity<?> manejadorGetConsultarResultadoCalculoAnio(@PathVariable("idPaciente") int idPaciente, @PathVariable("fechaInicial") String fechaInicial, @PathVariable("fechaFinal") String fechaFinal) {
+        try {
+            return new ResponseEntity<>(emsj.consultarResultadosAnualCalculo(idPaciente, fechaInicial, fechaFinal), HttpStatus.CREATED);
+        } catch (PersistenceNotFoundException | PersistenceException ex) {
+            Logger.getLogger(EntreMenteController.class.getName()).log(Level.SEVERE, null, ex);
+            return new ResponseEntity<>(ex.getMessage(), HttpStatus.NOT_FOUND);
+        }        
+    }     
+    //MUSICOTERAPIA
+    @RequestMapping(path = "/resultados/musicoterapia/dia/{idPaciente}/{fechaInicial}/{fechaFinal}", method = RequestMethod.GET)
+    public ResponseEntity<?> manejadorGetConsultarResultadoMusicoterapiaDia(@PathVariable("idPaciente") int idPaciente, @PathVariable("fechaInicial") String fechaInicial, @PathVariable("fechaFinal") String fechaFinal) {
+        try {
+            return new ResponseEntity<>(emsj.consultarResultadosDiasMusicoterapia(idPaciente, fechaInicial, fechaFinal), HttpStatus.CREATED);
+        } catch (PersistenceNotFoundException | PersistenceException ex) {
+            Logger.getLogger(EntreMenteController.class.getName()).log(Level.SEVERE, null, ex);
+            return new ResponseEntity<>(ex.getMessage(), HttpStatus.NOT_FOUND);
+        }        
+    }
+    
+    @RequestMapping(path = "/resultados/musicoterapia/mes/{idPaciente}/{fechaInicial}/{fechaFinal}", method = RequestMethod.GET)
+    public ResponseEntity<?> manejadorGetConsultarResultadoMusicoterapiaMes(@PathVariable("idPaciente") int idPaciente, @PathVariable("fechaInicial") String fechaInicial, @PathVariable("fechaFinal") String fechaFinal) {
+        try {
+            return new ResponseEntity<>(emsj.consultarResultadosMesMusicoterapia(idPaciente, fechaInicial, fechaFinal), HttpStatus.CREATED);
+        } catch (PersistenceNotFoundException | PersistenceException ex) {
+            Logger.getLogger(EntreMenteController.class.getName()).log(Level.SEVERE, null, ex);
+            return new ResponseEntity<>(ex.getMessage(), HttpStatus.NOT_FOUND);
+        }        
+    }
+    
+    @RequestMapping(path = "/resultados/musicoterapia/anio/{idPaciente}/{fechaInicial}/{fechaFinal}", method = RequestMethod.GET)
+    public ResponseEntity<?> manejadorGetConsultarResultadoMusicoterapiaAnio(@PathVariable("idPaciente") int idPaciente, @PathVariable("fechaInicial") String fechaInicial, @PathVariable("fechaFinal") String fechaFinal) {
+        try {
+            return new ResponseEntity<>(emsj.consultarResultadosAnualMusicoterapia(idPaciente, fechaInicial, fechaFinal), HttpStatus.CREATED);
+        } catch (PersistenceNotFoundException | PersistenceException ex) {
+            Logger.getLogger(EntreMenteController.class.getName()).log(Level.SEVERE, null, ex);
+            return new ResponseEntity<>(ex.getMessage(), HttpStatus.NOT_FOUND);
+        }        
+    }       
+    //RUTINAS
+    @RequestMapping(path = "/resultados/rutinas/dia/{idPaciente}/{fechaInicial}/{fechaFinal}", method = RequestMethod.GET)
+    public ResponseEntity<?> manejadorGetConsultarResultadoRutinasDia(@PathVariable("idPaciente") int idPaciente, @PathVariable("fechaInicial") String fechaInicial, @PathVariable("fechaFinal") String fechaFinal) {
+        try {
+            return new ResponseEntity<>(emsj.consultarResultadosDiasRutina(idPaciente, fechaInicial, fechaFinal), HttpStatus.CREATED);
+        } catch (PersistenceNotFoundException | PersistenceException ex) {
+            Logger.getLogger(EntreMenteController.class.getName()).log(Level.SEVERE, null, ex);
+            return new ResponseEntity<>(ex.getMessage(), HttpStatus.NOT_FOUND);
+        }        
+    }
+    
+    @RequestMapping(path = "/resultados/rutinas/mes/{idPaciente}/{fechaInicial}/{fechaFinal}", method = RequestMethod.GET)
+    public ResponseEntity<?> manejadorGetConsultarResultadoRutinasMes(@PathVariable("idPaciente") int idPaciente, @PathVariable("fechaInicial") String fechaInicial, @PathVariable("fechaFinal") String fechaFinal) {
+        try {
+            return new ResponseEntity<>(emsj.consultarResultadosMesRutina(idPaciente, fechaInicial, fechaFinal), HttpStatus.CREATED);
+        } catch (PersistenceNotFoundException | PersistenceException ex) {
+            Logger.getLogger(EntreMenteController.class.getName()).log(Level.SEVERE, null, ex);
+            return new ResponseEntity<>(ex.getMessage(), HttpStatus.NOT_FOUND);
+        }        
+    }
+    
+    @RequestMapping(path = "/resultados/rutinas/anio/{idPaciente}/{fechaInicial}/{fechaFinal}", method = RequestMethod.GET)
+    public ResponseEntity<?> manejadorGetConsultarResultadoRutinasAnio(@PathVariable("idPaciente") int idPaciente, @PathVariable("fechaInicial") String fechaInicial, @PathVariable("fechaFinal") String fechaFinal) {
+        try {
+            return new ResponseEntity<>(emsj.consultarResultadosAnualRutina(idPaciente, fechaInicial, fechaFinal), HttpStatus.CREATED);
+        } catch (PersistenceNotFoundException | PersistenceException ex) {
+            Logger.getLogger(EntreMenteController.class.getName()).log(Level.SEVERE, null, ex);
+            return new ResponseEntity<>(ex.getMessage(), HttpStatus.NOT_FOUND);
+        }        
+    }      
+    
     
     @RequestMapping(path = "/galeria/todas/{idPaciente}", method = RequestMethod.GET)
     public ResponseEntity<?> manejadorConsultarGaleriaTodas(@PathVariable("idPaciente") int idPaciente) {

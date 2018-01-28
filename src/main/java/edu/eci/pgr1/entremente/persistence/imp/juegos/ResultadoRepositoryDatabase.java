@@ -3,13 +3,14 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package edu.eci.pgr1.entremente.persistence.imp;
+package edu.eci.pgr1.entremente.persistence.imp.juegos;
 
 import edu.eci.pgr1.entremente.model.Paciente;
 import edu.eci.pgr1.entremente.model.Resultado;
 import edu.eci.pgr1.entremente.persistence.PersistenceException;
 import edu.eci.pgr1.entremente.persistence.PersistenceNotFoundException;
-import edu.eci.pgr1.entremente.persistence.ResultadoRepository;
+import edu.eci.pgr1.entremente.persistence.imp.DatosBD;
+import edu.eci.pgr1.entremente.persistence.juegos.ResultadoRepository;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
@@ -112,12 +113,68 @@ public class ResultadoRepositoryDatabase implements ResultadoRepository{
 
     @Override
     public ArrayList<Resultado> traerResultadosMeses(Paciente paciente, String fechaInicial, String fechaFinal, String tipoJuego) throws PersistenceNotFoundException, PersistenceException {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        ArrayList<Resultado> resultados = new ArrayList<>();
+        Resultado resultado;
+        
+        try {
+            Class.forName(DatosBD.DRIVER);
+            connect = DriverManager.getConnection(DatosBD.CONECTOR);
+            preparedStatement = connect.prepareStatement("SELECT SUM(acertadas), SUM(erroneas), SUM(tiempo), MAX(nivelMaximo),  EXTRACT(YEAR_MONTH FROM fecha) FROM RESULTADO WHERE tipoJuego = '"+tipoJuego+"' AND idPaciente = '"+paciente.getId()+"' AND fecha between '"+fechaInicial+"' AND '"+fechaFinal+"' GROUP BY EXTRACT(YEAR_MONTH FROM fecha) ORDER BY fecha LIMIT 12");
+            System.out.println("SELECT SUM(acertadas), SUM(erroneas), SUM(tiempo), MAX(nivelMaximo),  EXTRACT(YEAR_MONTH FROM fecha) FROM RESULTADO WHERE tipoJuego = '"+tipoJuego+"' AND idPaciente = '"+paciente.getId()+"' AND fecha between '"+fechaInicial+"' AND '"+fechaFinal+"' GROUP BY EXTRACT(YEAR_MONTH FROM fecha) ORDER BY fecha LIMIT 12");
+            resultSet = preparedStatement.executeQuery();
+            while(resultSet.next()){
+               resultado = new Resultado();
+               resultado.setAcertadas(resultSet.getInt(1));
+               resultado.setErroneas(resultSet.getInt(2));
+               resultado.setTiempo(resultSet.getInt(3));
+               resultado.setNivelMaximo(resultSet.getInt(4));
+               resultado.setFecha(resultSet.getString(5));
+               resultado.setIdPaciente(paciente.getId().toString());
+               resultado.setTipoJuego(tipoJuego);
+               resultados.add(resultado);
+            }
+        } catch (ClassNotFoundException | SQLException e) {
+            throw new PersistenceNotFoundException(e.getMessage());
+        } finally {
+            close();
+        }
+        if(resultados.isEmpty()){
+            throw new PersistenceException("No existen datos para este periodo de tiempo");
+        }
+        return resultados;
     }
 
     @Override
     public ArrayList<Resultado> traerResultadosAnios(Paciente paciente, String fechaInicial, String fechaFinal, String tipoJuego) throws PersistenceNotFoundException, PersistenceException {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        ArrayList<Resultado> resultados = new ArrayList<>();
+        Resultado resultado;
+        
+        try {
+            Class.forName(DatosBD.DRIVER);
+            connect = DriverManager.getConnection(DatosBD.CONECTOR);
+            preparedStatement = connect.prepareStatement("SELECT SUM(acertadas), SUM(erroneas), SUM(tiempo), MAX(nivelMaximo),  EXTRACT(YEAR FROM fecha) FROM RESULTADO WHERE tipoJuego = '"+tipoJuego+"' AND idPaciente = '"+paciente.getId()+"' AND fecha between '"+fechaInicial+"' AND '"+fechaFinal+"' GROUP BY EXTRACT(YEAR FROM fecha) ORDER BY fecha LIMIT 12");
+            System.out.println("SELECT SUM(acertadas), SUM(erroneas), SUM(tiempo), MAX(nivelMaximo),  EXTRACT(YEAR FROM fecha) FROM RESULTADO WHERE tipoJuego = '"+tipoJuego+"' AND idPaciente = '"+paciente.getId()+"' AND fecha between '"+fechaInicial+"' AND '"+fechaFinal+"' GROUP BY EXTRACT(YEAR FROM fecha) ORDER BY fecha LIMIT 12");
+            resultSet = preparedStatement.executeQuery();
+            while(resultSet.next()){
+               resultado = new Resultado();
+               resultado.setAcertadas(resultSet.getInt(1));
+               resultado.setErroneas(resultSet.getInt(2));
+               resultado.setTiempo(resultSet.getInt(3));
+               resultado.setNivelMaximo(resultSet.getInt(4));
+               resultado.setFecha(resultSet.getString(5));
+               resultado.setIdPaciente(paciente.getId().toString());
+               resultado.setTipoJuego(tipoJuego);
+               resultados.add(resultado);
+            }
+        } catch (ClassNotFoundException | SQLException e) {
+            throw new PersistenceNotFoundException(e.getMessage());
+        } finally {
+            close();
+        }
+        if(resultados.isEmpty()){
+            throw new PersistenceException("No existen datos para este periodo de tiempo");
+        }
+        return resultados;
     }
     
 }

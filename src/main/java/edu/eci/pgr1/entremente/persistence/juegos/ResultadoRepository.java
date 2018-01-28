@@ -3,11 +3,13 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package edu.eci.pgr1.entremente.persistence;
+package edu.eci.pgr1.entremente.persistence.juegos;
 
 
 import edu.eci.pgr1.entremente.model.Paciente;
 import edu.eci.pgr1.entremente.model.Resultado;
+import edu.eci.pgr1.entremente.persistence.PersistenceException;
+import edu.eci.pgr1.entremente.persistence.PersistenceNotFoundException;
 import java.util.ArrayList;
 
 /**
