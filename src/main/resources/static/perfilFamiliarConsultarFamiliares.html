@@ -12,13 +12,14 @@
         <link rel="stylesheet" href="css/diagramas.css" />
         <!--importarJS-->
         <script src="js/diagramasGaleria.js"></script> 
-        <script src="js/diagramasOperaciones.js"></script> 
+        <script src="js/diagramasCalculemos.js"></script> 
         <script src="js/diagramasPercepciones.js"></script> 
         <script src="js/diagramasResumen.js"></script> 
         <!--importarGraficos-->
         <script src="https://code.highcharts.com/highcharts.src.js"></script>
         <script src="js/cerrarSesion.js"></script> 
         <script src="js/apiclientPerfilFamiliar.js"></script> 
+        <script src="js/apiclientResultados.js"></script> 
         <script src="js/perfilFamiliar.js"></script> 
         <title>Mi Perfil - Paciente</title>
     </head>
@@ -119,25 +120,24 @@
                                         </div>
                                         <div class="col-xs-3 col-sm-3 col-md-4 col-lg-4"></div>
                                     </div>
-                                    <label for="filtro">Filtro:</label>
-                                    <select class="form-control" id="sel1">
-                                        <option>Días</option>
-                                        <option>Meses</option>
-                                        <option>Años</option>
+                                    <label>Filtro:</label>
+                                    <select class="form-control" id="idComboGaleria">
+                                        <option value="D">Días</option>
+                                        <option value="M">Meses</option>
+                                        <option value="A">Años</option>
                                     </select>
                                     <div class="form-group">
                                         <label>Fecha Inicial:</label>
                                         <input type="date" class="form-control" id="idFechaIG">
                                         <label>Fecha Final:</label>
                                         <input type="date" class="form-control" id="idFechaFG">
-                                        <button class="btn btn-success btn-block">Buscar</button>
+                                        <button class="btn btn-success btn-block" onclick="perfilFamiliar.buscarResultadosGaleria()">Buscar</button>
                                     </div>
                                     <br>
                                     <div class="table-responsive">          
-                                        <table class="table">
+                                        <table class="table" id="idTablaGResultados">
                                             <thead>
                                                 <tr>
-                                                    <th>#</th>
                                                     <th>Preguntas Acertadas</th>
                                                     <th>Preguntas Erroneas</th>
                                                     <th>Tiempo Jugado (Min.)</th>
@@ -146,22 +146,6 @@
                                                 </tr>
                                             </thead>
                                             <tbody>
-                                                <tr>
-                                                    <td>1</td>
-                                                    <td>5</td>
-                                                    <td>8</td>
-                                                    <td>3600</td>
-                                                    <td>2</td>
-                                                    <td>10/09/2017</td> 
-                                                </tr>
-                                                <tr>
-                                                    <td>2</td>
-                                                    <td>10</td>
-                                                    <td>2</td>
-                                                    <td>8600</td>
-                                                    <td>5</td>
-                                                    <td>11/09/2017</td>
-                                                </tr>
                                             </tbody>
                                         </table>
                                     </div>
@@ -192,26 +176,24 @@
                                             </div>
                                             <div class="col-xs-3 col-sm-3 col-md-4 col-lg-4"></div>
                                         </div>
-                                        <label for="tipoDocumento">Filtro:</label>
-                                        <select class="form-control" id="sel1">
-                                            <option>Días</option>
-                                            <option>Semanas</option>
-                                            <option>Meses</option>
-                                            <option>Años</option>
+                                        <label>Filtro:</label>
+                                        <select class="form-control" id="idComboCalculo">
+                                            <option value="D">Días</option>
+                                            <option value="M">Meses</option>
+                                            <option value="A">Años</option>
                                         </select>
                                         <div class="form-group">
-                                            <label for="usr">Fecha Inicial:</label>
-                                            <input type="date" class="form-control" id="fechaIC">
-                                            <label for="usr">Fecha Final:</label>
-                                            <input type="date" class="form-control" id="fechaFC">
-                                            <button class="btn btn-success btn-block">Buscar</button>
+                                            <label>Fecha Inicial:</label>
+                                            <input type="date" class="form-control" id="idFechaIC">
+                                            <label>Fecha Final:</label>
+                                            <input type="date" class="form-control" id="idFechaFC">
+                                            <button class="btn btn-success btn-block" onclick="perfilFamiliar.buscarResultadosCalculemos()">Buscar</button>
                                         </div>
                                         <br>
                                         <div class="table-responsive">          
-                                            <table class="table">
+                                            <table class="table" id="idTablaCResultados">
                                                 <thead>
                                                     <tr>
-                                                        <th>#</th>
                                                         <th>Preguntas Acertadas</th>
                                                         <th>Preguntas Erroneas</th>
                                                         <th>Tiempo Jugado (Min.)</th>
@@ -220,30 +202,14 @@
                                                     </tr>
                                                 </thead>
                                                 <tbody>
-                                                    <tr>
-                                                        <td>1</td>
-                                                        <td>10</td>
-                                                        <td>1</td>
-                                                        <td>5874</td>
-                                                        <td>1</td>
-                                                        <td>11/09/2017</td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td>2</td>
-                                                        <td>50</td>
-                                                        <td>12</td>
-                                                        <td>18600</td>
-                                                        <td>4</td>
-                                                        <td>15/09/2017</td>
-                                                    </tr>
                                                 </tbody>
                                             </table>
                                         </div>
                                         <div class="row">
-                                            <div id="preguntasAcertadasOperaciones" class = "diagramasBarras"></div>
-                                            <div id="preguntasErroneasOperaciones" class = "diagramasBarras"></div>
-                                            <div id="tiempoJugadoOperaciones" class = "diagramasBarras"></div>
-                                            <div id="nivelMaximoOperaciones" class = "diagramasBarras"></div>
+                                            <div id="preguntasAcertadasCalculemos" class = "diagramasBarras"></div>
+                                            <div id="preguntasErroneasCalculemos" class = "diagramasBarras"></div>
+                                            <div id="tiempoJugadoCalculemos" class = "diagramasBarras"></div>
+                                            <div id="nivelMaximoCalculemos" class = "diagramasBarras"></div>
                                         </div>
                                     </div>
                                 </div>
@@ -254,7 +220,7 @@
                         <div class="panel panel-warning">
                             <div class="panel-heading">
                                 <h4 class="panel-title">
-                                    <a data-toggle="collapse" data-parent="#accordion" href="#collapse4"><h5 class="subTitulo ">Percepciones</h5></a>
+                                    <a data-toggle="collapse" data-parent="#accordion" href="#collapse4"><h5 class="subTitulo ">Percepción</h5></a>
                                 </h4>
                             </div>
                             <div id="collapse4" class="panel-collapse collapse">
@@ -354,7 +320,7 @@
                                                     </tr>
                                                 </thead>
                                                 <tbody>
-                                                    
+
                                                 </tbody>
                                             </table>
                                         </div>
@@ -414,7 +380,7 @@
                                                     </tr>
                                                 </thead>
                                                 <tbody>
-                                                    
+
                                                 </tbody>
                                             </table>
                                         </div>

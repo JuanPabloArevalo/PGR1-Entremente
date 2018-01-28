@@ -3,7 +3,9 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-    function adicionarFilaPendientes(item){
+    /* global apiclientResultados, diagramaGaleria, diagramaCalculemos */
+
+function adicionarFilaPendientes(item){
         var markup = "<tr class=\"filasP\"><td>" + item.id + "</td><td>" + item.nombresPaciente + "</td><td>" + item.apellidosPaciente + "</td><td>" + item.relacion + "</td><td><button type=\"button\" class=\"btn btn-success\" onclick=\"perfilFamiliar.aceptarSolicitud("+item.id+", "+item.idPaciente+", "+item.idFamiliar+")\">Aceptar</button><button type=\"button\" class=\"btn btn-danger\" onclick=\"perfilFamiliar.rechazarSolicitud("+item.id+", "+item.idPaciente+", "+item.idFamiliar+")\">Rechazar</button></td></tr>";
         $("#tablaPendientes").append(markup);
     }
@@ -49,7 +51,24 @@
     function inicializarElementosHistorialMedico(){
         $(".filasHM").remove("tr");
     }
+ //Galeria Resultados   
+    function adicionarFilaGaleriaResultado(item){
+        var markup = "<tr class=\"filasGalRes\"><td>" + item.acertadas + "</td><td>" + item.erroneas + "</td><td>" + item.tiempo + "</td><td>" + item.nivelMaximo + "</td><td>" + item.fecha + "</td></tr>";
+        $("#idTablaGResultados").append(markup);
+    }
 
+    function inicializarElementosGaleriaResultado(){
+        $(".filasGalRes").remove("tr");
+    }
+//Calculemos
+    function adicionarFilaCalculemosResultado(item){
+        var markup = "<tr class=\"filasCalRes\"><td>" + item.acertadas + "</td><td>" + item.erroneas + "</td><td>" + item.tiempo + "</td><td>" + item.nivelMaximo + "</td><td>" + item.fecha + "</td></tr>";
+        $("#idTablaCResultados").append(markup);
+    }
+
+    function inicializarElementosCalculemosResultado(){
+        $(".filasCalRes").remove("tr");
+    }
 var perfilFamiliar = (function () {
     return{    
         init(){
@@ -374,11 +393,105 @@ var perfilFamiliar = (function () {
                 }
                 else{
                     $("#idNombreUsu").text(sessionStorage.getItem("nombres")+" "+sessionStorage.getItem("apellidos"));
-                    console.info(sessionStorage.getItem("nombrePacienteConsultaPS"));
+//                    console.info(sessionStorage.getItem("nombrePacienteConsultaPS"));
                     $("#idNombrePaciente").text(sessionStorage.getItem("nombrePacienteConsultaPS"));
                     appPercepcion.cargarParaEditar();
                 }
             }
+        },
+        buscarResultadosGaleria(){
+            var fechaIni = $('#idFechaIG').val();
+            var fechaFin = $('#idFechaFG').val();
+            var idPac = sessionStorage.getItem("idPacienteConsultaPS");
+            var tip = $("select#idComboGaleria").val();
+            var promesa;
+            if(fechaIni==="" || fechaIni === null){
+                alert("La fecha inicial no puede ir vacia");
+            }
+            else if(fechaFin==="" || fechaFin === null){
+                alert("La fecha final no puede ir vacia");
+            }
+            else if("D" === tip){
+                promesa = apiclientResultados.getResultadosGaleriaDia(idPac, fechaIni, fechaFin);
+            }
+            else if("M" === tip){
+                promesa = apiclientResultados.getResultadosGaleriaMes(idPac, fechaIni, fechaFin);
+            }
+            else if("A" === tip){
+                promesa = apiclientResultados.getResultadosGaleriaAnual(idPac, fechaIni, fechaFin);
+            }
+            promesa.then(
+                function (datos) { 
+                    var acertadas = [];
+                    var fecha = [];
+                    var erroneas = [];
+                    var tiempo = [];
+                    var nivel = [];
+                    for(var i = 0; i<datos.length; i++){
+                       acertadas[i] = datos[i].acertadas;
+                       fecha[i] = datos[i].fecha;
+                       erroneas[i] = datos[i].erroneas;
+                       tiempo[i] = datos[i].tiempo;
+                       nivel[i] = datos[i].nivelMaximo;
+                    }
+                    inicializarElementosGaleriaResultado();
+                    datos.map(adicionarFilaGaleriaResultado);
+                    diagramaGaleria.cargarAcertadas(acertadas, fecha);
+                    diagramaGaleria.cargarErroneas(erroneas, fecha);
+                    diagramaGaleria.cargarTiempo(tiempo, fecha);
+                    diagramaGaleria.cargarNivelMaximo(nivel, fecha);
+                },
+                function (dato) {
+                    alert(dato.responseText);
+                }
+            );
+        },
+        buscarResultadosCalculemos(){
+            var fechaIni = $('#idFechaIC').val();
+            var fechaFin = $('#idFechaFC').val();
+            var idPac = sessionStorage.getItem("idPacienteConsultaPS");
+            var tip = $("select#idComboCalculo").val();
+            var promesa;
+            if(fechaIni==="" || fechaIni === null){
+                alert("La fecha inicial no puede ir vacia");
+            }
+            else if(fechaFin==="" || fechaFin === null){
+                alert("La fecha final no puede ir vacia");
+            }
+            else if("D" === tip){
+                promesa = apiclientResultados.getResultadosCalculemosDia(idPac, fechaIni, fechaFin);
+            }
+            else if("M" === tip){
+                promesa = apiclientResultados.getResultadosCalculemosMes(idPac, fechaIni, fechaFin);
+            }
+            else if("A" === tip){
+                promesa = apiclientResultados.getResultadosCalculemosAnual(idPac, fechaIni, fechaFin);
+            }
+            promesa.then(
+                function (datos) { 
+                    var acertadas = [];
+                    var fecha = [];
+                    var erroneas = [];
+                    var tiempo = [];
+                    var nivel = [];
+                    for(var i = 0; i<datos.length; i++){
+                       acertadas[i] = datos[i].acertadas;
+                       fecha[i] = datos[i].fecha;
+                       erroneas[i] = datos[i].erroneas;
+                       tiempo[i] = datos[i].tiempo;
+                       nivel[i] = datos[i].nivelMaximo;
+                    }
+                    inicializarElementosCalculemosResultado();
+                    datos.map(adicionarFilaCalculemosResultado);
+                    diagramaCalculemos.cargarAcertadas(acertadas, fecha);
+                    diagramaCalculemos.cargarErroneas(erroneas, fecha);
+                    diagramaCalculemos.cargarTiempo(tiempo, fecha);
+                    diagramaCalculemos.cargarNivelMaximo(nivel, fecha);
+                },
+                function (dato) {
+                    alert(dato.responseText);
+                }
+            );
         }
         
     };

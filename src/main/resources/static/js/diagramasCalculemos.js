@@ -1,7 +1,7 @@
-var diagramaGaleria = (function () {
+var diagramaCalculemos = (function () {
     return{
         cargarAcertadas(datos, fechas) {
-            var chart = $('#preguntasAcertadasGaleria').highcharts({
+            var chart = $('#preguntasAcertadasCalculemos').highcharts({
                 chart: {
                     type: 'column'
                 },
@@ -28,7 +28,7 @@ var diagramaGaleria = (function () {
             });
         },
         cargarErroneas(datos, fechas) {
-            var chart = $('#preguntasErroneasGaleria').highcharts({
+            var chart = $('#preguntasErroneasCalculemos').highcharts({
                 chart: {
                     type: 'column'
                 },
@@ -55,7 +55,7 @@ var diagramaGaleria = (function () {
             });
         },
         cargarTiempo(datos, fechas) {
-            var chart = $('#tiempoJugadoGaleria').highcharts({
+            var chart = $('#tiempoJugadoCalculemos').highcharts({
                 chart: {
                     type: 'column'
                 },
@@ -82,7 +82,7 @@ var diagramaGaleria = (function () {
             });
         },
         cargarNivelMaximo(datos, fechas) {
-            var chart = $('#nivelMaximoGaleria').highcharts({
+            var chart = $('#nivelMaximoCalculemos').highcharts({
                 chart: {
                     type: 'column'
                 },
