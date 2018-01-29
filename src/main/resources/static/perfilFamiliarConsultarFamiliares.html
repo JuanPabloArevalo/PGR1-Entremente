@@ -14,6 +14,8 @@
         <script src="js/diagramasGaleria.js"></script> 
         <script src="js/diagramasCalculemos.js"></script> 
         <script src="js/diagramasPercepciones.js"></script> 
+        <script src="js/diagramasAtencion.js"></script> 
+        <script src="js/diagramasFormas.js"></script> 
         <script src="js/diagramasResumen.js"></script> 
         <!--importarGraficos-->
         <script src="https://code.highcharts.com/highcharts.src.js"></script>
@@ -233,31 +235,29 @@
                                             </div>
                                             <div class="col-xs-3 col-sm-3 col-md-4 col-lg-4"></div>
                                         </div>
-                                        <label for="tipoDocumento">Filtro:</label>
-                                        <select class="form-control" id="sel1">
-                                            <option>Días</option>
-                                            <option>Meses</option>
-                                            <option>Años</option>
+                                        <label>Filtro:</label>
+                                        <select class="form-control" id="idComboPercepcion">
+                                            <option value="D">Días</option>
+                                            <option value="M">Meses</option>
+                                            <option value="A">Años</option>
                                         </select>
                                         <div class="form-group">
                                             <label>Fecha Inicial:</label>
-                                            <input type="date" class="form-control" id="fechaIP">
+                                            <input type="date" class="form-control" id="idFechaIP">
                                             <label>Fecha Final:</label>
-                                            <input type="date" class="form-control" id="fechaFP">
-                                            <button class="btn btn-success btn-block">Buscar</button>
+                                            <input type="date" class="form-control" id="idFechaFP">
+                                            <button class="btn btn-success btn-block" onclick="perfilFamiliar.buscarResultadosPercepcion()">Buscar</button>
                                         </div>
                                         <br>
                                         <div class="table-responsive">          
-                                            <table class="table">
+                                            <table class="table" id="idTablaPResultados">
                                                 <thead>
                                                     <tr>
-                                                        <th>#</th>
                                                         <th>Preguntas Acertadas</th>
                                                         <th>Preguntas Erroneas</th>
                                                         <th>Tiempo Jugado (Min.)</th>
                                                         <th>Nivel Máximo</th>
                                                         <th>Fecha</th>
-                                                        <th></th>
                                                     </tr>
                                                 </thead>
                                                 <tbody>
@@ -265,10 +265,10 @@
                                             </table>
                                         </div>
                                         <div class="row">
-                                            <div id="preguntasAcertadasPercepciones" class = "diagramasBarras"></div>
-                                            <div id="preguntasErroneasPercepciones" class = "diagramasBarras"></div>
-                                            <div id="tiempoJugadoPercepciones" class = "diagramasBarras"></div>
-                                            <div id="nivelMaximoPercepciones" class = "diagramasBarras"></div>
+                                            <div id="preguntasAcertadasPercepcion" class = "diagramasBarras"></div>
+                                            <div id="preguntasErroneasPercepcion" class = "diagramasBarras"></div>
+                                            <div id="tiempoJugadoPercepcion" class = "diagramasBarras"></div>
+                                            <div id="nivelMaximoPercepcion" class = "diagramasBarras"></div>
                                         </div>
                                     </div>
                                 </div>
@@ -293,30 +293,28 @@
                                             <div class="col-xs-3 col-sm-3 col-md-4 col-lg-4"></div>
                                         </div>
                                         <label>Filtro:</label>
-                                        <select class="form-control" id="sel1">
-                                            <option>Días</option>
-                                            <option>Meses</option>
-                                            <option>Años</option>
+                                        <select class="form-control" id="idComboAtencion">
+                                            <option value="D">Días</option>
+                                            <option value="M">Meses</option>
+                                            <option value="A">Años</option>
                                         </select>
                                         <div class="form-group">
                                             <label>Fecha Inicial:</label>
-                                            <input type="date" class="form-control" id="fechaIA">
+                                            <input type="date" class="form-control" id="idFechaIA">
                                             <label>Fecha Final:</label>
-                                            <input type="date" class="form-control" id="fechaFA">
-                                            <button class="btn btn-success btn-block">Buscar</button>
+                                            <input type="date" class="form-control" id="idFechaFA">
+                                            <button class="btn btn-success btn-block" onclick="perfilFamiliar.buscarResultadosAtencion()">Buscar</button>
                                         </div>
                                         <br>
                                         <div class="table-responsive">          
-                                            <table class="table">
+                                            <table class="table" id="idTablaAResultados">
                                                 <thead>
                                                     <tr>
-                                                        <th>#</th>
                                                         <th>Preguntas Acertadas</th>
                                                         <th>Preguntas Erroneas</th>
                                                         <th>Tiempo Jugado (Min.)</th>
                                                         <th>Nivel Máximo</th>
                                                         <th>Fecha</th>
-                                                        <th></th>
                                                     </tr>
                                                 </thead>
                                                 <tbody>
@@ -325,10 +323,10 @@
                                             </table>
                                         </div>
                                         <div class="row">
-                                            <div id="preguntasAcertadasPercepciones" class = "diagramasBarras"></div>
-                                            <div id="preguntasErroneasPercepciones" class = "diagramasBarras"></div>
-                                            <div id="tiempoJugadoPercepciones" class = "diagramasBarras"></div>
-                                            <div id="nivelMaximoPercepciones" class = "diagramasBarras"></div>
+                                            <div id="preguntasAcertadasAtencion" class = "diagramasBarras"></div>
+                                            <div id="preguntasErroneasAtencion" class = "diagramasBarras"></div>
+                                            <div id="tiempoJugadoAtencion" class = "diagramasBarras"></div>
+                                            <div id="nivelMaximoAtencion" class = "diagramasBarras"></div>
                                         </div>
                                     </div>
                                 </div>
@@ -352,31 +350,29 @@
                                             </div>
                                             <div class="col-xs-3 col-sm-3 col-md-4 col-lg-4"></div>
                                         </div>
-                                        <label for="tipoDocumento">Filtro:</label>
-                                        <select class="form-control" id="sel1">
-                                            <option>Días</option>
-                                            <option>Meses</option>
-                                            <option>Años</option>
+                                        <label>Filtro:</label>
+                                        <select class="form-control" id="idComboFormas">
+                                            <option value="D">Días</option>
+                                            <option value="M">Meses</option>
+                                            <option value="A">Años</option>
                                         </select>
                                         <div class="form-group">
                                             <label>Fecha Inicial:</label>
-                                            <input type="date" class="form-control" id="fechaIF">
+                                            <input type="date" class="form-control" id="idFechaIF">
                                             <label>Fecha Final:</label>
-                                            <input type="date" class="form-control" id="fechaFF">
-                                            <button class="btn btn-success btn-block">Buscar</button>
+                                            <input type="date" class="form-control" id="idFechaFF">
+                                            <button class="btn btn-success btn-block" onclick="perfilFamiliar.buscarResultadosFormas()">Buscar</button>
                                         </div>
                                         <br>
                                         <div class="table-responsive">          
-                                            <table class="table">
+                                            <table class="table" id="idTablaFResultados">
                                                 <thead>
                                                     <tr>
-                                                        <th>#</th>
                                                         <th>Preguntas Acertadas</th>
                                                         <th>Preguntas Erroneas</th>
                                                         <th>Tiempo Jugado (Min.)</th>
                                                         <th>Nivel Máximo</th>
                                                         <th>Fecha</th>
-                                                        <th></th>
                                                     </tr>
                                                 </thead>
                                                 <tbody>
@@ -385,10 +381,10 @@
                                             </table>
                                         </div>
                                         <div class="row">
-                                            <div id="preguntasAcertadasPercepciones" class = "diagramasBarras"></div>
-                                            <div id="preguntasErroneasPercepciones" class = "diagramasBarras"></div>
-                                            <div id="tiempoJugadoPercepciones" class = "diagramasBarras"></div>
-                                            <div id="nivelMaximoPercepciones" class = "diagramasBarras"></div>
+                                            <div id="preguntasAcertadasFormas" class = "diagramasBarras"></div>
+                                            <div id="preguntasErroneasFormas" class = "diagramasBarras"></div>
+                                            <div id="tiempoJugadoFormas" class = "diagramasBarras"></div>
+                                            <div id="nivelMaximoFormas" class = "diagramasBarras"></div>
                                         </div>
                                     </div>
                                 </div>
@@ -396,40 +392,40 @@
                         </div>
                         <!--Fin Formas-->
                         <!--Resumen-->
-                        <div class="panel panel-warning">
-                            <div class="panel-heading">
-                                <h4 class="panel-title">
-                                    <a data-toggle="collapse" data-parent="#accordion" href="#collapse7"><h5 class="subTitulo ">Resumen</h5></a>
-                                </h4>
-                            </div>
-                            <div id="collapse7" class="panel-collapse collapse">
-                                <div class="panel-body">
-                                    <div class="table-responsive">          
-                                        <table class="table">
-                                            <thead>
-                                                <tr>
-                                                    <th>#</th>
-                                                    <th>Preguntas Acertadas</th>
-                                                    <th>Preguntas Erroneas</th>
-                                                    <th>Tiempo Jugado (Min.)</th>
-                                                </tr>
-                                            </thead>
-                                            <tbody>
-                                                <tr>
-                                                    <td>1</td>
-                                                    <td>132</td>
-                                                    <td>60</td>
-                                                    <td>54533</td>
-                                                </tr>
-                                            </tbody>
-                                        </table>
-                                    </div>
-                                    <div class="row">
-                                        <div id="preguntasResumen" class = "diagramasBarras"></div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
+                        <!--                        <div class="panel panel-warning">
+                                                    <div class="panel-heading">
+                                                        <h4 class="panel-title">
+                                                            <a data-toggle="collapse" data-parent="#accordion" href="#collapse7"><h5 class="subTitulo ">Resumen</h5></a>
+                                                        </h4>
+                                                    </div>
+                                                    <div id="collapse7" class="panel-collapse collapse">
+                                                        <div class="panel-body">
+                                                            <div class="table-responsive">          
+                                                                <table class="table">
+                                                                    <thead>
+                                                                        <tr>
+                                                                            <th>#</th>
+                                                                            <th>Preguntas Acertadas</th>
+                                                                            <th>Preguntas Erroneas</th>
+                                                                            <th>Tiempo Jugado (Min.)</th>
+                                                                        </tr>
+                                                                    </thead>
+                                                                    <tbody>
+                                                                        <tr>
+                                                                            <td>1</td>
+                                                                            <td>132</td>
+                                                                            <td>60</td>
+                                                                            <td>54533</td>
+                                                                        </tr>
+                                                                    </tbody>
+                                                                </table>
+                                                            </div>
+                                                            <div class="row">
+                                                                <div id="preguntasResumen" class = "diagramasBarras"></div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>-->
                         <!--Fin Resumen-->
                         <!--Historial Mensajes-->
                         <div class="panel panel-warning">

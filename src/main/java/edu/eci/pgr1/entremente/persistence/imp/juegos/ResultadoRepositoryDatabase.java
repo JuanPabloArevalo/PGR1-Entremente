@@ -119,8 +119,8 @@ public class ResultadoRepositoryDatabase implements ResultadoRepository{
         try {
             Class.forName(DatosBD.DRIVER);
             connect = DriverManager.getConnection(DatosBD.CONECTOR);
-            preparedStatement = connect.prepareStatement("SELECT SUM(acertadas), SUM(erroneas), SUM(tiempo), MAX(nivelMaximo),  EXTRACT(YEAR_MONTH FROM fecha) FROM RESULTADO WHERE tipoJuego = '"+tipoJuego+"' AND idPaciente = '"+paciente.getId()+"' AND fecha between '"+fechaInicial+"' AND '"+fechaFinal+"' GROUP BY EXTRACT(YEAR_MONTH FROM fecha) ORDER BY fecha LIMIT 12");
-            System.out.println("SELECT SUM(acertadas), SUM(erroneas), SUM(tiempo), MAX(nivelMaximo),  EXTRACT(YEAR_MONTH FROM fecha) FROM RESULTADO WHERE tipoJuego = '"+tipoJuego+"' AND idPaciente = '"+paciente.getId()+"' AND fecha between '"+fechaInicial+"' AND '"+fechaFinal+"' GROUP BY EXTRACT(YEAR_MONTH FROM fecha) ORDER BY fecha LIMIT 12");
+            preparedStatement = connect.prepareStatement("SELECT SUM(acertadas), SUM(erroneas), SUM(tiempo), MAX(nivelMaximo),  EXTRACT(YEAR_MONTH FROM fecha) FROM RESULTADO WHERE tipoJuego = '"+tipoJuego+"' AND idPaciente = '"+paciente.getId()+"' AND fecha between '"+fechaInicial+"' AND '"+fechaFinal+"' GROUP BY EXTRACT(YEAR_MONTH FROM fecha) ORDER BY EXTRACT(YEAR_MONTH FROM fecha) LIMIT 12");
+            System.out.println("SELECT SUM(acertadas), SUM(erroneas), SUM(tiempo), MAX(nivelMaximo),  EXTRACT(YEAR_MONTH FROM fecha) FROM RESULTADO WHERE tipoJuego = '"+tipoJuego+"' AND idPaciente = '"+paciente.getId()+"' AND fecha between '"+fechaInicial+"' AND '"+fechaFinal+"' GROUP BY EXTRACT(YEAR_MONTH FROM fecha) ORDER BY EXTRACT(YEAR_MONTH FROM fecha) LIMIT 12");
             resultSet = preparedStatement.executeQuery();
             while(resultSet.next()){
                resultado = new Resultado();

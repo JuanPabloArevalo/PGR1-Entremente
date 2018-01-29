@@ -174,6 +174,7 @@ var appFormas = (function () {
             }
         },
         cargarParaEditar(){
+            
             var promesaConsulta = apiclientFormas.getTodasPreguntas(sessionStorage.getItem("idPacienteConsultaPS"))
             promesaConsulta.then(
                 function (datos) { 

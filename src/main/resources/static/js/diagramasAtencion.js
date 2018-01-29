@@ -1,7 +1,7 @@
-var diagramaPercepcion = (function () {
+var diagramaAtencion = (function () {
     return{
         cargarAcertadas(datos, fechas) {
-            var chart = $('#preguntasAcertadasPercepcion').highcharts({
+            var chart = $('#preguntasAcertadasAtencion').highcharts({
                 chart: {
                     type: 'column'
                 },
@@ -28,7 +28,7 @@ var diagramaPercepcion = (function () {
             });
         },
         cargarErroneas(datos, fechas) {
-            var chart = $('#preguntasErroneasPercepcion').highcharts({
+            var chart = $('#preguntasErroneasAtencion').highcharts({
                 chart: {
                     type: 'column'
                 },
@@ -55,7 +55,7 @@ var diagramaPercepcion = (function () {
             });
         },
         cargarTiempo(datos, fechas) {
-            var chart = $('#tiempoJugadoPercepcion').highcharts({
+            var chart = $('#tiempoJugadoAtencion').highcharts({
                 chart: {
                     type: 'column'
                 },
@@ -82,7 +82,7 @@ var diagramaPercepcion = (function () {
             });
         },
         cargarNivelMaximo(datos, fechas) {
-            var chart = $('#nivelMaximoPercepcion').highcharts({
+            var chart = $('#nivelMaximoAtencion').highcharts({
                 chart: {
                     type: 'column'
                 },
