@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-    /* global apiclientResultados, diagramaGaleria, diagramaCalculemos, diagramaPercepcion, diagramaAtencion, diagramaFormas */
+    /* global apiclientResultados, diagramaGaleria, diagramaCalculemos, diagramaPercepcion, diagramaAtencion, diagramaFormas, appPercepcion */
 
 function adicionarFilaPendientes(item){
         var markup = "<tr class=\"filasP\"><td>" + item.id + "</td><td>" + item.nombresPaciente + "</td><td>" + item.apellidosPaciente + "</td><td>" + item.relacion + "</td><td><button type=\"button\" class=\"btn btn-success\" onclick=\"perfilFamiliar.aceptarSolicitud("+item.id+", "+item.idPaciente+", "+item.idFamiliar+")\">Aceptar</button><button type=\"button\" class=\"btn btn-danger\" onclick=\"perfilFamiliar.rechazarSolicitud("+item.id+", "+item.idPaciente+", "+item.idFamiliar+")\">Rechazar</button></td></tr>";
@@ -89,7 +89,6 @@ function adicionarFilaPendientes(item){
     }
 //Formas 
     function adicionarFilaFormasResultado(item){
-        console.info(item)
         var markup = "<tr class=\"filasForRes\"><td>" + item.acertadas + "</td><td>" + item.erroneas + "</td><td>" + item.tiempo + "</td><td>" + item.nivelMaximo + "</td><td>" + item.fecha + "</td></tr>";
         $("#idTablaFResultados").append(markup);
     }
@@ -638,7 +637,6 @@ var perfilFamiliar = (function () {
             }
             promesa.then(
                 function (datos) { 
-                    console.info(datos)
                     var acertadas = [];
                     var fecha = [];
                     var erroneas = [];
