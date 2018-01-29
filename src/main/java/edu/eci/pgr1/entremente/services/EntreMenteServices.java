@@ -101,6 +101,16 @@ public class EntreMenteServices {
     }
     
     /**
+     * Metodo encargado de modificar un familiar
+     * @param familiar
+     * @throws PersistenceNotFoundException 
+     * @throws edu.eci.pgr1.entremente.persistence.PersistenceException 
+     */
+    public void modificarFamiliar(Familiar familiar) throws PersistenceNotFoundException, PersistenceException{
+        familiarRepository.modificarFamiliar(familiar);
+    }
+    
+    /**
      * Metodo encargado de iniciar sesión, si el usuario se ha autenticado correctamente del familiar
      * @param nombreUsuario
      * @param password 

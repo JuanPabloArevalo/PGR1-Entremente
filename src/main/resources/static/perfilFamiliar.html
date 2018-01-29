@@ -9,13 +9,14 @@
         <!--importarCSS-->
         <link rel="stylesheet" href="css/css.css" />
         <link rel="stylesheet" href="css/perfilPaciente.css" />
+        <script src="js/apiclientPerfilFamiliar.js"></script> 
         <script src="js/perfilFamiliar.js"></script> 
         <script src="js/cerrarSesion.js"></script> 
         <title>Mi Perfil</title>
     </head>
     <body onload="perfilFamiliar.init()">
         <div class="container-fluid">
-<!--Menú-->	
+            <!--Menú-->	
             <nav class="navbar navbar-inverse navbar-fixed-top">
                 <div class="container-fluid">
                     <div class="navbar-header">
@@ -38,9 +39,9 @@
                     </div>
                 </div>
             </nav> 
-<!--Fin Menú-->	
+            <!--Fin Menú-->	
 
-<!--Modal Cerrar Sesion-->	
+            <!--Modal Cerrar Sesion-->	
             <div id="modalCerrarSesion" class="modal fade" role="dialog">
                 <div class="modal-dialog">
                     <div class="modal-content">
@@ -58,49 +59,52 @@
                     </div>
                 </div>
             </div>
-<!--Fin Modal Cerrar Sesion-->
+            <!--Fin Modal Cerrar Sesion-->
 
 
             <div class="panel panel-warning">
                 <div class="panel-heading"><h5 class="subTitulo">Mi perfil</h5></div>
                 <div class="panel-body">
 
-<!--Div para los datos-->
+                    <!--Div para los datos-->
                     <div class="row">
                         <div class="col-xs-1 col-sm-2 col-md-3 col-lg-3"></div>
                         <div class="col-xs-10 col-sm-8 col-md-6 col-lg-6">
-                            <form>
-                                <div class="form-group  well">
-                                    <label>Nombres:</label>
-                                    <input type="text" class="form-control" id="nombre">
-                                    <label>Apellidos:</label>
-                                    <input type="text" class="form-control" id="apellido">
-                                    <label>Tipo Documento:</label>
-                                    <select class="form-control" id="tipoDoc" name="tipoDocu">
-                                        <option value="">...</option>
-                                        <option value="T">Tarjeta de Identidad</option>
-                                        <option value="C">Cédula Ciudadania</option>
-                                        <option value="P">Pasaporte</option>
-                                        <option value="E">Cédula de Extranjeria</option>
-                                    </select>
-                                    <label>Documento de identidad:</label>
-                                    <input type="number" class="form-control" id="documento">
-                                    <label>Correo</label>
-                                    <input type="email" class="form-control" id="correo">
-                                    <label>Usuario:</label>
-                                    <input type="text" class="form-control" id="usuario">
-                                    <br>
-                                    <button type="button" class="btn btn-success btn-block">Guardar</button>
-                                    <br>
-                                    <button type="button" class="btn btn-warning btn-block">Atrás</button>
-                                    <br>
-                                    <button type="button" class="btn btn-danger btn-block" data-toggle="modal" data-target="#modalCambiarPassword">Cambiar password</button>
-                                </div>
-                            </form>
+                            <div class="alert alert-danger alert-dismissable fade in" id="divError" hidden="">
+                                <strong>Error! Falta ingresar los siguientes campos:</strong><code id="mensajeFalta"></code>
+                            </div>
+                            <div class="alert alert-danger alert-dismissable fade in" id="divProm" hidden=""><strong>Error! </strong><code id="mensajeFaltaProm"></code></div>
+
+                            <div class="form-group  well">
+                                <label>Nombres:</label>
+                                <input type="text" class="form-control" id="nombre">
+                                <label>Apellidos:</label>
+                                <input type="text" class="form-control" id="apellido">
+                                <label>Tipo Documento:</label>
+                                <select class="form-control" id="tipoDoc" name="tipoDocu" disabled>
+                                    <option value="">...</option>
+                                    <option value="T">Tarjeta de Identidad</option>
+                                    <option value="C">Cédula Ciudadania</option>
+                                    <option value="P">Pasaporte</option>
+                                    <option value="E">Cédula de Extranjeria</option>
+                                </select>
+                                <label>Documento de identidad:</label>
+                                <input type="number" class="form-control" id="documento" disabled>
+                                <label>Correo</label>
+                                <input type="email" class="form-control" id="correo" disabled>
+                                <label>Usuario:</label>
+                                <input type="text" class="form-control" id="usuario" disabled>
+                                <br>
+                                <button type="button" class="btn btn-success btn-block" onclick="perfilFamiliar.modificarDatos()">Guardar</button>
+                                <br>
+                                <button type="button" class="btn btn-warning btn-block" onclick="cerrarSesion.cerrarSesion()">Cerrar Sesión</button>
+                                <!--                                    <br>
+                                                                    <button type="button" class="btn btn-danger btn-block" data-toggle="modal" data-target="#modalCambiarPassword">Cambiar password</button>-->
+                            </div>
                         </div>
                         <div class="col-xs-1 col-sm-2 col-md-3 col-lg-3"></div>
                     </div>
-<!--Fin Manejo de la botons-->			
+                    <!--Fin Manejo de la botons-->			
                 </div>
 
                 <!--Modal Cambiar password-->	

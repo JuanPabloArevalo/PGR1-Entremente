@@ -308,4 +308,22 @@ public class FamiliarRepositoryDatabase implements FamiliarRepository{
         }
     }
 
+    @Override
+    public void modificarFamiliar(Familiar familiar) throws PersistenceNotFoundException {
+        try {
+            Class.forName(DatosBD.DRIVER);
+            connect = DriverManager.getConnection(DatosBD.CONECTOR);
+            statement = connect.createStatement();
+            preparedStatement = connect.prepareStatement("update  "+NOMBRETABLA+" SET nombres = ?, apellidos = ? WHERE id = ?");
+            preparedStatement.setString(1, familiar.getNombres());
+            preparedStatement.setString(2, familiar.getApellidos());
+            preparedStatement.setInt(3, familiar.getId());
+            preparedStatement.executeUpdate();
+        } catch (ClassNotFoundException | SQLException e) {
+            throw new PersistenceNotFoundException(e.getMessage());
+        } finally {
+            close();
+        } 
+    }
+
 }

@@ -62,6 +62,14 @@ var apiclientPerfilFamiliar = (function(){
         },
         getHistorialMedico(idPaciente){
             return $.get("/entremente/V1/historialMedico/"+idPaciente);  
+        },
+        modificarFamiliar(nombres,apellidos,id){
+            return $.ajax({
+                url: "/entremente/V1/familiares",
+                type: "PUT",
+                data: '{"nombres":"'+nombres+'","apellidos":"'+apellidos+'", "id":'+id+'}',
+                contentType: "application/json"
+            });
         }
     };
     

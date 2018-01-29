@@ -154,6 +154,17 @@ public class EntreMenteController {
         }        
     }
     
+    @RequestMapping(path = "/familiares", method = RequestMethod.PUT)
+    public ResponseEntity<?> manejadorPUTModificarFamiliar(@RequestBody Familiar familiar) {
+        try {
+            ems.modificarFamiliar(familiar);
+            return new ResponseEntity<>(HttpStatus.CREATED);
+        } catch (PersistenceNotFoundException | PersistenceException ex) {
+            Logger.getLogger(EntreMenteController.class.getName()).log(Level.SEVERE, null, ex);
+            return new ResponseEntity<>(ex.getMessage(), HttpStatus.NOT_FOUND);
+        }        
+    }
+    
     @RequestMapping(path = "/familiares/{usuario}/{password}", method = RequestMethod.GET)
     public ResponseEntity<?> manejadorIniciarFamiliar(@PathVariable("usuario") String nombreU, @PathVariable("password") String password) {
         try {

@@ -14,12 +14,19 @@ import java.util.Set;
  * @author Juan Pablo Arévalo
  */
 public interface FamiliarRepository {
-        /**
-     * Metodo encargado de adicionar un nuevo paciente
+    /**
+     * Metodo encargado de adicionar un nuevo familiar
      * @param familiar
      * @throws PersistenceNotFoundException 
      */
     public void adicionarFamiliar(Familiar familiar) throws PersistenceNotFoundException;
+    
+    /**
+     * Metodo encargado de modificar un familiar
+     * @param familiar
+     * @throws PersistenceNotFoundException 
+     */
+    public void modificarFamiliar(Familiar familiar) throws PersistenceNotFoundException;
     
     /**
      * Metodo encargado de validar si existe un paciente
