@@ -10,12 +10,19 @@ import java.util.Set;
  * @author Juan Pablo Arévalo
  */
 public interface PersonalSaludRepository {
-        /**
+    /**
      * Metodo encargado de adicionar un nuevo personal de la salud
      * @param personal
      * @throws PersistenceNotFoundException 
      */
     public void adicionarPersonalSalud(PersonalSalud personal) throws PersistenceNotFoundException;
+    
+    /**
+     * Metodo encargado de modificar un personal de la salud
+     * @param personal
+     * @throws PersistenceNotFoundException 
+     */
+    public void modificarPersonalSalud(PersonalSalud personal) throws PersistenceNotFoundException;
     
     /**
      * Metodo encargado de validar si existe un personal de la salud

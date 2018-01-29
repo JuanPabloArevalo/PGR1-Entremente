@@ -1,145 +1,148 @@
 <!DOCTYPE html>
 <html lang="es">
-  <head>
-  	<!--librerias Bootstrap>
-  	<!-- Latest compiled and minified CSS -->
-	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-	<!-- jQuery library -->
-	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-	<!-- Latest compiled JavaScript -->
-	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script> 
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <!--importarCSS-->
-    <link rel="stylesheet" href="css/css.css" />
-    <link rel="stylesheet" href="css/perfilPaciente.css" />
-    <script src="js/cerrarSesion.js"></script> 
-    <script src="js/perfilPaciente.js"></script> 
-  </head>
-  <body>
-  	<div class="container-fluid">
-<!--Menú-->	
-		<nav class="navbar navbar-inverse navbar-fixed-top">
-			<div class="container-fluid">
-		    		<div class="navbar-header">
-		      			<button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
-		        			<span class="icon-bar"></span>
-		        			<span class="icon-bar"></span>
-		        			<span class="icon-bar"></span>
-		      			</button>
-		      			<a class="navbar-brand nombreProgramaMenu" href="#">EntreMente</a>
-		    		</div>
-		    		<div class="collapse navbar-collapse" id="myNavbar">
-		      			<ul class="nav navbar-nav">
-		        			<li class="active"><a href="/perfilPersonalSalud.html">Mi Perfil</a></li>
-		        			<li><a href="/perfilPersonalSaludPaciente.html">Pacientes</a></li>
-		      			</ul>
-		      			<ul class="nav navbar-nav navbar-right">
-		        			<li><a data-toggle="modal" data-target="#modalCerrarSesion"><span class="glyphicon glyphicon-log-in"></span>Adios!</a></li>
-		      			</ul>
-		    		</div>
-		  	</div>
-		</nav> 
-<!--Fin Menú-->	
-<!--Modal Cerrar Sesion-->	
-		<div id="modalCerrarSesion" class="modal fade" role="dialog">
-  			<div class="modal-dialog">
-    				<div class="modal-content">
-      					<div class="modal-header">
-        					<h4 class="modal-title subTituloAzul">Cerrar Sesión</h4>
-      					</div>
-      					<div class="modal-body letraTextos">
-        					<p>Estas seguro que quieres cerrar tu sesión</p>
-      					</div>
-      					<div class="modal-footer">
-      						<button type="button" class="btn btn-success" data-dismiss="modal">Continuar</button>
-      						<a href="/index.html"><button type="button" class="btn btn-danger">Cerrar Sesión</button></a>
-			        	</div>
+    <head>
+        <script src="/webjars/jquery/jquery.min.js"></script>
+        <script src="/webjars/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+        <link rel="stylesheet" href="/webjars/bootstrap/3.3.7/css/bootstrap.min.css" />
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <!--importarCSS-->
+        <link rel="stylesheet" href="css/css.css" />
+        <link rel="stylesheet" href="css/perfilPaciente.css" />
+        <script src="js/apiclientPerfilPersonalSalud.js"></script> 
+        <script src="js/cerrarSesion.js"></script> 
+        <script src="js/perfilPersonalSalud.js"></script> 
+        <title>Mi perfil</title>
+    </head>
+    <body onload="perfilPersonalSalud.init()">
+        <div class="container-fluid">
+            <!--Menú-->	
+            <nav class="navbar navbar-inverse navbar-fixed-top">
+                <div class="container-fluid">
+                    <div class="navbar-header">
+                        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                        </button>
+                        <a class="navbar-brand nombreProgramaMenu" href="#">EntreMente</a>
+                    </div>
+                    <div class="collapse navbar-collapse" id="myNavbar">
+                        <ul class="nav navbar-nav">
+                            <li class="active"><a href="/perfilPersonalSalud.html">Mi Perfil</a></li>
+                            <li><a href="/perfilPersonalSaludPaciente.html">Pacientes</a></li>
+                        </ul>
+                        <ul class="nav navbar-nav navbar-right">
+                            <li class=""><a id="idNombreUsu"></a></li>
+                            <li><a data-toggle="modal" data-target="#modalCerrarSesion"><span class="glyphicon glyphicon-log-in"></span>Adios!</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </nav> 
+            <!--Fin Menú-->	
+            <!--Modal Cerrar Sesion-->	
+            <div id="modalCerrarSesion" class="modal fade" role="dialog">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h4 class="modal-title subTituloAzul">Cerrar Sesión</h4>
+                        </div>
+                        <div class="modal-body letraTextos">
+                            <p>Estas seguro que quieres cerrar tu sesión</p>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-success" data-dismiss="modal">Continuar</button>
+                            <a onclick="cerrarSesion.cerrarSesion()"><button type="button" class="btn btn-danger">Cerrar Sesión</button></a>
+                        </div>
 
-    				</div>
-			</div>
-		</div>
-<!--Fin Modal Cerrar Sesion-->
-		
-		
-		<div class="panel panel-success ">
-   			<div class="panel-heading"><h5 class="subTitulo colorVerdeOscuro">Mi perfil</h5></div>
-      			<div class="panel-body">
+                    </div>
+                </div>
+            </div>
+            <!--Fin Modal Cerrar Sesion-->
 
-<!--Div para los datos-->
-			<div class="row">
-				<div class="col-xs-1 col-sm-2 col-md-3 col-lg-3"></div>
-				<div class="col-xs-10 col-sm-8 col-md-6 col-lg-6">
-					<form>
-    						<div class="form-group  well">
-							<label for="nombre">Nombres:</label>
-							<input type="text" class="form-control" id="nombre">
-							<label for="apellido">Apellidos:</label>
-							<input type="text" class="form-control" id="apellido">
-							<label for="tipoDocumento">Tipo Documento:</label>
-							<select class="form-control" id="sel1">
-								<option>...</option>
-							        <option>Tarjeta de Identidad</option>
-							        <option>Cédula Ciudadania</option>
-							        <option>Pasaporte</option>
-							        <option>Cédula de Extranjeria</option>
-							</select>
-							<label for="documentoIdentidad">Documento de identidad:</label>
-							<input type="number" class="form-control" id="documento">
-							<div class="form-group">
-  								<label for="sel1">Rol:</label>
-  								<select class="form-control" id="listaRol">
-									<option>Neurólogo</option>
-								    	<option>Psicólogo</option>
-								   	<option>Psquiatra</option>
-								    	<option>Médico General</option>
-  								</select>
-							</div> 
-							<label for="correo">Correo</label>
-	  						<input type="email" class="form-control" id="correo">
-	  						<label for="usuario">Usuario:</label>
-	  						<input type="text" class="form-control" id="usuario">
-	  						<br>
-	  						<button type="button" class="btn btn-success btn-block">Guardar</button>
-	  						<br>
-	  						<button type="button" class="btn btn-warning btn-block">Atrás</button>
-	  						<br>
-	  						<button type="button" class="btn btn-danger btn-block" data-toggle="modal" data-target="#modalCambiarPassword">Cambiar password</button>
-						</div>
-  					</form>
-  				</div>
-  				<div class="col-xs-1 col-sm-2 col-md-3 col-lg-3"></div>
-			</div>
-<!--Fin Manejo de la botons-->			
-    		</div>
-    		
-<!--Modal Cambiar password-->	
-		<div id="modalCambiarPassword" class="modal fade" role="dialog">
-  			<div class="modal-dialog">
-    				<div class="modal-content">
-      					<div class="modal-header">
-        					<h4 class="modal-title subTitulo colorVerdeOscuro">Cambiar Password</h4>
-      					</div>
-      					<div class="modal-body">
-        					<form>
-	    						<div class="form-group">
-								<label for="nombre">Password anterior:</label>
-								<input type="password" class="form-control" id="passwordAnterios">
-								<label for="nombre">Nuevo Password:</label>
-								<input type="password" class="form-control" id="passwordNuevo">
-								<label for="nombre">Confirmar nuevo Password:</label>
-								<input type="password" class="form-control" id="passwordConfirmar">
-								<button type="button" class="btn btn-success" data-dismiss="modal">Guardar</button>
-      								<button type="button" class="btn btn-danger" data-dismiss="modal">Cancelar</button>
-							</div>
-						</form>
-						
-      					</div>
-    				</div>
-			</div>
-		</div>
-<!--Fin Modal Cambiar password-->
 
-	</div>
-  </body>
+            <div class="panel panel-success ">
+                <div class="panel-heading"><h5 class="subTitulo colorVerdeOscuro">Mi perfil</h5></div>
+                <div class="panel-body">
+
+                    <!--Div para los datos-->
+                    <div class="row">
+                        <div class="col-xs-1 col-sm-2 col-md-3 col-lg-3"></div>
+                        <div class="col-xs-10 col-sm-8 col-md-6 col-lg-6">
+                            <div class="alert alert-danger alert-dismissable fade in" id="divError" hidden="">
+                                <strong>Error! Falta ingresar los siguientes campos:</strong><code id="mensajeFalta"></code>
+                            </div>
+                            <div class="alert alert-danger alert-dismissable fade in" id="divProm" hidden=""><strong>Error! </strong><code id="mensajeFaltaProm"></code></div>
+                            <div class="form-group  well">
+                                <label>Nombres:</label>
+                                <input type="text" class="form-control" id="nombres">
+                                <label>Apellidos:</label>
+                                <input type="text" class="form-control" id="apellidos">
+                                <label>Tipo Documento:</label>
+                                <select class="form-control" id="tipoDoc" disabled>
+                                    <option value="">...</option>
+                                    <option value="T">Tarjeta de Identidad</option>
+                                    <option value="C">Cédula Ciudadania</option>
+                                    <option value="P">Pasaporte</option>
+                                    <option value="E">Cédula de Extranjeria</option>
+                                </select>
+                                <label>Documento de identidad:</label>
+                                <input type="number" class="form-control" id="documento" disabled>
+                                <label>Rol:</label>
+                                <select class="form-control" id="listaRol">
+                                    <option value="">...</option>
+                                    <option value="N">Neurólogo</option>
+                                    <option value="PO">Psicólogo</option>
+                                    <option value="PA">Psquiatra</option>
+                                    <option value="T">Terapeuta</option>
+                                    <option value="MG">Médico General</option>
+                                    <option value="O">Otros</option>
+                                </select> 
+                                <label>Correo</label>
+                                <input type="email" class="form-control" id="correo" disabled>
+                                <label>Nombre de usuario:</label>
+                                <input type="text" class="form-control" id="usuario" disabled>
+                                <br>
+                                <button type="button" class="btn btn-success btn-block" onclick="perfilPersonalSalud.modificarDatos()">Guardar</button>
+                                <br>
+                                <button type="button" class="btn btn-warning btn-block" onclick="cerrarSesion.cerrarSesion()">Cerrar Sesión</button>
+                                <!--<br>-->
+                                <!--<button type="button" class="btn btn-danger btn-block" data-toggle="modal" data-target="#modalCambiarPassword">Cambiar password</button>-->
+                            </div>
+                        </div>
+                        <div class="col-xs-1 col-sm-2 col-md-3 col-lg-3"></div>
+                    </div>
+                    <!--Fin Manejo de la botons-->			
+                </div>
+
+                <!--Modal Cambiar password-->	
+                <!--                <div id="modalCambiarPassword" class="modal fade" role="dialog">
+                                    <div class="modal-dialog">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <h4 class="modal-title subTitulo colorVerdeOscuro">Cambiar Password</h4>
+                                            </div>
+                                            <div class="modal-body">
+                                                <form>
+                                                    <div class="form-group">
+                                                        <label for="nombre">Password anterior:</label>
+                                                        <input type="password" class="form-control" id="passwordAnterios">
+                                                        <label for="nombre">Nuevo Password:</label>
+                                                        <input type="password" class="form-control" id="passwordNuevo">
+                                                        <label for="nombre">Confirmar nuevo Password:</label>
+                                                        <input type="password" class="form-control" id="passwordConfirmar">
+                                                        <button type="button" class="btn btn-success" data-dismiss="modal">Guardar</button>
+                                                        <button type="button" class="btn btn-danger" data-dismiss="modal">Cancelar</button>
+                                                    </div>
+                                                </form>
+                
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>-->
+                <!--Fin Modal Cambiar password-->
+
+            </div>
+        </div>
+    </body>
 </html>

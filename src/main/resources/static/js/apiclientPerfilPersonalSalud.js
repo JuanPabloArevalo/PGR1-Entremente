@@ -82,6 +82,14 @@ var apiclientPerfilPersonalSalud = (function(){
                 contentType: "application/json"
             });
         },
+        modificar(nombres,apellidos,rol,id){
+            return $.ajax({
+                url: "/entremente/V1/personalSalud",
+                type: "PUT",
+                data: '{"nombres":"'+nombres+'","apellidos":"'+apellidos+'", "rol":"'+rol+'","id":'+id+'}',
+                contentType: "application/json"
+            });
+        }
     };
     
 }());

@@ -115,6 +115,7 @@ public class PersonalSaludRepositoryDatabase implements PersonalSaludRepository{
                personalSalud.setNombres(resultSet.getString("nombres"));
                personalSalud.setTipoDocumento(resultSet.getString("tipoDocumento"));
                personalSalud.setPassword(resultSet.getString("password"));
+                System.out.println("ACA el rol es: "+resultSet.getString("rol"));
                personalSalud.setRol(resultSet.getString("rol"));
             }
             
@@ -310,5 +311,24 @@ public class PersonalSaludRepositoryDatabase implements PersonalSaludRepository{
         } finally {
             close();
         } 
+    }
+
+    @Override
+    public void modificarPersonalSalud(PersonalSalud personal) throws PersistenceNotFoundException {
+        try {
+            Class.forName(DatosBD.DRIVER);
+            connect = DriverManager.getConnection(DatosBD.CONECTOR);
+            statement = connect.createStatement();
+            preparedStatement = connect.prepareStatement("Update "+NOMBRETABLA+" SET nombres = ?, apellidos = ?, rol = ? WHERE id = ?");
+            preparedStatement.setString(1, personal.getNombres());
+            preparedStatement.setString(2, personal.getApellidos());
+            preparedStatement.setString(3, personal.getRol());
+            preparedStatement.setInt(4, personal.getId());
+            preparedStatement.executeUpdate();
+        } catch (ClassNotFoundException | SQLException e) {
+            throw new PersistenceNotFoundException(e.getMessage());
+        } finally {
+            close();
+        }   
     }
 }

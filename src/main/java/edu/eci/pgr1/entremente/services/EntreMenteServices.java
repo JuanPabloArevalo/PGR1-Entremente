@@ -137,6 +137,16 @@ public class EntreMenteServices {
     }
     
     /**
+     * Metodo encargado de modificar un Personal Salud
+     * @param personalSalud
+     * @throws PersistenceNotFoundException 
+     * @throws edu.eci.pgr1.entremente.persistence.PersistenceException 
+     */
+    public void modificarPersonalSalud(PersonalSalud personalSalud) throws PersistenceNotFoundException, PersistenceException{
+        personalSaludRepository.modificarPersonalSalud(personalSalud);
+    }
+    
+    /**
      * Metodo encargado de iniciar sesión, si el usuario se ha autenticado correctamente del personal de salud
      * @param nombreUsuario
      * @param password 

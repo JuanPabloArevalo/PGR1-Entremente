@@ -253,6 +253,17 @@ public class EntreMenteController {
         }        
     }
     
+    @RequestMapping(path = "/personalSalud", method = RequestMethod.PUT)
+    public ResponseEntity<?> manejadorPUTModificarPersonalSalud(@RequestBody PersonalSalud personalSalud) {
+        try {
+            ems.modificarPersonalSalud(personalSalud);
+            return new ResponseEntity<>(HttpStatus.CREATED);
+        } catch (PersistenceNotFoundException | PersistenceException ex) {
+            Logger.getLogger(EntreMenteController.class.getName()).log(Level.SEVERE, null, ex);
+            return new ResponseEntity<>(ex.getMessage(), HttpStatus.NOT_FOUND);
+        }        
+    }
+    
     @RequestMapping(path = "/personalSalud/{usuario}/{password}", method = RequestMethod.GET)
     public ResponseEntity<?> manejadorIniciarPersonalSalud(@PathVariable("usuario") String nombreU, @PathVariable("password") String password) {
         try {
