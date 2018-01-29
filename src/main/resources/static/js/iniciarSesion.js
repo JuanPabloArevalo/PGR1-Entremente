@@ -33,6 +33,7 @@ var iniciarSesion = (function () {
                     sessionStorage.setItem("nombreUsuario", usuario.nombreUsuario);
                     sessionStorage.setItem("password", usuario.password);
                     sessionStorage.setItem("direccion", usuario.direccion);
+                    sessionStorage.setItem("ciudad", usuario.ciudad);
                     sessionStorage.setItem("tipoDocumento", usuario.tipoDocumento);
                     sessionStorage.setItem("correo", usuario.correo);
                     alert("Bienvenido, " + usuario.nombres+" "+usuario.apellidos);

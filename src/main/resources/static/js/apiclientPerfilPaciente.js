@@ -51,6 +51,14 @@ var apiclientPerfilPaciente = (function(){
         },
         getTodosMensajes(idPaciente){
             return $.get("/entremente/V1/mensajes/pacientes/"+idPaciente);  
+        },
+        modificarPaciente(nombres,apellidos,fechaNacimiento,genero,pais,ciudad,direccion,id){
+            return $.ajax({
+                url: "/entremente/V1/pacientes",
+                type: "PUT",
+                data: '{"nombres":"'+nombres+'","apellidos":"'+apellidos+'", "fechaNacimiento":"'+fechaNacimiento+'","genero":"'+genero+'","pais":"'+pais+'","ciudad":"'+ciudad+'","direccion":"'+direccion+'","id":'+id+'}',
+                contentType: "application/json"
+            });
         }
       };
     

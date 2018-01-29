@@ -317,4 +317,27 @@ public class PacienteRepositoryDatabase implements PacienteRepository{
         }
         return relaciones;
     }
+
+    @Override
+    public void modificarPaciente(Paciente paciente) throws PersistenceNotFoundException {
+        try {
+            Class.forName(DatosBD.DRIVER);
+            connect = DriverManager.getConnection(DatosBD.CONECTOR);
+            statement = connect.createStatement();
+            preparedStatement = connect.prepareStatement("UPDATE  "+NOMBRETABLA+" SET nombres = ?, apellidos = ?, fechaNacimiento = ?, genero = ?, pais = ?, ciudad = ?, direccion = ? WHERE id = ? ");
+            preparedStatement.setString(1, paciente.getNombres());
+            preparedStatement.setString(2, paciente.getApellidos());
+            preparedStatement.setString(3, paciente.getFechaNacimiento());
+            preparedStatement.setString(4, paciente.getGenero());
+            preparedStatement.setString(5, paciente.getPais());
+            preparedStatement.setString(6, paciente.getCiudad());
+            preparedStatement.setString(7, paciente.getDireccion());
+            preparedStatement.setInt(8, paciente.getId());
+            preparedStatement.executeUpdate();
+        } catch (ClassNotFoundException | SQLException e) {
+            throw new PersistenceNotFoundException(e.getMessage());
+        } finally {
+            close();
+        } 
+    }
 }

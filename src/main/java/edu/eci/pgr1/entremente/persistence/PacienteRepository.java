@@ -21,6 +21,13 @@ public interface PacienteRepository {
     public void adicionarPaciente(Paciente paciente) throws PersistenceNotFoundException;
     
     /**
+     * Metodo encargado de modificar un nuevo paciente
+     * @param paciente
+     * @throws PersistenceNotFoundException 
+     */
+    public void modificarPaciente(Paciente paciente) throws PersistenceNotFoundException;
+    
+    /**
      * Metodo encargado de validar si existe un paciente
      * @param paciente
      * @return 
