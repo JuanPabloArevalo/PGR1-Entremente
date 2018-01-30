@@ -86,6 +86,8 @@ var perfilPaciente = (function () {
                 $("#idCiudad").val(sessionStorage.getItem("ciudad"));
                 $("#idDireccion").val(sessionStorage.getItem("direccion"));
                 $("#idFechaN").val(sessionStorage.getItem("fechaNacimiento"));
+                
+                perfilPaciente.calcularProgreso();
             }
         },
         cargarInformacionPacientes() {
@@ -226,7 +228,6 @@ var perfilPaciente = (function () {
             var promesaConsulta = apiclientPerfilPaciente.getTodosMensajes(sessionStorage.getItem("id"));
             promesaConsulta.then(
                     function (datos) {
-                        console.info(datos)
                         inicializarElementosMensajes();
                         datos.map(adicionarFilaMensajes);
                     },
@@ -301,6 +302,18 @@ var perfilPaciente = (function () {
         },
         atras() {
             window.location.href = "/menuPaciente.html";
+        },
+        calcularProgreso(){
+            var promesa = apiclientPerfilPaciente.getProgresoPaciente(sessionStorage.getItem("id"));
+                promesa.then(
+                        function (dato) {
+                            $("#idNivel").text(dato.nivel);
+                            $("#idProgeso").text(dato.porcentaje+"%");
+                            $("#idProgeso").css("width", dato.porcentaje+"%");
+                        },
+                        function (dato) {
+                        alert(dato.responseText);
+                    });
         }
     };
 }());

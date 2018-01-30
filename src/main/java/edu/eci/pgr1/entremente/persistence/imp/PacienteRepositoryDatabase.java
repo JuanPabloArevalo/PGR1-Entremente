@@ -5,8 +5,8 @@
  */
 package edu.eci.pgr1.entremente.persistence.imp;
 
-import edu.eci.pgr1.entremente.model.Familiar;
 import edu.eci.pgr1.entremente.model.Paciente;
+import edu.eci.pgr1.entremente.model.Progreso;
 import edu.eci.pgr1.entremente.model.Relacion;
 import edu.eci.pgr1.entremente.persistence.PacienteRepository;
 import edu.eci.pgr1.entremente.persistence.PersistenceException;
@@ -339,5 +339,28 @@ public class PacienteRepositoryDatabase implements PacienteRepository{
         } finally {
             close();
         } 
+    }
+
+    @Override
+    public Progreso traerProgresoPaciente(Paciente paciente) throws PersistenceNotFoundException, PersistenceException {
+        Progreso progreso = new Progreso();
+        try {
+            Class.forName(DatosBD.DRIVER);
+            connect = DriverManager.getConnection(DatosBD.CONECTOR);
+            preparedStatement = connect.prepareStatement("SELECT SUM(acertadas) FROM RESULTADO WHERE idPaciente = '"+paciente.getId()+"'");
+            resultSet = preparedStatement.executeQuery();
+            if(resultSet.next()){
+               progreso.setPreguntasAcertadas(resultSet.getInt(1));
+            }
+            else{
+                progreso.setPreguntasAcertadas(1);
+            }
+        } catch (ClassNotFoundException | SQLException e) {
+            throw new PersistenceNotFoundException(e.getMessage());
+        } finally {
+            close();
+        }
+        progreso.calcularTodo();
+        return progreso;
     }
 }

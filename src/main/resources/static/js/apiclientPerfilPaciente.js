@@ -59,6 +59,9 @@ var apiclientPerfilPaciente = (function(){
                 data: '{"nombres":"'+nombres+'","apellidos":"'+apellidos+'", "fechaNacimiento":"'+fechaNacimiento+'","genero":"'+genero+'","pais":"'+pais+'","ciudad":"'+ciudad+'","direccion":"'+direccion+'","id":'+id+'}',
                 contentType: "application/json"
             });
+        },
+        getProgresoPaciente(idPaciente){
+            return $.get("/entremente/V1/pacientes/progresos/"+idPaciente);  
         }
       };
     

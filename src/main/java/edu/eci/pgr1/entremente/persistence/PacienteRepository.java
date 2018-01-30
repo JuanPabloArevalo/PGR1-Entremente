@@ -5,6 +5,7 @@
  */
 package edu.eci.pgr1.entremente.persistence;
 import edu.eci.pgr1.entremente.model.Paciente;
+import edu.eci.pgr1.entremente.model.Progreso;
 import edu.eci.pgr1.entremente.model.Relacion;
 import java.util.Set;
 /**
@@ -90,4 +91,13 @@ public interface PacienteRepository {
      */
     public Set<Relacion> traerRelacionesSaludDesdePaciente(Paciente paciente, String estado) throws PersistenceNotFoundException;
 
+    
+    /**
+     * Metodo encargado de calcular el progreso del paciente
+     * @param paciente
+     * @return
+     * @throws PersistenceNotFoundException
+     * @throws PersistenceException 
+     */
+    public Progreso traerProgresoPaciente(Paciente paciente) throws PersistenceNotFoundException, PersistenceException;
 }

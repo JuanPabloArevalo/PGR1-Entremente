@@ -11,6 +11,7 @@ import edu.eci.pgr1.entremente.model.HistorialMedico;
 import edu.eci.pgr1.entremente.model.Mensaje;
 import edu.eci.pgr1.entremente.model.Paciente;
 import edu.eci.pgr1.entremente.model.PersonalSalud;
+import edu.eci.pgr1.entremente.model.Progreso;
 import edu.eci.pgr1.entremente.model.Relacion;
 import edu.eci.pgr1.entremente.model.Resultado;
 import edu.eci.pgr1.entremente.persistence.EnfermedadRepository;
@@ -452,6 +453,19 @@ public class EntreMenteServices {
     }    
     
     
-   
+//PROGRESO PACIENTE
+    
+    /**
+     * Metodo encargado de traer el progreso del paciente
+     * @param idPaciente
+     * @return
+     * @throws PersistenceNotFoundException
+     * @throws PersistenceException 
+     */
+    public Progreso traerProgresoPaciente(int idPaciente) throws PersistenceNotFoundException, PersistenceException{
+        Paciente paciente = new Paciente();
+        paciente.setId(idPaciente);
+        return pacienteRepository.traerProgresoPaciente(paciente);
+    }
     
 }

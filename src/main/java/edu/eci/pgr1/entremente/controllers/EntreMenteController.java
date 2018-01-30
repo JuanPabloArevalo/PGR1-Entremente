@@ -80,6 +80,16 @@ public class EntreMenteController {
         }
     }
     
+    @RequestMapping(path = "/pacientes/progresos/{idPaciente}", method = RequestMethod.GET)
+    public ResponseEntity<?> manejadorConsultarProgresoPaciente(@PathVariable("idPaciente") int idPaciente) {
+        try {
+            return new ResponseEntity<>(ems.traerProgresoPaciente(idPaciente), HttpStatus.ACCEPTED);
+        } catch (PersistenceNotFoundException | PersistenceException ex) {
+            Logger.getLogger(EntreMenteController.class.getName()).log(Level.SEVERE, null, ex);
+            return new ResponseEntity<>(ex.getMessage(), HttpStatus.NOT_FOUND);
+        }
+    }
+    
     @RequestMapping(path = "/pacientes/relaciones/familiares/pendientes", method = RequestMethod.POST)
     public ResponseEntity<?> manejadorGetRelacionesPendientesFamiliaresDesdePaciente(@RequestBody Paciente paciente) {
         try {
