@@ -10,6 +10,7 @@
         <link rel="stylesheet" href="css/css.css" />
         <link rel="stylesheet" href="css/menuPaciente.css" />
         <script src="js/menuPaciente.js"></script> 
+        <script src="js/cerrarSesion.js"></script> 
         <!--importarJS-->
 
         <title>Menú</title>
@@ -59,12 +60,44 @@
                         <a href="/formas.html"><img class="img-responsive img-rounded" src="image/btnFormas.png" alt="BotonFormas"> </a>
                     </div>
                     <div class="col-xs-12 col-sm-4 col-md-3 col-lg-3">
-                        <a href="/perfilPaciente.html" id="idBotonMiPerfil"><img class="img-responsive img-rounded" src="image/btnMiPerfil.png" alt="BotonOperaciones" > </a>
+                        <a href="" ><img class="img-responsive img-rounded" src="image/btn_musicoterapia.png" alt="Btn Musicoterapia" > </a>
                     </div>
                     <div class="col-xs-0 col-sm-2 col-md-3 col-lg-3"></div>
                 </div>
             </div>
-
+            <!--Boton Formas-->
+            <div class="row">
+                <div class="panelBotones">
+                    <div class="col-xs-0 col-sm-2 col-md-3 col-lg-3"></div>
+                    <div class="col-xs-12 col-sm-4 col-md-3 col-lg-3">
+                        <a href=""><img class="img-responsive img-rounded" src="image/btn_rutinas.png" alt="Boton Rutinas"> </a>
+                    </div>
+                    <div class="col-xs-12 col-sm-4 col-md-3 col-lg-3">
+                        <a href=""><img class="img-responsive img-rounded" src="image/btn_grupoFamiliar.png" alt="Grupo Familiar" > </a>
+                    </div>
+                    <div class="col-xs-0 col-sm-2 col-md-3 col-lg-3"></div>
+                </div>
+            </div>
+            <!--Mi Perfil-->
+            <div class="row">
+                <div class="panelBotones">
+                    <div class="col-xs-0 col-sm-4 col-md-4 col-lg-4"></div>
+                    <div class="col-xs-12 col-sm-4 col-md-4 col-lg-4">
+                        <a href="/perfilPaciente.html" id="idBotonMiPerfil"><img class="img-responsive img-rounded" src="image/btnMiPerfil.png" alt="BotonOperaciones" > </a>
+                    </div>
+                    <div class="col-xs-0 col-sm-4 col-md-4 col-lg-4"></div>
+                </div>
+            </div>
+            <!--Boton Salir-->
+            <div class="row">
+                <div class="panelBotones">
+                    <div class="col-xs-0 col-sm-4 col-md-4 col-lg-4"></div>
+                    <div class="col-xs-12 col-sm-5 col-md-5 col-lg-5">
+                        <a onclick="cerrarSesion.cerrarSesion()"><img class="img-responsive img-rounded" src="image/btn_atras.png" alt="Boton Atras"> </a>
+                    </div>
+                    <div class="col-xs-0 col-sm-4 col-md-4 col-lg-4"></div>
+                </div>
+            </div>
         </div>
     </body>
 </html>

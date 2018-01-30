@@ -8,6 +8,10 @@ package edu.eci.pgr1.entremente.persistence.imp;
 import edu.eci.pgr1.entremente.model.Paciente;
 import edu.eci.pgr1.entremente.model.Progreso;
 import edu.eci.pgr1.entremente.model.Relacion;
+import edu.eci.pgr1.entremente.model.juegos.PreguntaAtencion;
+import edu.eci.pgr1.entremente.model.juegos.PreguntaCalculo;
+import edu.eci.pgr1.entremente.model.juegos.PreguntaFormas;
+import edu.eci.pgr1.entremente.model.juegos.PreguntaGaleria;
 import edu.eci.pgr1.entremente.persistence.PacienteRepository;
 import edu.eci.pgr1.entremente.persistence.PersistenceException;
 import edu.eci.pgr1.entremente.persistence.PersistenceNotFoundException;
@@ -26,7 +30,8 @@ import org.springframework.stereotype.Service;
  * @author Administrador
  */
 @Service
-public class PacienteRepositoryDatabase implements PacienteRepository{
+public class PacienteRepositoryDatabase implements PacienteRepository {
+
     private Connection connect = null;
     private Statement statement = null;
     private PreparedStatement preparedStatement = null;
@@ -34,12 +39,16 @@ public class PacienteRepositoryDatabase implements PacienteRepository{
     private static final String NOMBRETABLA = "PACIENTE";
 
     @Override
-    public void adicionarPaciente(Paciente paciente) throws PersistenceNotFoundException{
+    public void adicionarPaciente(Paciente paciente) throws PersistenceNotFoundException {
+        long idInsertado = 0;
         try {
             Class.forName(DatosBD.DRIVER);
             connect = DriverManager.getConnection(DatosBD.CONECTOR);
+
+            connect.setAutoCommit(false);
+
             statement = connect.createStatement();
-            preparedStatement = connect.prepareStatement("insert into  "+NOMBRETABLA+" (nombres, apellidos, documentoIdentidad, fechaNacimiento, genero, pais, ciudad, nombreUsuario, password, direccion, tipoDocumento, correo) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
+            preparedStatement = connect.prepareStatement("insert into  " + NOMBRETABLA + " (nombres, apellidos, documentoIdentidad, fechaNacimiento, genero, pais, ciudad, nombreUsuario, password, direccion, tipoDocumento, correo) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)", Statement.RETURN_GENERATED_KEYS);
             preparedStatement.setString(1, paciente.getNombres());
             preparedStatement.setString(2, paciente.getApellidos());
             preparedStatement.setString(3, paciente.getDocumentoIdentidad());
@@ -53,13 +62,85 @@ public class PacienteRepositoryDatabase implements PacienteRepository{
             preparedStatement.setString(11, paciente.getTipoDocumento());
             preparedStatement.setString(12, paciente.getCorreo());
             preparedStatement.executeUpdate();
+            ResultSet rs = preparedStatement.getGeneratedKeys();
+            if (rs.next()) {
+                idInsertado = rs.getLong(1);
+            }
+            
+            //Preguntas Atencion
+            preparedStatement = connect.prepareStatement("SELECT Id, nivelPredeterminado FROM PREGUNTAATENCION WHERE PERSONALIZADO = 'N'");
+            resultSet = preparedStatement.executeQuery();
+
+            while (resultSet.next()) {
+                preparedStatement = connect.prepareStatement("INSERT INTO  JUEGOATENCIONPACIENTE (IdPaciente, idPreguntaAtencion, nivelPersonalizado, estado) values (?, ?, ?, ?)");
+                preparedStatement.setLong(1, idInsertado);
+                preparedStatement.setString(2, resultSet.getString(1));
+                preparedStatement.setString(3, resultSet.getString(2));
+                preparedStatement.setString(4, PreguntaAtencion.ESTADOACTIVO);
+                preparedStatement.executeUpdate();
+            }
+            //Preguntas Calculo
+            preparedStatement = connect.prepareStatement("SELECT Id, nivelPredeterminado FROM PREGUNTACALCULO WHERE PERSONALIZADO = 'N'");
+            resultSet = preparedStatement.executeQuery();
+
+            while (resultSet.next()) {
+                preparedStatement = connect.prepareStatement("INSERT INTO  JUEGOCALCULOPACIENTE (IdPaciente, idPreguntaCalculo, nivelPersonalizado, estado) values (?, ?, ?, ?)");
+                preparedStatement.setLong(1, idInsertado);
+                preparedStatement.setString(2, resultSet.getString(1));
+                preparedStatement.setString(3, resultSet.getString(2));
+                preparedStatement.setString(4, PreguntaCalculo.ESTADOACTIVO);
+                preparedStatement.executeUpdate();
+            }
+            //Preguntas Formas
+            preparedStatement = connect.prepareStatement("SELECT Id, nivelPredeterminado FROM PREGUNTAFORMAS WHERE PERSONALIZADO = 'N'");
+            resultSet = preparedStatement.executeQuery();
+
+            while (resultSet.next()) {
+                preparedStatement = connect.prepareStatement("INSERT INTO  JUEGOFORMASPACIENTE (IdPaciente, idPreguntaFormas, nivelPersonalizado, estado) values (?, ?, ?, ?)");
+                preparedStatement.setLong(1, idInsertado);
+                preparedStatement.setString(2, resultSet.getString(1));
+                preparedStatement.setString(3, resultSet.getString(2));
+                preparedStatement.setString(4, PreguntaFormas.ESTADOACTIVO);
+                preparedStatement.executeUpdate();
+            }
+            //Preguntas Galeria
+            preparedStatement = connect.prepareStatement("SELECT Id, nivelPredeterminado FROM PREGUNTAGALERIA WHERE PERSONALIZADO = 'N'");
+            resultSet = preparedStatement.executeQuery();
+
+            while (resultSet.next()) {
+                preparedStatement = connect.prepareStatement("INSERT INTO  JUEGOGALERIAPACIENTE (IdPaciente, idPreguntaGaleria, nivelPersonalizado, estado) values (?, ?, ?, ?)");
+                preparedStatement.setLong(1, idInsertado);
+                preparedStatement.setString(2, resultSet.getString(1));
+                preparedStatement.setString(3, resultSet.getString(2));
+                preparedStatement.setString(4, PreguntaGaleria.ESTADOACTIVO);
+                preparedStatement.executeUpdate();
+            }
+            //Preguntas PREGUNTAPERCEPCION
+            preparedStatement = connect.prepareStatement("SELECT Id, nivelPredeterminado FROM PREGUNTAPERCEPCION WHERE PERSONALIZADO = 'N'");
+            resultSet = preparedStatement.executeQuery();
+
+            while (resultSet.next()) {
+                preparedStatement = connect.prepareStatement("INSERT INTO  JUEGOPERCEPCIONPACIENTE (IdPaciente, idPreguntaPercepcion, nivelPersonalizado, estado) values (?, ?, ?, ?)");
+                preparedStatement.setLong(1, idInsertado);
+                preparedStatement.setString(2, resultSet.getString(1));
+                preparedStatement.setString(3, resultSet.getString(2));
+                preparedStatement.setString(4, PreguntaAtencion.ESTADOACTIVO);
+                preparedStatement.executeUpdate();
+            }
+            
+            try {
+                connect.commit();
+            } catch (SQLException e) {
+                connect.rollback();
+                throw new PersistenceNotFoundException(e.getMessage());
+            }
         } catch (ClassNotFoundException | SQLException e) {
             throw new PersistenceNotFoundException(e.getMessage());
         } finally {
             close();
-        }        
+        }
     }
-        
+
     /**
      * Metodo encargado de cerrar la conexión
      */
@@ -89,34 +170,31 @@ public class PacienteRepositoryDatabase implements PacienteRepository{
         try {
             Class.forName(DatosBD.DRIVER);
             connect = DriverManager.getConnection(DatosBD.CONECTOR);
-            
-            preparedStatement = connect.prepareStatement("SELECT documentoIdentidad, tipoDocumento, nombreUsuario, correo FROM "+NOMBRETABLA +" WHERE (documentoIdentidad='"+paciente.getDocumentoIdentidad()+"' AND tipoDocumento = '"+paciente.getTipoDocumento()+"') OR nombreUsuario = '"+paciente.getNombreUsuario()+"' OR correo = '"+paciente.getCorreo()+"'");
+
+            preparedStatement = connect.prepareStatement("SELECT documentoIdentidad, tipoDocumento, nombreUsuario, correo FROM " + NOMBRETABLA + " WHERE (documentoIdentidad='" + paciente.getDocumentoIdentidad() + "' AND tipoDocumento = '" + paciente.getTipoDocumento() + "') OR nombreUsuario = '" + paciente.getNombreUsuario() + "' OR correo = '" + paciente.getCorreo() + "'");
             resultSet = preparedStatement.executeQuery();
-            
-            if(resultSet.next()){
+
+            if (resultSet.next()) {
                 nombreUsuario = resultSet.getString(3);
                 correo = resultSet.getString(4);
                 existePaciente = true;
             }
-            
+
         } catch (ClassNotFoundException | SQLException e) {
             throw new PersistenceNotFoundException(e.getMessage());
         } finally {
             close();
         }
-    
-        if(existePaciente){
-            if(nombreUsuario.trim().equalsIgnoreCase(paciente.getNombreUsuario())){
+
+        if (existePaciente) {
+            if (nombreUsuario.trim().equalsIgnoreCase(paciente.getNombreUsuario())) {
                 throw new PersistenceException("El nombre de usuario ya existe!");
-            }
-            else if(correo.trim().equalsIgnoreCase(paciente.getCorreo())){
+            } else if (correo.trim().equalsIgnoreCase(paciente.getCorreo())) {
                 throw new PersistenceException("El correo ya esta registrado!");
-            }
-            else{
+            } else {
                 throw new PersistenceException("El documento ya esta registrado");
             }
-        }
-        else{
+        } else {
             return false;
         }
     }
@@ -127,37 +205,36 @@ public class PacienteRepositoryDatabase implements PacienteRepository{
         try {
             Class.forName(DatosBD.DRIVER);
             connect = DriverManager.getConnection(DatosBD.CONECTOR);
-            
-            preparedStatement = connect.prepareStatement("SELECT * FROM "+NOMBRETABLA +" WHERE nombreUsuario = '"+nombreUsuarios+"' AND password = '"+password+"'");
+
+            preparedStatement = connect.prepareStatement("SELECT * FROM " + NOMBRETABLA + " WHERE nombreUsuario = '" + nombreUsuarios + "' AND password = '" + password + "'");
             resultSet = preparedStatement.executeQuery();
-            
-            if(resultSet.next()){
-               paciente = new Paciente();
-               paciente.setApellidos(resultSet.getString("apellidos"));
-               paciente.setCiudad(resultSet.getString("ciudad"));
-               paciente.setCorreo(resultSet.getString("correo"));
-               paciente.setDireccion(resultSet.getString("direccion"));
-               paciente.setDocumentoIdentidad(resultSet.getString("documentoIdentidad"));
-               paciente.setFechaNacimiento(resultSet.getDate("fechaNacimiento").toString());
-               paciente.setGenero(resultSet.getString("genero"));
-               paciente.setId(resultSet.getInt("id"));
-               paciente.setNombreUsuario(nombreUsuarios);
-               paciente.setNombres(resultSet.getString("nombres"));
-               paciente.setPais(resultSet.getString("pais"));
-               paciente.setTipoDocumento(resultSet.getString("tipoDocumento"));
-               paciente.setPassword(resultSet.getString("password"));
+
+            if (resultSet.next()) {
+                paciente = new Paciente();
+                paciente.setApellidos(resultSet.getString("apellidos"));
+                paciente.setCiudad(resultSet.getString("ciudad"));
+                paciente.setCorreo(resultSet.getString("correo"));
+                paciente.setDireccion(resultSet.getString("direccion"));
+                paciente.setDocumentoIdentidad(resultSet.getString("documentoIdentidad"));
+                paciente.setFechaNacimiento(resultSet.getDate("fechaNacimiento").toString());
+                paciente.setGenero(resultSet.getString("genero"));
+                paciente.setId(resultSet.getInt("id"));
+                paciente.setNombreUsuario(nombreUsuarios);
+                paciente.setNombres(resultSet.getString("nombres"));
+                paciente.setPais(resultSet.getString("pais"));
+                paciente.setTipoDocumento(resultSet.getString("tipoDocumento"));
+                paciente.setPassword(resultSet.getString("password"));
             }
-            
+
         } catch (ClassNotFoundException | SQLException e) {
             throw new PersistenceNotFoundException(e.getMessage());
         } finally {
             close();
         }
-    
-        if(paciente==null){
+
+        if (paciente == null) {
             throw new PersistenceException("Usuario/Contraseña inválidos");
-        }
-        else{
+        } else {
             return paciente;
         }
     }
@@ -166,14 +243,14 @@ public class PacienteRepositoryDatabase implements PacienteRepository{
     public Set<Paciente> busquedaPacientes(String valor) throws PersistenceNotFoundException, PersistenceException {
         Set<Paciente> pacientes = new HashSet<>();
         Paciente paciente = null;
-        
+
         try {
             Class.forName(DatosBD.DRIVER);
             connect = DriverManager.getConnection(DatosBD.CONECTOR);
-            preparedStatement = connect.prepareStatement("SELECT * FROM "+NOMBRETABLA +" WHERE nombreUsuario LIKE '%"+valor+"%' OR nombres LIKE '%"+valor+"%' OR apellidos LIKE '%"+valor+"%' OR documentoIdentidad LIKE '%"+valor+"%' or correo LIKE '%"+valor+"%' ORDER BY Apellidos, Nombres");
+            preparedStatement = connect.prepareStatement("SELECT * FROM " + NOMBRETABLA + " WHERE nombreUsuario LIKE '%" + valor + "%' OR nombres LIKE '%" + valor + "%' OR apellidos LIKE '%" + valor + "%' OR documentoIdentidad LIKE '%" + valor + "%' or correo LIKE '%" + valor + "%' ORDER BY Apellidos, Nombres");
             resultSet = preparedStatement.executeQuery();
-            
-            while(resultSet.next()){
+
+            while (resultSet.next()) {
                 paciente = new Paciente();
                 paciente.setApellidos(resultSet.getString("apellidos"));
                 paciente.setCiudad(resultSet.getString("ciudad"));
@@ -188,39 +265,38 @@ public class PacienteRepositoryDatabase implements PacienteRepository{
                 paciente.setPais(resultSet.getString("pais"));
                 paciente.setTipoDocumento(resultSet.getString("tipoDocumento"));
                 paciente.setPassword("");
-               pacientes.add(paciente);
+                pacientes.add(paciente);
             }
-            
+
         } catch (ClassNotFoundException | SQLException e) {
             throw new PersistenceNotFoundException(e.getMessage());
         } finally {
             close();
         }
-    
-        if(pacientes.isEmpty()){
+
+        if (pacientes.isEmpty()) {
             throw new PersistenceException("No existen pacienes con ese dato!");
-        }
-        else{
+        } else {
             return pacientes;
         }
-        
+
     }
 
     @Override
     public Set<Relacion> traerRelacionesFamiliaresDesdePaciente(Paciente paciente, String estado) throws PersistenceNotFoundException {
         Set<Relacion> relaciones = new HashSet<>();
         String complemento = "";
-        if(Relacion.ESTADOPENDIENTE.equalsIgnoreCase(estado)){
-            complemento = " AND ENVIADO = '"+Relacion.ENVIADOOTRO+"' ";
+        if (Relacion.ESTADOPENDIENTE.equalsIgnoreCase(estado)) {
+            complemento = " AND ENVIADO = '" + Relacion.ENVIADOOTRO + "' ";
         }
         Relacion rel = null;
         try {
             Class.forName(DatosBD.DRIVER);
             connect = DriverManager.getConnection(DatosBD.CONECTOR);
-            preparedStatement = connect.prepareStatement("SELECT * FROM PACIENTEFAMILIAR PF LEFT JOIN FAMILIAR F ON (PF.idFamiliar=F.ID) WHERE idPaciente = '"+paciente.getId()+"' AND ESTADO = '"+estado+"' "+complemento+" ORDER BY PF.ID");
+            preparedStatement = connect.prepareStatement("SELECT * FROM PACIENTEFAMILIAR PF LEFT JOIN FAMILIAR F ON (PF.idFamiliar=F.ID) WHERE idPaciente = '" + paciente.getId() + "' AND ESTADO = '" + estado + "' " + complemento + " ORDER BY PF.ID");
             System.out.println("edu.eci.pgr1.entremente.persistence.imp.PacienteRepositoryDatabase.traerRelacionesFamiliaresDesdePaciente()");
             resultSet = preparedStatement.executeQuery();
-            while(resultSet.next()){
+            while (resultSet.next()) {
                 rel = new Relacion();
                 rel.setId(resultSet.getInt("PF.ID"));
                 rel.setIdFamiliar(resultSet.getInt("F.ID"));
@@ -239,7 +315,7 @@ public class PacienteRepositoryDatabase implements PacienteRepository{
             close();
         }
         return relaciones;
-    
+
     }
 
     @Override
@@ -260,7 +336,7 @@ public class PacienteRepositoryDatabase implements PacienteRepository{
             throw new PersistenceNotFoundException(e.getMessage());
         } finally {
             close();
-        } 
+        }
     }
 
     @Override
@@ -281,7 +357,7 @@ public class PacienteRepositoryDatabase implements PacienteRepository{
             throw new PersistenceNotFoundException(e.getMessage());
         } finally {
             close();
-        } 
+        }
     }
 
     @Override
@@ -289,15 +365,15 @@ public class PacienteRepositoryDatabase implements PacienteRepository{
         Set<Relacion> relaciones = new HashSet<>();
         Relacion rel = null;
         String complemento = "";
-        if(Relacion.ESTADOPENDIENTE.equalsIgnoreCase(estado)){
-            complemento = " AND ENVIADO = '"+Relacion.ENVIADOOTRO+"' ";
+        if (Relacion.ESTADOPENDIENTE.equalsIgnoreCase(estado)) {
+            complemento = " AND ENVIADO = '" + Relacion.ENVIADOOTRO + "' ";
         }
         try {
             Class.forName(DatosBD.DRIVER);
             connect = DriverManager.getConnection(DatosBD.CONECTOR);
-            preparedStatement = connect.prepareStatement("SELECT * FROM PACIENTESALUD PS LEFT JOIN PERSONALSALUD P ON (PS.idPersonalSalud = P.ID) WHERE idPaciente = '"+paciente.getId()+"' AND ESTADO = '"+estado+"' "+complemento+" ORDER BY PS.ID");
+            preparedStatement = connect.prepareStatement("SELECT * FROM PACIENTESALUD PS LEFT JOIN PERSONALSALUD P ON (PS.idPersonalSalud = P.ID) WHERE idPaciente = '" + paciente.getId() + "' AND ESTADO = '" + estado + "' " + complemento + " ORDER BY PS.ID");
             resultSet = preparedStatement.executeQuery();
-            while(resultSet.next()){
+            while (resultSet.next()) {
                 rel = new Relacion();
                 rel.setId(resultSet.getInt("PS.ID"));
                 rel.setApellidosPaciente(paciente.getApellidos());
@@ -324,7 +400,7 @@ public class PacienteRepositoryDatabase implements PacienteRepository{
             Class.forName(DatosBD.DRIVER);
             connect = DriverManager.getConnection(DatosBD.CONECTOR);
             statement = connect.createStatement();
-            preparedStatement = connect.prepareStatement("UPDATE  "+NOMBRETABLA+" SET nombres = ?, apellidos = ?, fechaNacimiento = ?, genero = ?, pais = ?, ciudad = ?, direccion = ? WHERE id = ? ");
+            preparedStatement = connect.prepareStatement("UPDATE  " + NOMBRETABLA + " SET nombres = ?, apellidos = ?, fechaNacimiento = ?, genero = ?, pais = ?, ciudad = ?, direccion = ? WHERE id = ? ");
             preparedStatement.setString(1, paciente.getNombres());
             preparedStatement.setString(2, paciente.getApellidos());
             preparedStatement.setString(3, paciente.getFechaNacimiento());
@@ -338,7 +414,7 @@ public class PacienteRepositoryDatabase implements PacienteRepository{
             throw new PersistenceNotFoundException(e.getMessage());
         } finally {
             close();
-        } 
+        }
     }
 
     @Override
@@ -347,12 +423,11 @@ public class PacienteRepositoryDatabase implements PacienteRepository{
         try {
             Class.forName(DatosBD.DRIVER);
             connect = DriverManager.getConnection(DatosBD.CONECTOR);
-            preparedStatement = connect.prepareStatement("SELECT SUM(acertadas) FROM RESULTADO WHERE idPaciente = '"+paciente.getId()+"'");
+            preparedStatement = connect.prepareStatement("SELECT SUM(acertadas) FROM RESULTADO WHERE idPaciente = '" + paciente.getId() + "'");
             resultSet = preparedStatement.executeQuery();
-            if(resultSet.next()){
-               progreso.setPreguntasAcertadas(resultSet.getInt(1));
-            }
-            else{
+            if (resultSet.next()) {
+                progreso.setPreguntasAcertadas(resultSet.getInt(1));
+            } else {
                 progreso.setPreguntasAcertadas(1);
             }
         } catch (ClassNotFoundException | SQLException e) {
