@@ -1,5 +1,6 @@
 /* global apiclientMusicoterapia, estado */
 
+
 var appMusicoterapia = (function () {
     const cantidaPreguntasPorNivel = 8;
     const nivelMaximo = 4;
