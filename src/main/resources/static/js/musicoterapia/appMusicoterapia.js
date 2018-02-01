@@ -18,11 +18,11 @@ var appMusicoterapia = (function () {
             if (respuesta[0].opcion === Nombre) {
                 preguntasCorrectasTemporales++;
                 //Detener el video
-                    $('.youtube-iframe').each(function(index) {
+                $('.youtube-iframe').each(function (index) {
                     $(this).attr('src', $(this).attr('src'));
                     return false;
-                  });
-                
+                });
+
 
                 if (preguntasCorrectasTemporales > cantidaPreguntasPorNivel && nivel < nivelMaximo) {
                     $('#modalSubirNivel').modal('show');
@@ -174,72 +174,87 @@ var appMusicoterapia = (function () {
                 );
             }
         },
-        cargarParaEditar(){
+        cargarParaEditar() {
             var promesaConsulta = apimockMusicoterapia.getTodasPreguntas(sessionStorage.getItem("idPacienteConsultaPS"))
             promesaConsulta.then(
-                function (datos) { 
-                    inicializarPregunta();
-                    datos.map(adicionarPregunta);
-                },
-                function (dato) {
-                    alert(dato.responseText);
-                }
+                    function (datos) {
+                        inicializarPregunta();
+                        datos.map(adicionarPregunta);
+                    },
+                    function (dato) {
+                        alert(dato.responseText);
+                    }
             );
         },
-        modificarPregunta(idPreguntaPaciente){
-            var nivelPersonalizado = $('select#nivel'+idPreguntaPaciente).val();
-            var estado = $('#estado'+idPreguntaPaciente);
-            if($('#estado'+idPreguntaPaciente).is(':checked')===true){
+        modificarPregunta(idPreguntaPaciente) {
+            var nivelPersonalizado = $('select#nivel' + idPreguntaPaciente).val();
+            var estado = $('#estado' + idPreguntaPaciente);
+            if ($('#estado' + idPreguntaPaciente).is(':checked') === true) {
                 estado = "A";
-            }
-            else{
+            } else {
                 estado = "D";
             }
             var promesa = apimockMusicoterapia.modificarPregunta(idPreguntaPaciente, nivelPersonalizado, estado);
             promesa.then(
-                function () { 
-                    $('#idPanel'+idPreguntaPaciente).show();
-                    setTimeout(function () {
-                        $('#idPanel'+idPreguntaPaciente).hide();
-                    }, 1000);
-                },
-                function (dato) {
-                    alert(dato.responseText);
-                }
+                    function () {
+                        $('#idPanel' + idPreguntaPaciente).show();
+                        setTimeout(function () {
+                            $('#idPanel' + idPreguntaPaciente).hide();
+                        }, 1000);
+                    },
+                    function (dato) {
+                        alert(dato.responseText);
+                    }
             );
+        },
+        initAdicionarPregunta() {
+            if ("undefined" === sessionStorage.getItem("id") || null === sessionStorage.getItem("id")) {
+                //no inicio sesion
+                alert("Para esta función, debe iniciar sesión primero.");
+                window.location.href = "iniciarSesion.html";
+            } else {
+                if ("undefined" === sessionStorage.getItem("idPacienteConsultaPS") || null === sessionStorage.getItem("idPacienteConsultaPS")) {
+                    alert("Para esta función, debe seleccionar un paciente.");
+                    window.location.href = "perfilFamiliarFamiliares.html";
+                } else {
+                    $("#idNombreUsu").text(sessionStorage.getItem("nombres") + " " + sessionStorage.getItem("apellidos"));
+                    $("#idNombrePaciente").text(sessionStorage.getItem("nombrePacienteConsultaPS"));
+
+                }
+            }
+        },
+        buscarVideos(){
+            apiclientMusicoterapia.buscarVideosYoutube();
         }
     };
 })();
 
-function adicionarPregunta(item){
+function adicionarPregunta(item) {
     var nivel;
-    if(item.nivel===1){
+    if (item.nivel === 1) {
         nivel = "<option value = 1 selected>1</option><option value = 2>2</option><option value = 3 >3</option><option value = 4 >4</option>";
-    }
-    else if(item.nivel===2){
+    } else if (item.nivel === 2) {
         nivel = "<option value = 1 >1</option><option value = 2 selected>2</option><option value = 3 >3</option><option value = 4 >4</option>";
-    }
-    else if(item.nivel===3){
+    } else if (item.nivel === 3) {
         nivel = "<option value = 1 >1</option><option value = 2 >2</option><option value = 3 selected>3</option><option value = 4 >4</option>";
-    }  
-    else{
+    } else {
         nivel = "<option value = 1 >1</option><option value = 2 >2</option><option value = 3 >3</option><option value = 4 selected>4</option>";
     }
-    
+
     var activo = "";
-    if(item.estado==="A"){
+    if (item.estado === "A") {
         activo = "checked";
     }
 
-    
-    var markup = "<tr class=\"filasPG\"><td>" + item.id + "</td><td><img src=\"" + item.imagen + "\" class=\"img-rounded img-responsive imagenGaleriaEditar\" alt=\"ImagenPregunta\"></td><td>" + item.pregunta + "</td><td><select class=\"form-control\" id=\"nivel"+item.id+"\">"+nivel+"</select></td><td><input type=\"checkbox\" "+activo+" id=\"estado"+item.id+"\"></td><td><button class=\"btn btn-info btn-block\" onclick=\"appMusicoterapia.modificarPregunta(" + item.id + ")\"> Guardar</button><div class=\"alert alert-success\" style=\"display:none;\" id=\"idPanel"+item.id+"\"><strong >Bien!</strong></div></td></tr>";
+
+    var markup = "<tr class=\"filasPG\"><td>" + item.id + "</td><td><img src=\"" + item.imagen + "\" class=\"img-rounded img-responsive imagenGaleriaEditar\" alt=\"ImagenPregunta\"></td><td>" + item.pregunta + "</td><td><select class=\"form-control\" id=\"nivel" + item.id + "\">" + nivel + "</select></td><td><input type=\"checkbox\" " + activo + " id=\"estado" + item.id + "\"></td><td><button class=\"btn btn-info btn-block\" onclick=\"appMusicoterapia.modificarPregunta(" + item.id + ")\"> Guardar</button><div class=\"alert alert-success\" style=\"display:none;\" id=\"idPanel" + item.id + "\"><strong >Bien!</strong></div></td></tr>";
     $("#idTablaG").append(markup);
 }
 
-function inicializarPregunta(){
+function inicializarPregunta() {
     $(".filasPG").remove("tr");
 }
-    
+
 
 function traerNombreCorrecto(filter) {
     if (filter.respuestaCorrecta === "S") {
@@ -279,4 +294,14 @@ function deshabilitarBotones5050(respuesta) {
     }
     $("#idBtn5050").attr("disabled", true);
     $("#idBtn5050").attr("onclick", "");
+}
+
+
+function adicionarVideo(item) {
+    var markup = "<tr class=\"filasPG\"><td>" + item.id + "</td><td><img src=\"" + item.imagen + "\" class=\"img-rounded img-responsive imagenGaleriaEditar\" alt=\"ImagenPregunta\"></td><td>" + item.pregunta + "</td><td><select class=\"form-control\" id=\"nivel" + item.id + "\">" + nivel + "</select></td><td><input type=\"checkbox\" " + activo + " id=\"estado" + item.id + "\"></td><td><button class=\"btn btn-info btn-block\" onclick=\"appGaleria.modificarPregunta(" + item.id + ")\"> Guardar</button><div class=\"alert alert-success\" style=\"display:none;\" id=\"idPanel" + item.id + "\"><strong >Bien!</strong></div></td></tr>";
+    $("#idTablaG").append(markup);
+}
+
+function inicializarPregunta() {
+    $(".filasPG").remove("tr");
 }

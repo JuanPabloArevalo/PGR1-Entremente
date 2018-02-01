@@ -59,7 +59,7 @@ var apiclientMusicoterapia = (function(){
             });
         },
         getTodasPreguntas(idPaciente){
-            return $.get("/entremente/V1/juegos/galeria/todas/"+idPaciente);;
+            return $.get("/entremente/V1/juegos/galeria/todas/"+idPaciente);
         },
         modificarPregunta(id, nivelPersonalizado, estado){
             return $.ajax({
@@ -68,9 +68,28 @@ var apiclientMusicoterapia = (function(){
                 data: '{"id":'+id+' ,"nivel":'+nivelPersonalizado+',"estado":"'+estado+'"}',
                 contentType: "application/json"
             });
+        },
+        buscarVideosYoutube(palabraClave){
+//            var url = 'https://www.googleapis.com/auth/youtube';
+//            var xhr = createCORSRequest('GET', url);
+//            xhr.setRequestHeader('Authorization', 'Bearer AIzaSyC1YiuJFBTAGwLQb3TYIHfnkLEFPKB2PYA');
+//            a =xhr.send();
+            
+            var a = $.ajax({
+                type: "GET", 
+                url: "https://www.googleapis.com/auth/youtube",
+                headers: {
+                    "Access-Control-Allow-Origin": "*",
+                    "Access-Control-Allow-Methods": "GET,PUT,POST,DELETE,OPTIONS",
+                    "Access-Control-Allow-Headerss": "Content-Type,Authorization,X-Requested-With,Content-Length,Accept,Origin,t",
+                    "Access-Control-Allow-Credentials":"true"
+                },
+                contentType: "application/json"
+              });
+            console.info(a)  
         }
     };
-    
+      
 }());
 
 function getRandomArbitrary(arrgloIndices) {
