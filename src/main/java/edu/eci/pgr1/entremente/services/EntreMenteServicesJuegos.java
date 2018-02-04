@@ -11,6 +11,7 @@ import edu.eci.pgr1.entremente.model.juegos.PreguntaAtencion;
 import edu.eci.pgr1.entremente.model.juegos.PreguntaCalculo;
 import edu.eci.pgr1.entremente.model.juegos.PreguntaFormas;
 import edu.eci.pgr1.entremente.model.juegos.PreguntaGaleria;
+import edu.eci.pgr1.entremente.model.juegos.PreguntaMusicoterapia;
 import edu.eci.pgr1.entremente.model.juegos.PreguntaPercepcion;
 import edu.eci.pgr1.entremente.persistence.juegos.JuegoAtencionRepository;
 import edu.eci.pgr1.entremente.persistence.juegos.JuegoCalculoRepository;
@@ -23,6 +24,7 @@ import java.util.Set;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import edu.eci.pgr1.entremente.persistence.juegos.JuegoGaleriaRepository;
+import edu.eci.pgr1.entremente.persistence.juegos.JuegoMusicoterapiaRepository;
 import edu.eci.pgr1.entremente.persistence.juegos.JuegoPercepcionRepository;
 
 /**
@@ -44,6 +46,8 @@ public class EntreMenteServicesJuegos {
     private JuegoPercepcionRepository percepcion;  
     @Autowired
     private ResultadoRepository resultado;
+    @Autowired
+    private JuegoMusicoterapiaRepository musicoterapia;  
     /**
      * Metodo encargado de traer todas las preguntas del juego Galeria
      * @param idPaciente
@@ -238,6 +242,60 @@ public class EntreMenteServicesJuegos {
     public void modificarPreguntaPercepcion(PreguntaPercepcion pregunta) throws PersistenceNotFoundException, PersistenceException{
         percepcion.modificarPregunta(pregunta);
     }    
+///MUSICOTERAPIA
+    /**
+     * Metodo encargado de traer todas las preguntas del juego Musicoterapia
+     * @param idPaciente
+     * @return
+     * @throws PersistenceNotFoundException 
+     * @throws edu.eci.pgr1.entremente.persistence.PersistenceException 
+     */
+//    public ArrayList<Set<PreguntaMusicoterapia>> getPreguntasMusicoterapia(int idPaciente) throws PersistenceNotFoundException, PersistenceException{
+//        Paciente paciente = new Paciente();
+//        paciente.setId(idPaciente);
+//        ArrayList<Set<PreguntaPercepcion>> arreglo = new ArrayList<>();
+//        arreglo.add(percepcion.traerPreguntas(1, paciente));
+//        arreglo.add(percepcion.traerPreguntas(2, paciente));
+//        arreglo.add(percepcion.traerPreguntas(3, paciente));
+//        return arreglo;
+//    }    
+    /**
+     * Metodo encargado de traer todas las preguntas del juego Musicoterapia
+     * @param idPaciente
+     * @return
+     * @throws PersistenceNotFoundException 
+     * @throws edu.eci.pgr1.entremente.persistence.PersistenceException 
+     */
+    public ArrayList<PreguntaMusicoterapia> getTodasPreguntasMusicoterapia(int idPaciente) throws PersistenceNotFoundException, PersistenceException{
+        Paciente paciente = new Paciente();
+        paciente.setId(idPaciente);
+        return musicoterapia.traerTODASPreguntas(paciente);
+    }
+    
+    /**
+     * Metodo encargado de modificar la pregunta de Musicoterapia
+     * @param pregunta
+     * @throws PersistenceNotFoundException 
+     * @throws edu.eci.pgr1.entremente.persistence.PersistenceException 
+     */
+    public void modificarPreguntaMusicoterapia(PreguntaMusicoterapia pregunta) throws PersistenceNotFoundException, PersistenceException{
+        musicoterapia.modificarPregunta(pregunta);
+    }      
+    
+    /**
+     * Metodo encargado de adicionar la pregunta de Musicoterapia
+     * @param pregunta
+     * @param idPaciente
+     * @throws PersistenceNotFoundException 
+     * @throws edu.eci.pgr1.entremente.persistence.PersistenceException 
+     */
+    public void adicionarPreguntaMusicoterapia(PreguntaMusicoterapia pregunta, int idPaciente) throws PersistenceNotFoundException, PersistenceException{
+        Paciente paciente = new Paciente();
+        paciente.setId(idPaciente);
+        musicoterapia.adicionarPregunta(pregunta, paciente);
+    }        
+    
+    
 //RESULTADOS
     /**
      * Metodo encargado de adicionar el resultado del juego Galeria

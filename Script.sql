@@ -361,3 +361,44 @@ ADD CONSTRAINT `FK_Respac`
   ON UPDATE NO ACTION;   
   
   
+   CREATE TABLE PREGUNTAMUSICOTERAPIA (
+	id INT(8) UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+	video VARCHAR(500),
+    pregunta VARCHAR(500),
+	opcionA VARCHAR(80),
+	opcionB VARCHAR(80),
+	opcionC VARCHAR(80),
+	opcionD VARCHAR(80),
+	nivelPredeterminado INT(5),
+	personalizado VARCHAR(1),
+	correctaA VARCHAR(1),
+	correctaB VARCHAR(1),
+	correctaC VARCHAR(1),
+	correctaD VARCHAR(1)
+);   
+  
+ CREATE TABLE JUEGOMUSICOTERAPIAPACIENTE (
+	id INT(8) UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+    idPaciente INT UNSIGNED NOT NULL,
+    idPreguntaMusicoterapia INT UNSIGNED NOT NULL,
+    nivelPersonalizado INT(5),
+	estado VARCHAR(1)
+); 
+  
+
+ALTER TABLE `entremente`.`JUEGOMUSICOTERAPIAPACIENTE`
+ADD INDEX `FK_JMPPac_idx` (`idPaciente` ASC),
+ADD INDEX `FK_JMPPM_idx` (`idPreguntaMusicoterapia` ASC);
+ALTER TABLE `entremente`.`JUEGOMUSICOTERAPIAPACIENTE`
+ADD CONSTRAINT `FK_JCPPa`
+  FOREIGN KEY (`idPaciente`)
+  REFERENCES `entremente`.`PACIENTE` (`id`)
+  ON DELETE NO ACTION
+  ON UPDATE NO ACTION,
+ADD CONSTRAINT `FK_JCPPG`
+  FOREIGN KEY (`idPreguntaMusicoterapia`)
+  REFERENCES `entremente`.`PREGUNTAMUSICOTERAPIA` (`id`)
+  ON DELETE NO ACTION
+  ON UPDATE NO ACTION;  
+  
+  
