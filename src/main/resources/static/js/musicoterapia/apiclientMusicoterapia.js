@@ -69,15 +69,10 @@ var apiclientMusicoterapia = (function(){
                 contentType: "application/json"
             });
         },
-        buscarVideosYoutube(palabraClave){
-//            var url = 'https://www.googleapis.com/auth/youtube';
-//            var xhr = createCORSRequest('GET', url);
-//            xhr.setRequestHeader('Authorization', 'Bearer AIzaSyC1YiuJFBTAGwLQb3TYIHfnkLEFPKB2PYA');
-//            a =xhr.send();
-            
-            var a = $.ajax({
+        buscarVideosYoutube(palabraClave){            
+            return $.ajax({
                 type: "GET", 
-                url: "https://www.googleapis.com/auth/youtube",
+                url: "https://www.googleapis.com/youtube/v3/search?maxResults=10&part=id,snippet&q="+palabraClave+"&key=AIzaSyBpOECppHPmAQ_zxLA2u3njjmTEu_5B00k",
                 headers: {
                     "Access-Control-Allow-Origin": "*",
                     "Access-Control-Allow-Methods": "GET,PUT,POST,DELETE,OPTIONS",
@@ -86,7 +81,6 @@ var apiclientMusicoterapia = (function(){
                 },
                 contentType: "application/json"
               });
-            console.info(a)  
         }
     };
       

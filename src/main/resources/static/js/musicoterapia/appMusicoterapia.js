@@ -224,7 +224,34 @@ var appMusicoterapia = (function () {
             }
         },
         buscarVideos(){
-            apiclientMusicoterapia.buscarVideosYoutube();
+            var cancion = $('#idBusqueda').val();
+            if (cancion === "") {
+                alert("Ingrese la canción a buscar");
+            }
+            else{
+                var promesaConsulta = apiclientMusicoterapia.buscarVideosYoutube(cancion);
+                promesaConsulta.then(
+                        function (datos) {
+                            if(promesaConsulta.responseJSON.pageInfo.totalResults>0){
+                                inicializarVideo();
+                                promesaConsulta.responseJSON.items.map(adicionarVideo);
+                            }
+                            else{
+                                alert("No se han encontrado videos!");
+                            }
+                        },
+                        function (dato) {
+                            alert(dato.responseText);
+                        }
+                );
+                
+            }
+
+            
+            
+        },
+        seleccionarVideo(idVideo){
+            alert(idVideo)
         }
     };
 })();
@@ -298,10 +325,10 @@ function deshabilitarBotones5050(respuesta) {
 
 
 function adicionarVideo(item) {
-    var markup = "<tr class=\"filasPG\"><td>" + item.id + "</td><td><img src=\"" + item.imagen + "\" class=\"img-rounded img-responsive imagenGaleriaEditar\" alt=\"ImagenPregunta\"></td><td>" + item.pregunta + "</td><td><select class=\"form-control\" id=\"nivel" + item.id + "\">" + nivel + "</select></td><td><input type=\"checkbox\" " + activo + " id=\"estado" + item.id + "\"></td><td><button class=\"btn btn-info btn-block\" onclick=\"appGaleria.modificarPregunta(" + item.id + ")\"> Guardar</button><div class=\"alert alert-success\" style=\"display:none;\" id=\"idPanel" + item.id + "\"><strong >Bien!</strong></div></td></tr>";
-    $("#idTablaG").append(markup);
+    var markup = "<tr class=\"filasVid\"><td><div class=\"embed-container\"><iframe class=\"youtube-iframe\" width=\"400\" height=\"210\" frameborder=\"0\" allowfullscreen id=\"idVideo\" src=\"https://www.youtube.com/embed/"+item.id.videoId+"?rel=0&amp;controls=0&amp;showinfo=0\"></iframe></div></td><td>"+item.snippet.title+"</td><td><button class=\"btn btn-info btn-block\" onclick=\"appMusicoterapia.seleccionarVideo('" + item.id.videoId + "')\"> Seleccionar</button></td></tr>";
+    $("#idTablaVideos").append(markup);
 }
 
-function inicializarPregunta() {
-    $(".filasPG").remove("tr");
+function inicializarVideo() {
+    $(".filasVid").remove("tr");
 }

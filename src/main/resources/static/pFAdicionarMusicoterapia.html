@@ -65,25 +65,22 @@
                 <div class="panel-heading"><h5 class="subTitulo" id="idNombrePaciente"></h5></div>
                 <div class="panel-body">
                     <div class="panel-group" id="accordion">
-
-
-                        <div class="input-group">
-                            <input type="text" class="form-control" placeholder="Buscar canción" id="idBusqueda">
-                            <div class="input-group-btn">
-                                <button class="btn btn-default" onclick="appMusicoterapia.buscarVideos()">
-                                    <i class="glyphicon glyphicon-search"></i>
-                                </button>
-                            </div>
-                        </div>
-
                         <div class="container">
+                            <div class="input-group">
+                                <input type="text" class="form-control" placeholder="Buscar canción" id="idBusqueda">
+                                <div class="input-group-btn">
+                                    <button class="btn btn-default" onclick="appMusicoterapia.buscarVideos()">
+                                        <i class="glyphicon glyphicon-search"></i>
+                                    </button>
+                                </div>
+                            </div>
+                            <br>
                             <div class="table-responsive">          
                                 <table class="table" id="idTablaVideos">
                                     <thead>
                                         <tr>
                                             <th>Video</th>
                                             <th>Título</th>
-                                            <th>Autor</th>
                                             <th></th>
                                         </tr>
                                     </thead>
