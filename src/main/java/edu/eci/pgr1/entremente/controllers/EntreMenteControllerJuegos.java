@@ -10,6 +10,7 @@ import edu.eci.pgr1.entremente.model.juegos.PreguntaAtencion;
 import edu.eci.pgr1.entremente.model.juegos.PreguntaCalculo;
 import edu.eci.pgr1.entremente.model.juegos.PreguntaFormas;
 import edu.eci.pgr1.entremente.model.juegos.PreguntaGaleria;
+import edu.eci.pgr1.entremente.model.juegos.PreguntaMusicoterapia;
 import edu.eci.pgr1.entremente.model.juegos.PreguntaPercepcion;
 import edu.eci.pgr1.entremente.persistence.PersistenceException;
 import edu.eci.pgr1.entremente.persistence.PersistenceNotFoundException;
@@ -346,7 +347,19 @@ public class EntreMenteControllerJuegos {
             Logger.getLogger(EntreMenteController.class.getName()).log(Level.SEVERE, null, ex);
             return new ResponseEntity<>(ex.getMessage(), HttpStatus.NOT_FOUND);
         }        
-    }       
+    }  
+    
+    @RequestMapping(path = "/musicoterapia/{idPaciente}", method = RequestMethod.POST)
+    public ResponseEntity<?> manejadorPostAdicionarPreguntaMusicoTerapia(@RequestBody PreguntaMusicoterapia pregunta, @PathVariable("idPaciente") int idPaciente) throws PersistenceException {
+        try {
+            emsj.adicionarPreguntaMusicoterapia(pregunta, idPaciente);
+            return new ResponseEntity<>(HttpStatus.CREATED);
+        } catch (PersistenceNotFoundException | PersistenceException ex) {
+            Logger.getLogger(EntreMenteController.class.getName()).log(Level.SEVERE, null, ex);
+            return new ResponseEntity<>(ex.getMessage(), HttpStatus.NOT_FOUND);
+        }        
+    }
+    
     //RUTINAS
     @RequestMapping(path = "/resultados/rutinas/dia/{idPaciente}/{fechaInicial}/{fechaFinal}", method = RequestMethod.GET)
     public ResponseEntity<?> manejadorGetConsultarResultadoRutinasDia(@PathVariable("idPaciente") int idPaciente, @PathVariable("fechaInicial") String fechaInicial, @PathVariable("fechaFinal") String fechaFinal) {
