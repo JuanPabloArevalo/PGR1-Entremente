@@ -251,7 +251,112 @@ var appMusicoterapia = (function () {
             
         },
         seleccionarVideo(idVideo){
-            alert(idVideo)
+            $('#idPanelBusqueda').hide();
+            $('#idPanelAdicion').show();
+            $("#idVideoAdicionar").attr("src", "https://www.youtube.com/embed/"+idVideo+"?rel=0&amp;controls=0&amp;showinfo=0\"");
+            $('#idVid').val(idVideo);
+            
+        },
+        atrasCrearPregunta(){
+            $('#idPregunta').val("");
+            $('#idRespuestaA').val("");
+            $('#idRespuestaB').val("");
+            $('#idRespuestaC').val("");
+            $('#idRespuestaD').val("");
+            $('#idPanelBusqueda').show();
+            $('#idPanelAdicion').hide();
+            
+        },
+        guardarPregunta(){
+            var pregunta = $('#idPregunta').val();
+            var respuestaA = $('#idRespuestaA').val();
+            var respuestaB = $('#idRespuestaB').val();
+            var respuestaC = $('#idRespuestaC').val();
+            var respuestaD = $('#idRespuestaD').val();
+            var correcta = $("select#idRespuestaCorrecta").val();
+            var nivel = $("select#idNivel").val();
+            var mensaje = "";
+            var valido = true;
+            var correctaA;
+            var correctaB;
+            var correctaC;
+            var correctaD;
+            var idVideo = $('#idVid').val();
+            var idPaciente = sessionStorage.getItem("idPacienteConsultaPS");
+            var video = "https://www.youtube.com/embed/"+idVideo+"?rel=0&amp;controls=0&amp;showinfo=0&autoplay=1";
+            if (pregunta === "") {
+                valido = false;
+                mensaje = "pregunta.";
+            }
+            
+            if (respuestaA === "") {
+                valido = false;
+                mensaje = mensaje + "Respuesta A.";
+            }
+            
+            if (respuestaB === "") {
+                valido = false;
+                mensaje = mensaje + "Respuesta B.";
+            }
+            
+            if (respuestaC === "") {
+                valido = false;
+                mensaje = mensaje + "Respuesta C.";
+            }
+            
+            if (respuestaD === "") {
+                valido = false;
+                mensaje = mensaje + "Respuesta D.";
+            }
+            
+            if(!valido){
+                $("#mensajeFalta").text(mensaje);
+                $("#divError").show();
+            }
+            else{
+                $("#mensajeFalta").text("");
+                $("#divError").hide();
+                
+                if("A" === correcta){
+                    correctaA = "S";
+                    correctaB = "N";
+                    correctaC = "N";
+                    correctaD = "N";
+                }
+                else if("B" === correcta){
+                    correctaA = "N";
+                    correctaB = "S";
+                    correctaC = "N";
+                    correctaD = "N";
+                }
+                else if("C" === correcta){
+                    correctaA = "N";
+                    correctaB = "N";
+                    correctaC = "S";
+                    correctaD = "N";
+                }
+                else{
+                    correctaA = "N";
+                    correctaB = "N";
+                    correctaC = "N";
+                    correctaD = "S";
+                }
+                var promesa = apiclientMusicoterapia.adicionarPregunta(pregunta, video, nivel, respuestaA, respuestaB, respuestaC, respuestaD, correctaA, correctaB, correctaC, correctaD, idPaciente);
+                promesa.then(
+                        function () {
+                            alert("Se ha adicionado la pregunta correctamente!");
+                            inicializarVideo();
+                            appMusicoterapia.atrasCrearPregunta();
+                        },
+                        function (dato) {
+                            alert(dato.responseText);
+                        }
+                );
+            }
+            
+        },
+        atrasASeleccionPaciente(){
+            window.location.href = "/perfilFamiliarConsultarFamiliares.html";
         }
     };
 })();

@@ -19,11 +19,13 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.Set;
+import org.springframework.stereotype.Service;
 
 /**
  *
  * @author JuanArevaloMerchan
  */
+@Service
 public class JuegoMusicoterapiaRepositoryDatabase implements JuegoMusicoterapiaRepository{
     
     private Connection connect = null;

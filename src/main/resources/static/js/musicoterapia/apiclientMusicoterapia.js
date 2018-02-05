@@ -81,6 +81,14 @@ var apiclientMusicoterapia = (function(){
                 },
                 contentType: "application/json"
               });
+        },
+        adicionarPregunta(pregunta, video, nivel, respuestaA, respuestaB, respuestaC, respuestaD, correctaA, correctaB, correctaC, correctaD, idPaciente){
+            return $.ajax({
+                url:  "/entremente/V1/juegos/musicoterapia/"+idPaciente,
+                type: "POST",
+                data: '{"id":0 , "pregunta":"'+pregunta+'", "video":"'+video+'", "nivel":'+nivel+', "personalizado" : "S",  "estado": "A", "respuestas" : [{"opcion" : "'+respuestaA+'" , "respuestaCorrecta": "'+correctaA+'"},{"opcion" : "'+respuestaB+'" , "respuestaCorrecta": "'+correctaB+'"},{"opcion" : "'+respuestaC+'" , "respuestaCorrecta": "'+correctaC+'"},{"opcion" : "'+respuestaD+'" , "respuestaCorrecta": "'+correctaD+'"}]}',
+                contentType: "application/json"
+            });
         }
     };
       
