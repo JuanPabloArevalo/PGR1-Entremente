@@ -250,15 +250,16 @@ public class EntreMenteServicesJuegos {
      * @throws PersistenceNotFoundException 
      * @throws edu.eci.pgr1.entremente.persistence.PersistenceException 
      */
-//    public ArrayList<Set<PreguntaMusicoterapia>> getPreguntasMusicoterapia(int idPaciente) throws PersistenceNotFoundException, PersistenceException{
-//        Paciente paciente = new Paciente();
-//        paciente.setId(idPaciente);
-//        ArrayList<Set<PreguntaPercepcion>> arreglo = new ArrayList<>();
-//        arreglo.add(percepcion.traerPreguntas(1, paciente));
-//        arreglo.add(percepcion.traerPreguntas(2, paciente));
-//        arreglo.add(percepcion.traerPreguntas(3, paciente));
-//        return arreglo;
-//    }    
+    public ArrayList<Set<PreguntaMusicoterapia>> getPreguntasMusicoterapia(int idPaciente) throws PersistenceNotFoundException, PersistenceException{
+        Paciente paciente = new Paciente();
+        paciente.setId(idPaciente);
+        ArrayList<Set<PreguntaMusicoterapia>> arreglo = new ArrayList<>();
+        arreglo.add(musicoterapia.traerPreguntas(1, paciente));
+        arreglo.add(musicoterapia.traerPreguntas(2, paciente));
+        arreglo.add(musicoterapia.traerPreguntas(3, paciente));
+        arreglo.add(musicoterapia.traerPreguntas(4, paciente));
+        return arreglo;
+    }    
     /**
      * Metodo encargado de traer todas las preguntas del juego Musicoterapia
      * @param idPaciente

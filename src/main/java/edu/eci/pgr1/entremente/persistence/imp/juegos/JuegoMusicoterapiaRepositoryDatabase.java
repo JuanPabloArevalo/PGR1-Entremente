@@ -6,7 +6,10 @@
 package edu.eci.pgr1.entremente.persistence.imp.juegos;
 
 import edu.eci.pgr1.entremente.model.Paciente;
+import edu.eci.pgr1.entremente.model.juegos.PreguntaGaleria;
 import edu.eci.pgr1.entremente.model.juegos.PreguntaMusicoterapia;
+import edu.eci.pgr1.entremente.model.juegos.RespuestaGaleria;
+import edu.eci.pgr1.entremente.model.juegos.RespuestaMusicoterapia;
 import edu.eci.pgr1.entremente.persistence.PersistenceException;
 import edu.eci.pgr1.entremente.persistence.PersistenceNotFoundException;
 import edu.eci.pgr1.entremente.persistence.imp.DatosBD;
@@ -18,6 +21,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.Set;
 import org.springframework.stereotype.Service;
 
@@ -36,7 +40,61 @@ public class JuegoMusicoterapiaRepositoryDatabase implements JuegoMusicoterapiaR
 
     @Override
     public Set<PreguntaMusicoterapia> traerPreguntas(int nivel, Paciente paciente) throws PersistenceNotFoundException, PersistenceException {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        Set<PreguntaMusicoterapia> preguntas = new HashSet<>();
+        ArrayList<RespuestaMusicoterapia> respuestas = null;
+        PreguntaMusicoterapia pregunta = null;
+        RespuestaMusicoterapia respuestaA = null;
+        RespuestaMusicoterapia respuestaB = null;
+        RespuestaMusicoterapia respuestaC = null;
+        RespuestaMusicoterapia respuestaD = null;
+        try {
+            Class.forName(DatosBD.DRIVER);
+            connect = DriverManager.getConnection(DatosBD.CONECTOR);
+            preparedStatement = connect.prepareStatement("SELECT * FROM "+NOMBRETABLA+" JGP LEFT JOIN PREGUNTAMUSICOTERAPIA PG ON (JGP.idPreguntaMusicoterapia=PG.ID) WHERE JGP.nivelPersonalizado = '"+nivel+"' AND JGP.idPaciente = '"+paciente.getId()+"' AND ESTADO = '"+PreguntaMusicoterapia.ESTADOACTIVO+"'");
+            resultSet = preparedStatement.executeQuery();
+            while(resultSet.next()){
+                pregunta = new PreguntaMusicoterapia();
+                pregunta.setVideo(resultSet.getString("PG.Video"));
+                pregunta.setNivel(nivel);
+                pregunta.setPersonalizado("N");
+                pregunta.setPregunta(resultSet.getString("PG.pregunta"));
+                pregunta.setId(resultSet.getInt("JGP.id"));
+                pregunta.setIdPregunta(resultSet.getInt("JGP.idPreguntaMusicoterapia"));
+                pregunta.setEstado(PreguntaGaleria.ESTADOACTIVO);
+                respuestas = new ArrayList<>();
+                respuestaA = new RespuestaMusicoterapia();
+                respuestaA.setOpcion(resultSet.getString("PG.opcionA"));
+                respuestaA.setRespuestaCorrecta(resultSet.getString("PG.correctaA"));
+                respuestas.add(respuestaA);
+
+                respuestaB = new RespuestaMusicoterapia();
+                respuestaB.setOpcion(resultSet.getString("PG.opcionB"));
+                respuestaB.setRespuestaCorrecta(resultSet.getString("PG.correctaB"));
+                respuestas.add(respuestaB);
+                
+                respuestaC = new RespuestaMusicoterapia();
+                respuestaC.setOpcion(resultSet.getString("PG.opcionC"));
+                respuestaC.setRespuestaCorrecta(resultSet.getString("PG.correctaC"));
+                respuestas.add(respuestaC);
+                
+                respuestaD = new RespuestaMusicoterapia();
+                respuestaD.setOpcion(resultSet.getString("PG.opcionD"));
+                respuestaD.setRespuestaCorrecta(resultSet.getString("PG.correctaD"));
+                respuestas.add(respuestaD);
+                
+                pregunta.setRespuestas(respuestas);
+                preguntas.add(pregunta);
+            }
+        } catch (ClassNotFoundException | SQLException e) {
+            throw new PersistenceNotFoundException(e.getMessage());
+        } finally {
+            close();
+        }
+        if(preguntas.isEmpty()){
+            throw new PersistenceException("No hay preguntas para el nivel "+nivel);
+        }
+        
+        return preguntas;
     }
 
     @Override

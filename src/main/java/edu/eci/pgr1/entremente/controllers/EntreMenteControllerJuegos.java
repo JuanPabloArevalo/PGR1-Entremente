@@ -87,6 +87,16 @@ public class EntreMenteControllerJuegos {
         }
     } 
     
+    @RequestMapping(path = "/musicoterapia/{idPaciente}", method = RequestMethod.GET)
+    public ResponseEntity<?> manejadorConsultarMusicoterapia(@PathVariable("idPaciente") int idPaciente) {
+        try {
+            return new ResponseEntity<>(emsj.getPreguntasMusicoterapia(idPaciente), HttpStatus.ACCEPTED);
+        } catch (PersistenceNotFoundException  | PersistenceException ex) {
+            Logger.getLogger(EntreMenteController.class.getName()).log(Level.SEVERE, null, ex);
+            return new ResponseEntity<>(ex.getMessage(), HttpStatus.NOT_FOUND);
+        }
+    } 
+    
     
     
     @RequestMapping(path = "/resultados/atencion", method = RequestMethod.POST)

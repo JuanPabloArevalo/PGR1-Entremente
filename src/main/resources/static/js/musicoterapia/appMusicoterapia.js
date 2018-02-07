@@ -61,7 +61,7 @@ var appMusicoterapia = (function () {
 
         },
         trearSiguientePregunta: function () {
-            apimockMusicoterapia.getPreguntaAleatorea(nivel, function (preguntaToda) {
+            apiclientMusicoterapia.getPreguntaAleatorea(nivel, function (preguntaToda) {
                 pregunta = preguntaToda;
                 $("#idNivel").text(nivel);
                 $("#idCantidadPreguntasBien").text(preguntasCorrectasTemporales);
@@ -87,7 +87,10 @@ var appMusicoterapia = (function () {
             } else {
                 $('#idUsuarioDib').show();
             }
-            apimockMusicoterapia.getPreguntaAleatorea(nivel, function (preguntaToda) {
+            console.info(nivel);
+            console.info("nivel");
+            
+            apiclientMusicoterapia.cargarPreguntas(sessionStorage.getItem("id"), nivel, function (preguntaToda) {
                 pregunta = preguntaToda;
                 $("#idNivel").text(nivel);
                 $("#idCantidadPreguntasBien").text(preguntasCorrectasTemporales);
@@ -113,12 +116,12 @@ var appMusicoterapia = (function () {
                 nivelMaximoAlcanzado++;
             }
             nivel++;
-            apimockMusicoterapia.cambiarNivel(nivel);
+            apiclientMusicoterapia.cambiarNivel(nivel);
             preguntasCorrectasTemporales = 1;
         },
         bajarNivel: function () {
             nivel--;
-            apimockMusicoterapia.cambiarNivel(nivel);
+            apiclientMusicoterapia.cambiarNivel(nivel);
             preguntasCorrectasTemporales = cantidaPreguntasPorNivel;
 
         },
@@ -137,7 +140,7 @@ var appMusicoterapia = (function () {
         },
         iniciarNivel: function () {
             nivel = 1;
-            apimockMusicoterapia.cambiarNivel(nivel);
+            apiclientMusicoterapia.cambiarNivel(nivel);
             preguntasCorrectasTemporales = 1;
         },
         traerTiempoJugado: function () {
@@ -162,7 +165,7 @@ var appMusicoterapia = (function () {
                 if (tiempoJugado === "0") {
                     tiempoJugado = 1;
                 }
-                var promesa = apimockMusicoterapia.enviarResultados(sessionStorage.getItem("id"), anio + "/" + mes + "/" + dia, preguntasCorrectas, preguntasErroneas, tiempoJugado, nivelMaximoAlcanzado);
+                var promesa = apiclientMusicoterapia.enviarResultados(sessionStorage.getItem("id"), anio + "/" + mes + "/" + dia, preguntasCorrectas, preguntasErroneas, tiempoJugado, nivelMaximoAlcanzado);
                 promesa.then(
                         function () {
                             window.location.href = "/menuPaciente.html";
@@ -175,7 +178,7 @@ var appMusicoterapia = (function () {
             }
         },
         cargarParaEditar() {
-            var promesaConsulta = apimockMusicoterapia.getTodasPreguntas(sessionStorage.getItem("idPacienteConsultaPS"))
+            var promesaConsulta = apiclientMusicoterapia.getTodasPreguntas(sessionStorage.getItem("idPacienteConsultaPS"))
             promesaConsulta.then(
                     function (datos) {
                         inicializarPregunta();
@@ -194,7 +197,7 @@ var appMusicoterapia = (function () {
             } else {
                 estado = "D";
             }
-            var promesa = apimockMusicoterapia.modificarPregunta(idPreguntaPaciente, nivelPersonalizado, estado);
+            var promesa = apiclientMusicoterapia.modificarPregunta(idPreguntaPaciente, nivelPersonalizado, estado);
             promesa.then(
                     function () {
                         $('#idPanel' + idPreguntaPaciente).show();
@@ -257,7 +260,7 @@ var appMusicoterapia = (function () {
             $('#idPanelAdicion').show();
             $("#idVideoAdicionar").attr("src", "https://www.youtube.com/embed/" + idVideo + "?rel=0&amp;controls=0&amp;showinfo=0\"");
             $('#idVid').val(idVideo);
-            
+
         },
         atrasCrearPregunta() {
             $('#idPregunta').val("");
@@ -267,6 +270,11 @@ var appMusicoterapia = (function () {
             $('#idRespuestaD').val("");
             $('#idPanelBusqueda').show();
             $('#idPanelAdicion').hide();
+
+            $('.youtube-iframe').each(function (index) {
+                $(this).attr('src', $(this).attr('src'));
+                return false;
+            });
 
         },
         guardarPregunta() {
@@ -339,6 +347,10 @@ var appMusicoterapia = (function () {
                     correctaC = "N";
                     correctaD = "S";
                 }
+                $('.youtube-iframe').each(function (index) {
+                    $(this).attr('src', $(this).attr('src'));
+                    return false;
+                });
                 var promesa = apiclientMusicoterapia.adicionarPregunta(pregunta, video, nivel, respuestaA, respuestaB, respuestaC, respuestaD, correctaA, correctaB, correctaC, correctaD, idPaciente);
                 promesa.then(
                         function () {
