@@ -367,7 +367,9 @@ var appMusicoterapia = (function () {
         },
         atrasASeleccionPaciente() {
             window.location.href = "/perfilFamiliarConsultarFamiliares.html";
-
+        },
+        atrasASeleccionPacientePS() {
+            window.location.href = "/perfilPersonalSaludConsultaPaciente.html";
         }
     };
 })();
@@ -390,7 +392,7 @@ function adicionarPregunta(item) {
     }
 
 
-    var markup = "<tr class=\"filasPG\"><td>" + item.id + "</td><td><img src=\"" + item.imagen + "\" class=\"img-rounded img-responsive imagenGaleriaEditar\" alt=\"ImagenPregunta\"></td><td>" + item.pregunta + "</td><td><select class=\"form-control\" id=\"nivel" + item.id + "\">" + nivel + "</select></td><td><input type=\"checkbox\" " + activo + " id=\"estado" + item.id + "\"></td><td><button class=\"btn btn-info btn-block\" onclick=\"appMusicoterapia.modificarPregunta(" + item.id + ")\"> Guardar</button><div class=\"alert alert-success\" style=\"display:none;\" id=\"idPanel" + item.id + "\"><strong >Bien!</strong></div></td></tr>";
+    var markup = "<tr class=\"filasPG\"><td>" + item.id + "</td><td><div class=\"embed-container\"><iframe class=\"youtube-iframe\" width=\"400\" height=\"210\" frameborder=\"0\" allowfullscreen id=\"idVideo\" src=\"" + item.video.replace("&autoplay=1", "") + "\"></iframe></div></td><td>" + item.pregunta + "</td><td><select class=\"form-control\" id=\"nivel" + item.id + "\">" + nivel + "</select></td><td><input type=\"checkbox\" " + activo + " id=\"estado" + item.id + "\"></td><td><button class=\"btn btn-info btn-block\" onclick=\"appMusicoterapia.modificarPregunta(" + item.id + ")\"> Guardar</button><div class=\"alert alert-success\" style=\"display:none;\" id=\"idPanel" + item.id + "\"><strong >Bien!</strong></div></td></tr>";
     $("#idTablaG").append(markup);
 }
 

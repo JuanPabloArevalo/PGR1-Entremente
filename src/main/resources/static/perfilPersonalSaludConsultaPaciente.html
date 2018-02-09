@@ -407,6 +407,72 @@
                                     </div>
                                 </div>
                                 <!--Fin Formas-->
+                                <!--Musicoterapia-->
+                                <div class="panel panel-default">
+                                    <div class="panel-heading">
+                                        <h4 class="panel-title colorVerdeOscuro">
+                                            <a data-toggle="collapse" data-parent="#accordion" href="#collapse9"><h5 class="subTitulo colorVerdeOscuro">Musicoterapia</h5></a>
+                                        </h4>
+                                    </div>
+                                    <div id="collapse9" class="panel-collapse collapse">
+                                        <div class="panel-body">
+                                            <div class="panel-body">
+                                                <div class="row">
+                                                    <div class="col-xs-3 col-sm-3 col-md-4 col-lg-4"></div>
+                                                    <div class="col-xs-6 col-sm-6 col-md-4 col-lg-4">
+                                                        <a class="btn btn-info btn-block" href="/pPSEditarMusicoterapia.html">Personalizar</a>
+                                                    </div>
+                                                    <div class="col-xs-3 col-sm-3 col-md-4 col-lg-4"></div>
+                                                </div>
+                                                <br>
+                                                <div class="row">
+                                                    <div class="col-xs-3 col-sm-3 col-md-4 col-lg-4"></div>
+                                                    <div class="col-xs-6 col-sm-6 col-md-4 col-lg-4">
+                                                        <a class="btn btn-primary btn-block" href="/pPSAdicionarMusicoterapia.html">Adicionar</a>
+                                                    </div>
+                                                    <div class="col-xs-3 col-sm-3 col-md-4 col-lg-4"></div>
+                                                </div>
+                                                <label>Filtro:</label>
+                                                <select class="form-control" id="idComboMusicoterapia">
+                                                    <option value="D">Días</option>
+                                                    <option value="M">Meses</option>
+                                                    <option value="A">Años</option>
+                                                </select>
+                                                <div class="form-group">
+                                                    <label>Fecha Inicial:</label>
+                                                    <input type="date" class="form-control" id="idFechaIM">
+                                                    <label>Fecha Final:</label>
+                                                    <input type="date" class="form-control" id="idFechaFM">
+                                                    <button class="btn btn-success btn-block" onclick="">Buscar</button>
+                                                </div>
+                                                <br>
+                                                <div class="table-responsive">          
+                                                    <table class="table" id="idTablaMResultados">
+                                                        <thead>
+                                                            <tr>
+                                                                <th>Preguntas Acertadas</th>
+                                                                <th>Preguntas Erroneas</th>
+                                                                <th>Tiempo Jugado (Min.)</th>
+                                                                <th>Nivel Máximo</th>
+                                                                <th>Fecha</th>
+                                                            </tr>
+                                                        </thead>
+                                                        <tbody>
+
+                                                        </tbody>
+                                                    </table>
+                                                </div>
+                                                <div class="row">
+                                                    <div id="preguntasAcertadasMusicoterapia" class = "diagramasBarras"></div>
+                                                    <div id="preguntasErroneasMusicoterapia" class = "diagramasBarras"></div>
+                                                    <div id="tiempoJugadoMusicoterapia" class = "diagramasBarras"></div>
+                                                    <div id="nivelMaximoMusicoterapia" class = "diagramasBarras"></div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!--Fin Musicoterapia-->
                                 <!--Resumen-->
                                 <!--                                <div class="panel panel-default">
                                                                     <div class="panel-heading">

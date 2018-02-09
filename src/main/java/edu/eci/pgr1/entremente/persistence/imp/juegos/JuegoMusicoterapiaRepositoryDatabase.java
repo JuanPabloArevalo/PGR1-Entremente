@@ -99,12 +99,76 @@ public class JuegoMusicoterapiaRepositoryDatabase implements JuegoMusicoterapiaR
 
     @Override
     public ArrayList<PreguntaMusicoterapia> traerTODASPreguntas(Paciente paciente) throws PersistenceNotFoundException, PersistenceException {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        ArrayList<PreguntaMusicoterapia> preguntas = new ArrayList<>();
+        ArrayList<RespuestaMusicoterapia> respuestas = null;
+        PreguntaMusicoterapia pregunta = null;
+        RespuestaMusicoterapia respuestaA = null;
+        RespuestaMusicoterapia respuestaB = null;
+        RespuestaMusicoterapia respuestaC = null;
+        RespuestaMusicoterapia respuestaD = null;
+        try {
+            Class.forName(DatosBD.DRIVER);
+            connect = DriverManager.getConnection(DatosBD.CONECTOR);
+            preparedStatement = connect.prepareStatement("SELECT * FROM "+NOMBRETABLA+" JGP LEFT JOIN PREGUNTAMUSICOTERAPIA PG ON (JGP.idPreguntaMusicoterapia=PG.ID) WHERE JGP.idPaciente = '"+paciente.getId()+"' ORDER BY nivelPersonalizado");
+            resultSet = preparedStatement.executeQuery();
+            while(resultSet.next()){
+                pregunta = new PreguntaMusicoterapia();
+                pregunta.setVideo(resultSet.getString("PG.Video"));
+                pregunta.setNivel(resultSet.getInt("JGP.nivelPersonalizado"));
+                pregunta.setPersonalizado("S");
+                pregunta.setPregunta(resultSet.getString("PG.pregunta"));
+                pregunta.setId(resultSet.getInt("JGP.id"));
+                pregunta.setIdPregunta(resultSet.getInt("JGP.idPreguntaMusicoterapia"));
+                pregunta.setEstado(resultSet.getString("JGP.estado"));
+                
+                respuestas = new ArrayList<>();
+                respuestaA = new RespuestaMusicoterapia();
+                respuestaA.setOpcion(resultSet.getString("PG.opcionA"));
+                respuestaA.setRespuestaCorrecta(resultSet.getString("PG.correctaA"));
+                respuestas.add(respuestaA);
+
+                respuestaB = new RespuestaMusicoterapia();
+                respuestaB.setOpcion(resultSet.getString("PG.opcionB"));
+                respuestaB.setRespuestaCorrecta(resultSet.getString("PG.correctaB"));
+                respuestas.add(respuestaB);
+                
+                respuestaC = new RespuestaMusicoterapia();
+                respuestaC.setOpcion(resultSet.getString("PG.opcionC"));
+                respuestaC.setRespuestaCorrecta(resultSet.getString("PG.correctaC"));
+                respuestas.add(respuestaC);
+                
+                respuestaD = new RespuestaMusicoterapia();
+                respuestaD.setOpcion(resultSet.getString("PG.opcionD"));
+                respuestaD.setRespuestaCorrecta(resultSet.getString("PG.correctaD"));
+                respuestas.add(respuestaD);
+                
+                pregunta.setRespuestas(respuestas);
+                preguntas.add(pregunta);
+            }
+        } catch (ClassNotFoundException | SQLException e) {
+            throw new PersistenceNotFoundException(e.getMessage());
+        } finally {
+            close();
+        }        
+        return preguntas;
     }
 
     @Override
     public void modificarPregunta(PreguntaMusicoterapia pregunta) throws PersistenceNotFoundException, PersistenceException {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        try {
+            Class.forName(DatosBD.DRIVER);
+            connect = DriverManager.getConnection(DatosBD.CONECTOR);
+            statement = connect.createStatement();
+            preparedStatement = connect.prepareStatement("UPDATE "+NOMBRETABLA+" SET nivelPersonalizado = ?, estado = ? WHERE id = ?");
+            preparedStatement.setInt(1, pregunta.getNivel());
+            preparedStatement.setString(2, pregunta.getEstado());
+            preparedStatement.setInt(3, pregunta.getId());
+            preparedStatement.executeUpdate();
+        } catch (ClassNotFoundException | SQLException e) {
+            throw new PersistenceNotFoundException(e.getMessage());
+        } finally {
+            close();
+        } 
     }
 
     @Override

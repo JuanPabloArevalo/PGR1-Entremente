@@ -415,6 +415,22 @@ var perfilFamiliar = (function () {
                 }
             }
         },
+        initPersonalizarMusicoterapia() {
+            if ("undefined" === sessionStorage.getItem("id") || null === sessionStorage.getItem("id")) {
+                alert("Para esta función, debe iniciar sesión primero.");
+                window.location.href = "iniciarSesion.html";
+            } else {
+                if ("undefined" === sessionStorage.getItem("idPacienteConsultaPS") || null === sessionStorage.getItem("idPacienteConsultaPS")) {
+                    alert("Para esta función, debe seleccionar un paciente.");
+                    window.location.href = "perfilFamiliarFamiliares.html";
+                } else {
+                    $("#idNombreUsu").text(sessionStorage.getItem("nombres") + " " + sessionStorage.getItem("apellidos"));
+//                    console.info(sessionStorage.getItem("nombrePacienteConsultaPS"));
+                    $("#idNombrePaciente").text(sessionStorage.getItem("nombrePacienteConsultaPS"));
+                    appMusicoterapia.cargarParaEditar();
+                }
+            }
+        },
         buscarResultadosGaleria() {
             var fechaIni = $('#idFechaIG').val();
             var fechaFin = $('#idFechaFG').val();
