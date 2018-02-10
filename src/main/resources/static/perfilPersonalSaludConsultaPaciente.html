@@ -16,13 +16,14 @@
         <script src="js/diagramasPercepciones.js"></script> 
         <script src="js/diagramasAtencion.js"></script> 
         <script src="js/diagramasFormas.js"></script> 
-        <script src="js/diagramasResumen.js"></script> 
+        <script src="js/diagramasMusicoterapia.js"></script> 
         <!--importarGraficos-->
         <script src="https://code.highcharts.com/highcharts.src.js"></script>
         <script src="js/apiclientPerfilPersonalSalud.js"></script> 
         <script src="js/apiclientResultados.js"></script> 
         <script src="js/perfilPersonalSalud.js"></script> 
         <script src="js/perfilPacienteSalud.js"></script> 
+        <script src="js/perfilFamiliar.js"></script> 
         <script src="js/cerrarSesion.js"></script> 
         <title>Mi Perfil - Paciente</title>
     </head>
@@ -443,7 +444,7 @@
                                                     <input type="date" class="form-control" id="idFechaIM">
                                                     <label>Fecha Final:</label>
                                                     <input type="date" class="form-control" id="idFechaFM">
-                                                    <button class="btn btn-success btn-block" onclick="">Buscar</button>
+                                                    <button class="btn btn-success btn-block" onclick="perfilFamiliar.buscarResultadosMusicoterapia()">Buscar</button>
                                                 </div>
                                                 <br>
                                                 <div class="table-responsive">          

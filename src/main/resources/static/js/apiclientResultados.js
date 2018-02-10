@@ -55,6 +55,16 @@ var apiclientResultados = (function(){
         getResultadosAtFormasAnual(idPaciente, fechaInicial, fechaFinal){
             return $.get("/entremente/V1/juegos/resultados/formas/anio/"+idPaciente+"/"+fechaInicial+"/"+fechaFinal);  
         },
+    //Musicoterapia
+        getResultadosMusicoterapiaDia(idPaciente, fechaInicial, fechaFinal){
+            return $.get("/entremente/V1/juegos/resultados/musicoterapia/dia/"+idPaciente+"/"+fechaInicial+"/"+fechaFinal);  
+        },
+        getResultadosMusicoterapiaMes(idPaciente, fechaInicial, fechaFinal){
+            return $.get("/entremente/V1/juegos/resultados/musicoterapia/mes/"+idPaciente+"/"+fechaInicial+"/"+fechaFinal);  
+        },
+        getResultadosMusicoterapiaAnual(idPaciente, fechaInicial, fechaFinal){
+            return $.get("/entremente/V1/juegos/resultados/musicoterapia/anio/"+idPaciente+"/"+fechaInicial+"/"+fechaFinal);  
+        }
     };
     
 }());

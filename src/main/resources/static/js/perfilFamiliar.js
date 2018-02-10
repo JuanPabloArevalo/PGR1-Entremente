@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-/* global apiclientResultados, diagramaGaleria, diagramaCalculemos, diagramaPercepcion, diagramaAtencion, diagramaFormas, appPercepcion */
+/* global apiclientResultados, diagramaGaleria, diagramaCalculemos, diagramaPercepcion, diagramaAtencion, diagramaFormas, appPercepcion, diagramaMusicoterapia */
 
 function adicionarFilaPendientes(item) {
     var markup = "<tr class=\"filasP\"><td>" + item.id + "</td><td>" + item.nombresPaciente + "</td><td>" + item.apellidosPaciente + "</td><td>" + item.relacion + "</td><td><button type=\"button\" class=\"btn btn-success\" onclick=\"perfilFamiliar.aceptarSolicitud(" + item.id + ", " + item.idPaciente + ", " + item.idFamiliar + ")\">Aceptar</button><button type=\"button\" class=\"btn btn-danger\" onclick=\"perfilFamiliar.rechazarSolicitud(" + item.id + ", " + item.idPaciente + ", " + item.idFamiliar + ")\">Rechazar</button></td></tr>";
@@ -95,6 +95,15 @@ function adicionarFilaFormasResultado(item) {
 
 function inicializarElementosFormasResultado() {
     $(".filasForRes").remove("tr");
+}
+//Musicoterapia 
+function adicionarFilaMusicoterapiaResultado(item) {
+    var markup = "<tr class=\"filasMusRes\"><td>" + item.acertadas + "</td><td>" + item.erroneas + "</td><td>" + item.tiempo + "</td><td>" + item.nivelMaximo + "</td><td>" + item.fecha + "</td></tr>";
+    $("#idTablaMResultados").append(markup);
+}
+
+function inicializarElementosMusicoterapiaResultado() {
+    $(".filasMusRes").remove("tr");
 }
 var perfilFamiliar = (function () {
     return{
@@ -640,6 +649,49 @@ var perfilFamiliar = (function () {
                         diagramaFormas.cargarErroneas(erroneas, fecha);
                         diagramaFormas.cargarTiempo(tiempo, fecha);
                         diagramaFormas.cargarNivelMaximo(nivel, fecha);
+                    },
+                    function (dato) {
+                        alert(dato.responseText);
+                    }
+            );
+        },
+        buscarResultadosMusicoterapia() {
+            var fechaIni = $('#idFechaIM').val();
+            var fechaFin = $('#idFechaFM').val();
+            var idPac = sessionStorage.getItem("idPacienteConsultaPS");
+            var tip = $("select#idComboMusicoterapia").val();
+            var promesa;
+            if (fechaIni === "" || fechaIni === null) {
+                alert("La fecha inicial no puede ir vacia");
+            } else if (fechaFin === "" || fechaFin === null) {
+                alert("La fecha final no puede ir vacia");
+            } else if ("D" === tip) {
+                promesa = apiclientResultados.getResultadosMusicoterapiaDia(idPac, fechaIni, fechaFin);
+            } else if ("M" === tip) {
+                promesa = apiclientResultados.getResultadosMusicoterapiaMes(idPac, fechaIni, fechaFin);
+            } else if ("A" === tip) {
+                promesa = apiclientResultados.getResultadosMusicoterapiaAnual(idPac, fechaIni, fechaFin);
+            }
+            promesa.then(
+                    function (datos) {
+                        var acertadas = [];
+                        var fecha = [];
+                        var erroneas = [];
+                        var tiempo = [];
+                        var nivel = [];
+                        for (var i = 0; i < datos.length; i++) {
+                            acertadas[i] = datos[i].acertadas;
+                            fecha[i] = datos[i].fecha;
+                            erroneas[i] = datos[i].erroneas;
+                            tiempo[i] = datos[i].tiempo;
+                            nivel[i] = datos[i].nivelMaximo;
+                        }
+                        inicializarElementosMusicoterapiaResultado();
+                        datos.map(adicionarFilaMusicoterapiaResultado);
+                        diagramaMusicoterapia.cargarAcertadas(acertadas, fecha);
+                        diagramaMusicoterapia.cargarErroneas(erroneas, fecha);
+                        diagramaMusicoterapia.cargarTiempo(tiempo, fecha);
+                        diagramaMusicoterapia.cargarNivelMaximo(nivel, fecha);
                     },
                     function (dato) {
                         alert(dato.responseText);
