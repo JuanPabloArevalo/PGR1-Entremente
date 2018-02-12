@@ -210,6 +210,22 @@ var appGrupoFamiliar = (function () {
                     alert(dato.responseText);
                 }
             );
+        },
+        initAdicionarPregunta() {
+            if ("undefined" === sessionStorage.getItem("id") || null === sessionStorage.getItem("id")) {
+                //no inicio sesion
+                alert("Para esta función, debe iniciar sesión primero.");
+                window.location.href = "iniciarSesion.html";
+            } else {
+                if ("undefined" === sessionStorage.getItem("idPacienteConsultaPS") || null === sessionStorage.getItem("idPacienteConsultaPS")) {
+                    alert("Para esta función, debe seleccionar un paciente.");
+                    window.location.href = "perfilFamiliarFamiliares.html";
+                } else {
+                    $("#idNombreUsu").text(sessionStorage.getItem("nombres") + " " + sessionStorage.getItem("apellidos"));
+                    $("#idNombrePaciente").text(sessionStorage.getItem("nombrePacienteConsultaPS"));
+
+                }
+            }
         }
     };
 })();

@@ -450,3 +450,8 @@ function adicionarVideo(item) {
 function inicializarVideo() {
     $(".filasVid").remove("tr");
 }
+
+//Seleccionar Archivo
+ $(document).on('ready', function() {
+        $("#input-b5").fileinput({showCaption: false});
+    });
