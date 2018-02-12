@@ -11,9 +11,16 @@ var menuPaciente = (function () {
                 window.location.href = "index.html";
             }else if("S" === sessionStorage.getItem("esTemporal")){
                 $('#idBotonMiPerfil').hide();
+                $('#idBotonGrupoFamiliar').hide();
+                $('#idBotonAtras').hide();
+                $('#idBotonAtras2').show();
+               
             }
             else{
                 $('#idBotonMiPerfil').show();
+                $('#idBotonGrupoFamiliar').show();
+                $('#idBotonAtras').show();
+                $('#idBotonAtras2').hide();
             }
         }
     };
