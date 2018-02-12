@@ -2,11 +2,17 @@ var apimockRutinas=(function(){
 	var arregloIndices= [];
 	var mockdata=[];
         mockdata[1]=[
-            {"pregunta":"¿Que vestido es mas acorde para ir a la piscina?", "imagen":"image\\Rutinas\\playa.jpg", "palabraClave":"playa" , "respuestas":[
-            	{"opcion":"image\\Atencion\\perro2.png","respuestaCorrecta":"S", "palabraClave":"playa"},
-            	{"opcion":"image\\Atencion\\perro3.png","respuestaCorrecta":"S", "palabraClave":"playa"},
-            	{"opcion":"image\\Atencion\\caballo1.png","respuestaCorrecta":"N", "palabraClave":"caballo"},
-            	{"opcion":"image\\Atencion\\gato1.png","respuestaCorrecta":"N", "palabraClave":"gato"}]
+            {"pregunta":"¿Cuál de los siguientes atuendos es conveniente llevar a la playa?", "imagen":"image\\Rutinas\\playa2.jpg", "respuestas":[
+            	{"opcion":"image\\Rutinas\\botas1.png","respuestaCorrecta":"N", "numero":1},
+            	{"opcion":"image\\Rutinas\\corbata1.png","respuestaCorrecta":"N", "numero":2},
+            	{"opcion":"image\\Rutinas\\chanclas1.png","respuestaCorrecta":"S", "numero":3},
+            	{"opcion":"image\\Rutinas\\vestidoBano1.png","respuestaCorrecta":"S", "numero":4}]
+            },
+            {"pregunta":"¿Que atuendos consideras son los más apropiados para ir a un matrimonio?", "imagen":"image\\Rutinas\\matrimonio1.jpg", "respuestas":[
+            	{"opcion":"image\\Rutinas\\ropaLigera1.jpg","respuestaCorrecta":"N", "numero":1},
+            	{"opcion":"image\\Rutinas\\shorts1.jpg","respuestaCorrecta":"N", "numero":2},
+            	{"opcion":"image\\Rutinas\\smoking1.jpg","respuestaCorrecta":"S", "numero":3},
+            	{"opcion":"image\\Rutinas\\vestidoElegante1.jpg","respuestaCorrecta":"S", "numero":4}]
             }
             
         ];

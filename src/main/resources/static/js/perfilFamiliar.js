@@ -105,6 +105,15 @@ function adicionarFilaMusicoterapiaResultado(item) {
 function inicializarElementosMusicoterapiaResultado() {
     $(".filasMusRes").remove("tr");
 }
+//Rutinas 
+function adicionarFilaRutinasResultado(item) {
+    var markup = "<tr class=\"filasRutRes\"><td>" + item.acertadas + "</td><td>" + item.erroneas + "</td><td>" + item.tiempo + "</td><td>" + item.nivelMaximo + "</td><td>" + item.fecha + "</td></tr>";
+    $("#idTablaRResultados").append(markup);
+}
+
+function inicializarElementosRutinasResultado() {
+    $(".filasRutRes").remove("tr");
+}
 var perfilFamiliar = (function () {
     return{
         init() {
@@ -692,6 +701,49 @@ var perfilFamiliar = (function () {
                         diagramaMusicoterapia.cargarErroneas(erroneas, fecha);
                         diagramaMusicoterapia.cargarTiempo(tiempo, fecha);
                         diagramaMusicoterapia.cargarNivelMaximo(nivel, fecha);
+                    },
+                    function (dato) {
+                        alert(dato.responseText);
+                    }
+            );
+        },
+        buscarResultadosRutinas() {
+            var fechaIni = $('#idFechaIR').val();
+            var fechaFin = $('#idFechaFR').val();
+            var idPac = sessionStorage.getItem("idPacienteConsultaPS");
+            var tip = $("select#idComboRutinas").val();
+            var promesa;
+            if (fechaIni === "" || fechaIni === null) {
+                alert("La fecha inicial no puede ir vacia");
+            } else if (fechaFin === "" || fechaFin === null) {
+                alert("La fecha final no puede ir vacia");
+            } else if ("D" === tip) {
+                promesa = apiclientResultados.getResultadosRutinasDia(idPac, fechaIni, fechaFin);
+            } else if ("M" === tip) {
+                promesa = apiclientResultados.getResultadosRutinasMes(idPac, fechaIni, fechaFin);
+            } else if ("A" === tip) {
+                promesa = apiclientResultados.getResultadosRutinasAnual(idPac, fechaIni, fechaFin);
+            }
+            promesa.then(
+                    function (datos) {
+                        var acertadas = [];
+                        var fecha = [];
+                        var erroneas = [];
+                        var tiempo = [];
+                        var nivel = [];
+                        for (var i = 0; i < datos.length; i++) {
+                            acertadas[i] = datos[i].acertadas;
+                            fecha[i] = datos[i].fecha;
+                            erroneas[i] = datos[i].erroneas;
+                            tiempo[i] = datos[i].tiempo;
+                            nivel[i] = datos[i].nivelMaximo;
+                        }
+                        inicializarElementosRutinasResultado();
+                        datos.map(adicionarFilaRutinasResultado);
+                        diagramaRutinas.cargarAcertadas(acertadas, fecha);
+                        diagramaRutinas.cargarErroneas(erroneas, fecha);
+                        diagramaRutinas.cargarTiempo(tiempo, fecha);
+                        diagramaRutinas.cargarNivelMaximo(nivel, fecha);
                     },
                     function (dato) {
                         alert(dato.responseText);

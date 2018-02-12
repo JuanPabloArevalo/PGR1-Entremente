@@ -17,6 +17,7 @@
         <script src="js/diagramasAtencion.js"></script> 
         <script src="js/diagramasFormas.js"></script> 
         <script src="js/diagramasMusicoterapia.js"></script> 
+        <script src="js/diagramasRutinas.js"></script> 
         <!--importarGraficos-->
         <script src="https://code.highcharts.com/highcharts.src.js"></script>
         <script src="js/apiclientPerfilPersonalSalud.js"></script> 
@@ -474,42 +475,65 @@
                                     </div>
                                 </div>
                                 <!--Fin Musicoterapia-->
-                                <!--Resumen-->
-                                <!--                                <div class="panel panel-default">
-                                                                    <div class="panel-heading">
-                                                                        <h4 class="panel-title colorVerdeOscuro">
-                                                                            <a data-toggle="collapse" data-parent="#accordion" href="#collapse5"><h5 class="subTitulo colorVerdeOscuro">Resumen</h5></a>
-                                                                        </h4>
-                                                                    </div>
-                                                                    <div id="collapse5" class="panel-collapse collapse">
-                                                                        <div class="panel-body">
-                                                                            <div class="table-responsive">          
-                                                                                <table class="table">
-                                                                                    <thead>
-                                                                                        <tr>
-                                                                                            <th>#</th>
-                                                                                            <th>Preguntas Acertadas</th>
-                                                                                            <th>Preguntas Erroneas</th>
-                                                                                            <th>Tiempo Jugado (Min.)</th>
-                                                                                        </tr>
-                                                                                    </thead>
-                                                                                    <tbody>
-                                                                                        <tr>
-                                                                                            <td>1</td>
-                                                                                            <td>132</td>
-                                                                                            <td>60</td>
-                                                                                            <td>54533</td>
-                                                                                        </tr>
-                                                                                    </tbody>
-                                                                                </table>
-                                                                            </div>
-                                                                            <div class="row">
-                                                                                <div id="preguntasResumen" class = "diagramasBarras"></div>
-                                                                            </div>
-                                                                        </div>
-                                                                    </div>
-                                                                </div>-->
-                                <!--Fin Resumen-->
+                               <!--Rutinas-->
+                                <div class="panel panel-default">
+                                    <div class="panel-heading">
+                                        <h4 class="panel-title colorVerdeOscuro">
+                                            <a data-toggle="collapse" data-parent="#accordion" href="#collapse10"><h5 class="subTitulo colorVerdeOscuro">Rutinas</h5></a>
+                                        </h4>
+                                    </div>
+                                    <div id="collapse10" class="panel-collapse collapse">
+                                        <div class="panel-body">
+                                            <div class="panel-body">
+                                                <div class="row">
+                                                    <div class="col-xs-3 col-sm-3 col-md-4 col-lg-4"></div>
+                                                    <div class="col-xs-6 col-sm-6 col-md-4 col-lg-4">
+                                                        <a class="btn btn-info btn-block" href="/pPSEditarMusicoterapia.html">Personalizar</a>
+                                                    </div>
+                                                    <div class="col-xs-3 col-sm-3 col-md-4 col-lg-4"></div>
+                                                </div>
+                                                <br>
+                                                <label>Filtro:</label>
+                                                <select class="form-control" id="idComboRutinas">
+                                                    <option value="D">Días</option>
+                                                    <option value="M">Meses</option>
+                                                    <option value="A">Años</option>
+                                                </select>
+                                                <div class="form-group">
+                                                    <label>Fecha Inicial:</label>
+                                                    <input type="date" class="form-control" id="idFechaIR">
+                                                    <label>Fecha Final:</label>
+                                                    <input type="date" class="form-control" id="idFechaFR">
+                                                    <button class="btn btn-success btn-block" onclick="perfilFamiliar.buscarResultadosRutinas()">Buscar</button>
+                                                </div>
+                                                <br>
+                                                <div class="table-responsive">          
+                                                    <table class="table" id="idTablaRResultados">
+                                                        <thead>
+                                                            <tr>
+                                                                <th>Preguntas Acertadas</th>
+                                                                <th>Preguntas Erroneas</th>
+                                                                <th>Tiempo Jugado (Min.)</th>
+                                                                <th>Nivel Máximo</th>
+                                                                <th>Fecha</th>
+                                                            </tr>
+                                                        </thead>
+                                                        <tbody>
+
+                                                        </tbody>
+                                                    </table>
+                                                </div>
+                                                <div class="row">
+                                                    <div id="preguntasAcertadasRutinas" class = "diagramasBarras"></div>
+                                                    <div id="preguntasErroneasRutinas" class = "diagramasBarras"></div>
+                                                    <div id="tiempoJugadoRutinas" class = "diagramasBarras"></div>
+                                                    <div id="nivelMaximoRutinas" class = "diagramasBarras"></div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!--Fin Rutinas-->
                                 <!--Historial Mensajes-->
                                 <div class="panel panel-default">
                                     <div class="panel-heading">

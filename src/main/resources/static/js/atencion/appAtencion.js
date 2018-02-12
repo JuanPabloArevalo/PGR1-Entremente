@@ -191,12 +191,9 @@ var appAtencion = (function () {
 
                 var tiempoJugado = appAtencion.traerTiempoJugado();
                 tiempoJugado = tiempoJugado.toFixed(0);
-//                console.info(tiempoJugado);
                 if (tiempoJugado === "0") {
-//                    console.info("tiempoJugado");
                     tiempoJugado = 1;
                 }
-//                console.info(tiempoJugado);
                 var promesa = apiclientAtencion.enviarResultados(sessionStorage.getItem("id"), anio + "/" + mes + "/" + dia, preguntasCorrectas, preguntasErroneas, tiempoJugado, nivelMaximoAlcanzado);
                 promesa.then(
                         function () {
