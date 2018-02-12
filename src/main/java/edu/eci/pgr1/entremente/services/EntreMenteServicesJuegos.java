@@ -670,4 +670,49 @@ public class EntreMenteServicesJuegos {
     }
     
     
+//GRUPOFAMILIAR
+    /**
+     * Metodo encargado de consultar los resulrtados diarios del juego rutinas
+     * @param idPaciente
+     * @param fechaInicial
+     * @param fechaFinal
+     * @return 
+     * @throws PersistenceNotFoundException
+     * @throws edu.eci.pgr1.entremente.persistence.PersistenceException
+     */
+    public ArrayList<Resultado> consultarResultadosDiasGrupoFamiliar(int idPaciente, String fechaInicial, String fechaFinal) throws PersistenceNotFoundException, PersistenceException{
+        Paciente paciente = new Paciente();
+        paciente.setId(idPaciente);
+        return this.resultado.traerResultadosDias(paciente, fechaInicial, fechaFinal, Resultado.TIPOJUEGOGRUPOFAMILIAR);
+    }
+    /**
+     * Metodo encargado de consultar los resulrtados mensuales del juego rutina
+     * @param idPaciente
+     * @param fechaInicial
+     * @param fechaFinal
+     * @return 
+     * @throws PersistenceNotFoundException
+     * @throws edu.eci.pgr1.entremente.persistence.PersistenceException
+     */
+    public ArrayList<Resultado> consultarResultadosMesGrupoFamiliar(int idPaciente, String fechaInicial, String fechaFinal) throws PersistenceNotFoundException, PersistenceException{
+        Paciente paciente = new Paciente();
+        paciente.setId(idPaciente);
+        return this.resultado.traerResultadosMeses(paciente, fechaInicial, fechaFinal, Resultado.TIPOJUEGOGRUPOFAMILIAR);
+    }
+    /**
+     * Metodo encargado de consultar los resulrtados anuelaes del juego rutina
+     * @param idPaciente
+     * @param fechaInicial
+     * @param fechaFinal
+     * @return 
+     * @throws PersistenceNotFoundException
+     * @throws edu.eci.pgr1.entremente.persistence.PersistenceException
+     */
+    public ArrayList<Resultado> consultarResultadosAnualGrupoFamiliar(int idPaciente, String fechaInicial, String fechaFinal) throws PersistenceNotFoundException, PersistenceException{
+        Paciente paciente = new Paciente();
+        paciente.setId(idPaciente);
+        return this.resultado.traerResultadosAnios(paciente, fechaInicial, fechaFinal, Resultado.TIPOJUEGOGRUPOFAMILIAR);
+    }
+    
+    
 }

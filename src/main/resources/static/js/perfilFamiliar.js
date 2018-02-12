@@ -114,6 +114,15 @@ function adicionarFilaRutinasResultado(item) {
 function inicializarElementosRutinasResultado() {
     $(".filasRutRes").remove("tr");
 }
+//Grupo Familiar 
+function adicionarFilaGrupoFamiliarResultado(item) {
+    var markup = "<tr class=\"filasGRuFRes\"><td>" + item.acertadas + "</td><td>" + item.erroneas + "</td><td>" + item.tiempo + "</td><td>" + item.nivelMaximo + "</td><td>" + item.fecha + "</td></tr>";
+    $("#idTablaGFResultados").append(markup);
+}
+
+function inicializarElementosGrupoFamiliarResultado() {
+    $(".filasGRuFRes").remove("tr");
+}
 var perfilFamiliar = (function () {
     return{
         init() {
@@ -744,6 +753,49 @@ var perfilFamiliar = (function () {
                         diagramaRutinas.cargarErroneas(erroneas, fecha);
                         diagramaRutinas.cargarTiempo(tiempo, fecha);
                         diagramaRutinas.cargarNivelMaximo(nivel, fecha);
+                    },
+                    function (dato) {
+                        alert(dato.responseText);
+                    }
+            );
+        },
+        buscarResultadosGrupoFamiliar() {
+            var fechaIni = $('#idFechaIGF').val();
+            var fechaFin = $('#idFechaFGF').val();
+            var idPac = sessionStorage.getItem("idPacienteConsultaPS");
+            var tip = $("select#idComboGrupoFamiliar").val();
+            var promesa;
+            if (fechaIni === "" || fechaIni === null) {
+                alert("La fecha inicial no puede ir vacia");
+            } else if (fechaFin === "" || fechaFin === null) {
+                alert("La fecha final no puede ir vacia");
+            } else if ("D" === tip) {
+                promesa = apiclientResultados.getResultadosGrupoFamiliarDia(idPac, fechaIni, fechaFin);
+            } else if ("M" === tip) {
+                promesa = apiclientResultados.getResultadosGrupoFamiliarMes(idPac, fechaIni, fechaFin);
+            } else if ("A" === tip) {
+                promesa = apiclientResultados.getResultadosGrupoFamiliarAnual(idPac, fechaIni, fechaFin);
+            }
+            promesa.then(
+                    function (datos) {
+                        var acertadas = [];
+                        var fecha = [];
+                        var erroneas = [];
+                        var tiempo = [];
+                        var nivel = [];
+                        for (var i = 0; i < datos.length; i++) {
+                            acertadas[i] = datos[i].acertadas;
+                            fecha[i] = datos[i].fecha;
+                            erroneas[i] = datos[i].erroneas;
+                            tiempo[i] = datos[i].tiempo;
+                            nivel[i] = datos[i].nivelMaximo;
+                        }
+                        inicializarElementosGrupoFamiliarResultado();
+                        datos.map(adicionarFilaGrupoFamiliarResultado);
+                        diagramaGrupoFamiliar.cargarAcertadas(acertadas, fecha);
+                        diagramaGrupoFamiliar.cargarErroneas(erroneas, fecha);
+                        diagramaGrupoFamiliar.cargarTiempo(tiempo, fecha);
+                        diagramaGrupoFamiliar.cargarNivelMaximo(nivel, fecha);
                     },
                     function (dato) {
                         alert(dato.responseText);

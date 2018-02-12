@@ -613,7 +613,49 @@ public class EntreMenteControllerJuegos {
     }  
     
     
-  
+ //Juego GrupoFamiliar   
+  //Resultados Adicionar
+    @RequestMapping(path = "/resultados/grupoFamiliar", method = RequestMethod.POST)
+    public ResponseEntity<?> manejadorPostAdicionarResultadoGrupoFamiliar(@RequestBody Resultado resultado) {
+        try {
+            emsj.adicionarResultadoRutinas(resultado);
+            return new ResponseEntity<>(HttpStatus.CREATED);
+        } catch (PersistenceNotFoundException ex) {
+            Logger.getLogger(EntreMenteController.class.getName()).log(Level.SEVERE, null, ex);
+            return new ResponseEntity<>(ex.getMessage(), HttpStatus.NOT_FOUND);
+        }        
+    }
+    
+  //Resultados Consultar
+    @RequestMapping(path = "/resultados/grupoFamiliar/dia/{idPaciente}/{fechaInicial}/{fechaFinal}", method = RequestMethod.GET)
+    public ResponseEntity<?> manejadorGetConsultarResultadoGrupoFamiliarDia(@PathVariable("idPaciente") int idPaciente, @PathVariable("fechaInicial") String fechaInicial, @PathVariable("fechaFinal") String fechaFinal) {
+        try {
+            return new ResponseEntity<>(emsj.consultarResultadosDiasGrupoFamiliar(idPaciente, fechaInicial, fechaFinal), HttpStatus.CREATED);
+        } catch (PersistenceNotFoundException | PersistenceException ex) {
+            Logger.getLogger(EntreMenteController.class.getName()).log(Level.SEVERE, null, ex);
+            return new ResponseEntity<>(ex.getMessage(), HttpStatus.NOT_FOUND);
+        }        
+    }
+    
+    @RequestMapping(path = "/resultados/grupoFamiliar/mes/{idPaciente}/{fechaInicial}/{fechaFinal}", method = RequestMethod.GET)
+    public ResponseEntity<?> manejadorGetConsultarResultadoGrupoFamiliarsMes(@PathVariable("idPaciente") int idPaciente, @PathVariable("fechaInicial") String fechaInicial, @PathVariable("fechaFinal") String fechaFinal) {
+        try {
+            return new ResponseEntity<>(emsj.consultarResultadosMesGrupoFamiliar(idPaciente, fechaInicial, fechaFinal), HttpStatus.CREATED);
+        } catch (PersistenceNotFoundException | PersistenceException ex) {
+            Logger.getLogger(EntreMenteController.class.getName()).log(Level.SEVERE, null, ex);
+            return new ResponseEntity<>(ex.getMessage(), HttpStatus.NOT_FOUND);
+        }        
+    }
+    
+    @RequestMapping(path = "/resultados/grupoFamiliar/anio/{idPaciente}/{fechaInicial}/{fechaFinal}", method = RequestMethod.GET)
+    public ResponseEntity<?> manejadorGetConsultarResultadoGrupoFamiliarAnio(@PathVariable("idPaciente") int idPaciente, @PathVariable("fechaInicial") String fechaInicial, @PathVariable("fechaFinal") String fechaFinal) {
+        try {
+            return new ResponseEntity<>(emsj.consultarResultadosAnualGrupoFamiliar(idPaciente, fechaInicial, fechaFinal), HttpStatus.CREATED);
+        } catch (PersistenceNotFoundException | PersistenceException ex) {
+            Logger.getLogger(EntreMenteController.class.getName()).log(Level.SEVERE, null, ex);
+            return new ResponseEntity<>(ex.getMessage(), HttpStatus.NOT_FOUND);
+        }        
+    }  
     
     
 }

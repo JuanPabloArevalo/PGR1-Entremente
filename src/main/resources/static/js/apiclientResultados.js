@@ -74,6 +74,16 @@ var apiclientResultados = (function(){
         },
         getResultadosRutinasAnual(idPaciente, fechaInicial, fechaFinal){
             return $.get("/entremente/V1/juegos/resultados/rutinas/anio/"+idPaciente+"/"+fechaInicial+"/"+fechaFinal);  
+        },
+    //Rutinas
+        getResultadosGrupoFamiliarDia(idPaciente, fechaInicial, fechaFinal){
+            return $.get("/entremente/V1/juegos/resultados/grupoFamiliar/dia/"+idPaciente+"/"+fechaInicial+"/"+fechaFinal);  
+        },
+        getResultadosGrupoFamiliarMes(idPaciente, fechaInicial, fechaFinal){
+            return $.get("/entremente/V1/juegos/resultados/grupoFamiliar/mes/"+idPaciente+"/"+fechaInicial+"/"+fechaFinal);  
+        },
+        getResultadosGrupoFamiliarAnual(idPaciente, fechaInicial, fechaFinal){
+            return $.get("/entremente/V1/juegos/resultados/grupoFamiliar/anio/"+idPaciente+"/"+fechaInicial+"/"+fechaFinal);  
         }
     };
     
