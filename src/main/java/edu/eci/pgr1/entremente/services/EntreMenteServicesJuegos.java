@@ -13,6 +13,7 @@ import edu.eci.pgr1.entremente.model.juegos.PreguntaFormas;
 import edu.eci.pgr1.entremente.model.juegos.PreguntaGaleria;
 import edu.eci.pgr1.entremente.model.juegos.PreguntaMusicoterapia;
 import edu.eci.pgr1.entremente.model.juegos.PreguntaPercepcion;
+import edu.eci.pgr1.entremente.model.juegos.PreguntaQueUsar;
 import edu.eci.pgr1.entremente.persistence.juegos.JuegoAtencionRepository;
 import edu.eci.pgr1.entremente.persistence.juegos.JuegoCalculoRepository;
 import edu.eci.pgr1.entremente.persistence.juegos.JuegoFormasRepository;
@@ -26,6 +27,7 @@ import org.springframework.stereotype.Service;
 import edu.eci.pgr1.entremente.persistence.juegos.JuegoGaleriaRepository;
 import edu.eci.pgr1.entremente.persistence.juegos.JuegoMusicoterapiaRepository;
 import edu.eci.pgr1.entremente.persistence.juegos.JuegoPercepcionRepository;
+import edu.eci.pgr1.entremente.persistence.juegos.JuegoQueUsarRepository;
 
 /**
  *
@@ -48,6 +50,8 @@ public class EntreMenteServicesJuegos {
     private ResultadoRepository resultado;
     @Autowired
     private JuegoMusicoterapiaRepository musicoterapia;  
+    @Autowired
+    private JuegoQueUsarRepository queUsar;  
     /**
      * Metodo encargado de traer todas las preguntas del juego Galeria
      * @param idPaciente
@@ -296,6 +300,52 @@ public class EntreMenteServicesJuegos {
         musicoterapia.adicionarPregunta(pregunta, paciente);
     }        
     
+    /**
+     * Metodo encargado de traer todas las preguntas del juego Que Usar
+     * @param idPaciente
+     * @return
+     * @throws PersistenceNotFoundException 
+     * @throws edu.eci.pgr1.entremente.persistence.PersistenceException 
+     */
+    public ArrayList<Set<PreguntaQueUsar>> getPreguntasQueUsar(int idPaciente) throws PersistenceNotFoundException, PersistenceException{
+        Paciente paciente = new Paciente();
+        paciente.setId(idPaciente);
+        ArrayList<Set<PreguntaQueUsar>> arreglo = new ArrayList<>();
+        arreglo.add(queUsar.traerPreguntas(1, paciente));
+        arreglo.add(queUsar.traerPreguntas(2, paciente));
+        arreglo.add(queUsar.traerPreguntas(3, paciente));
+        arreglo.add(queUsar.traerPreguntas(4, paciente));
+        return arreglo;
+    }
+    /**
+     * Metodo encargado de traer todas las preguntas del juego Que Usar
+     * @param idPaciente
+     * @return
+     * @throws PersistenceNotFoundException 
+     * @throws edu.eci.pgr1.entremente.persistence.PersistenceException 
+     */
+    public ArrayList<PreguntaQueUsar> getTodasPreguntasQueUsar(int idPaciente) throws PersistenceNotFoundException, PersistenceException{
+        Paciente paciente = new Paciente();
+        paciente.setId(idPaciente);
+        return queUsar.traerTODASPreguntas(paciente);
+    }
+    
+    /**
+     * Metodo encargado de modificar la pregunta de Que USar
+     * @param pregunta
+     * @throws PersistenceNotFoundException 
+     * @throws edu.eci.pgr1.entremente.persistence.PersistenceException 
+     */
+    public void modificarPreguntaQueUsar(PreguntaQueUsar pregunta) throws PersistenceNotFoundException, PersistenceException{
+        queUsar.modificarPregunta(pregunta);
+    }
+    
+    
+    
+    
+    
+    
+    
     
 //RESULTADOS
     /**
@@ -357,12 +407,12 @@ public class EntreMenteServicesJuegos {
     }
     
     /**
-     * Metodo encargado de adicionar el resultado del juego Rutinas
+     * Metodo encargado de adicionar el resultado del juego Que Usar
      * @param resultadoA
      * @throws PersistenceNotFoundException
      */
-    public void adicionarResultadoRutinas(Resultado resultadoA) throws PersistenceNotFoundException{
-        resultadoA.setTipoJuego(Resultado.TIPOJUEGORUTINA);
+    public void adicionarResultadoQueUsar(Resultado resultadoA) throws PersistenceNotFoundException{
+        resultadoA.setTipoJuego(Resultado.TIPOJUEGOQUEUSAR);
         this.resultado.adicionarResultado(resultadoA);
     }
     
@@ -625,9 +675,9 @@ public class EntreMenteServicesJuegos {
         paciente.setId(idPaciente);
         return this.resultado.traerResultadosAnios(paciente, fechaInicial, fechaFinal, Resultado.TIPOJUEGOMUSICOTERAPIA);
     }
-    //RUTINAS
+    //QUEUSAR
     /**
-     * Metodo encargado de consultar los resulrtados diarios del juego rutinas
+     * Metodo encargado de consultar los resulrtados diarios del juego QueUSar
      * @param idPaciente
      * @param fechaInicial
      * @param fechaFinal
@@ -635,13 +685,13 @@ public class EntreMenteServicesJuegos {
      * @throws PersistenceNotFoundException
      * @throws edu.eci.pgr1.entremente.persistence.PersistenceException
      */
-    public ArrayList<Resultado> consultarResultadosDiasRutina(int idPaciente, String fechaInicial, String fechaFinal) throws PersistenceNotFoundException, PersistenceException{
+    public ArrayList<Resultado> consultarResultadosDiasQueUsar(int idPaciente, String fechaInicial, String fechaFinal) throws PersistenceNotFoundException, PersistenceException{
         Paciente paciente = new Paciente();
         paciente.setId(idPaciente);
-        return this.resultado.traerResultadosDias(paciente, fechaInicial, fechaFinal, Resultado.TIPOJUEGORUTINA);
+        return this.resultado.traerResultadosDias(paciente, fechaInicial, fechaFinal, Resultado.TIPOJUEGOQUEUSAR);
     }
     /**
-     * Metodo encargado de consultar los resulrtados mensuales del juego rutina
+     * Metodo encargado de consultar los resulrtados mensuales del juego que Ussar
      * @param idPaciente
      * @param fechaInicial
      * @param fechaFinal
@@ -649,13 +699,13 @@ public class EntreMenteServicesJuegos {
      * @throws PersistenceNotFoundException
      * @throws edu.eci.pgr1.entremente.persistence.PersistenceException
      */
-    public ArrayList<Resultado> consultarResultadosMesRutina(int idPaciente, String fechaInicial, String fechaFinal) throws PersistenceNotFoundException, PersistenceException{
+    public ArrayList<Resultado> consultarResultadosMesQueUsar(int idPaciente, String fechaInicial, String fechaFinal) throws PersistenceNotFoundException, PersistenceException{
         Paciente paciente = new Paciente();
         paciente.setId(idPaciente);
-        return this.resultado.traerResultadosMeses(paciente, fechaInicial, fechaFinal, Resultado.TIPOJUEGORUTINA);
+        return this.resultado.traerResultadosMeses(paciente, fechaInicial, fechaFinal, Resultado.TIPOJUEGOQUEUSAR);
     }
     /**
-     * Metodo encargado de consultar los resulrtados anuelaes del juego rutina
+     * Metodo encargado de consultar los resulrtados anuelaes del juego que USar
      * @param idPaciente
      * @param fechaInicial
      * @param fechaFinal
@@ -663,56 +713,56 @@ public class EntreMenteServicesJuegos {
      * @throws PersistenceNotFoundException
      * @throws edu.eci.pgr1.entremente.persistence.PersistenceException
      */
-    public ArrayList<Resultado> consultarResultadosAnualRutina(int idPaciente, String fechaInicial, String fechaFinal) throws PersistenceNotFoundException, PersistenceException{
+    public ArrayList<Resultado> consultarResultadosAnualQueUsar(int idPaciente, String fechaInicial, String fechaFinal) throws PersistenceNotFoundException, PersistenceException{
         Paciente paciente = new Paciente();
         paciente.setId(idPaciente);
-        return this.resultado.traerResultadosAnios(paciente, fechaInicial, fechaFinal, Resultado.TIPOJUEGORUTINA);
+        return this.resultado.traerResultadosAnios(paciente, fechaInicial, fechaFinal, Resultado.TIPOJUEGOQUEUSAR);
     }
     
     
-//GRUPOFAMILIAR
-    /**
-     * Metodo encargado de consultar los resulrtados diarios del juego rutinas
-     * @param idPaciente
-     * @param fechaInicial
-     * @param fechaFinal
-     * @return 
-     * @throws PersistenceNotFoundException
-     * @throws edu.eci.pgr1.entremente.persistence.PersistenceException
-     */
-    public ArrayList<Resultado> consultarResultadosDiasGrupoFamiliar(int idPaciente, String fechaInicial, String fechaFinal) throws PersistenceNotFoundException, PersistenceException{
-        Paciente paciente = new Paciente();
-        paciente.setId(idPaciente);
-        return this.resultado.traerResultadosDias(paciente, fechaInicial, fechaFinal, Resultado.TIPOJUEGOGRUPOFAMILIAR);
-    }
-    /**
-     * Metodo encargado de consultar los resulrtados mensuales del juego rutina
-     * @param idPaciente
-     * @param fechaInicial
-     * @param fechaFinal
-     * @return 
-     * @throws PersistenceNotFoundException
-     * @throws edu.eci.pgr1.entremente.persistence.PersistenceException
-     */
-    public ArrayList<Resultado> consultarResultadosMesGrupoFamiliar(int idPaciente, String fechaInicial, String fechaFinal) throws PersistenceNotFoundException, PersistenceException{
-        Paciente paciente = new Paciente();
-        paciente.setId(idPaciente);
-        return this.resultado.traerResultadosMeses(paciente, fechaInicial, fechaFinal, Resultado.TIPOJUEGOGRUPOFAMILIAR);
-    }
-    /**
-     * Metodo encargado de consultar los resulrtados anuelaes del juego rutina
-     * @param idPaciente
-     * @param fechaInicial
-     * @param fechaFinal
-     * @return 
-     * @throws PersistenceNotFoundException
-     * @throws edu.eci.pgr1.entremente.persistence.PersistenceException
-     */
-    public ArrayList<Resultado> consultarResultadosAnualGrupoFamiliar(int idPaciente, String fechaInicial, String fechaFinal) throws PersistenceNotFoundException, PersistenceException{
-        Paciente paciente = new Paciente();
-        paciente.setId(idPaciente);
-        return this.resultado.traerResultadosAnios(paciente, fechaInicial, fechaFinal, Resultado.TIPOJUEGOGRUPOFAMILIAR);
-    }
+////GRUPOFAMILIAR
+//    /**
+//     * Metodo encargado de consultar los resulrtados diarios del juego que 
+//     * @param idPaciente
+//     * @param fechaInicial
+//     * @param fechaFinal
+//     * @return 
+//     * @throws PersistenceNotFoundException
+//     * @throws edu.eci.pgr1.entremente.persistence.PersistenceException
+//     */
+//    public ArrayList<Resultado> consultarResultadosDiasGrupoFamiliar(int idPaciente, String fechaInicial, String fechaFinal) throws PersistenceNotFoundException, PersistenceException{
+//        Paciente paciente = new Paciente();
+//        paciente.setId(idPaciente);
+//        return this.resultado.traerResultadosDias(paciente, fechaInicial, fechaFinal, Resultado.TIPOJUEGOGRUPOFAMILIAR);
+//    }
+//    /**
+//     * Metodo encargado de consultar los resulrtados mensuales del juego rutina
+//     * @param idPaciente
+//     * @param fechaInicial
+//     * @param fechaFinal
+//     * @return 
+//     * @throws PersistenceNotFoundException
+//     * @throws edu.eci.pgr1.entremente.persistence.PersistenceException
+//     */
+//    public ArrayList<Resultado> consultarResultadosMesGrupoFamiliar(int idPaciente, String fechaInicial, String fechaFinal) throws PersistenceNotFoundException, PersistenceException{
+//        Paciente paciente = new Paciente();
+//        paciente.setId(idPaciente);
+//        return this.resultado.traerResultadosMeses(paciente, fechaInicial, fechaFinal, Resultado.TIPOJUEGOGRUPOFAMILIAR);
+//    }
+//    /**
+//     * Metodo encargado de consultar los resulrtados anuelaes del juego rutina
+//     * @param idPaciente
+//     * @param fechaInicial
+//     * @param fechaFinal
+//     * @return 
+//     * @throws PersistenceNotFoundException
+//     * @throws edu.eci.pgr1.entremente.persistence.PersistenceException
+//     */
+//    public ArrayList<Resultado> consultarResultadosAnualGrupoFamiliar(int idPaciente, String fechaInicial, String fechaFinal) throws PersistenceNotFoundException, PersistenceException{
+//        Paciente paciente = new Paciente();
+//        paciente.setId(idPaciente);
+//        return this.resultado.traerResultadosAnios(paciente, fechaInicial, fechaFinal, Resultado.TIPOJUEGOGRUPOFAMILIAR);
+//    }
     
     
 }

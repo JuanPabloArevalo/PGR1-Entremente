@@ -6,7 +6,7 @@
 package edu.eci.pgr1.entremente.persistence.juegos;
 
 import edu.eci.pgr1.entremente.model.Paciente;
-import edu.eci.pgr1.entremente.model.juegos.PreguntaFormas;
+import edu.eci.pgr1.entremente.model.juegos.PreguntaQueUsar;
 import edu.eci.pgr1.entremente.persistence.PersistenceException;
 import edu.eci.pgr1.entremente.persistence.PersistenceNotFoundException;
 import java.util.ArrayList;
@@ -16,7 +16,7 @@ import java.util.Set;
  *
  * @author JuanArevaloMerchan
  */
-public interface JuegoFormasRepository {
+public interface JuegoQueUsarRepository {
     /**
      * Metodo encargado de traer las preguntas de la galeria, pasandole el nivel por parametro del paciente pasado
      * @param nivel
@@ -25,7 +25,7 @@ public interface JuegoFormasRepository {
      * @throws edu.eci.pgr1.entremente.persistence.PersistenceNotFoundException 
      * @throws edu.eci.pgr1.entremente.persistence.PersistenceException 
      */
-    public Set<PreguntaFormas> traerPreguntas(int nivel, Paciente paciente) throws PersistenceNotFoundException, PersistenceException;
+    public Set<PreguntaQueUsar> traerPreguntas(int nivel, Paciente paciente) throws PersistenceNotFoundException, PersistenceException;
     /**
      * Metodo encargado de traer las preguntas de formas del paciente pasado
      * @param paciente
@@ -33,7 +33,7 @@ public interface JuegoFormasRepository {
      * @throws edu.eci.pgr1.entremente.persistence.PersistenceNotFoundException 
      * @throws edu.eci.pgr1.entremente.persistence.PersistenceException 
      */
-    public ArrayList<PreguntaFormas> traerTODASPreguntas(Paciente paciente) throws PersistenceNotFoundException, PersistenceException;
+    public ArrayList<PreguntaQueUsar> traerTODASPreguntas(Paciente paciente) throws PersistenceNotFoundException, PersistenceException;
     
     /**
      * Metodo encargado de modificar el nivel y el estado de la pregunta
@@ -41,5 +41,5 @@ public interface JuegoFormasRepository {
      * @throws PersistenceNotFoundException
      * @throws PersistenceException 
      */
-    public void modificarPregunta(PreguntaFormas pregunta) throws PersistenceNotFoundException, PersistenceException;      
+    public void modificarPregunta(PreguntaQueUsar pregunta) throws PersistenceNotFoundException, PersistenceException;      
 }

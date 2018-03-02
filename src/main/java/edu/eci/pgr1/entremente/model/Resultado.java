@@ -16,7 +16,7 @@ public class Resultado {
     public static final String TIPOJUEGOCALCULEMOS = "C";
     public static final String TIPOJUEGOPERCEPCION = "P";
     public static final String TIPOJUEGOMUSICOTERAPIA = "M";
-    public static final String TIPOJUEGORUTINA = "R";
+    public static final String TIPOJUEGOQUEUSAR = "R";
     public static final String TIPOJUEGOGRUPOFAMILIAR = "X";
     
     private int id;
