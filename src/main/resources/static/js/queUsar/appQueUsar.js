@@ -1,7 +1,7 @@
 
-/* global apiclientRutinas */
+/* global apiclientQueUsar */
 
-var appRutinas = (function () {
+var appQueUsar = (function () {
     const cantidaPreguntasPorNivel = 8;
     const nivelMaximo = 4;
     var pregunta = [];
@@ -14,15 +14,15 @@ var appRutinas = (function () {
     var opcionesQueTieneQueSeleccionar = 0;
     var nivelMaximoAlcanzado = nivel;
     var llegoNivelMaximo = false;
-    var apiclientRutinas = apimockRutinas;
+    var apiclientQueUsar = apimockQueUsar;
     var respuestasSeleccionadas = [];
     var nivelAPartirCambia = 3;
 
     return{
         seleccionarRespuesta(Boton, numero, respuestaCorrecta){
             console.info(opcionesQueTieneQueSeleccionar)
-            if(appRutinas.yaSelecciono(Boton.id)){
-                appRutinas.habilitarBotonRespuesta(Boton.id);
+            if(appQueUsar.yaSelecciono(Boton.id)){
+                appQueUsar.habilitarBotonRespuesta(Boton.id);
                 
             }
             else{
@@ -75,7 +75,7 @@ var appRutinas = (function () {
                     setTimeout(function () {
                         $('#modalSubirNivel').modal('hide');
                     }, 1500);
-                    appRutinas.subirNivel();
+                    appQueUsar.subirNivel();
                 } else if (preguntasCorrectasTemporales <= cantidaPreguntasPorNivel) {
                     $('#modalCorrecto').modal('show');
                     setTimeout(function () {
@@ -84,12 +84,12 @@ var appRutinas = (function () {
                 } else if (nivel >= nivelMaximo) {
                     llegoNivelMaximo = true;
                     alert("Llegaste al nivel máximo. Volvamos a empezar");
-                    appRutinas.mostrarEstadisticas();
-                    appRutinas.iniciarNivel();
+                    appQueUsar.mostrarEstadisticas();
+                    appQueUsar.iniciarNivel();
                 }
                 preguntasCorrectas++;
                 respuestasSeleccionadas = [];
-                appRutinas.trearSiguientePregunta();
+                appQueUsar.trearSiguientePregunta();
                 habilitarTodosLosBotones();
             } else {
                 //Respuesta Incorrecta
@@ -101,9 +101,9 @@ var appRutinas = (function () {
                 if (preguntasCorrectasTemporales > 1) {
                     preguntasCorrectasTemporales--;
                 } else if (nivel > 1) {
-                    appRutinas.bajarNivel();
+                    appQueUsar.bajarNivel();
                 }
-                appRutinas.trearSiguientePregunta();
+                appQueUsar.trearSiguientePregunta();
                 habilitarTodosLosBotones();
                 respuestasSeleccionadas = [];
             }
@@ -112,7 +112,7 @@ var appRutinas = (function () {
             console.info(pregunta)
         },
         trearSiguientePregunta: function () {
-            apiclientRutinas.getPreguntaAleatorea(nivel, function (preguntaToda) {
+            apiclientQueUsar.getPreguntaAleatorea(nivel, function (preguntaToda) {
                 pregunta = preguntaToda;
                 opcionesQueTieneQueSeleccionar = 0;
                 for (var i = 0; i < 4; i++) {
@@ -133,7 +133,7 @@ var appRutinas = (function () {
                 for (var i = 0; i < 4; i++) {
                     var idP = "#idImagen" + i;
                     $("#idImagen" + i).attr("src", preguntaToda.respuestas[i].opcion);
-                    $("#idImagen" + i).attr("onclick", "appRutinas.seleccionarRespuesta(this,"+preguntaToda.respuestas[i].numero+", '"+preguntaToda.respuestas[i].respuestaCorrecta+"')");
+                    $("#idImagen" + i).attr("onclick", "appQueUsar.seleccionarRespuesta(this,"+preguntaToda.respuestas[i].numero+", '"+preguntaToda.respuestas[i].respuestaCorrecta+"')");
                     $("#idImagen" + i).attr("name", preguntaToda.respuestas[i].numero);
                 }
             });
@@ -149,7 +149,7 @@ var appRutinas = (function () {
             }
 
 
-            apiclientRutinas.cargarPreguntas(sessionStorage.getItem("id"), nivel, function (preguntaToda) {
+            apiclientQueUsar.cargarPreguntas(sessionStorage.getItem("id"), nivel, function (preguntaToda) {
                 pregunta = preguntaToda;
                 opcionesQueTieneQueSeleccionar = 0;
                 for (var i = 0; i < 4; i++) {
@@ -170,7 +170,7 @@ var appRutinas = (function () {
                 for (var i = 0; i < 4; i++) {
                     var idP = "#idImagen" + i;
                     $("#idImagen" + i).attr("src", preguntaToda.respuestas[i].opcion);
-                    $("#idImagen" + i).attr("onclick", "appRutinas.seleccionarRespuesta(this,"+preguntaToda.respuestas[i].numero+", '"+preguntaToda.respuestas[i].respuestaCorrecta+"')");
+                    $("#idImagen" + i).attr("onclick", "appQueUsar.seleccionarRespuesta(this,"+preguntaToda.respuestas[i].numero+", '"+preguntaToda.respuestas[i].respuestaCorrecta+"')");
                     $("#idImagen" + i).attr("name", preguntaToda.respuestas[i].numero);
                 }
             }
@@ -184,12 +184,12 @@ var appRutinas = (function () {
                 nivelMaximoAlcanzado++;
             }
             nivel++;
-            apiclientRutinas.cambiarNivel(nivel);
+            apiclientQueUsar.cambiarNivel(nivel);
             preguntasCorrectasTemporales = 1;
         },
         bajarNivel: function () {
             nivel--;
-            apiclientRutinas.cambiarNivel(nivel);
+            apiclientQueUsar.cambiarNivel(nivel);
             preguntasCorrectasTemporales = cantidaPreguntasPorNivel;
 
         },
@@ -202,12 +202,12 @@ var appRutinas = (function () {
         },
         ayudaCambioPregunta: function () {
             habilitarTodosLosBotones();
-            appRutinas.trearSiguientePregunta();
+            appQueUsar.trearSiguientePregunta();
 
         },
         iniciarNivel: function () {
             nivel = 1;
-            apiclientRutinas.cambiarNivel(nivel);
+            apiclientQueUsar.cambiarNivel(nivel);
             preguntasCorrectasTemporales = 1;
         },
         traerTiempoJugado: function () {
@@ -215,8 +215,8 @@ var appRutinas = (function () {
             return (fechaFin - horaInicio) / 60000;
         },
         mostrarEstadisticas: function () {
-            alert("Tiempo Jugado: " + appRutinas.traerTiempoJugado() + ". Preguntas Correctas: " + preguntasCorrectas + ". Preguntas Erroneas: " + preguntasErroneas + " . Nivel Máximo: " + nivelMaximoAlcanzado);
-            console.info("Tiempo Jugado: " + appRutinas.traerTiempoJugado() + ". Preguntas Correctas: " + preguntasCorrectas + ". Preguntas Erroneas: " + preguntasErroneas + " . Nivel Máximo: " + nivelMaximoAlcanzado);
+            alert("Tiempo Jugado: " + appQueUsar.traerTiempoJugado() + ". Preguntas Correctas: " + preguntasCorrectas + ". Preguntas Erroneas: " + preguntasErroneas + " . Nivel Máximo: " + nivelMaximoAlcanzado);
+            console.info("Tiempo Jugado: " + appQueUsar.traerTiempoJugado() + ". Preguntas Correctas: " + preguntasCorrectas + ". Preguntas Erroneas: " + preguntasErroneas + " . Nivel Máximo: " + nivelMaximoAlcanzado);
         },
         salir() {
             if ("S" === sessionStorage.getItem("esTemporal")) {
@@ -227,7 +227,7 @@ var appRutinas = (function () {
                 var mes = fec.getMonth() + 1;
                 var anio = fec.getFullYear();
 
-                var tiempoJugado = appRutinas.traerTiempoJugado();
+                var tiempoJugado = appQueUsar.traerTiempoJugado();
                 tiempoJugado = tiempoJugado.toFixed(0);
 //                console.info(tiempoJugado);
                 if (tiempoJugado === "0") {
@@ -235,7 +235,7 @@ var appRutinas = (function () {
                     tiempoJugado = 1;
                 }
 //                console.info(tiempoJugado);
-                var promesa = apiclientRutinas.enviarResultados(sessionStorage.getItem("id"), anio + "/" + mes + "/" + dia, preguntasCorrectas, preguntasErroneas, tiempoJugado, nivelMaximoAlcanzado);
+                var promesa = apiclientQueUsar.enviarResultados(sessionStorage.getItem("id"), anio + "/" + mes + "/" + dia, preguntasCorrectas, preguntasErroneas, tiempoJugado, nivelMaximoAlcanzado);
                 promesa.then(
                         function () {
                             window.location.href = "/menuPaciente.html";
@@ -248,7 +248,7 @@ var appRutinas = (function () {
             }
         },
         cargarParaEditar(){
-            var promesaConsulta = apiclientRutinas.getTodasPreguntas(sessionStorage.getItem("idPacienteConsultaPS"))
+            var promesaConsulta = apiclientQueUsar.getTodasPreguntas(sessionStorage.getItem("idPacienteConsultaPS"))
             promesaConsulta.then(
                 function (datos) { 
                     inicializarPregunta();
@@ -268,7 +268,7 @@ var appRutinas = (function () {
             else{
                 estado = "D";
             }
-            var promesa = apiclientRutinas.modificarPregunta(idPreguntaPaciente, nivelPersonalizado, estado);
+            var promesa = apiclientQueUsar.modificarPregunta(idPreguntaPaciente, nivelPersonalizado, estado);
             promesa.then(
                 function () { 
                     $('#idPanel'+idPreguntaPaciente).show();
@@ -305,7 +305,7 @@ function adicionarPregunta(item){
     }
 
     
-    var markup = "<tr class=\"filasPG\"><td>" + item.id + "</td><td><img src=\"" + item.imagen + "\" class=\"img-rounded img-responsive imagenGaleriaEditar\" alt=\"ImagenPregunta\"></td><td>" + item.pregunta + "</td><td><select class=\"form-control\" id=\"nivel"+item.id+"\">"+nivel+"</select></td><td><input type=\"checkbox\" "+activo+" id=\"estado"+item.id+"\"></td><td><button class=\"btn btn-info btn-block\" onclick=\"appRutinas.modificarPregunta(" + item.id + ")\"> Guardar</button><div class=\"alert alert-success\" style=\"display:none;\" id=\"idPanel"+item.id+"\"><strong >Bien!</strong></div></td></tr>";
+    var markup = "<tr class=\"filasPG\"><td>" + item.id + "</td><td><img src=\"" + item.imagen + "\" class=\"img-rounded img-responsive imagenGaleriaEditar\" alt=\"ImagenPregunta\"></td><td>" + item.pregunta + "</td><td><select class=\"form-control\" id=\"nivel"+item.id+"\">"+nivel+"</select></td><td><input type=\"checkbox\" "+activo+" id=\"estado"+item.id+"\"></td><td><button class=\"btn btn-info btn-block\" onclick=\"appQueUsar.modificarPregunta(" + item.id + ")\"> Guardar</button><div class=\"alert alert-success\" style=\"display:none;\" id=\"idPanel"+item.id+"\"><strong >Bien!</strong></div></td></tr>";
     $("#idTablaG").append(markup);
 }
 

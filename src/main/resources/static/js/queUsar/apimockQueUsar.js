@@ -1,18 +1,18 @@
-var apimockRutinas=(function(){
+var apimockQueUsar=(function(){
 	var arregloIndices= [];
 	var mockdata=[];
         mockdata[1]=[
-            {"pregunta":"¿Cuál de los siguientes atuendos es conveniente llevar a la playa?", "imagen":"image\\Rutinas\\playa2.jpg", "respuestas":[
-            	{"opcion":"image\\Rutinas\\botas1.png","respuestaCorrecta":"N", "numero":1},
-            	{"opcion":"image\\Rutinas\\corbata1.png","respuestaCorrecta":"N", "numero":2},
-            	{"opcion":"image\\Rutinas\\chanclas1.png","respuestaCorrecta":"S", "numero":3},
-            	{"opcion":"image\\Rutinas\\vestidoBano1.png","respuestaCorrecta":"S", "numero":4}]
+            {"pregunta":"¿Cuál de los siguientes atuendos es conveniente llevar a la playa?", "imagen":"image\\QueUsar\\playa2.jpg", "respuestas":[
+            	{"opcion":"image\\QueUsar\\botas1.png","respuestaCorrecta":"N", "numero":1},
+            	{"opcion":"image\\QueUsar\\corbata1.png","respuestaCorrecta":"N", "numero":2},
+            	{"opcion":"image\\QueUsar\\chanclas1.png","respuestaCorrecta":"S", "numero":3},
+            	{"opcion":"image\\QueUsar\\vestidoBano1.png","respuestaCorrecta":"S", "numero":4}]
             },
-            {"pregunta":"¿Que atuendos consideras son los más apropiados para ir a un matrimonio?", "imagen":"image\\Rutinas\\matrimonio1.jpg", "respuestas":[
-            	{"opcion":"image\\Rutinas\\ropaLigera1.jpg","respuestaCorrecta":"N", "numero":1},
-            	{"opcion":"image\\Rutinas\\shorts1.jpg","respuestaCorrecta":"N", "numero":2},
-            	{"opcion":"image\\Rutinas\\smoking1.jpg","respuestaCorrecta":"S", "numero":3},
-            	{"opcion":"image\\Rutinas\\vestidoElegante1.jpg","respuestaCorrecta":"S", "numero":4}]
+            {"pregunta":"¿Que atuendos consideras son los más apropiados para ir a un matrimonio?", "imagen":"image\\QueUsar\\matrimonio1.jpg", "respuestas":[
+            	{"opcion":"image\\QueUsar\\ropaLigera1.jpg","respuestaCorrecta":"N", "numero":1},
+            	{"opcion":"image\\QueUsar\\shorts1.jpg","respuestaCorrecta":"N", "numero":2},
+            	{"opcion":"image\\QueUsar\\smoking1.jpg","respuestaCorrecta":"S", "numero":3},
+            	{"opcion":"image\\QueUsar\\vestidoElegante1.jpg","respuestaCorrecta":"S", "numero":4}]
             }
             
         ];
@@ -177,11 +177,11 @@ var apimockRutinas=(function(){
          ];   
 	return {
                 cargarPreguntas(idPaciente, nivel, callback){
-                    apimockRutinas.getPreguntaAleatorea(nivel,callback);
+                    apimockQueUsar.getPreguntaAleatorea(nivel,callback);
                 },
 		getPreguntaAleatorea:function(nivel,callback){
 			if(arregloIndices.length===0){
-				apimockRutinas.llenarArreglo(nivel);
+				apimockQueUsar.llenarArreglo(nivel);
 			}
 			
 			var numero = getRandomArbitrary(arregloIndices);
@@ -198,7 +198,7 @@ var apimockRutinas=(function(){
 		},
 		cambiarNivel:function(nivel){
 			arregloIndices= [];
-			apimockRutinas.llenarArreglo(nivel);	
+			apimockQueUsar.llenarArreglo(nivel);	
 		},
 		getArreglo:function(nivel){
 			return arregloIndices;

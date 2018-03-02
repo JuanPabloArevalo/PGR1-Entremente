@@ -12,7 +12,7 @@ var arregloIndices= [];
 var mockdata=[];
 var arreglo;
 
-var apiclientRutinas = (function(){
+var apiclientQueUsar = (function(){
     return{
         cargarPreguntas(idPaciente, nivel, callback){
             var promesa2 = $.get("/entremente/V1/juegos/atencion/"+idPaciente);
@@ -22,7 +22,7 @@ var apiclientRutinas = (function(){
                     mockdata[2] = promesa2.responseJSON[1];
                     mockdata[3] = promesa2.responseJSON[2];
                     mockdata[4] = promesa2.responseJSON[3];
-                    apiclientRutinas.getPreguntaAleatorea(nivel,callback);
+                    apiclientQueUsar.getPreguntaAleatorea(nivel,callback);
                 },
                 function (dato) {
                     alert(dato.responseText);
@@ -31,7 +31,7 @@ var apiclientRutinas = (function(){
         },
         getPreguntaAleatorea:function(nivel,callback){
             if(arregloIndices.length===0){
-                apiclientRutinas.llenarArreglo(nivel);
+                apiclientQueUsar.llenarArreglo(nivel);
             }
             
             var numero = getRandomArbitrary(arregloIndices);
@@ -50,7 +50,7 @@ var apiclientRutinas = (function(){
         },
         cambiarNivel:function(nivel){
                 arregloIndices= [];
-                apiclientRutinas.llenarArreglo(nivel);	
+                apiclientQueUsar.llenarArreglo(nivel);	
         },
         getArreglo:function(nivel){
                 return arregloIndices;
