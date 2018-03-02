@@ -1,3 +1,4 @@
+
 var apimockQueUsar=(function(){
 	var arregloIndices= [];
 	var mockdata=[];

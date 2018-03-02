@@ -106,13 +106,13 @@ function inicializarElementosMusicoterapiaResultado() {
     $(".filasMusRes").remove("tr");
 }
 //Rutinas 
-function adicionarFilaRutinasResultado(item) {
-    var markup = "<tr class=\"filasRutRes\"><td>" + item.acertadas + "</td><td>" + item.erroneas + "</td><td>" + item.tiempo + "</td><td>" + item.nivelMaximo + "</td><td>" + item.fecha + "</td></tr>";
-    $("#idTablaRResultados").append(markup);
+function adicionarFilaQueUsarResultado(item) {
+    var markup = "<tr class=\"filasQUsRes\"><td>" + item.acertadas + "</td><td>" + item.erroneas + "</td><td>" + item.tiempo + "</td><td>" + item.nivelMaximo + "</td><td>" + item.fecha + "</td></tr>";
+    $("#idTablaQUResultados").append(markup);
 }
 
-function inicializarElementosRutinasResultado() {
-    $(".filasRutRes").remove("tr");
+function inicializarElementosQueUsarResultado() {
+    $(".filasQUsRes").remove("tr");
 }
 //Grupo Familiar 
 function adicionarFilaGrupoFamiliarResultado(item) {
@@ -716,22 +716,22 @@ var perfilFamiliar = (function () {
                     }
             );
         },
-        buscarResultadosRutinas() {
-            var fechaIni = $('#idFechaIR').val();
-            var fechaFin = $('#idFechaFR').val();
+        buscarResultadosQueUsar() {
+            var fechaIni = $('#idFechaIQU').val();
+            var fechaFin = $('#idFechaFQU').val();
             var idPac = sessionStorage.getItem("idPacienteConsultaPS");
-            var tip = $("select#idComboRutinas").val();
+            var tip = $("select#idComboQueUsar").val();
             var promesa;
             if (fechaIni === "" || fechaIni === null) {
                 alert("La fecha inicial no puede ir vacia");
             } else if (fechaFin === "" || fechaFin === null) {
                 alert("La fecha final no puede ir vacia");
             } else if ("D" === tip) {
-                promesa = apiclientResultados.getResultadosRutinasDia(idPac, fechaIni, fechaFin);
+                promesa = apiclientResultados.getResultadosQueUsarDia(idPac, fechaIni, fechaFin);
             } else if ("M" === tip) {
-                promesa = apiclientResultados.getResultadosRutinasMes(idPac, fechaIni, fechaFin);
+                promesa = apiclientResultados.getResultadosQueUsarMes(idPac, fechaIni, fechaFin);
             } else if ("A" === tip) {
-                promesa = apiclientResultados.getResultadosRutinasAnual(idPac, fechaIni, fechaFin);
+                promesa = apiclientResultados.getResultadosQueUsarAnual(idPac, fechaIni, fechaFin);
             }
             promesa.then(
                     function (datos) {

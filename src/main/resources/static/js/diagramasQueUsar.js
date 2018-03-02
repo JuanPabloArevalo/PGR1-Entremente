@@ -1,7 +1,7 @@
-var diagramaRutinas = (function () {
+var diagramaQueUsar = (function () {
     return{
         cargarAcertadas(datos, fechas) {
-            var chart = $('#preguntasAcertadasRutinas').highcharts({
+            var chart = $('#preguntasAcertadasQueUsar').highcharts({
                 chart: {
                     type: 'column'
                 },
@@ -28,7 +28,7 @@ var diagramaRutinas = (function () {
             });
         },
         cargarErroneas(datos, fechas) {
-            var chart = $('#preguntasErroneasRutinas').highcharts({
+            var chart = $('#preguntasErroneasQueUsar').highcharts({
                 chart: {
                     type: 'column'
                 },
@@ -55,7 +55,7 @@ var diagramaRutinas = (function () {
             });
         },
         cargarTiempo(datos, fechas) {
-            var chart = $('#tiempoJugadoRutinas').highcharts({
+            var chart = $('#tiempoJugadoQueUsar').highcharts({
                 chart: {
                     type: 'column'
                 },
@@ -82,7 +82,7 @@ var diagramaRutinas = (function () {
             });
         },
         cargarNivelMaximo(datos, fechas) {
-            var chart = $('#nivelMaximoRutinas').highcharts({
+            var chart = $('#nivelMaximoQueUsar').highcharts({
                 chart: {
                     type: 'column'
                 },

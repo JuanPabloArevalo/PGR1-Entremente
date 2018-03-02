@@ -17,7 +17,7 @@
         <script src="js/diagramasAtencion.js"></script> 
         <script src="js/diagramasFormas.js"></script> 
         <script src="js/diagramasMusicoterapia.js"></script> 
-        <script src="js/diagramasRutinas.js"></script>  
+        <script src="js/diagramasQueUsar.js"></script>  
         <script src="js/diagramasGrupoFamiliar.js"></script> 
         <!--importarGraficos-->
         <script src="https://code.highcharts.com/highcharts.src.js"></script>
@@ -476,11 +476,11 @@
                                     </div>
                                 </div>
                                 <!--Fin Musicoterapia-->
-                               <!--Rutinas-->
+                               <!--QueUsar-->
                                 <div class="panel panel-default">
                                     <div class="panel-heading">
                                         <h4 class="panel-title colorVerdeOscuro">
-                                            <a data-toggle="collapse" data-parent="#accordion" href="#collapse10"><h5 class="subTitulo colorVerdeOscuro">Rutinas</h5></a>
+                                            <a data-toggle="collapse" data-parent="#accordion" href="#collapse10"><h5 class="subTitulo colorVerdeOscuro">¿Qué Usar?</h5></a>
                                         </h4>
                                     </div>
                                     <div id="collapse10" class="panel-collapse collapse">
@@ -495,21 +495,21 @@
                                                 </div>
                                                 <br>
                                                 <label>Filtro:</label>
-                                                <select class="form-control" id="idComboRutinas">
+                                                <select class="form-control" id="idComboQueUsar">
                                                     <option value="D">Días</option>
                                                     <option value="M">Meses</option>
                                                     <option value="A">Años</option>
                                                 </select>
                                                 <div class="form-group">
                                                     <label>Fecha Inicial:</label>
-                                                    <input type="date" class="form-control" id="idFechaIR">
+                                                    <input type="date" class="form-control" id="idFechaIQU">
                                                     <label>Fecha Final:</label>
-                                                    <input type="date" class="form-control" id="idFechaFR">
-                                                    <button class="btn btn-success btn-block" onclick="perfilFamiliar.buscarResultadosRutinas()">Buscar</button>
+                                                    <input type="date" class="form-control" id="idFechaFQU">
+                                                    <button class="btn btn-success btn-block" onclick="perfilFamiliar.buscarResultadosQueUsar()">Buscar</button>
                                                 </div>
                                                 <br>
                                                 <div class="table-responsive">          
-                                                    <table class="table" id="idTablaRResultados">
+                                                    <table class="table" id="idTablaQUResultados">
                                                         <thead>
                                                             <tr>
                                                                 <th>Preguntas Acertadas</th>
@@ -525,18 +525,18 @@
                                                     </table>
                                                 </div>
                                                 <div class="row">
-                                                    <div id="preguntasAcertadasRutinas" class = "diagramasBarras"></div>
-                                                    <div id="preguntasErroneasRutinas" class = "diagramasBarras"></div>
-                                                    <div id="tiempoJugadoRutinas" class = "diagramasBarras"></div>
-                                                    <div id="nivelMaximoRutinas" class = "diagramasBarras"></div>
+                                                    <div id="preguntasAcertadasQueUsar" class = "diagramasBarras"></div>
+                                                    <div id="preguntasErroneasQueUsar" class = "diagramasBarras"></div>
+                                                    <div id="tiempoJugadoQueUsar" class = "diagramasBarras"></div>
+                                                    <div id="nivelMaximoQueUsar" class = "diagramasBarras"></div>
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
-                                <!--Fin Rutinas-->
+                                <!--Fin QueUsar-->
                                 <!--Grupo Familiar-->
-                                <div class="panel panel-default">
+<!--                                <div class="panel panel-default">
                                     <div class="panel-heading">
                                         <h4 class="panel-title colorVerdeOscuro">
                                             <a data-toggle="collapse" data-parent="#accordion" href="#collapse11"><h5 class="subTitulo colorVerdeOscuro">Grupo Familiar</h5></a>
@@ -599,7 +599,7 @@
                                             </div>
                                         </div>
                                     </div>
-                                </div>
+                                </div>-->
                                 <!--Fin GrupoFamiliar-->
                                 <!--Historial Mensajes-->
                                 <div class="panel panel-default">
