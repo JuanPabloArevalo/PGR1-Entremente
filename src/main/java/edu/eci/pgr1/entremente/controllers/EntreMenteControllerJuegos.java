@@ -21,6 +21,7 @@ import java.util.logging.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -44,6 +45,7 @@ public class EntreMenteControllerJuegos {
     
     
 //Juego GALERIA    
+    @CrossOrigin(origins = "*")
     @RequestMapping(path = "/galeria/{idPaciente}", method = RequestMethod.GET)
     public ResponseEntity<?> manejadorConsultarGaleria(@PathVariable("idPaciente") int idPaciente) {
         try {
@@ -54,6 +56,7 @@ public class EntreMenteControllerJuegos {
         }
     }   
   //Consultar TODAS
+    @CrossOrigin(origins = "*")
     @RequestMapping(path = "/galeria/todas/{idPaciente}", method = RequestMethod.GET)
     public ResponseEntity<?> manejadorConsultarGaleriaTodas(@PathVariable("idPaciente") int idPaciente) {
         try {
@@ -64,6 +67,7 @@ public class EntreMenteControllerJuegos {
         }
     }
   //MODIFICAR  
+    @CrossOrigin(origins = "*")
     @RequestMapping(path = "/galeria", method = RequestMethod.POST)
     public ResponseEntity<?> manejadorModificarGaleria(@RequestBody PreguntaGaleria pregunta) {
         try {
@@ -76,6 +80,7 @@ public class EntreMenteControllerJuegos {
     } 
     
    //Resultado Adicionar
+    @CrossOrigin(origins = "*")
     @RequestMapping(path = "/resultados/galeria", method = RequestMethod.POST)
     public ResponseEntity<?> manejadorPostAdicionarResultadoGaleria(@RequestBody Resultado resultado) {
         try {
@@ -88,6 +93,7 @@ public class EntreMenteControllerJuegos {
     }
     
     //Resultado Consultar
+    @CrossOrigin(origins = "*")
     @RequestMapping(path = "/resultados/galeria/dia/{idPaciente}/{fechaInicial}/{fechaFinal}", method = RequestMethod.GET)
     public ResponseEntity<?> manejadorGetConsultarResultadoGaleriaDia(@PathVariable("idPaciente") int idPaciente, @PathVariable("fechaInicial") String fechaInicial, @PathVariable("fechaFinal") String fechaFinal) {
         try {
@@ -97,7 +103,7 @@ public class EntreMenteControllerJuegos {
             return new ResponseEntity<>(ex.getMessage(), HttpStatus.NOT_FOUND);
         }        
     }
-    
+    @CrossOrigin(origins = "*")
     @RequestMapping(path = "/resultados/galeria/mes/{idPaciente}/{fechaInicial}/{fechaFinal}", method = RequestMethod.GET)
     public ResponseEntity<?> manejadorGetConsultarResultadoGaleriaMes(@PathVariable("idPaciente") int idPaciente, @PathVariable("fechaInicial") String fechaInicial, @PathVariable("fechaFinal") String fechaFinal) {
         try {
@@ -107,7 +113,7 @@ public class EntreMenteControllerJuegos {
             return new ResponseEntity<>(ex.getMessage(), HttpStatus.NOT_FOUND);
         }        
     }
-    
+    @CrossOrigin(origins = "*")
     @RequestMapping(path = "/resultados/galeria/anio/{idPaciente}/{fechaInicial}/{fechaFinal}", method = RequestMethod.GET)
     public ResponseEntity<?> manejadorGetConsultarResultadoGaleriaAnio(@PathVariable("idPaciente") int idPaciente, @PathVariable("fechaInicial") String fechaInicial, @PathVariable("fechaFinal") String fechaFinal) {
         try {
@@ -129,7 +135,8 @@ public class EntreMenteControllerJuegos {
     
     
     
-//Juego ATENCION    
+//Juego ATENCION  
+    @CrossOrigin(origins = "*")
     @RequestMapping(path = "/atencion/{idPaciente}", method = RequestMethod.GET)
     public ResponseEntity<?> manejadorConsultarAtencion(@PathVariable("idPaciente") int idPaciente) {
         try {
@@ -141,6 +148,7 @@ public class EntreMenteControllerJuegos {
     }  
     
   //Consutlar TODAS
+    @CrossOrigin(origins = "*")
     @RequestMapping(path = "/atencion/todas/{idPaciente}", method = RequestMethod.GET)
     public ResponseEntity<?> manejadorConsultarAtencionTodas(@PathVariable("idPaciente") int idPaciente) {
         try {
@@ -152,6 +160,7 @@ public class EntreMenteControllerJuegos {
     }
     
   //MODIFICAR
+    @CrossOrigin(origins = "*")
     @RequestMapping(path = "/atencion", method = RequestMethod.POST)
     public ResponseEntity<?> manejadorModificarAtencion(@RequestBody PreguntaAtencion pregunta) {
         try {
@@ -164,6 +173,7 @@ public class EntreMenteControllerJuegos {
     }
     
   //Resultados Atencion ADicionar    
+    @CrossOrigin(origins = "*")
     @RequestMapping(path = "/resultados/atencion", method = RequestMethod.POST)
     public ResponseEntity<?> manejadorPostAdicionarResultadoAtencion(@RequestBody Resultado resultado) {
         try {
@@ -176,6 +186,7 @@ public class EntreMenteControllerJuegos {
     }
     
   //Resultados Atencion COnsultar
+    @CrossOrigin(origins = "*")
     @RequestMapping(path = "/resultados/atencion/dia/{idPaciente}/{fechaInicial}/{fechaFinal}", method = RequestMethod.GET)
     public ResponseEntity<?> manejadorGetConsultarResultadoAtencionDia(@PathVariable("idPaciente") int idPaciente, @PathVariable("fechaInicial") String fechaInicial, @PathVariable("fechaFinal") String fechaFinal) {
         try {
@@ -185,6 +196,7 @@ public class EntreMenteControllerJuegos {
             return new ResponseEntity<>(ex.getMessage(), HttpStatus.NOT_FOUND);
         }        
     }
+    @CrossOrigin(origins = "*")
     @RequestMapping(path = "/resultados/atencion/mes/{idPaciente}/{fechaInicial}/{fechaFinal}", method = RequestMethod.GET)
     public ResponseEntity<?> manejadorGetConsultarResultadoAtencionMes(@PathVariable("idPaciente") int idPaciente, @PathVariable("fechaInicial") String fechaInicial, @PathVariable("fechaFinal") String fechaFinal) {
         try {
@@ -194,7 +206,7 @@ public class EntreMenteControllerJuegos {
             return new ResponseEntity<>(ex.getMessage(), HttpStatus.NOT_FOUND);
         }        
     }
-    
+    @CrossOrigin(origins = "*")
     @RequestMapping(path = "/resultados/atencion/anio/{idPaciente}/{fechaInicial}/{fechaFinal}", method = RequestMethod.GET)
     public ResponseEntity<?> manejadorGetConsultarResultadoAtencionAnio(@PathVariable("idPaciente") int idPaciente, @PathVariable("fechaInicial") String fechaInicial, @PathVariable("fechaFinal") String fechaFinal) {
         try {
@@ -218,6 +230,7 @@ public class EntreMenteControllerJuegos {
     
     
 //Juego FORMAS
+    @CrossOrigin(origins = "*")
     @RequestMapping(path = "/formas/{idPaciente}", method = RequestMethod.GET)
     public ResponseEntity<?> manejadorConsultarFormas(@PathVariable("idPaciente") int idPaciente) {
         try {
@@ -229,6 +242,7 @@ public class EntreMenteControllerJuegos {
     }  
     
   //Consultar TODAS
+    @CrossOrigin(origins = "*")
     @RequestMapping(path = "/formas/todas/{idPaciente}", method = RequestMethod.GET)
     public ResponseEntity<?> manejadorConsultaFormasTodas(@PathVariable("idPaciente") int idPaciente) {
         try {
@@ -240,6 +254,7 @@ public class EntreMenteControllerJuegos {
     }
     
   //MODIFICAR
+    @CrossOrigin(origins = "*")
     @RequestMapping(path = "/formas", method = RequestMethod.POST)
     public ResponseEntity<?> manejadorModificarFormas(@RequestBody PreguntaFormas pregunta) {
         try {
@@ -252,6 +267,7 @@ public class EntreMenteControllerJuegos {
     }
     
    //Resultado Formas Adicionar
+    @CrossOrigin(origins = "*")
     @RequestMapping(path = "/resultados/formas", method = RequestMethod.POST)
     public ResponseEntity<?> manejadorPostAdicionarResultadoFormas(@RequestBody Resultado resultado) {
         try {
@@ -266,6 +282,7 @@ public class EntreMenteControllerJuegos {
    
     
     //Resultado Formas Consultar
+    @CrossOrigin(origins = "*")
     @RequestMapping(path = "/resultados/formas/dia/{idPaciente}/{fechaInicial}/{fechaFinal}", method = RequestMethod.GET)
     public ResponseEntity<?> manejadorGetConsultarResultadoFormasDia(@PathVariable("idPaciente") int idPaciente, @PathVariable("fechaInicial") String fechaInicial, @PathVariable("fechaFinal") String fechaFinal) {
         try {
@@ -276,6 +293,7 @@ public class EntreMenteControllerJuegos {
         }        
     }
     
+    @CrossOrigin(origins = "*")
     @RequestMapping(path = "/resultados/formas/mes/{idPaciente}/{fechaInicial}/{fechaFinal}", method = RequestMethod.GET)
     public ResponseEntity<?> manejadorGetConsultarResultadoFormasMes(@PathVariable("idPaciente") int idPaciente, @PathVariable("fechaInicial") String fechaInicial, @PathVariable("fechaFinal") String fechaFinal) {
         try {
@@ -286,6 +304,7 @@ public class EntreMenteControllerJuegos {
         }        
     }
     
+    @CrossOrigin(origins = "*")
     @RequestMapping(path = "/resultados/formas/anio/{idPaciente}/{fechaInicial}/{fechaFinal}", method = RequestMethod.GET)
     public ResponseEntity<?> manejadorGetConsultarResultadoFormasAnio(@PathVariable("idPaciente") int idPaciente, @PathVariable("fechaInicial") String fechaInicial, @PathVariable("fechaFinal") String fechaFinal) {
         try {
@@ -307,6 +326,7 @@ public class EntreMenteControllerJuegos {
     
     
 //Juego CALCULO
+    @CrossOrigin(origins = "*")
     @RequestMapping(path = "/calculo/{idPaciente}", method = RequestMethod.GET)
     public ResponseEntity<?> manejadorConsultarCalculo(@PathVariable("idPaciente") int idPaciente) {
         try {
@@ -317,6 +337,7 @@ public class EntreMenteControllerJuegos {
         }
     } 
   //Consultar TODAS
+    @CrossOrigin(origins = "*")
     @RequestMapping(path = "/calculo/todas/{idPaciente}", method = RequestMethod.GET)
     public ResponseEntity<?> manejadorConsultarCalculoTodas(@PathVariable("idPaciente") int idPaciente) {
         try {
@@ -328,6 +349,7 @@ public class EntreMenteControllerJuegos {
     } 
     
   //MODIFICAR  
+    @CrossOrigin(origins = "*")
     @RequestMapping(path = "/calculo", method = RequestMethod.POST)
     public ResponseEntity<?> manejadorModificarCalculo(@RequestBody PreguntaCalculo pregunta) {
         try {
@@ -340,6 +362,7 @@ public class EntreMenteControllerJuegos {
     }
     
   //Resultados Adicionar
+    @CrossOrigin(origins = "*")
     @RequestMapping(path = "/resultados/calculo", method = RequestMethod.POST)
     public ResponseEntity<?> manejadorPostAdicionarResultadoCalculo(@RequestBody Resultado resultado) {
         try {
@@ -352,6 +375,7 @@ public class EntreMenteControllerJuegos {
     }
     
   //REsultados Consultar
+    @CrossOrigin(origins = "*")
     @RequestMapping(path = "/resultados/calculo/dia/{idPaciente}/{fechaInicial}/{fechaFinal}", method = RequestMethod.GET)
     public ResponseEntity<?> manejadorGetConsultarResultadoCalculoDia(@PathVariable("idPaciente") int idPaciente, @PathVariable("fechaInicial") String fechaInicial, @PathVariable("fechaFinal") String fechaFinal) {
         try {
@@ -362,6 +386,7 @@ public class EntreMenteControllerJuegos {
         }        
     }
     
+    @CrossOrigin(origins = "*")
     @RequestMapping(path = "/resultados/calculo/mes/{idPaciente}/{fechaInicial}/{fechaFinal}", method = RequestMethod.GET)
     public ResponseEntity<?> manejadorGetConsultarResultadoCalculoMes(@PathVariable("idPaciente") int idPaciente, @PathVariable("fechaInicial") String fechaInicial, @PathVariable("fechaFinal") String fechaFinal) {
         try {
@@ -372,6 +397,7 @@ public class EntreMenteControllerJuegos {
         }        
     }
     
+    @CrossOrigin(origins = "*")
     @RequestMapping(path = "/resultados/calculo/anio/{idPaciente}/{fechaInicial}/{fechaFinal}", method = RequestMethod.GET)
     public ResponseEntity<?> manejadorGetConsultarResultadoCalculoAnio(@PathVariable("idPaciente") int idPaciente, @PathVariable("fechaInicial") String fechaInicial, @PathVariable("fechaFinal") String fechaFinal) {
         try {
@@ -388,7 +414,8 @@ public class EntreMenteControllerJuegos {
     
     
     
-//Juego PERCEPCION    
+//Juego PERCEPCION  
+    @CrossOrigin(origins = "*")
     @RequestMapping(path = "/percepcion/{idPaciente}", method = RequestMethod.GET)
     public ResponseEntity<?> manejadorConsultarPercepcion(@PathVariable("idPaciente") int idPaciente) {
         try {
@@ -400,6 +427,7 @@ public class EntreMenteControllerJuegos {
     } 
     
   //Consultar TODAS
+    @CrossOrigin(origins = "*")
     @RequestMapping(path = "/percepcion/todas/{idPaciente}", method = RequestMethod.GET)
     public ResponseEntity<?> manejadorConsultaPercepcionTodas(@PathVariable("idPaciente") int idPaciente) {
         try {
@@ -411,6 +439,7 @@ public class EntreMenteControllerJuegos {
     } 
     
   //MODIFICAR
+    @CrossOrigin(origins = "*")
     @RequestMapping(path = "/percepcion", method = RequestMethod.POST)
     public ResponseEntity<?> manejadorModificarPercepcion(@RequestBody PreguntaPercepcion pregunta) {
         try {
@@ -424,6 +453,7 @@ public class EntreMenteControllerJuegos {
     
     
    //Resultados Adicionar
+    @CrossOrigin(origins = "*")
     @RequestMapping(path = "/resultados/percepcion", method = RequestMethod.POST)
     public ResponseEntity<?> manejadorPostAdicionarResultadoPercepcion(@RequestBody Resultado resultado) {
         try {
@@ -436,6 +466,7 @@ public class EntreMenteControllerJuegos {
     }
     
   //Resultados COnsultar
+    @CrossOrigin(origins = "*")
     @RequestMapping(path = "/resultados/percepcion/dia/{idPaciente}/{fechaInicial}/{fechaFinal}", method = RequestMethod.GET)
     public ResponseEntity<?> manejadorGetConsultarResultadoPercepcionDia(@PathVariable("idPaciente") int idPaciente, @PathVariable("fechaInicial") String fechaInicial, @PathVariable("fechaFinal") String fechaFinal) {
         try {
@@ -445,7 +476,7 @@ public class EntreMenteControllerJuegos {
             return new ResponseEntity<>(ex.getMessage(), HttpStatus.NOT_FOUND);
         }        
     }
-    
+    @CrossOrigin(origins = "*")
     @RequestMapping(path = "/resultados/percepcion/mes/{idPaciente}/{fechaInicial}/{fechaFinal}", method = RequestMethod.GET)
     public ResponseEntity<?> manejadorGetConsultarResultadoPercepcionMes(@PathVariable("idPaciente") int idPaciente, @PathVariable("fechaInicial") String fechaInicial, @PathVariable("fechaFinal") String fechaFinal) {
         try {
@@ -455,7 +486,7 @@ public class EntreMenteControllerJuegos {
             return new ResponseEntity<>(ex.getMessage(), HttpStatus.NOT_FOUND);
         }        
     }
-    
+    @CrossOrigin(origins = "*")
     @RequestMapping(path = "/resultados/percepcion/anio/{idPaciente}/{fechaInicial}/{fechaFinal}", method = RequestMethod.GET)
     public ResponseEntity<?> manejadorGetConsultarResultadoPercepcionAnio(@PathVariable("idPaciente") int idPaciente, @PathVariable("fechaInicial") String fechaInicial, @PathVariable("fechaFinal") String fechaFinal) {
         try {
@@ -475,6 +506,7 @@ public class EntreMenteControllerJuegos {
     
     
 //Juego MUSICOTERAPIA
+    @CrossOrigin(origins = "*")
     @RequestMapping(path = "/musicoterapia/{idPaciente}", method = RequestMethod.GET)
     public ResponseEntity<?> manejadorConsultarMusicoterapia(@PathVariable("idPaciente") int idPaciente) {
         try {
@@ -485,6 +517,7 @@ public class EntreMenteControllerJuegos {
         }
     } 
    //Consultar TODAS
+    @CrossOrigin(origins = "*")
     @RequestMapping(path = "/musicoterapia/todas/{idPaciente}", method = RequestMethod.GET)
     public ResponseEntity<?> manejadorConsultaMusicoterapiaTodas(@PathVariable("idPaciente") int idPaciente) {
         try {
@@ -495,6 +528,7 @@ public class EntreMenteControllerJuegos {
         }
     }
    //MODIFICAR
+    @CrossOrigin(origins = "*")
     @RequestMapping(path = "/musicoterapia", method = RequestMethod.POST)
     public ResponseEntity<?> manejadorModificarMusicoterapia(@RequestBody PreguntaMusicoterapia pregunta) {
         try {
@@ -507,6 +541,7 @@ public class EntreMenteControllerJuegos {
     } 
     
    //Resultados Adicionar
+    @CrossOrigin(origins = "*")
     @RequestMapping(path = "/resultados/musicoterapia", method = RequestMethod.POST)
     public ResponseEntity<?> manejadorPostAdicionarResultadoMusicoTerapia(@RequestBody Resultado resultado) {
         try {
@@ -519,6 +554,7 @@ public class EntreMenteControllerJuegos {
     }
     
   //Resultados Consultar
+    @CrossOrigin(origins = "*")
     @RequestMapping(path = "/resultados/musicoterapia/dia/{idPaciente}/{fechaInicial}/{fechaFinal}", method = RequestMethod.GET)
     public ResponseEntity<?> manejadorGetConsultarResultadoMusicoterapiaDia(@PathVariable("idPaciente") int idPaciente, @PathVariable("fechaInicial") String fechaInicial, @PathVariable("fechaFinal") String fechaFinal) {
         try {
@@ -528,7 +564,7 @@ public class EntreMenteControllerJuegos {
             return new ResponseEntity<>(ex.getMessage(), HttpStatus.NOT_FOUND);
         }        
     }
-    
+    @CrossOrigin(origins = "*")
     @RequestMapping(path = "/resultados/musicoterapia/mes/{idPaciente}/{fechaInicial}/{fechaFinal}", method = RequestMethod.GET)
     public ResponseEntity<?> manejadorGetConsultarResultadoMusicoterapiaMes(@PathVariable("idPaciente") int idPaciente, @PathVariable("fechaInicial") String fechaInicial, @PathVariable("fechaFinal") String fechaFinal) {
         try {
@@ -538,7 +574,7 @@ public class EntreMenteControllerJuegos {
             return new ResponseEntity<>(ex.getMessage(), HttpStatus.NOT_FOUND);
         }        
     }
-    
+    @CrossOrigin(origins = "*")
     @RequestMapping(path = "/resultados/musicoterapia/anio/{idPaciente}/{fechaInicial}/{fechaFinal}", method = RequestMethod.GET)
     public ResponseEntity<?> manejadorGetConsultarResultadoMusicoterapiaAnio(@PathVariable("idPaciente") int idPaciente, @PathVariable("fechaInicial") String fechaInicial, @PathVariable("fechaFinal") String fechaFinal) {
         try {
@@ -549,6 +585,7 @@ public class EntreMenteControllerJuegos {
         }        
     } 
    //Adicionar Pregunta musicoterapia
+    @CrossOrigin(origins = "*")
     @RequestMapping(path = "/musicoterapia/{idPaciente}", method = RequestMethod.POST)
     public ResponseEntity<?> manejadorPostAdicionarPreguntaMusicoTerapia(@RequestBody PreguntaMusicoterapia pregunta, @PathVariable("idPaciente") int idPaciente) throws PersistenceException {
         try {
@@ -570,6 +607,7 @@ public class EntreMenteControllerJuegos {
     
     
  //Juego QUEUSAR   
+    @CrossOrigin(origins = "*")
     @RequestMapping(path = "/queUsar/{idPaciente}", method = RequestMethod.GET)
     public ResponseEntity<?> manejadorConsultarQueUsar(@PathVariable("idPaciente") int idPaciente) {
         try {
@@ -581,6 +619,7 @@ public class EntreMenteControllerJuegos {
     }  
     
   //Consutlar TODAS
+    @CrossOrigin(origins = "*")
     @RequestMapping(path = "/queUsar/todas/{idPaciente}", method = RequestMethod.GET)
     public ResponseEntity<?> manejadorConsultarQueUsarTodas(@PathVariable("idPaciente") int idPaciente) {
         try {
@@ -592,6 +631,7 @@ public class EntreMenteControllerJuegos {
     }
     
   //MODIFICAR
+    @CrossOrigin(origins = "*")
     @RequestMapping(path = "/queUsar", method = RequestMethod.POST)
     public ResponseEntity<?> manejadorModificarQueUsar(@RequestBody PreguntaQueUsar pregunta) {
         try {
@@ -603,6 +643,7 @@ public class EntreMenteControllerJuegos {
         }
     }
   //Resultados Adicionar
+    @CrossOrigin(origins = "*")
     @RequestMapping(path = "/resultados/queUsar", method = RequestMethod.POST)
     public ResponseEntity<?> manejadorPostAdicionarResultadoQueUsar(@RequestBody Resultado resultado) {
         try {
@@ -615,6 +656,7 @@ public class EntreMenteControllerJuegos {
     }
     
   //Resultados Consultar
+    @CrossOrigin(origins = "*")
     @RequestMapping(path = "/resultados/queUsar/dia/{idPaciente}/{fechaInicial}/{fechaFinal}", method = RequestMethod.GET)
     public ResponseEntity<?> manejadorGetConsultarResultadoQueUsarsDia(@PathVariable("idPaciente") int idPaciente, @PathVariable("fechaInicial") String fechaInicial, @PathVariable("fechaFinal") String fechaFinal) {
         try {
@@ -624,7 +666,7 @@ public class EntreMenteControllerJuegos {
             return new ResponseEntity<>(ex.getMessage(), HttpStatus.NOT_FOUND);
         }        
     }
-    
+    @CrossOrigin(origins = "*")
     @RequestMapping(path = "/resultados/queUsar/mes/{idPaciente}/{fechaInicial}/{fechaFinal}", method = RequestMethod.GET)
     public ResponseEntity<?> manejadorGetConsultarResultadoQueUsarMes(@PathVariable("idPaciente") int idPaciente, @PathVariable("fechaInicial") String fechaInicial, @PathVariable("fechaFinal") String fechaFinal) {
         try {
@@ -634,7 +676,7 @@ public class EntreMenteControllerJuegos {
             return new ResponseEntity<>(ex.getMessage(), HttpStatus.NOT_FOUND);
         }        
     }
-    
+    @CrossOrigin(origins = "*")
     @RequestMapping(path = "/resultados/queUsar/anio/{idPaciente}/{fechaInicial}/{fechaFinal}", method = RequestMethod.GET)
     public ResponseEntity<?> manejadorGetConsultarResultadoQueUsarAnio(@PathVariable("idPaciente") int idPaciente, @PathVariable("fechaInicial") String fechaInicial, @PathVariable("fechaFinal") String fechaFinal) {
         try {

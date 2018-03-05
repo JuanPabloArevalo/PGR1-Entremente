@@ -5,10 +5,11 @@
  */
 
 var apiclientRegistrarPersonalSalud = (function(){
+    var equipoBackEnd = "http://54.186.163.136:8087";
     return{
         adicionarPersonalSalud(nombres,apellidos,tipoDocumento,documentoIdentidad,nombreUsuario,password,correo,rol){
             return $.ajax({
-                url: "/entremente/V1/personalSalud",
+                url: equipoBackEnd+"/entremente/V1/personalSalud",
                 type: "POST",
                 data: '{"nombres":"'+nombres+'","apellidos":"'+apellidos+'", "documentoIdentidad":"'+documentoIdentidad+'","nombreUsuario":"'+nombreUsuario+'","password":"'+password+'","tipoDocumento":"'+tipoDocumento+'","correo":"'+correo+'","rol":"'+rol+'" }',
                 contentType: "application/json"

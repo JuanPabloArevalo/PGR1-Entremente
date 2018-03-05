@@ -5,10 +5,11 @@
  */
 
 var apiclientRegistrarFamiliar = (function(){
+    var equipoBackEnd = "http://54.186.163.136:8087";
     return{
         adicionarFamiliar(nombres,apellidos,tipoDocumento,documentoIdentidad,nombreUsuario,password,correo){
             return $.ajax({
-                url: "/entremente/V1/familiares",
+                url: equipoBackEnd+"/entremente/V1/familiares",
                 type: "POST",
                 data: '{"nombres":"'+nombres+'","apellidos":"'+apellidos+'", "documentoIdentidad":"'+documentoIdentidad+'","nombreUsuario":"'+nombreUsuario+'","password":"'+password+'","tipoDocumento":"'+tipoDocumento+'","correo":"'+correo+'"}',
                 contentType: "application/json"

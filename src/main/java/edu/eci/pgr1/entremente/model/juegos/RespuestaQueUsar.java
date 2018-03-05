@@ -10,6 +10,9 @@ package edu.eci.pgr1.entremente.model.juegos;
  * @author JuanArevaloMerchan
  */
 public class RespuestaQueUsar {
+    public static final String CORRECTA = "S";
+    public static final String INCORRECTA = "N";
+    
     private String opcion;
     private String respuestaCorrecta;
     

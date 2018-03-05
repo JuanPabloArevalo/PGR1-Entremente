@@ -5,10 +5,12 @@
  */
 
 var apiclientPerfilPaciente = (function(){
+    var equipoBackEnd = "http://54.186.163.136:8087";
+    
     return{
         getSolicitudesPendientes(id,nombres,apellidos,documentoIdentidad,nombreUsuario,tipoDocumento,correo){
             return $.ajax({
-                url:  "/entremente/V1/pacientes/relaciones/familiares/pendientes",
+                url:  equipoBackEnd+"/entremente/V1/pacientes/relaciones/familiares/pendientes",
                 type: "POST",                
                 data: '{"id":'+id+' ,"nombres":"'+nombres+'","apellidos":"'+apellidos+'", "documentoIdentidad":"'+documentoIdentidad+'","nombreUsuario":"'+nombreUsuario+'","password":"","tipoDocumento":"'+tipoDocumento+'","correo":"'+correo+'"}',
                 contentType: "application/json"
@@ -16,18 +18,18 @@ var apiclientPerfilPaciente = (function(){
         },
         getSolicitudesAceptadas(id,nombres,apellidos,documentoIdentidad,nombreUsuario,tipoDocumento,correo){
             return $.ajax({
-                url:  "/entremente/V1/pacientes/relaciones/familiares/aceptadas",
+                url:  equipoBackEnd+"/entremente/V1/pacientes/relaciones/familiares/aceptadas",
                 type: "POST",
                 data: '{"id":'+id+' ,"nombres":"'+nombres+'","apellidos":"'+apellidos+'", "documentoIdentidad":"'+documentoIdentidad+'","nombreUsuario":"'+nombreUsuario+'","password":"","tipoDocumento":"'+tipoDocumento+'","correo":"'+correo+'"}',
                 contentType: "application/json"
             });
         },
         getBusquedaFamiliares(dato){
-            return $.get("/entremente/V1/familiares/"+dato);  
+            return $.get(equipoBackEnd+"/entremente/V1/familiares/"+dato);  
         },
         aceptarSolicitud(id, idPaciente, idFamiliar){
             return $.ajax({
-                url:  "/entremente/V1/familiares/relaciones/pacientes",
+                url:  equipoBackEnd+"/entremente/V1/familiares/relaciones/pacientes",
                 type: "PUT",
                 data: '{"id":'+id+' ,"idPaciente":'+idPaciente+',"idFamiliar":'+idFamiliar+', "estado":"","relacion":""}',
                 contentType: "application/json"
@@ -35,7 +37,7 @@ var apiclientPerfilPaciente = (function(){
         },
         eliminarSolicitud(id, idPaciente, idFamiliar){
             return $.ajax({
-                url:  "/entremente/V1/familiares/relaciones/pacientes",
+                url:  equipoBackEnd+"/entremente/V1/familiares/relaciones/pacientes",
                 type: "DELETE",
                 data: '{"id":'+id+' ,"idPaciente":'+idPaciente+',"idFamiliar":'+idFamiliar+', "estado":"","relacion":""}',
                 contentType: "application/json"
@@ -43,25 +45,25 @@ var apiclientPerfilPaciente = (function(){
         },
         adicionarSolicitud(idPaciente, idFamiliar,relacion){
             return $.ajax({
-                url:  "/entremente/V1/pacientes/relaciones/familiares",
+                url:  equipoBackEnd+"/entremente/V1/pacientes/relaciones/familiares",
                 type: "POST",
                 data: '{"id":0 ,"idPaciente":'+idPaciente+',"idFamiliar":'+idFamiliar+', "estado":"","relacion":"'+relacion+'"}',
                 contentType: "application/json"
             });
         },
         getTodosMensajes(idPaciente){
-            return $.get("/entremente/V1/mensajes/pacientes/"+idPaciente);  
+            return $.get(equipoBackEnd+"/entremente/V1/mensajes/pacientes/"+idPaciente);  
         },
         modificarPaciente(nombres,apellidos,fechaNacimiento,genero,pais,ciudad,direccion,id){
             return $.ajax({
-                url: "/entremente/V1/pacientes",
+                url: equipoBackEnd+"/entremente/V1/pacientes",
                 type: "PUT",
                 data: '{"nombres":"'+nombres+'","apellidos":"'+apellidos+'", "fechaNacimiento":"'+fechaNacimiento+'","genero":"'+genero+'","pais":"'+pais+'","ciudad":"'+ciudad+'","direccion":"'+direccion+'","id":'+id+'}',
                 contentType: "application/json"
             });
         },
         getProgresoPaciente(idPaciente){
-            return $.get("/entremente/V1/pacientes/progresos/"+idPaciente);  
+            return $.get(equipoBackEnd+"/entremente/V1/pacientes/progresos/"+idPaciente);  
         }
       };
     

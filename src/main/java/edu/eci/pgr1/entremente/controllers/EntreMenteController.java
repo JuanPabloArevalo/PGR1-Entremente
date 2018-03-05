@@ -19,6 +19,7 @@ import java.util.logging.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -38,6 +39,7 @@ public class EntreMenteController {
     
     
 ///PACIENTE    
+    @CrossOrigin(origins = "*")
     @RequestMapping(path = "/pacientes", method = RequestMethod.POST)
     public ResponseEntity<?> manejadorPostAdicionarPaciente(@RequestBody Paciente paciente) {
         try {
@@ -48,7 +50,7 @@ public class EntreMenteController {
             return new ResponseEntity<>(ex.getMessage(), HttpStatus.NOT_FOUND);
         }        
     }
-    
+    @CrossOrigin(origins = "*")
     @RequestMapping(path = "/pacientes", method = RequestMethod.PUT)
     public ResponseEntity<?> manejadorPUTModificarPaciente(@RequestBody Paciente paciente) {
         try {
@@ -60,6 +62,7 @@ public class EntreMenteController {
         }        
     }
     
+    @CrossOrigin(origins = "*")
     @RequestMapping(path = "/pacientes/{usuario}/{password}", method = RequestMethod.GET)
     public ResponseEntity<?> manejadorIniciarPaciente(@PathVariable("usuario") String nombreU, @PathVariable("password") String password) {
         try {
@@ -69,7 +72,7 @@ public class EntreMenteController {
             return new ResponseEntity<>(ex.getMessage(), HttpStatus.NOT_FOUND);
         }
     }
-    
+    @CrossOrigin(origins = "*")
     @RequestMapping(path = "/pacientes/{dato}", method = RequestMethod.GET)
     public ResponseEntity<?> manejadorIniciarPaciente(@PathVariable("dato") String dato) {
         try {
@@ -79,7 +82,7 @@ public class EntreMenteController {
             return new ResponseEntity<>(ex.getMessage(), HttpStatus.NOT_FOUND);
         }
     }
-    
+    @CrossOrigin(origins = "*")
     @RequestMapping(path = "/pacientes/progresos/{idPaciente}", method = RequestMethod.GET)
     public ResponseEntity<?> manejadorConsultarProgresoPaciente(@PathVariable("idPaciente") int idPaciente) {
         try {
@@ -89,7 +92,7 @@ public class EntreMenteController {
             return new ResponseEntity<>(ex.getMessage(), HttpStatus.NOT_FOUND);
         }
     }
-    
+    @CrossOrigin(origins = "*")
     @RequestMapping(path = "/pacientes/relaciones/familiares/pendientes", method = RequestMethod.POST)
     public ResponseEntity<?> manejadorGetRelacionesPendientesFamiliaresDesdePaciente(@RequestBody Paciente paciente) {
         try {
@@ -99,7 +102,7 @@ public class EntreMenteController {
             return new ResponseEntity<>(ex.getMessage(), HttpStatus.NOT_FOUND);
         }        
     }
-    
+    @CrossOrigin(origins = "*")
     @RequestMapping(path = "/pacientes/relaciones/familiares/aceptadas", method = RequestMethod.POST)
     public ResponseEntity<?> manejadorGetRelacionesAceptadasFamiliaresDesdePaciente(@RequestBody Paciente paciente) {
         try {
@@ -109,7 +112,7 @@ public class EntreMenteController {
             return new ResponseEntity<>(ex.getMessage(), HttpStatus.NOT_FOUND);
         }        
     }
-    
+    @CrossOrigin(origins = "*")
     @RequestMapping(path = "/pacientes/relaciones/familiares", method = RequestMethod.POST)
     public ResponseEntity<?> manejadorRelacionesAdicionarRelacionDesdePaciente(@RequestBody Relacion relacion) {
         try {
@@ -120,7 +123,7 @@ public class EntreMenteController {
             return new ResponseEntity<>(ex.getMessage(), HttpStatus.NOT_FOUND);
         }    
     }
-    
+    @CrossOrigin(origins = "*")
     @RequestMapping(path = "/pacientes/relaciones/personalSalud", method = RequestMethod.POST)
     public ResponseEntity<?> manejadorRelacionesAdicionarRelacionDesdePacienteSalud(@RequestBody Relacion relacion) {
         try {
@@ -131,7 +134,7 @@ public class EntreMenteController {
             return new ResponseEntity<>(ex.getMessage(), HttpStatus.NOT_FOUND);
         }    
     }
-    
+    @CrossOrigin(origins = "*")
     @RequestMapping(path = "/pacientes/relaciones/personalSalud/pendientes", method = RequestMethod.POST)
     public ResponseEntity<?> manejadorGetRelacionesPendientesSaludDesdePaciente(@RequestBody Paciente paciente) {
         try {
@@ -141,7 +144,7 @@ public class EntreMenteController {
             return new ResponseEntity<>(ex.getMessage(), HttpStatus.NOT_FOUND);
         }        
     }
-    
+    @CrossOrigin(origins = "*")
     @RequestMapping(path = "/pacientes/relaciones/personalSalud/aceptadas", method = RequestMethod.POST)
     public ResponseEntity<?> manejadorGetRelacionesAceptadasSaludDesdePaciente(@RequestBody Paciente paciente) {
         try {
@@ -152,7 +155,8 @@ public class EntreMenteController {
         }        
     }
 
-//FAMILIARES    
+//FAMILIARES  
+    @CrossOrigin(origins = "*")
     @RequestMapping(path = "/familiares", method = RequestMethod.POST)
     public ResponseEntity<?> manejadorPostAdicionarFamiliar(@RequestBody Familiar familiar) {
         try {
@@ -163,7 +167,7 @@ public class EntreMenteController {
             return new ResponseEntity<>(ex.getMessage(), HttpStatus.NOT_FOUND);
         }        
     }
-    
+    @CrossOrigin(origins = "*")
     @RequestMapping(path = "/familiares", method = RequestMethod.PUT)
     public ResponseEntity<?> manejadorPUTModificarFamiliar(@RequestBody Familiar familiar) {
         try {
@@ -174,7 +178,7 @@ public class EntreMenteController {
             return new ResponseEntity<>(ex.getMessage(), HttpStatus.NOT_FOUND);
         }        
     }
-    
+    @CrossOrigin(origins = "*")
     @RequestMapping(path = "/familiares/{usuario}/{password}", method = RequestMethod.GET)
     public ResponseEntity<?> manejadorIniciarFamiliar(@PathVariable("usuario") String nombreU, @PathVariable("password") String password) {
         try {
@@ -184,7 +188,7 @@ public class EntreMenteController {
             return new ResponseEntity<>(ex.getMessage(), HttpStatus.NOT_FOUND);
         }
     }
-    
+    @CrossOrigin(origins = "*")
     @RequestMapping(path = "/familiares/relaciones/pacientes/pendientes", method = RequestMethod.POST)
     public ResponseEntity<?> manejadorGetRelacionesFamliaresPacientesPendientes(@RequestBody Familiar familiar) {
         try {
@@ -194,7 +198,7 @@ public class EntreMenteController {
             return new ResponseEntity<>(ex.getMessage(), HttpStatus.NOT_FOUND);
         }        
     }
-    
+    @CrossOrigin(origins = "*")
     @RequestMapping(path = "/familiares/relaciones/pacientes/aceptadas", method = RequestMethod.POST)
     public ResponseEntity<?> manejadorGetRelacionesFamliaresPacientesAceptadas(@RequestBody Familiar familiar) {
         try {
@@ -204,7 +208,7 @@ public class EntreMenteController {
             return new ResponseEntity<>(ex.getMessage(), HttpStatus.NOT_FOUND);
         }        
     }
-    
+    @CrossOrigin(origins = "*")
     @RequestMapping(path = "/familiares/relaciones/pacientes", method = RequestMethod.PUT)
     public ResponseEntity<?> manejadorRelacionesFamliaresPacientesAceptadar(@RequestBody Relacion relacion) {
         try {
@@ -215,7 +219,7 @@ public class EntreMenteController {
             return new ResponseEntity<>(ex.getMessage(), HttpStatus.NOT_FOUND);
         }    
     }
-    
+    @CrossOrigin(origins = "*")
     @RequestMapping(path = "/familiares/relaciones/pacientes", method = RequestMethod.DELETE)
     public ResponseEntity<?> manejadorRelacionesFamliaresPacientesEliminar(@RequestBody Relacion relacion) {
         try {
@@ -226,7 +230,7 @@ public class EntreMenteController {
             return new ResponseEntity<>(ex.getMessage(), HttpStatus.NOT_FOUND);
         }    
     }
-    
+    @CrossOrigin(origins = "*")
     @RequestMapping(path = "/familiares/relaciones/pacientes", method = RequestMethod.POST)
     public ResponseEntity<?> manejadorRelacionesFamliaresPacientesAdicionar(@RequestBody Relacion relacion) {
         try {
@@ -237,7 +241,7 @@ public class EntreMenteController {
             return new ResponseEntity<>(ex.getMessage(), HttpStatus.NOT_FOUND);
         }    
     }
-    
+    @CrossOrigin(origins = "*")
     @RequestMapping(path = "/familiares/{dato}", method = RequestMethod.GET)
     public ResponseEntity<?> manejadorConsultarFamliares(@PathVariable("dato") String dato) {
         try {
@@ -252,6 +256,7 @@ public class EntreMenteController {
     
     
 //PERSONAL SALUD 
+    @CrossOrigin(origins = "*")
     @RequestMapping(path = "/personalSalud", method = RequestMethod.POST)
     public ResponseEntity<?> manejadorPostAdicionarPersonalSalud(@RequestBody PersonalSalud personalSalud) {
         try {
@@ -262,7 +267,7 @@ public class EntreMenteController {
             return new ResponseEntity<>(ex.getMessage(), HttpStatus.NOT_FOUND);
         }        
     }
-    
+    @CrossOrigin(origins = "*")
     @RequestMapping(path = "/personalSalud", method = RequestMethod.PUT)
     public ResponseEntity<?> manejadorPUTModificarPersonalSalud(@RequestBody PersonalSalud personalSalud) {
         try {
@@ -273,7 +278,7 @@ public class EntreMenteController {
             return new ResponseEntity<>(ex.getMessage(), HttpStatus.NOT_FOUND);
         }        
     }
-    
+    @CrossOrigin(origins = "*")
     @RequestMapping(path = "/personalSalud/{usuario}/{password}", method = RequestMethod.GET)
     public ResponseEntity<?> manejadorIniciarPersonalSalud(@PathVariable("usuario") String nombreU, @PathVariable("password") String password) {
         try {
@@ -283,7 +288,7 @@ public class EntreMenteController {
             return new ResponseEntity<>(ex.getMessage(), HttpStatus.NOT_FOUND);
         }
     }   
-    
+    @CrossOrigin(origins = "*")
     @RequestMapping(path = "/personalSalud/relaciones/pacientes/pendientes", method = RequestMethod.POST)
     public ResponseEntity<?> manejadorGetRelacionesSaludPacientesPendientes(@RequestBody PersonalSalud personalSalud) {
 //        System.out.println("Entro Pendientes");
@@ -294,7 +299,7 @@ public class EntreMenteController {
             return new ResponseEntity<>(ex.getMessage(), HttpStatus.NOT_FOUND);
         }        
     }
-    
+    @CrossOrigin(origins = "*")
     @RequestMapping(path = "/personalSalud/relaciones/pacientes/aceptadas", method = RequestMethod.POST)
     public ResponseEntity<?> manejadorGetRelacionesSaludPacientesAceptadas(@RequestBody PersonalSalud personalSalud) {
 //        System.out.println("Entro Aceptadas");
@@ -305,7 +310,7 @@ public class EntreMenteController {
             return new ResponseEntity<>(ex.getMessage(), HttpStatus.NOT_FOUND);
         }        
     }
-    
+    @CrossOrigin(origins = "*")
     @RequestMapping(path = "/personalSalud/relaciones/pacientes", method = RequestMethod.POST)
     public ResponseEntity<?> manejadorRelacionesSaludPacientesAdicionar(@RequestBody Relacion relacion) {
         try {
@@ -316,7 +321,7 @@ public class EntreMenteController {
             return new ResponseEntity<>(ex.getMessage(), HttpStatus.NOT_FOUND);
         }    
     }
-    
+    @CrossOrigin(origins = "*")
     @RequestMapping(path = "/personalSalud/relaciones/pacientes", method = RequestMethod.PUT)
     public ResponseEntity<?> manejadorRelacionesSaludPacientesAceptadar(@RequestBody Relacion relacion) {
         try {
@@ -327,7 +332,7 @@ public class EntreMenteController {
             return new ResponseEntity<>(ex.getMessage(), HttpStatus.NOT_FOUND);
         }    
     }
-    
+    @CrossOrigin(origins = "*")
     @RequestMapping(path = "/personalSalud/relaciones/pacientes", method = RequestMethod.DELETE)
     public ResponseEntity<?> manejadorRelacionesSaludPacientesEliminar(@RequestBody Relacion relacion) {
         try {
@@ -338,7 +343,7 @@ public class EntreMenteController {
             return new ResponseEntity<>(ex.getMessage(), HttpStatus.NOT_FOUND);
         }    
     }
-    
+    @CrossOrigin(origins = "*")
     @RequestMapping(path = "/personalSalud/{dato}", method = RequestMethod.GET)
     public ResponseEntity<?> manejadorConsultarSalud(@PathVariable("dato") String dato) {
         try {
@@ -349,7 +354,8 @@ public class EntreMenteController {
         }
     }
     
-//MENSAJES    
+//MENSAJES   
+    @CrossOrigin(origins = "*")
     @RequestMapping(path = "/mensajes", method = RequestMethod.POST)
     public ResponseEntity<?> manejadorMensajesAdicionar(@RequestBody Mensaje mensaje) {
         try {
@@ -361,7 +367,7 @@ public class EntreMenteController {
             return new ResponseEntity<>(ex.getMessage(), HttpStatus.NOT_FOUND);
         }    
     }
-    
+    @CrossOrigin(origins = "*")
     @RequestMapping(path = "/mensajes/", method = RequestMethod.DELETE)
     public ResponseEntity<?> manejadorMensajesEliminar(@RequestBody Mensaje mensaje) {
         try {
@@ -372,7 +378,7 @@ public class EntreMenteController {
             return new ResponseEntity<>(ex.getMessage(), HttpStatus.NOT_FOUND);
         }    
     }
-    
+    @CrossOrigin(origins = "*")
     @RequestMapping(path = "/mensajes/pacientes/{idPaciente}", method = RequestMethod.GET)
     public ResponseEntity<?> manejadorConsultarMensajes(@PathVariable("idPaciente") int idPaciente) {
         try {
@@ -382,7 +388,7 @@ public class EntreMenteController {
             return new ResponseEntity<>(ex.getMessage(), HttpStatus.NOT_FOUND);
         }
     }
-    
+    @CrossOrigin(origins = "*")
     @RequestMapping(path = "/mensajes/otros/{idPaciente}", method = RequestMethod.GET)
     public ResponseEntity<?> manejadorConsultarTodosMensajes(@PathVariable("idPaciente") int idPaciente) {
         try {
@@ -394,7 +400,8 @@ public class EntreMenteController {
     }
     
     
-//Historial Médico    
+//Historial Médico 
+    @CrossOrigin(origins = "*")
     @RequestMapping(path = "/historialMedico", method = RequestMethod.POST)
     public ResponseEntity<?> manejadorHisotrialMedicoAdicionar(@RequestBody HistorialMedico historialMedico) {
         try {
@@ -406,7 +413,7 @@ public class EntreMenteController {
             return new ResponseEntity<>(ex.getMessage(), HttpStatus.NOT_FOUND);
         }    
     }
-    
+    @CrossOrigin(origins = "*")
     @RequestMapping(path = "/historialMedico", method = RequestMethod.DELETE)
     public ResponseEntity<?> manejadorHistorialMedicoEliminar(@RequestBody HistorialMedico historialMedico) {
         try {
@@ -417,7 +424,7 @@ public class EntreMenteController {
             return new ResponseEntity<>(ex.getMessage(), HttpStatus.NOT_FOUND);
         }    
     }
-    
+    @CrossOrigin(origins = "*")
     @RequestMapping(path = "/historialMedico/{idPaciente}", method = RequestMethod.GET)
     public ResponseEntity<?> manejadorConsultarHistorialMedico(@PathVariable("idPaciente") int idPaciente) {
         try {
@@ -427,7 +434,7 @@ public class EntreMenteController {
             return new ResponseEntity<>(ex.getMessage(), HttpStatus.NOT_FOUND);
         }
     }
-    
+    @CrossOrigin(origins = "*")
     @RequestMapping(path = "/enfermedades", method = RequestMethod.GET)
     public ResponseEntity<?> manejadorEnfermedadesCargar() {
         try {

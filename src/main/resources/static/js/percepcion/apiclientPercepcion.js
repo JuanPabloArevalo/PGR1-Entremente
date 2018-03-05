@@ -8,9 +8,10 @@ var mockdata=[];
 var arreglo;
 
 var apiclientPercepcion = (function(){
+    var equipoBackEnd = "http://54.186.163.136:8087";
     return{
         cargarPreguntas(idPaciente, nivel, callback){
-            var promesa2 = $.get("/entremente/V1/juegos/percepcion/"+idPaciente);
+            var promesa2 = $.get(equipoBackEnd+"/entremente/V1/juegos/percepcion/"+idPaciente);
             promesa2.then(
                 function () { 
                     mockdata[1] = promesa2.responseJSON[0];
@@ -52,18 +53,18 @@ var apiclientPercepcion = (function(){
         },
         enviarResultados(idPaciente, fecha, acertadas, erroneas, tiempo, nivelMaximo){
             return $.ajax({
-                url:  "/entremente/V1/juegos/resultados/percepcion",
+                url:  equipoBackEnd+"/entremente/V1/juegos/resultados/percepcion",
                 type: "POST",
                 data: '{"idPaciente":"'+idPaciente+'" ,"fecha":"'+fecha+'","acertadas":'+acertadas+', "erroneas":'+erroneas+',"tiempo":'+tiempo+',"nivelMaximo":'+nivelMaximo+'}',
                 contentType: "application/json"
             });
         },
         getTodasPreguntas(idPaciente){
-            return $.get("/entremente/V1/juegos/percepcion/todas/"+idPaciente);;
+            return $.get(equipoBackEnd+"/entremente/V1/juegos/percepcion/todas/"+idPaciente);;
         },
         modificarPregunta(id, nivelPersonalizado, estado){
             return $.ajax({
-                url:  "/entremente/V1/juegos/percepcion",
+                url:  equipoBackEnd+"/entremente/V1/juegos/percepcion",
                 type: "POST",
                 data: '{"id":'+id+' ,"nivel":'+nivelPersonalizado+',"estado":"'+estado+'"}',
                 contentType: "application/json"
