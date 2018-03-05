@@ -14,7 +14,7 @@ var appQueUsar = (function () {
     var opcionesQueTieneQueSeleccionar = 0;
     var nivelMaximoAlcanzado = nivel;
     var llegoNivelMaximo = false;
-    var apiclientQueUsar = apimockQueUsar;
+//    var apiclientQueUsar = apiclientQueUsar;
     var respuestasSeleccionadas = [];
     var nivelAPartirCambia = 3;
 
