@@ -61,11 +61,12 @@ public class JuegoQueUsarRepositoryDatabase implements JuegoQueUsarRepository{
                 pregunta.setIdPregunta(idPregunta);
                 pregunta.setEstado(PreguntaQueUsar.ESTADOACTIVO);
                 
+                respuestas = new HashSet<>();
                 //Respuestas Correctas
                 preparedStatementResp = connect.prepareStatement("SELECT * FROM RESPUESTASQUEUSAR RQU WHERE idPregunta = '"+idPregunta+"' AND ESCORRECTA = '"+RespuestaQueUsar.CORRECTA+"' ORDER BY RAND() LIMIT 2");
                 resultadoResp = preparedStatementResp.executeQuery();
                 while(resultadoResp.next()){
-                    respuestas = new HashSet<>();
+                    
                     respuesta = new RespuestaQueUsar();
                     respuesta.setOpcion(resultadoResp.getString("RQU.imagen"));
                     respuesta.setRespuestaCorrecta(RespuestaQueUsar.CORRECTA);
@@ -74,10 +75,9 @@ public class JuegoQueUsarRepositoryDatabase implements JuegoQueUsarRepository{
                 }
                 
                 //Respuestas Incorrectas
-                preparedStatementResp = connect.prepareStatement("SELECT * FROM RESPUESTASQUEUSAR WHERE idPregunta = '"+idPregunta+"' AND ESCORRECTA = '"+RespuestaQueUsar.INCORRECTA+"' ORDER BY RAND() LIMIT 2");
+                preparedStatementResp = connect.prepareStatement("SELECT * FROM RESPUESTASQUEUSAR RQU WHERE idPregunta = '"+idPregunta+"' AND ESCORRECTA = '"+RespuestaQueUsar.INCORRECTA+"' ORDER BY RAND() LIMIT 2");
                 resultadoResp = preparedStatementResp.executeQuery();
                 while(resultadoResp.next()){
-                    respuestas = new HashSet<>();
                     respuesta = new RespuestaQueUsar();
                     respuesta.setOpcion(resultadoResp.getString("RQU.imagen"));
                     respuesta.setRespuestaCorrecta(RespuestaQueUsar.CORRECTA);

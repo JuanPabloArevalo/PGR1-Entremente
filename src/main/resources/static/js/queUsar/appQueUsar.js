@@ -150,6 +150,8 @@ var appQueUsar = (function () {
 
 
             apiclientQueUsar.cargarPreguntas(sessionStorage.getItem("id"), nivel, function (preguntaToda) {
+                console.info(preguntaToda);
+                
                 pregunta = preguntaToda;
                 opcionesQueTieneQueSeleccionar = 0;
                 for (var i = 0; i < 4; i++) {
@@ -157,7 +159,7 @@ var appQueUsar = (function () {
                         opcionesQueTieneQueSeleccionar++;
                     }
                 }
-
+                   
                 opcionesSeleccionadas = 0;
                 $("#idNivel").text(nivel);
                 $("#idCantidadPreguntasBien").text(preguntasCorrectasTemporales);
@@ -167,6 +169,7 @@ var appQueUsar = (function () {
                 preguntaToda.respuestas = preguntaToda.respuestas.sort(function () {
                     return Math.random() - 0.5;
                 });
+                console.info("aca 2");
                 for (var i = 0; i < 4; i++) {
                     var idP = "#idImagen" + i;
                     $("#idImagen" + i).attr("src", preguntaToda.respuestas[i].opcion);

@@ -747,12 +747,12 @@ var perfilFamiliar = (function () {
                             tiempo[i] = datos[i].tiempo;
                             nivel[i] = datos[i].nivelMaximo;
                         }
-                        inicializarElementosRutinasResultado();
-                        datos.map(adicionarFilaRutinasResultado);
-                        diagramaRutinas.cargarAcertadas(acertadas, fecha);
-                        diagramaRutinas.cargarErroneas(erroneas, fecha);
-                        diagramaRutinas.cargarTiempo(tiempo, fecha);
-                        diagramaRutinas.cargarNivelMaximo(nivel, fecha);
+                        inicializarElementosQueUsarResultado();
+                        datos.map(adicionarFilaQueUsarResultado);
+                        diagramaQueUsar.cargarAcertadas(acertadas, fecha);
+                        diagramaQueUsar.cargarErroneas(erroneas, fecha);
+                        diagramaQueUsar.cargarTiempo(tiempo, fecha);
+                        diagramaQueUsar.cargarNivelMaximo(nivel, fecha);
                     },
                     function (dato) {
                         alert(dato.responseText);
