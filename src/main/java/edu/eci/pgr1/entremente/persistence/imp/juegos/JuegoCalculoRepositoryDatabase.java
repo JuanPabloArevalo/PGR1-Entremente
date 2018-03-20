@@ -28,7 +28,7 @@ import org.springframework.stereotype.Service;
  *
  * @author JuanArevaloMerchan
  */
-@Service
+//@Service
 public class JuegoCalculoRepositoryDatabase implements JuegoCalculoRepository{
     private Connection connect = null;
     private Statement statement = null;
