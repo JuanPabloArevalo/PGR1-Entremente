@@ -157,15 +157,15 @@ public class JuegoCalculoRepositoryRandom implements JuegoCalculoRepository{
             respuestaA.setRespuestaCorrecta("S");
             switch (operacion) {
                 case OPERACION_SUMA:
-                    pregunta.setOperacion(operandos.operando1+" + "+operandos.operando2);
+                    pregunta.setOperacion(operandos.operando1+"+"+operandos.operando2);
                     respuestaCorrecta = operandos.operando1+operandos.operando2;
                     break;
                 case OPERACION_RESTA:
-                    pregunta.setOperacion(operandos.operando1+" - "+operandos.operando2);
+                    pregunta.setOperacion(operandos.operando1+"-"+operandos.operando2);
                     respuestaCorrecta = operandos.operando1-operandos.operando2;
                     break;
                 case OPERACION_MULTIPLICACION:
-                    pregunta.setOperacion(operandos.operando1+" X "+operandos.operando2);
+                    pregunta.setOperacion(operandos.operando1+"X"+operandos.operando2);
                     respuestaCorrecta = operandos.operando1*operandos.operando2;
                     break;
                 default:
@@ -236,19 +236,19 @@ public class JuegoCalculoRepositoryRandom implements JuegoCalculoRepository{
             respuestaA.setRespuestaCorrecta("S");
             switch (operacion) {
                 case OPERACION_SUMA:
-                    pregunta.setOperacion(operandos.operando1+" + "+operandos.operando2);
+                    pregunta.setOperacion(operandos.operando1+"+"+operandos.operando2);
                     respuestaCorrecta = operandos.operando1+operandos.operando2;
                     break;
                 case OPERACION_RESTA:
-                    pregunta.setOperacion(operandos.operando1+" - "+operandos.operando2);
+                    pregunta.setOperacion(operandos.operando1+"-"+operandos.operando2);
                     respuestaCorrecta = operandos.operando1-operandos.operando2;
                     break;
                 case OPERACION_MULTIPLICACION:
-                    pregunta.setOperacion(operandos.operando1+" X "+operandos.operando2);
+                    pregunta.setOperacion(operandos.operando1+"X"+operandos.operando2);
                     respuestaCorrecta = operandos.operando1*operandos.operando2;
                     break;
                 case OPERACION_DIVISION:
-                    pregunta.setOperacion(operandos.operando1+" / "+operandos.operando2);
+                    pregunta.setOperacion(operandos.operando1+"/"+operandos.operando2);
                     respuestaCorrecta = operandos.operando1*operandos.operando2;
                     break;
                 default:
@@ -318,19 +318,19 @@ public class JuegoCalculoRepositoryRandom implements JuegoCalculoRepository{
             respuestaA.setRespuestaCorrecta("S");
             switch (operacion) {
                 case OPERACION_SUMA:
-                    pregunta.setOperacion(operandos.operando1+" + "+operandos.operando2);
+                    pregunta.setOperacion(operandos.operando1+"+"+operandos.operando2);
                     respuestaCorrecta = operandos.operando1+operandos.operando2;
                     break;
                 case OPERACION_RESTA:
-                    pregunta.setOperacion(operandos.operando1+" - "+operandos.operando2);
+                    pregunta.setOperacion(operandos.operando1+"-"+operandos.operando2);
                     respuestaCorrecta = operandos.operando1-operandos.operando2;
                     break;
                 case OPERACION_MULTIPLICACION:
-                    pregunta.setOperacion(operandos.operando1+" X "+operandos.operando2);
+                    pregunta.setOperacion(operandos.operando1+"X"+operandos.operando2);
                     respuestaCorrecta = operandos.operando1*operandos.operando2;
                     break;
                 case OPERACION_DIVISION:
-                    pregunta.setOperacion(operandos.operando1+" / "+operandos.operando2);
+                    pregunta.setOperacion(operandos.operando1+"/"+operandos.operando2);
                     respuestaCorrecta = operandos.operando1*operandos.operando2;
                     break;
                 default:
