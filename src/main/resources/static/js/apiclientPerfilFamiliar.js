@@ -12,7 +12,8 @@ var apiclientPerfilFamiliar = (function(){
                 url:  equipoBackEnd+"/entremente/V1/familiares/relaciones/pacientes/pendientes",
                 type: "POST",
                 data: '{"id":'+id+' ,"nombres":"'+nombres+'","apellidos":"'+apellidos+'", "documentoIdentidad":"'+documentoIdentidad+'","nombreUsuario":"'+nombreUsuario+'","password":"","tipoDocumento":"'+tipoDocumento+'","correo":"'+correo+'"}',
-                contentType: "application/json"
+                contentType: "application/json",
+                headers: {'Authorization':'Bearer '+sessionStorage.getItem("Token")}
             });
         },
         getSolicitudesAceptadas(id,nombres,apellidos,documentoIdentidad,nombreUsuario,tipoDocumento,correo){

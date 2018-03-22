@@ -67,6 +67,7 @@ var iniciarSesion = (function () {
                     sessionStorage.setItem("password", usuario.password);
                     sessionStorage.setItem("tipoDocumento", usuario.tipoDocumento);
                     sessionStorage.setItem("correo", usuario.correo);
+                    sessionStorage.setItem("Token", usuario.token);
                     alert("Bienvenido, " + usuario.nombres+" "+usuario.apellidos);
                     window.location.href = "perfilFamiliar.html";
                 }); 

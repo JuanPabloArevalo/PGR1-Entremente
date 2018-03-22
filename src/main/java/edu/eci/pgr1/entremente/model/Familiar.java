@@ -19,7 +19,7 @@ public class Familiar {
     private String password;
     private String tipoDocumento;
     private String correo;
-
+    private String token;
     /**
      * Constructor 1
      */
@@ -159,6 +159,20 @@ public class Familiar {
      */
     public void setCorreo(String correo) {
         this.correo = correo;
+    }
+
+    /**
+     * @return the token
+     */
+    public String getToken() {
+        return token;
+    }
+
+    /**
+     * @param token the token to set
+     */
+    public void setToken(String token) {
+        this.token = token;
     }
     
     
