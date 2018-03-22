@@ -75,6 +75,7 @@ public class JuegoCalculoRepositoryRandom implements JuegoCalculoRepository{
         Operandos operandos;
         int operacion;
         long respuestaCorrecta = 0;
+        long respuestaOpuesta = 0;
         Respuestas respuestasIn;
         for(int i=0; i<11; i++){
             operandos = getOperandosAleatorioNivel1();
@@ -91,23 +92,24 @@ public class JuegoCalculoRepositoryRandom implements JuegoCalculoRepository{
             if(operacion==OPERACION_SUMA){
                 pregunta.setOperacion(operandos.operando1+"+"+operandos.operando2);
                 respuestaCorrecta = operandos.operando1+operandos.operando2;
-                
+                respuestaOpuesta = operandos.operando1-operandos.operando2;
             }
             else if(operacion==OPERACION_RESTA){
                 pregunta.setOperacion(operandos.operando1+"-"+operandos.operando2);
                 respuestaCorrecta = operandos.operando1-operandos.operando2;
+                respuestaOpuesta = operandos.operando1+operandos.operando2;
             }
             respuestaA.setOpcion(String.valueOf(respuestaCorrecta));
-            respuestasIn = getRespuestasAleatoreas(respuestaCorrecta,1);
+            respuestasIn = getRespuestasAleatoreas(respuestaCorrecta,1, respuestaOpuesta);
             
             respuestaB = new RespuestaCalculo();
-            respuestaB.setOpcion(String.valueOf(respuestasIn.respuesta1));
+            respuestaB.setOpcion(String.valueOf(respuestaOpuesta));
             respuestaB.setRespuestaCorrecta("N");
             respuestaC = new RespuestaCalculo();
-            respuestaC.setOpcion(String.valueOf(respuestasIn.respuesta2));
+            respuestaC.setOpcion(String.valueOf(respuestasIn.respuesta1));
             respuestaC.setRespuestaCorrecta("N");
             respuestaD = new RespuestaCalculo();
-            respuestaD.setOpcion(String.valueOf(respuestasIn.respuesta3));
+            respuestaD.setOpcion(String.valueOf(respuestasIn.respuesta2));
             respuestaD.setRespuestaCorrecta("N");
             respuestas = new HashSet<>();
             respuestas.add(respuestaA);
@@ -137,6 +139,7 @@ public class JuegoCalculoRepositoryRandom implements JuegoCalculoRepository{
         Operandos operandos;
         int operacion;
         long respuestaCorrecta = 0;
+        long respuestaOpuesta = 0;
         Respuestas respuestasIn;
         for(int i=0; i<11; i++){
             operacion = operacionNivel2();
@@ -159,29 +162,32 @@ public class JuegoCalculoRepositoryRandom implements JuegoCalculoRepository{
                 case OPERACION_SUMA:
                     pregunta.setOperacion(operandos.operando1+"+"+operandos.operando2);
                     respuestaCorrecta = operandos.operando1+operandos.operando2;
+                    respuestaOpuesta = operandos.operando1-operandos.operando2;
                     break;
                 case OPERACION_RESTA:
                     pregunta.setOperacion(operandos.operando1+"-"+operandos.operando2);
                     respuestaCorrecta = operandos.operando1-operandos.operando2;
+                    respuestaOpuesta = operandos.operando1+operandos.operando2;
                     break;
                 case OPERACION_MULTIPLICACION:
                     pregunta.setOperacion(operandos.operando1+"X"+operandos.operando2);
                     respuestaCorrecta = operandos.operando1*operandos.operando2;
+                    respuestaOpuesta = operandos.operando1+operandos.operando2;
                     break;
                 default:
                     break;
             }
             respuestaA.setOpcion(String.valueOf(respuestaCorrecta));
-            respuestasIn = getRespuestasAleatoreas(respuestaCorrecta,2);
+            respuestasIn = getRespuestasAleatoreas(respuestaCorrecta,2, respuestaOpuesta);
             
             respuestaB = new RespuestaCalculo();
-            respuestaB.setOpcion(String.valueOf(respuestasIn.respuesta1));
+            respuestaB.setOpcion(String.valueOf(respuestaOpuesta));
             respuestaB.setRespuestaCorrecta("N");
             respuestaC = new RespuestaCalculo();
             respuestaC.setOpcion(String.valueOf(respuestasIn.respuesta2));
             respuestaC.setRespuestaCorrecta("N");
             respuestaD = new RespuestaCalculo();
-            respuestaD.setOpcion(String.valueOf(respuestasIn.respuesta3));
+            respuestaD.setOpcion(String.valueOf(respuestasIn.respuesta1));
             respuestaD.setRespuestaCorrecta("N");
             respuestas = new HashSet<>();
             respuestas.add(respuestaA);
@@ -211,6 +217,7 @@ public class JuegoCalculoRepositoryRandom implements JuegoCalculoRepository{
         Operandos operandos;
         int operacion;
         long respuestaCorrecta = 0;
+        long respuestaOpuesta = 0;
         Respuestas respuestasIn;
         for(int i=0; i<11; i++){
             operacion = operacionNivel3Y4();
@@ -238,33 +245,37 @@ public class JuegoCalculoRepositoryRandom implements JuegoCalculoRepository{
                 case OPERACION_SUMA:
                     pregunta.setOperacion(operandos.operando1+"+"+operandos.operando2);
                     respuestaCorrecta = operandos.operando1+operandos.operando2;
+                    respuestaOpuesta = operandos.operando1-operandos.operando2;
                     break;
                 case OPERACION_RESTA:
                     pregunta.setOperacion(operandos.operando1+"-"+operandos.operando2);
                     respuestaCorrecta = operandos.operando1-operandos.operando2;
+                    respuestaOpuesta = operandos.operando1+operandos.operando2;
                     break;
                 case OPERACION_MULTIPLICACION:
                     pregunta.setOperacion(operandos.operando1+"X"+operandos.operando2);
                     respuestaCorrecta = operandos.operando1*operandos.operando2;
+                    respuestaOpuesta = operandos.operando1+operandos.operando2;
                     break;
                 case OPERACION_DIVISION:
                     pregunta.setOperacion(operandos.operando1+"/"+operandos.operando2);
-                    respuestaCorrecta = operandos.operando1*operandos.operando2;
+                    respuestaCorrecta = operandos.operando1/operandos.operando2;
+                    respuestaOpuesta = operandos.operando1*operandos.operando2;
                     break;
                 default:
                     break;
             }
             respuestaA.setOpcion(String.valueOf(respuestaCorrecta));
-            respuestasIn = getRespuestasAleatoreas(respuestaCorrecta,3);
+            respuestasIn = getRespuestasAleatoreas(respuestaCorrecta,3, respuestaOpuesta);
             
             respuestaB = new RespuestaCalculo();
-            respuestaB.setOpcion(String.valueOf(respuestasIn.respuesta1));
+            respuestaB.setOpcion(String.valueOf(respuestaOpuesta));
             respuestaB.setRespuestaCorrecta("N");
             respuestaC = new RespuestaCalculo();
             respuestaC.setOpcion(String.valueOf(respuestasIn.respuesta2));
             respuestaC.setRespuestaCorrecta("N");
             respuestaD = new RespuestaCalculo();
-            respuestaD.setOpcion(String.valueOf(respuestasIn.respuesta3));
+            respuestaD.setOpcion(String.valueOf(respuestasIn.respuesta1));
             respuestaD.setRespuestaCorrecta("N");
             respuestas = new HashSet<>();
             respuestas.add(respuestaA);
@@ -293,6 +304,7 @@ public class JuegoCalculoRepositoryRandom implements JuegoCalculoRepository{
         Operandos operandos;
         int operacion;
         long respuestaCorrecta = 0;
+        long respuestaOpuesta = 0;
         Respuestas respuestasIn;
         for(int i=0; i<11; i++){
             operacion = operacionNivel3Y4();
@@ -320,33 +332,37 @@ public class JuegoCalculoRepositoryRandom implements JuegoCalculoRepository{
                 case OPERACION_SUMA:
                     pregunta.setOperacion(operandos.operando1+"+"+operandos.operando2);
                     respuestaCorrecta = operandos.operando1+operandos.operando2;
+                    respuestaOpuesta = operandos.operando1-operandos.operando2;
                     break;
                 case OPERACION_RESTA:
                     pregunta.setOperacion(operandos.operando1+"-"+operandos.operando2);
                     respuestaCorrecta = operandos.operando1-operandos.operando2;
+                    respuestaOpuesta = operandos.operando1+operandos.operando2;
                     break;
                 case OPERACION_MULTIPLICACION:
                     pregunta.setOperacion(operandos.operando1+"X"+operandos.operando2);
                     respuestaCorrecta = operandos.operando1*operandos.operando2;
+                    respuestaOpuesta = operandos.operando1+operandos.operando2;
                     break;
                 case OPERACION_DIVISION:
                     pregunta.setOperacion(operandos.operando1+"/"+operandos.operando2);
-                    respuestaCorrecta = operandos.operando1*operandos.operando2;
+                    respuestaCorrecta = operandos.operando1/operandos.operando2;
+                    respuestaOpuesta = operandos.operando1*operandos.operando2;
                     break;
                 default:
                     break;
             }
             respuestaA.setOpcion(String.valueOf(respuestaCorrecta));
-            respuestasIn = getRespuestasAleatoreas(respuestaCorrecta,4);
+            respuestasIn = getRespuestasAleatoreas(respuestaCorrecta,4, respuestaOpuesta);
             
             respuestaB = new RespuestaCalculo();
-            respuestaB.setOpcion(String.valueOf(respuestasIn.respuesta1));
+            respuestaB.setOpcion(String.valueOf(respuestaOpuesta));
             respuestaB.setRespuestaCorrecta("N");
             respuestaC = new RespuestaCalculo();
-            respuestaC.setOpcion(String.valueOf(respuestasIn.respuesta2));
+            respuestaC.setOpcion(String.valueOf(respuestasIn.respuesta1));
             respuestaC.setRespuestaCorrecta("N");
             respuestaD = new RespuestaCalculo();
-            respuestaD.setOpcion(String.valueOf(respuestasIn.respuesta3));
+            respuestaD.setOpcion(String.valueOf(respuestasIn.respuesta2));
             respuestaD.setRespuestaCorrecta("N");
             respuestas = new HashSet<>();
             respuestas.add(respuestaA);
@@ -550,11 +566,11 @@ public class JuegoCalculoRepositoryRandom implements JuegoCalculoRepository{
      * @param respuestaCorrecta
      * @return 
      */
-    private Respuestas getRespuestasAleatoreas(long respuestaCorrecta, int nivel){
+    private Respuestas getRespuestasAleatoreas(long respuestaCorrecta, int nivel, long respuestaOpuesta){
         int i = 0;
         Respuestas resp = new Respuestas();
         int respuesta = 0;
-        while(i<=3){
+        while(i<2){
             switch (nivel) {
                 case 1:
                     respuesta = getNumeroAleatorioRespuestaNivel1();
@@ -571,16 +587,13 @@ public class JuegoCalculoRepositoryRandom implements JuegoCalculoRepository{
                 default:
                     break;
             }
-            if(respuesta!=respuestaCorrecta && respuesta!= resp.respuesta1 && respuesta!= resp.respuesta2 && respuesta!= resp.respuesta3){
+            if(respuesta!=respuestaCorrecta && respuesta!= resp.respuesta1 && respuesta!= resp.respuesta2 && respuestaOpuesta!=respuesta){
                 switch (i) {
                     case 0:
                         resp.respuesta1 = respuesta;
                         break;
-                    case 1:
-                        resp.respuesta2 = respuesta;
-                        break;
                     default:
-                        resp.respuesta3 = respuesta;
+                        resp.respuesta2 = respuesta;
                         break;
                 }
                 i++;
@@ -652,7 +665,7 @@ public class JuegoCalculoRepositoryRandom implements JuegoCalculoRepository{
      */
     private int getNumeroAleatorioRespuestaNivel2(){
         Random aleatorio = new Random(System.nanoTime());
-        int valorEntero = aleatorio.nextInt(145);
+        int valorEntero = aleatorio.nextInt(100);
         aleatorio.setSeed(System.nanoTime());
         return valorEntero;
     }
@@ -692,12 +705,10 @@ public class JuegoCalculoRepositoryRandom implements JuegoCalculoRepository{
     private class Respuestas{
         public long respuesta1;
         public long respuesta2;
-        public long respuesta3;
         
         public Respuestas(){
             respuesta1 = -1;
             respuesta2 = -1;
-            respuesta3 = -1;
         }
     }
 }

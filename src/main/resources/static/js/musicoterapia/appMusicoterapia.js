@@ -351,6 +351,7 @@ var appMusicoterapia = (function () {
                     $(this).attr('src', $(this).attr('src'));
                     return false;
                 });
+                
                 var promesa = apiclientMusicoterapia.adicionarPregunta(pregunta, video, nivel, respuestaA, respuestaB, respuestaC, respuestaD, correctaA, correctaB, correctaC, correctaD, idPaciente);
                 promesa.then(
                         function () {

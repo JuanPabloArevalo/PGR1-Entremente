@@ -86,6 +86,7 @@ var apiclientMusicoterapia = (function(){
               });
         },
         adicionarPregunta(pregunta, video, nivel, respuestaA, respuestaB, respuestaC, respuestaD, correctaA, correctaB, correctaC, correctaD, idPaciente){
+            alert("Entro aca")
             return $.ajax({
                 url:  equipoBackEnd+"/entremente/V1/juegos/musicoterapia/"+idPaciente,
                 type: "POST",
