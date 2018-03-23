@@ -13,7 +13,8 @@ var apiclientPerfilPacienteSalud = (function(){
                 url:  equipoBackEnd+version+"pacientes/relaciones/personalSalud/pendientes",
                 type: "POST",                
                 data: '{"id":'+id+' ,"nombres":"'+nombres+'","apellidos":"'+apellidos+'", "documentoIdentidad":"'+documentoIdentidad+'","nombreUsuario":"'+nombreUsuario+'","password":"","tipoDocumento":"'+tipoDocumento+'","correo":"'+correo+'"}',
-                contentType: "application/json"
+                contentType: "application/json",
+                headers: {'Authorization':'Bearer '+sessionStorage.getItem("Token")}
             });
         },
         getSolicitudesAceptadas(id,nombres,apellidos,documentoIdentidad,nombreUsuario,tipoDocumento,correo){
@@ -21,18 +22,24 @@ var apiclientPerfilPacienteSalud = (function(){
                 url:  equipoBackEnd+version+"pacientes/relaciones/personalSalud/aceptadas",
                 type: "POST",
                 data: '{"id":'+id+' ,"nombres":"'+nombres+'","apellidos":"'+apellidos+'", "documentoIdentidad":"'+documentoIdentidad+'","nombreUsuario":"'+nombreUsuario+'","password":"","tipoDocumento":"'+tipoDocumento+'","correo":"'+correo+'"}',
-                contentType: "application/json"
+                contentType: "application/json",
+                headers: {'Authorization':'Bearer '+sessionStorage.getItem("Token")}
             });
         },
         getBusquedaPersonalSalud(dato){
-            return $.get(equipoBackEnd+version+"personalSalud/"+dato);  
+            return $.ajax({
+                url:  equipoBackEnd+version+"personalSalud/"+dato,
+                type: "GET",
+                headers: {'Authorization':'Bearer '+sessionStorage.getItem("Token")}
+            }); 
         },
         aceptarSolicitud(id, idPaciente, idFamiliar){
             return $.ajax({
                 url:  equipoBackEnd+version+"personalSalud/relaciones/pacientes",
                 type: "PUT",
                 data: '{"id":'+id+' ,"idPaciente":'+idPaciente+',"idFamiliar":'+idFamiliar+', "estado":"","relacion":""}',
-                contentType: "application/json"
+                contentType: "application/json",
+                headers: {'Authorization':'Bearer '+sessionStorage.getItem("Token")}
             });
         },
         eliminarSolicitud(id, idPaciente, idFamiliar){
@@ -40,7 +47,8 @@ var apiclientPerfilPacienteSalud = (function(){
                 url:  equipoBackEnd+version+"personalSalud/relaciones/pacientes",
                 type: "DELETE",
                 data: '{"id":'+id+' ,"idPaciente":'+idPaciente+',"idFamiliar":'+idFamiliar+', "estado":"","relacion":""}',
-                contentType: "application/json"
+                contentType: "application/json",
+                headers: {'Authorization':'Bearer '+sessionStorage.getItem("Token")}
             });
         },
         adicionarSolicitud(idPaciente, idFamiliar,relacion){
@@ -48,7 +56,8 @@ var apiclientPerfilPacienteSalud = (function(){
                 url:  equipoBackEnd+version+"pacientes/relaciones/personalSalud",
                 type: "POST",
                 data: '{"id":0 ,"idPaciente":'+idPaciente+',"idFamiliar":'+idFamiliar+', "estado":"","relacion":"'+relacion+'"}',
-                contentType: "application/json"
+                contentType: "application/json",
+                headers: {'Authorization':'Bearer '+sessionStorage.getItem("Token")}
             });
         }
       };

@@ -37,19 +37,14 @@ public class EntreMenteControllerFamiliar {
     
     @CrossOrigin(origins = "*")
     @RequestMapping(path = "/familiares", method = RequestMethod.POST)
-    public ResponseEntity<?> manejadorPostAdicionarFamiliar(@RequestBody Familiar familiar, @RequestHeader(value=SecurityToken.TOKEN_HEADER, required = false) String token) {
-        if(!SecurityToken.isTokenValid(token)){
-            return new ResponseEntity<>(SecurityToken.NOT_AUTHORIZED_MESSAGE,HttpStatus.UNAUTHORIZED);
-        }
-        else{
-            try {
-                ems.adicionarFamiliar(familiar);
-                return new ResponseEntity<>(HttpStatus.CREATED);
-            } catch (PersistenceNotFoundException | PersistenceException ex) {
-                Logger.getLogger(EntreMenteController.class.getName()).log(Level.SEVERE, null, ex);
-                return new ResponseEntity<>(ex.getMessage(), HttpStatus.NOT_FOUND);
-            }  
-        }
+    public ResponseEntity<?> manejadorPostAdicionarFamiliar(@RequestBody Familiar familiar) {
+        try {
+            ems.adicionarFamiliar(familiar);
+            return new ResponseEntity<>(HttpStatus.CREATED);
+        } catch (PersistenceNotFoundException | PersistenceException ex) {
+            Logger.getLogger(EntreMenteController.class.getName()).log(Level.SEVERE, null, ex);
+            return new ResponseEntity<>(ex.getMessage(), HttpStatus.NOT_FOUND);
+        } 
     }
     @CrossOrigin(origins = "*")
     @RequestMapping(path = "/familiares", method = RequestMethod.PUT)

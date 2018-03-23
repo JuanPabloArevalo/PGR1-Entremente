@@ -18,7 +18,11 @@ var apiclientQueUsar = (function(){
     var version = configuracionHost.getVersion();
     return{
         cargarPreguntas(idPaciente, nivel, callback){
-            var promesa2 = $.get(equipoBackEnd+version+"juegos/queUsar/"+idPaciente);
+            var promesa2 = $.ajax({
+                url:  equipoBackEnd+version+"juegos/queUsar/"+idPaciente,
+                type: "GET",
+                headers: {'Authorization':'Bearer '+sessionStorage.getItem("Token")}
+            });
             promesa2.then(
                 function () { 
                     mockdata[1] = promesa2.responseJSON[0];
@@ -38,9 +42,6 @@ var apiclientQueUsar = (function(){
             }
             
             var numero = getRandomArbitrary(arregloIndices);
-//            console.info(nivel);
-//            console.info(numero);
-//            console.info(mockdata[nivel]);
             callback(
                     mockdata[nivel][arregloIndices[numero]]
             );
@@ -63,18 +64,24 @@ var apiclientQueUsar = (function(){
                 url:  equipoBackEnd+version+"juegos/resultados/queUsar",
                 type: "POST",
                 data: '{"idPaciente":"'+idPaciente+'" ,"fecha":"'+fecha+'","acertadas":'+acertadas+', "erroneas":'+erroneas+',"tiempo":'+tiempo+',"nivelMaximo":'+nivelMaximo+'}',
-                contentType: "application/json"
+                contentType: "application/json",
+                headers: {'Authorization':'Bearer '+sessionStorage.getItem("Token")}
             });
         },
         getTodasPreguntas(idPaciente){
-            return $.get(equipoBackEnd+version+"juegos/queUsar/todas/"+idPaciente);;
+            return $.ajax({
+                url:  equipoBackEnd+version+"juegos/queUsar/todas/"+idPaciente,
+                type: "GET",
+                headers: {'Authorization':'Bearer '+sessionStorage.getItem("Token")}
+            });
         },
         modificarPregunta(id, nivelPersonalizado, estado){
             return $.ajax({
                 url:  equipoBackEnd+version+"juegos/queUsar",
                 type: "POST",
                 data: '{"id":'+id+' ,"nivel":'+nivelPersonalizado+',"estado":"'+estado+'"}',
-                contentType: "application/json"
+                contentType: "application/json",
+                headers: {'Authorization':'Bearer '+sessionStorage.getItem("Token")}
             });
         }
     };

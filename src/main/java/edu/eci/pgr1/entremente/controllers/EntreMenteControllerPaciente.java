@@ -36,19 +36,14 @@ public class EntreMenteControllerPaciente {
     
     @CrossOrigin(origins = "*")
     @RequestMapping(path = "/pacientes", method = RequestMethod.POST)
-    public ResponseEntity<?> manejadorPostAdicionarPaciente(@RequestBody Paciente paciente, @RequestHeader(value=SecurityToken.TOKEN_HEADER, required = false) String token) {
-        if(!SecurityToken.isTokenValid(token)){
-            return new ResponseEntity<>(SecurityToken.NOT_AUTHORIZED_MESSAGE,HttpStatus.UNAUTHORIZED);
-        }
-        else{
-            try {
-                ems.adicionarPaciente(paciente);
-                return new ResponseEntity<>(HttpStatus.CREATED);
-            } catch (PersistenceNotFoundException | PersistenceException ex) {
-                Logger.getLogger(EntreMenteController.class.getName()).log(Level.SEVERE, null, ex);
-                return new ResponseEntity<>(ex.getMessage(), HttpStatus.NOT_FOUND);
-            } 
-        }         
+    public ResponseEntity<?> manejadorPostAdicionarPaciente(@RequestBody Paciente paciente) {
+        try {
+            ems.adicionarPaciente(paciente);
+            return new ResponseEntity<>(HttpStatus.CREATED);
+        } catch (PersistenceNotFoundException | PersistenceException ex) {
+            Logger.getLogger(EntreMenteController.class.getName()).log(Level.SEVERE, null, ex);
+            return new ResponseEntity<>(ex.getMessage(), HttpStatus.NOT_FOUND);
+        } 
     }
     
     @CrossOrigin(origins = "*")

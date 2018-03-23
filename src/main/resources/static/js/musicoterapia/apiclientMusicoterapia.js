@@ -12,7 +12,11 @@ var apiclientMusicoterapia = (function(){
     var version = configuracionHost.getVersion();
     return{
         cargarPreguntas(idPaciente, nivel, callback){
-            var promesa2 = $.get(equipoBackEnd+version+"juegos/musicoterapia/"+idPaciente);
+            var promesa2 = $.ajax({
+                url:  equipoBackEnd+version+"juegos/musicoterapia/"+idPaciente,
+                type: "GET",
+                headers: {'Authorization':'Bearer '+sessionStorage.getItem("Token")}
+            });
             promesa2.then(
                 function () { 
                     console.info(promesa2)
@@ -59,18 +63,24 @@ var apiclientMusicoterapia = (function(){
                 url:  equipoBackEnd+version+"juegos/resultados/musicoterapia",
                 type: "POST",
                 data: '{"idPaciente":"'+idPaciente+'" ,"fecha":"'+fecha+'","acertadas":'+acertadas+', "erroneas":'+erroneas+',"tiempo":'+tiempo+',"nivelMaximo":'+nivelMaximo+'}',
-                contentType: "application/json"
+                contentType: "application/json",
+                headers: {'Authorization':'Bearer '+sessionStorage.getItem("Token")}
             });
         },
         getTodasPreguntas(idPaciente){
-            return $.get(equipoBackEnd+version+"juegos/musicoterapia/todas/"+idPaciente);
+            return $.ajax({
+                url:  equipoBackEnd+version+"juegos/musicoterapia/todas/"+idPaciente,
+                type: "GET",
+                headers: {'Authorization':'Bearer '+sessionStorage.getItem("Token")}
+            });
         },
         modificarPregunta(id, nivelPersonalizado, estado){
             return $.ajax({
                 url:  equipoBackEnd+version+"juegos/musicoterapia",
                 type: "POST",
                 data: '{"id":'+id+' ,"nivel":'+nivelPersonalizado+',"estado":"'+estado+'"}',
-                contentType: "application/json"
+                contentType: "application/json",
+                headers: {'Authorization':'Bearer '+sessionStorage.getItem("Token")}
             });
         },
         buscarVideosYoutube(palabraClave){            
@@ -87,12 +97,12 @@ var apiclientMusicoterapia = (function(){
               });
         },
         adicionarPregunta(pregunta, video, nivel, respuestaA, respuestaB, respuestaC, respuestaD, correctaA, correctaB, correctaC, correctaD, idPaciente){
-            alert("Entro aca")
             return $.ajax({
                 url:  equipoBackEnd+version+"juegos/musicoterapia/"+idPaciente,
                 type: "POST",
                 data: '{"id":0 , "pregunta":"'+pregunta+'", "video":"'+video+'", "nivel":'+nivel+', "personalizado" : "S",  "estado": "A", "respuestas" : [{"opcion" : "'+respuestaA+'" , "respuestaCorrecta": "'+correctaA+'"},{"opcion" : "'+respuestaB+'" , "respuestaCorrecta": "'+correctaB+'"},{"opcion" : "'+respuestaC+'" , "respuestaCorrecta": "'+correctaC+'"},{"opcion" : "'+respuestaD+'" , "respuestaCorrecta": "'+correctaD+'"}]}',
-                contentType: "application/json"
+                contentType: "application/json",
+                headers: {'Authorization':'Bearer '+sessionStorage.getItem("Token")}
             });
         }
     };
