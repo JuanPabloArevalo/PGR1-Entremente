@@ -5,16 +5,20 @@
  */
 
 var apiclientIniciarSesion = (function(){
-    var equipoBackEnd = "http://54.186.163.136:8087";
+    var equipoBackEnd = configuracionHost.getEquipoBackEnd();
+    var version = configuracionHost.getVersion();
     return{
         autenticacionPaciente(nombreUsuario,password, callback){
-            return $.get(equipoBackEnd+"/entremente/V1/pacientes/"+nombreUsuario+"/"+password,callback);  
+            return $.get(equipoBackEnd+version+"pacientes/"+nombreUsuario+"/"+password,callback);  
         },
         autenticacionFamiliar(nombreUsuario,password, callback){
-            return $.get(equipoBackEnd+"/entremente/V1/familiares/"+nombreUsuario+"/"+password,callback);  
+            return $.get(equipoBackEnd+version+"familiares/"+nombreUsuario+"/"+password,callback);  
         },
         autenticacionPersonalSalud(nombreUsuario,password, callback){
-            return $.get(equipoBackEnd+"/entremente/V1/personalSalud/"+nombreUsuario+"/"+password,callback);  
+            return $.get(equipoBackEnd+version+"personalSalud/"+nombreUsuario+"/"+password,callback);  
+        },
+        autenticacionInvitado(callback){
+            return $.get(equipoBackEnd+version+"invitado",callback);  
         }
     };
     

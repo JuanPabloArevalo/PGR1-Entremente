@@ -14,10 +14,11 @@ var arreglo;
 
 
 var apiclientAtencion = (function(){
-    var equipoBackEnd = "http://54.186.163.136:8087";
+    var equipoBackEnd = configuracionHost.getEquipoBackEnd();
+    var version = configuracionHost.getVersion();
     return{
         cargarPreguntas(idPaciente, nivel, callback){
-            var promesa2 = $.get(equipoBackEnd+"/entremente/V1/juegos/atencion/"+idPaciente);
+            var promesa2 = $.get(equipoBackEnd+version+"juegos/atencion/"+idPaciente);
             promesa2.then(
                 function () { 
                     mockdata[1] = promesa2.responseJSON[0];
@@ -59,18 +60,18 @@ var apiclientAtencion = (function(){
         },
         enviarResultados(idPaciente, fecha, acertadas, erroneas, tiempo, nivelMaximo){
             return $.ajax({
-                url:  equipoBackEnd+"/entremente/V1/juegos/resultados/atencion",
+                url:  equipoBackEnd+version+"juegos/resultados/atencion",
                 type: "POST",
                 data: '{"idPaciente":"'+idPaciente+'" ,"fecha":"'+fecha+'","acertadas":'+acertadas+', "erroneas":'+erroneas+',"tiempo":'+tiempo+',"nivelMaximo":'+nivelMaximo+'}',
                 contentType: "application/json"
             });
         },
         getTodasPreguntas(idPaciente){
-            return $.get(equipoBackEnd+"/entremente/V1/juegos/atencion/todas/"+idPaciente);;
+            return $.get(equipoBackEnd+version+"juegos/atencion/todas/"+idPaciente);;
         },
         modificarPregunta(id, nivelPersonalizado, estado){
             return $.ajax({
-                url:  equipoBackEnd+"/entremente/V1/juegos/atencion",
+                url:  equipoBackEnd+version+"juegos/atencion",
                 type: "POST",
                 data: '{"id":'+id+' ,"nivel":'+nivelPersonalizado+',"estado":"'+estado+'"}',
                 contentType: "application/json"

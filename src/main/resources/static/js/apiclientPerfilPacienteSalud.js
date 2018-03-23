@@ -5,11 +5,12 @@
  */
 
 var apiclientPerfilPacienteSalud = (function(){
-    var equipoBackEnd = "http://54.186.163.136:8087";
+    var equipoBackEnd = configuracionHost.getEquipoBackEnd();
+    var version = configuracionHost.getVersion();
     return{
         getSolicitudesPendientes(id,nombres,apellidos,documentoIdentidad,nombreUsuario,tipoDocumento,correo){
             return $.ajax({
-                url:  equipoBackEnd+"/entremente/V1/pacientes/relaciones/personalSalud/pendientes",
+                url:  equipoBackEnd+version+"pacientes/relaciones/personalSalud/pendientes",
                 type: "POST",                
                 data: '{"id":'+id+' ,"nombres":"'+nombres+'","apellidos":"'+apellidos+'", "documentoIdentidad":"'+documentoIdentidad+'","nombreUsuario":"'+nombreUsuario+'","password":"","tipoDocumento":"'+tipoDocumento+'","correo":"'+correo+'"}',
                 contentType: "application/json"
@@ -17,18 +18,18 @@ var apiclientPerfilPacienteSalud = (function(){
         },
         getSolicitudesAceptadas(id,nombres,apellidos,documentoIdentidad,nombreUsuario,tipoDocumento,correo){
             return $.ajax({
-                url:  equipoBackEnd+"/entremente/V1/pacientes/relaciones/personalSalud/aceptadas",
+                url:  equipoBackEnd+version+"pacientes/relaciones/personalSalud/aceptadas",
                 type: "POST",
                 data: '{"id":'+id+' ,"nombres":"'+nombres+'","apellidos":"'+apellidos+'", "documentoIdentidad":"'+documentoIdentidad+'","nombreUsuario":"'+nombreUsuario+'","password":"","tipoDocumento":"'+tipoDocumento+'","correo":"'+correo+'"}',
                 contentType: "application/json"
             });
         },
         getBusquedaPersonalSalud(dato){
-            return $.get(equipoBackEnd+"/entremente/V1/personalSalud/"+dato);  
+            return $.get(equipoBackEnd+version+"personalSalud/"+dato);  
         },
         aceptarSolicitud(id, idPaciente, idFamiliar){
             return $.ajax({
-                url:  equipoBackEnd+"/entremente/V1/personalSalud/relaciones/pacientes",
+                url:  equipoBackEnd+version+"personalSalud/relaciones/pacientes",
                 type: "PUT",
                 data: '{"id":'+id+' ,"idPaciente":'+idPaciente+',"idFamiliar":'+idFamiliar+', "estado":"","relacion":""}',
                 contentType: "application/json"
@@ -36,7 +37,7 @@ var apiclientPerfilPacienteSalud = (function(){
         },
         eliminarSolicitud(id, idPaciente, idFamiliar){
             return $.ajax({
-                url:  equipoBackEnd+"/entremente/V1/personalSalud/relaciones/pacientes",
+                url:  equipoBackEnd+version+"personalSalud/relaciones/pacientes",
                 type: "DELETE",
                 data: '{"id":'+id+' ,"idPaciente":'+idPaciente+',"idFamiliar":'+idFamiliar+', "estado":"","relacion":""}',
                 contentType: "application/json"
@@ -44,7 +45,7 @@ var apiclientPerfilPacienteSalud = (function(){
         },
         adicionarSolicitud(idPaciente, idFamiliar,relacion){
             return $.ajax({
-                url:  equipoBackEnd+"/entremente/V1/pacientes/relaciones/personalSalud",
+                url:  equipoBackEnd+version+"pacientes/relaciones/personalSalud",
                 type: "POST",
                 data: '{"id":0 ,"idPaciente":'+idPaciente+',"idFamiliar":'+idFamiliar+', "estado":"","relacion":"'+relacion+'"}',
                 contentType: "application/json"

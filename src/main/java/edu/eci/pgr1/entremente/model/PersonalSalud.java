@@ -19,7 +19,7 @@ public class PersonalSalud {
     private String tipoDocumento;
     private String correo;
     private String rol;
-
+    private String token;
     /**
      * Constructor 1
      */
@@ -174,6 +174,20 @@ public class PersonalSalud {
      */
     public void setRol(String rol) {
         this.rol = rol;
+    }
+
+    /**
+     * @return the token
+     */
+    public String getToken() {
+        return token;
+    }
+
+    /**
+     * @param token the token to set
+     */
+    public void setToken(String token) {
+        this.token = token;
     }
     
     

@@ -8,10 +8,11 @@ var mockdata=[];
 var arreglo;
 
 var apiclientMusicoterapia = (function(){
-    var equipoBackEnd = "http://54.186.163.136:8087";
+    var equipoBackEnd = configuracionHost.getEquipoBackEnd();
+    var version = configuracionHost.getVersion();
     return{
         cargarPreguntas(idPaciente, nivel, callback){
-            var promesa2 = $.get(equipoBackEnd+"/entremente/V1/juegos/musicoterapia/"+idPaciente);
+            var promesa2 = $.get(equipoBackEnd+version+"juegos/musicoterapia/"+idPaciente);
             promesa2.then(
                 function () { 
                     console.info(promesa2)
@@ -55,18 +56,18 @@ var apiclientMusicoterapia = (function(){
         },
         enviarResultados(idPaciente, fecha, acertadas, erroneas, tiempo, nivelMaximo){
             return $.ajax({
-                url:  equipoBackEnd+"/entremente/V1/juegos/resultados/musicoterapia",
+                url:  equipoBackEnd+version+"juegos/resultados/musicoterapia",
                 type: "POST",
                 data: '{"idPaciente":"'+idPaciente+'" ,"fecha":"'+fecha+'","acertadas":'+acertadas+', "erroneas":'+erroneas+',"tiempo":'+tiempo+',"nivelMaximo":'+nivelMaximo+'}',
                 contentType: "application/json"
             });
         },
         getTodasPreguntas(idPaciente){
-            return $.get(equipoBackEnd+"/entremente/V1/juegos/musicoterapia/todas/"+idPaciente);
+            return $.get(equipoBackEnd+version+"juegos/musicoterapia/todas/"+idPaciente);
         },
         modificarPregunta(id, nivelPersonalizado, estado){
             return $.ajax({
-                url:  equipoBackEnd+"/entremente/V1/juegos/musicoterapia",
+                url:  equipoBackEnd+version+"juegos/musicoterapia",
                 type: "POST",
                 data: '{"id":'+id+' ,"nivel":'+nivelPersonalizado+',"estado":"'+estado+'"}',
                 contentType: "application/json"
@@ -88,7 +89,7 @@ var apiclientMusicoterapia = (function(){
         adicionarPregunta(pregunta, video, nivel, respuestaA, respuestaB, respuestaC, respuestaD, correctaA, correctaB, correctaC, correctaD, idPaciente){
             alert("Entro aca")
             return $.ajax({
-                url:  equipoBackEnd+"/entremente/V1/juegos/musicoterapia/"+idPaciente,
+                url:  equipoBackEnd+version+"juegos/musicoterapia/"+idPaciente,
                 type: "POST",
                 data: '{"id":0 , "pregunta":"'+pregunta+'", "video":"'+video+'", "nivel":'+nivel+', "personalizado" : "S",  "estado": "A", "respuestas" : [{"opcion" : "'+respuestaA+'" , "respuestaCorrecta": "'+correctaA+'"},{"opcion" : "'+respuestaB+'" , "respuestaCorrecta": "'+correctaB+'"},{"opcion" : "'+respuestaC+'" , "respuestaCorrecta": "'+correctaC+'"},{"opcion" : "'+respuestaD+'" , "respuestaCorrecta": "'+correctaD+'"}]}',
                 contentType: "application/json"
