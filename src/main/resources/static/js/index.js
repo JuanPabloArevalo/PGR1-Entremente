@@ -11,7 +11,7 @@ var index = (function () {
     return {
         jugar(){
              sessionStorage.setItem("esTemporal", "S");
-             window.location.href = "menuPaciente.html";
+             iniciarSesion.iniciarSesionInvitado();
         },
         iniciarSesion(){
              sessionStorage.setItem("esTemporal", "N");

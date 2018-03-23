@@ -14,6 +14,7 @@ import edu.eci.pgr1.entremente.model.Relacion;
 import edu.eci.pgr1.entremente.persistence.PersistenceException;
 import edu.eci.pgr1.entremente.persistence.PersistenceNotFoundException;
 import edu.eci.pgr1.entremente.security.SecurityToken;
+import edu.eci.pgr1.entremente.security.Token;
 import edu.eci.pgr1.entremente.services.EntreMenteServices;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -639,6 +640,6 @@ public class EntreMenteController {
     @CrossOrigin(origins = "*")
     @RequestMapping(path = "/invitado", method = RequestMethod.GET)
     public ResponseEntity<?> manejadorIniciarInvitado() {
-        return new ResponseEntity<>(SecurityToken.getToken().getAccessToken(), HttpStatus.ACCEPTED);
+        return new ResponseEntity<>(new Token(SecurityToken.getToken().getAccessToken()), HttpStatus.ACCEPTED);
     }
 }

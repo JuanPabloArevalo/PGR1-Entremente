@@ -112,6 +112,15 @@ var iniciarSesion = (function () {
                     $("#divPerSal").show();
                 });
             }
+        },
+        iniciarSesionInvitado(){
+            var promesa = apiclientIniciarSesion.autenticacionInvitado(function(usuario){ 
+                sessionStorage.setItem("Token", usuario.accessToken);
+                window.location.href = "menuPaciente.html";
+            }); 
+            promesa.then(function(){},function(){
+                alert("Ha ocurrido un error con el token de acceso. "+promesa.responseText);
+            });
         }
     };
 }());
