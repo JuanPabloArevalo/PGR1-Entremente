@@ -8,7 +8,7 @@ var mockdata=[];
 var arreglo;
 
 var apiclientGaleria = (function(){
-    var equipoBackEnd = configuracionHost.getEquipoBackEnd();
+    var equipoBackEnd = configuracionHost.getEquipoBackEnd(); 
     var version = configuracionHost.getVersion();
     return{
         cargarPreguntas(idPaciente, nivel, callback){
