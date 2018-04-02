@@ -142,7 +142,7 @@ public class PacienteRepositoryDatabase implements PacienteRepository {
                 preparedStatement.executeUpdate();
             }
             //Preguntas QUE USAR
-            preparedStatement = connect.prepareStatement("SELECT Id, nivelPredeterminado FROM PREGUNTAQUEUSAR WHERE PERSONALIZADO = 'N'");
+            preparedStatement = connect.prepareStatement("SELECT Id, nivelPredeterminado FROM PREGUNTAQUEUSAR");
             resultSet = preparedStatement.executeQuery();
 
             while (resultSet.next()) {
