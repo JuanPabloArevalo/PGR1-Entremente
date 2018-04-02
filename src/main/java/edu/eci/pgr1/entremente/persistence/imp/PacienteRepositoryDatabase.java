@@ -12,6 +12,8 @@ import edu.eci.pgr1.entremente.model.juegos.PreguntaAtencion;
 import edu.eci.pgr1.entremente.model.juegos.PreguntaCalculo;
 import edu.eci.pgr1.entremente.model.juegos.PreguntaFormas;
 import edu.eci.pgr1.entremente.model.juegos.PreguntaGaleria;
+import edu.eci.pgr1.entremente.model.juegos.PreguntaMusicoterapia;
+import edu.eci.pgr1.entremente.model.juegos.PreguntaQueUsar;
 import edu.eci.pgr1.entremente.persistence.PacienteRepository;
 import edu.eci.pgr1.entremente.persistence.PersistenceException;
 import edu.eci.pgr1.entremente.persistence.PersistenceNotFoundException;
@@ -115,7 +117,7 @@ public class PacienteRepositoryDatabase implements PacienteRepository {
                 preparedStatement.setString(4, PreguntaGaleria.ESTADOACTIVO);
                 preparedStatement.executeUpdate();
             }
-            //Preguntas PREGUNTAPERCEPCION
+            //Preguntas PERCEPCION
             preparedStatement = connect.prepareStatement("SELECT Id, nivelPredeterminado FROM PREGUNTAPERCEPCION WHERE PERSONALIZADO = 'N'");
             resultSet = preparedStatement.executeQuery();
 
@@ -127,7 +129,30 @@ public class PacienteRepositoryDatabase implements PacienteRepository {
                 preparedStatement.setString(4, PreguntaAtencion.ESTADOACTIVO);
                 preparedStatement.executeUpdate();
             }
-            
+            //Preguntas MUSICOTERAPIA
+            preparedStatement = connect.prepareStatement("SELECT Id, nivelPredeterminado FROM PREGUNTAMUSICOTERAPIA WHERE PERSONALIZADO = 'N'");
+            resultSet = preparedStatement.executeQuery();
+
+            while (resultSet.next()) {
+                preparedStatement = connect.prepareStatement("INSERT INTO  JUEGOMUSICOTERAPIAPACIENTE (IdPaciente, idPreguntaMusicoterapia, nivelPersonalizado, estado) values (?, ?, ?, ?)");
+                preparedStatement.setLong(1, idInsertado);
+                preparedStatement.setString(2, resultSet.getString(1));
+                preparedStatement.setString(3, resultSet.getString(2));
+                preparedStatement.setString(4, PreguntaMusicoterapia.ESTADOACTIVO);
+                preparedStatement.executeUpdate();
+            }
+            //Preguntas QUE USAR
+            preparedStatement = connect.prepareStatement("SELECT Id, nivelPredeterminado FROM PREGUNTAQUEUSAR WHERE PERSONALIZADO = 'N'");
+            resultSet = preparedStatement.executeQuery();
+
+            while (resultSet.next()) {
+                preparedStatement = connect.prepareStatement("INSERT INTO  JUEGOQUEUSARPACIENTE (IdPaciente, idPreguntaQueUsar, nivelPersonalizado, estado) values (?, ?, ?, ?)");
+                preparedStatement.setLong(1, idInsertado);
+                preparedStatement.setString(2, resultSet.getString(1));
+                preparedStatement.setString(3, resultSet.getString(2));
+                preparedStatement.setString(4, PreguntaQueUsar.ESTADOACTIVO);
+                preparedStatement.executeUpdate();
+            }
             try {
                 connect.commit();
             } catch (SQLException e) {
