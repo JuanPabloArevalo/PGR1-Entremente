@@ -80,7 +80,7 @@ public class JuegoQueUsarRepositoryDatabase implements JuegoQueUsarRepository{
                 while(resultadoResp.next()){
                     respuesta = new RespuestaQueUsar();
                     respuesta.setOpcion(resultadoResp.getString("RQU.imagen"));
-                    respuesta.setRespuestaCorrecta(RespuestaQueUsar.CORRECTA);
+                    respuesta.setRespuestaCorrecta(RespuestaQueUsar.INCORRECTA);
                     respuestas.add(respuesta);
 
                 }

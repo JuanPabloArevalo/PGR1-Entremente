@@ -23,16 +23,11 @@ var appQueUsar = (function () {
             console.info(opcionesQueTieneQueSeleccionar)
             if(appQueUsar.yaSelecciono(Boton.id)){
                 appQueUsar.habilitarBotonRespuesta(Boton.id);
-                
             }
             else{
                 respuestasSeleccionadas.push({"respuesta":respuestaCorrecta,"numero":numero, "id":Boton.id, "src": Boton.src});
                 deshabilitarBotonRespuesta(Boton.id);
-                
             }            
-        },
-        respu(){
-            console.info(respuestasSeleccionadas)
         },
         yaSelecciono(idBoton){
             for(var i=0; i<respuestasSeleccionadas.length; i++){
