@@ -17,6 +17,7 @@ import edu.eci.pgr1.entremente.persistence.PersistenceException;
 import edu.eci.pgr1.entremente.persistence.PersistenceNotFoundException;
 import edu.eci.pgr1.entremente.security.SecurityToken;
 import edu.eci.pgr1.entremente.services.EntreMenteServicesJuegos;
+import edu.eci.pgr1.entremente.services.EntreMenteServicesResultados;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -40,7 +41,8 @@ public class EntreMenteControllerJuegos {
  
     @Autowired
     private EntreMenteServicesJuegos emsj = null;
-    
+    @Autowired
+    private EntreMenteServicesResultados emsR = null;
     
 //Juego GALERIA    
     @CrossOrigin(origins = "*")
@@ -101,7 +103,7 @@ public class EntreMenteControllerJuegos {
         }
         else{
             try {
-                emsj.adicionarResultadoGaleria(resultado);
+                emsR.adicionarResultadoGaleria(resultado);
                 return new ResponseEntity<>(HttpStatus.CREATED);
             } catch (PersistenceNotFoundException ex) {
                 Logger.getLogger(EntreMenteController.class.getName()).log(Level.SEVERE, null, ex);
@@ -119,7 +121,7 @@ public class EntreMenteControllerJuegos {
         }
         else{
             try {
-                return new ResponseEntity<>(emsj.consultarResultadosDiasGaleria(idPaciente, fechaInicial, fechaFinal), HttpStatus.CREATED);
+                return new ResponseEntity<>(emsR.consultarResultadosDiasGaleria(idPaciente, fechaInicial, fechaFinal), HttpStatus.CREATED);
             } catch (PersistenceNotFoundException | PersistenceException ex) {
                 Logger.getLogger(EntreMenteController.class.getName()).log(Level.SEVERE, null, ex);
                 return new ResponseEntity<>(ex.getMessage(), HttpStatus.NOT_FOUND);
@@ -134,7 +136,7 @@ public class EntreMenteControllerJuegos {
         }
         else{
             try {
-                return new ResponseEntity<>(emsj.consultarResultadosMesGaleria(idPaciente, fechaInicial, fechaFinal), HttpStatus.CREATED);
+                return new ResponseEntity<>(emsR.consultarResultadosMesGaleria(idPaciente, fechaInicial, fechaFinal), HttpStatus.CREATED);
             } catch (PersistenceNotFoundException | PersistenceException ex) {
                 Logger.getLogger(EntreMenteController.class.getName()).log(Level.SEVERE, null, ex);
                 return new ResponseEntity<>(ex.getMessage(), HttpStatus.NOT_FOUND);
@@ -149,7 +151,7 @@ public class EntreMenteControllerJuegos {
         }
         else{
             try {
-                return new ResponseEntity<>(emsj.consultarResultadosAnualGaleria(idPaciente, fechaInicial, fechaFinal), HttpStatus.CREATED);
+                return new ResponseEntity<>(emsR.consultarResultadosAnualGaleria(idPaciente, fechaInicial, fechaFinal), HttpStatus.CREATED);
             } catch (PersistenceNotFoundException | PersistenceException ex) {
                 Logger.getLogger(EntreMenteController.class.getName()).log(Level.SEVERE, null, ex);
                 return new ResponseEntity<>(ex.getMessage(), HttpStatus.NOT_FOUND);
@@ -229,7 +231,7 @@ public class EntreMenteControllerJuegos {
         }
         else{
             try {
-                emsj.adicionarResultadoAtencion(resultado);
+                emsR.adicionarResultadoAtencion(resultado);
                 return new ResponseEntity<>(HttpStatus.CREATED);
             } catch (PersistenceNotFoundException ex) {
                 Logger.getLogger(EntreMenteController.class.getName()).log(Level.SEVERE, null, ex);
@@ -247,7 +249,7 @@ public class EntreMenteControllerJuegos {
         }
         else{
             try {
-                return new ResponseEntity<>(emsj.consultarResultadosDiasAtencion(idPaciente, fechaInicial, fechaFinal), HttpStatus.CREATED);
+                return new ResponseEntity<>(emsR.consultarResultadosDiasAtencion(idPaciente, fechaInicial, fechaFinal), HttpStatus.CREATED);
             } catch (PersistenceNotFoundException | PersistenceException ex) {
                 Logger.getLogger(EntreMenteController.class.getName()).log(Level.SEVERE, null, ex);
                 return new ResponseEntity<>(ex.getMessage(), HttpStatus.NOT_FOUND);
@@ -262,7 +264,7 @@ public class EntreMenteControllerJuegos {
         }
         else{
             try {
-                return new ResponseEntity<>(emsj.consultarResultadosMesAtencion(idPaciente, fechaInicial, fechaFinal), HttpStatus.CREATED);
+                return new ResponseEntity<>(emsR.consultarResultadosMesAtencion(idPaciente, fechaInicial, fechaFinal), HttpStatus.CREATED);
             } catch (PersistenceNotFoundException | PersistenceException ex) {
                 Logger.getLogger(EntreMenteController.class.getName()).log(Level.SEVERE, null, ex);
                 return new ResponseEntity<>(ex.getMessage(), HttpStatus.NOT_FOUND);
@@ -277,7 +279,7 @@ public class EntreMenteControllerJuegos {
         }
         else{
             try {
-                return new ResponseEntity<>(emsj.consultarResultadosAnualAtencion(idPaciente, fechaInicial, fechaFinal), HttpStatus.CREATED);
+                return new ResponseEntity<>(emsR.consultarResultadosAnualAtencion(idPaciente, fechaInicial, fechaFinal), HttpStatus.CREATED);
             } catch (PersistenceNotFoundException | PersistenceException ex) {
                 Logger.getLogger(EntreMenteController.class.getName()).log(Level.SEVERE, null, ex);
                 return new ResponseEntity<>(ex.getMessage(), HttpStatus.NOT_FOUND);
@@ -358,7 +360,7 @@ public class EntreMenteControllerJuegos {
         }
         else{
             try {
-                emsj.adicionarResultadoFormas(resultado);
+                emsR.adicionarResultadoFormas(resultado);
                 return new ResponseEntity<>(HttpStatus.CREATED);
             } catch (PersistenceNotFoundException ex) {
                 Logger.getLogger(EntreMenteController.class.getName()).log(Level.SEVERE, null, ex);
@@ -378,7 +380,7 @@ public class EntreMenteControllerJuegos {
         }
         else{
             try {
-                return new ResponseEntity<>(emsj.consultarResultadosDiasFormas(idPaciente, fechaInicial, fechaFinal), HttpStatus.CREATED);
+                return new ResponseEntity<>(emsR.consultarResultadosDiasFormas(idPaciente, fechaInicial, fechaFinal), HttpStatus.CREATED);
             } catch (PersistenceNotFoundException | PersistenceException ex) {
                 Logger.getLogger(EntreMenteController.class.getName()).log(Level.SEVERE, null, ex);
                 return new ResponseEntity<>(ex.getMessage(), HttpStatus.NOT_FOUND);
@@ -394,7 +396,7 @@ public class EntreMenteControllerJuegos {
         }
         else{
             try {
-                return new ResponseEntity<>(emsj.consultarResultadosMesFormas(idPaciente, fechaInicial, fechaFinal), HttpStatus.CREATED);
+                return new ResponseEntity<>(emsR.consultarResultadosMesFormas(idPaciente, fechaInicial, fechaFinal), HttpStatus.CREATED);
             } catch (PersistenceNotFoundException | PersistenceException ex) {
                 Logger.getLogger(EntreMenteController.class.getName()).log(Level.SEVERE, null, ex);
                 return new ResponseEntity<>(ex.getMessage(), HttpStatus.NOT_FOUND);
@@ -410,7 +412,7 @@ public class EntreMenteControllerJuegos {
         }
         else{
             try {
-                return new ResponseEntity<>(emsj.consultarResultadosAnualFormas(idPaciente, fechaInicial, fechaFinal), HttpStatus.CREATED);
+                return new ResponseEntity<>(emsR.consultarResultadosAnualFormas(idPaciente, fechaInicial, fechaFinal), HttpStatus.CREATED);
             } catch (PersistenceNotFoundException | PersistenceException ex) {
                 Logger.getLogger(EntreMenteController.class.getName()).log(Level.SEVERE, null, ex);
                 return new ResponseEntity<>(ex.getMessage(), HttpStatus.NOT_FOUND);
@@ -488,7 +490,7 @@ public class EntreMenteControllerJuegos {
         }
         else{
             try {
-                emsj.adicionarResultadoCalculemos(resultado);
+                emsR.adicionarResultadoCalculemos(resultado);
                 return new ResponseEntity<>(HttpStatus.CREATED);
             } catch (PersistenceNotFoundException ex) {
                 Logger.getLogger(EntreMenteController.class.getName()).log(Level.SEVERE, null, ex);
@@ -506,7 +508,7 @@ public class EntreMenteControllerJuegos {
         }
         else{
             try {
-                return new ResponseEntity<>(emsj.consultarResultadosDiasCalculo(idPaciente, fechaInicial, fechaFinal), HttpStatus.CREATED);
+                return new ResponseEntity<>(emsR.consultarResultadosDiasCalculo(idPaciente, fechaInicial, fechaFinal), HttpStatus.CREATED);
             } catch (PersistenceNotFoundException | PersistenceException ex) {
                 Logger.getLogger(EntreMenteController.class.getName()).log(Level.SEVERE, null, ex);
                 return new ResponseEntity<>(ex.getMessage(), HttpStatus.NOT_FOUND);
@@ -522,7 +524,7 @@ public class EntreMenteControllerJuegos {
         }
         else{
             try {
-                return new ResponseEntity<>(emsj.consultarResultadosMesCalculo(idPaciente, fechaInicial, fechaFinal), HttpStatus.CREATED);
+                return new ResponseEntity<>(emsR.consultarResultadosMesCalculo(idPaciente, fechaInicial, fechaFinal), HttpStatus.CREATED);
             } catch (PersistenceNotFoundException | PersistenceException ex) {
                 Logger.getLogger(EntreMenteController.class.getName()).log(Level.SEVERE, null, ex);
                 return new ResponseEntity<>(ex.getMessage(), HttpStatus.NOT_FOUND);
@@ -538,7 +540,7 @@ public class EntreMenteControllerJuegos {
         }
         else{
             try {
-                return new ResponseEntity<>(emsj.consultarResultadosAnualCalculo(idPaciente, fechaInicial, fechaFinal), HttpStatus.CREATED);
+                return new ResponseEntity<>(emsR.consultarResultadosAnualCalculo(idPaciente, fechaInicial, fechaFinal), HttpStatus.CREATED);
             } catch (PersistenceNotFoundException | PersistenceException ex) {
                 Logger.getLogger(EntreMenteController.class.getName()).log(Level.SEVERE, null, ex);
                 return new ResponseEntity<>(ex.getMessage(), HttpStatus.NOT_FOUND);
@@ -614,7 +616,7 @@ public class EntreMenteControllerJuegos {
         }
         else{
             try {
-                emsj.adicionarResultadoPercepcion(resultado);
+                emsR.adicionarResultadoPercepcion(resultado);
                 return new ResponseEntity<>(HttpStatus.CREATED);
             } catch (PersistenceNotFoundException ex) {
                 Logger.getLogger(EntreMenteController.class.getName()).log(Level.SEVERE, null, ex);
@@ -632,7 +634,7 @@ public class EntreMenteControllerJuegos {
         }
         else{
             try {
-                return new ResponseEntity<>(emsj.consultarResultadosDiasPercepcion(idPaciente, fechaInicial, fechaFinal), HttpStatus.CREATED);
+                return new ResponseEntity<>(emsR.consultarResultadosDiasPercepcion(idPaciente, fechaInicial, fechaFinal), HttpStatus.CREATED);
             } catch (PersistenceNotFoundException | PersistenceException ex) {
                 Logger.getLogger(EntreMenteController.class.getName()).log(Level.SEVERE, null, ex);
                 return new ResponseEntity<>(ex.getMessage(), HttpStatus.NOT_FOUND);
@@ -647,7 +649,7 @@ public class EntreMenteControllerJuegos {
         }
         else{
             try {
-                return new ResponseEntity<>(emsj.consultarResultadosMesPercepcion(idPaciente, fechaInicial, fechaFinal), HttpStatus.CREATED);
+                return new ResponseEntity<>(emsR.consultarResultadosMesPercepcion(idPaciente, fechaInicial, fechaFinal), HttpStatus.CREATED);
             } catch (PersistenceNotFoundException | PersistenceException ex) {
                 Logger.getLogger(EntreMenteController.class.getName()).log(Level.SEVERE, null, ex);
                 return new ResponseEntity<>(ex.getMessage(), HttpStatus.NOT_FOUND);
@@ -662,7 +664,7 @@ public class EntreMenteControllerJuegos {
         }
         else{
             try {
-                return new ResponseEntity<>(emsj.consultarResultadosAnualPercepcion(idPaciente, fechaInicial, fechaFinal), HttpStatus.CREATED);
+                return new ResponseEntity<>(emsR.consultarResultadosAnualPercepcion(idPaciente, fechaInicial, fechaFinal), HttpStatus.CREATED);
             } catch (PersistenceNotFoundException | PersistenceException ex) {
                 Logger.getLogger(EntreMenteController.class.getName()).log(Level.SEVERE, null, ex);
                 return new ResponseEntity<>(ex.getMessage(), HttpStatus.NOT_FOUND);
@@ -737,7 +739,7 @@ public class EntreMenteControllerJuegos {
         }
         else{
             try {
-                emsj.adicionarResultadoMusicoterapia(resultado);
+                emsR.adicionarResultadoMusicoterapia(resultado);
                 return new ResponseEntity<>(HttpStatus.CREATED);
             } catch (PersistenceNotFoundException ex) {
                 Logger.getLogger(EntreMenteController.class.getName()).log(Level.SEVERE, null, ex);
@@ -755,7 +757,7 @@ public class EntreMenteControllerJuegos {
         }
         else{
             try {
-                return new ResponseEntity<>(emsj.consultarResultadosDiasMusicoterapia(idPaciente, fechaInicial, fechaFinal), HttpStatus.CREATED);
+                return new ResponseEntity<>(emsR.consultarResultadosDiasMusicoterapia(idPaciente, fechaInicial, fechaFinal), HttpStatus.CREATED);
             } catch (PersistenceNotFoundException | PersistenceException ex) {
                 Logger.getLogger(EntreMenteController.class.getName()).log(Level.SEVERE, null, ex);
                 return new ResponseEntity<>(ex.getMessage(), HttpStatus.NOT_FOUND);
@@ -770,7 +772,7 @@ public class EntreMenteControllerJuegos {
         }
         else{
             try {
-                return new ResponseEntity<>(emsj.consultarResultadosMesMusicoterapia(idPaciente, fechaInicial, fechaFinal), HttpStatus.CREATED);
+                return new ResponseEntity<>(emsR.consultarResultadosMesMusicoterapia(idPaciente, fechaInicial, fechaFinal), HttpStatus.CREATED);
             } catch (PersistenceNotFoundException | PersistenceException ex) {
                 Logger.getLogger(EntreMenteController.class.getName()).log(Level.SEVERE, null, ex);
                 return new ResponseEntity<>(ex.getMessage(), HttpStatus.NOT_FOUND);
@@ -785,7 +787,7 @@ public class EntreMenteControllerJuegos {
         }
         else{
             try {
-                return new ResponseEntity<>(emsj.consultarResultadosAnualMusicoterapia(idPaciente, fechaInicial, fechaFinal), HttpStatus.CREATED);
+                return new ResponseEntity<>(emsR.consultarResultadosAnualMusicoterapia(idPaciente, fechaInicial, fechaFinal), HttpStatus.CREATED);
             } catch (PersistenceNotFoundException | PersistenceException ex) {
                 Logger.getLogger(EntreMenteController.class.getName()).log(Level.SEVERE, null, ex);
                 return new ResponseEntity<>(ex.getMessage(), HttpStatus.NOT_FOUND);
@@ -879,7 +881,7 @@ public class EntreMenteControllerJuegos {
         }
         else{
             try {
-                emsj.adicionarResultadoQueUsar(resultado);
+                emsR.adicionarResultadoQueUsar(resultado);
                 return new ResponseEntity<>(HttpStatus.CREATED);
             } catch (PersistenceNotFoundException ex) {
                 Logger.getLogger(EntreMenteController.class.getName()).log(Level.SEVERE, null, ex);
@@ -897,7 +899,7 @@ public class EntreMenteControllerJuegos {
         }
         else{
             try {
-                return new ResponseEntity<>(emsj.consultarResultadosDiasQueUsar(idPaciente, fechaInicial, fechaFinal), HttpStatus.CREATED);
+                return new ResponseEntity<>(emsR.consultarResultadosDiasQueUsar(idPaciente, fechaInicial, fechaFinal), HttpStatus.CREATED);
             } catch (PersistenceNotFoundException | PersistenceException ex) {
                 Logger.getLogger(EntreMenteController.class.getName()).log(Level.SEVERE, null, ex);
                 return new ResponseEntity<>(ex.getMessage(), HttpStatus.NOT_FOUND);
@@ -912,7 +914,7 @@ public class EntreMenteControllerJuegos {
         }
         else{
             try {
-                return new ResponseEntity<>(emsj.consultarResultadosMesQueUsar(idPaciente, fechaInicial, fechaFinal), HttpStatus.CREATED);
+                return new ResponseEntity<>(emsR.consultarResultadosMesQueUsar(idPaciente, fechaInicial, fechaFinal), HttpStatus.CREATED);
             } catch (PersistenceNotFoundException | PersistenceException ex) {
                 Logger.getLogger(EntreMenteController.class.getName()).log(Level.SEVERE, null, ex);
                 return new ResponseEntity<>(ex.getMessage(), HttpStatus.NOT_FOUND);
@@ -927,7 +929,7 @@ public class EntreMenteControllerJuegos {
         }
         else{
             try {
-                return new ResponseEntity<>(emsj.consultarResultadosAnualQueUsar(idPaciente, fechaInicial, fechaFinal), HttpStatus.CREATED);
+                return new ResponseEntity<>(emsR.consultarResultadosAnualQueUsar(idPaciente, fechaInicial, fechaFinal), HttpStatus.CREATED);
             } catch (PersistenceNotFoundException | PersistenceException ex) {
                 Logger.getLogger(EntreMenteController.class.getName()).log(Level.SEVERE, null, ex);
                 return new ResponseEntity<>(ex.getMessage(), HttpStatus.NOT_FOUND);
