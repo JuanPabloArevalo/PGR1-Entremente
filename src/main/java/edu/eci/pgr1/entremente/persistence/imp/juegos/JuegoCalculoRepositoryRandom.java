@@ -99,8 +99,14 @@ public class JuegoCalculoRepositoryRandom implements JuegoCalculoRepository{
                 respuestaCorrecta = operandos.operando1-operandos.operando2;
                 respuestaOpuesta = operandos.operando1+operandos.operando2;
             }
+            
+            if(respuestaCorrecta == respuestaOpuesta){
+               respuestaOpuesta++;
+            }
+            
             respuestaA.setOpcion(String.valueOf(respuestaCorrecta));
             respuestasIn = getRespuestasAleatoreas(respuestaCorrecta,1, respuestaOpuesta);
+            
             
             respuestaB = new RespuestaCalculo();
             respuestaB.setOpcion(String.valueOf(respuestaOpuesta));
@@ -177,6 +183,11 @@ public class JuegoCalculoRepositoryRandom implements JuegoCalculoRepository{
                 default:
                     break;
             }
+            
+            if(respuestaCorrecta == respuestaOpuesta){
+                respuestaOpuesta++;
+            }
+            
             respuestaA.setOpcion(String.valueOf(respuestaCorrecta));
             respuestasIn = getRespuestasAleatoreas(respuestaCorrecta,2, respuestaOpuesta);
             
@@ -265,6 +276,10 @@ public class JuegoCalculoRepositoryRandom implements JuegoCalculoRepository{
                 default:
                     break;
             }
+            if(respuestaCorrecta == respuestaOpuesta){
+                respuestaOpuesta++;
+            }
+            
             respuestaA.setOpcion(String.valueOf(respuestaCorrecta));
             respuestasIn = getRespuestasAleatoreas(respuestaCorrecta,3, respuestaOpuesta);
             
@@ -351,6 +366,9 @@ public class JuegoCalculoRepositoryRandom implements JuegoCalculoRepository{
                     break;
                 default:
                     break;
+            }
+            if(respuestaCorrecta == respuestaOpuesta){
+                respuestaOpuesta++;
             }
             respuestaA.setOpcion(String.valueOf(respuestaCorrecta));
             respuestasIn = getRespuestasAleatoreas(respuestaCorrecta,4, respuestaOpuesta);
@@ -570,7 +588,7 @@ public class JuegoCalculoRepositoryRandom implements JuegoCalculoRepository{
         int i = 0;
         Respuestas resp = new Respuestas();
         int respuesta = 0;
-        while(i<2){
+        while(i<3){
             switch (nivel) {
                 case 1:
                     respuesta = getNumeroAleatorioRespuestaNivel1();
@@ -587,13 +605,16 @@ public class JuegoCalculoRepositoryRandom implements JuegoCalculoRepository{
                 default:
                     break;
             }
-            if(respuesta!=respuestaCorrecta && respuesta!= resp.respuesta1 && respuesta!= resp.respuesta2 && respuestaOpuesta!=respuesta){
+            if(respuesta!=respuestaCorrecta && respuesta!= resp.respuesta1 && respuesta!= resp.respuesta2 && respuestaOpuesta!=respuesta && respuesta!= resp.respuesta3){
                 switch (i) {
                     case 0:
                         resp.respuesta1 = respuesta;
                         break;
-                    default:
+                    case 1:
                         resp.respuesta2 = respuesta;
+                        break;
+                    default:
+                        resp.respuesta3 = respuesta;
                         break;
                 }
                 i++;
@@ -705,10 +726,12 @@ public class JuegoCalculoRepositoryRandom implements JuegoCalculoRepository{
     private class Respuestas{
         public long respuesta1;
         public long respuesta2;
+        public long respuesta3;
         
         public Respuestas(){
             respuesta1 = -1;
             respuesta2 = -1;
+            respuesta3 = -1;
         }
     }
 }

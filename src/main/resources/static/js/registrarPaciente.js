@@ -114,15 +114,18 @@ var registrarPaciente = (function () {
                 if (!passVal) {
                     $("#divPass").show();
                 } else {
+                    $("#botonRegistro").attr('disabled', true);
                     var promesa = apiclientRegistrarPaciente.adicionarPaciente(nombres,apellidos,tipoDocumento,documentoIdentidad,fechaNacimiento,genero,pais,ciudad,nombreUsuario,password,direccion,correo); 
                     promesa.then(
                     function(){
                         alert("Se ha registrado con exito el paciente!");
                         window.location.href = "iniciarSesion.html";
+                        $("#botonRegistro").attr('disabled', false);
                     },
                     function(){
                         $("#mensajeFaltaProm").text(promesa.responseText); 
                         $("#divProm").show();
+                        $("#botonRegistro").attr('disabled', false);
                     });
                 }
             }

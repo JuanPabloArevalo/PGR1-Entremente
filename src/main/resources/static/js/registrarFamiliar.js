@@ -79,15 +79,18 @@ var registrarFamiliar = (function () {
                 if (!passVal) {
                     $("#divPass").show();
                 } else {
+                    $("#botonRegistro").attr('disabled', true);
                     var promesa = apiclientRegistrarFamiliar.adicionarFamiliar(nombres,apellidos,tipoDocumento,documentoIdentidad,nombreUsuario,password,correo); 
                     promesa.then(
                     function(){
                         alert("Se ha registrado con exito el familiar!");
                         window.location.href = "iniciarSesion.html";
+                        $("#botonRegistro").attr('disabled', false);
                     },
                     function(){
                         $("#mensajeFaltaProm").text(promesa.responseText); 
                         $("#divProm").show();
+                        $("#botonRegistro").attr('disabled', false);
                     });
                 }
             }

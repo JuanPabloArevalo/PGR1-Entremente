@@ -250,7 +250,7 @@ function habilitarTodosLosBotones() {
         $("#idImagen" + i).show();
     }
     $("#idBtn5050").attr("disabled", false);
-    $("#idBtn5050").attr("onclick", "appPercepcion.ayuda5050()");
+    $("#idBtn5050").attr("onclick", "appFormas.ayuda5050()");
 }
 
 

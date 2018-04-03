@@ -86,15 +86,18 @@ var registrarPersonalSalud = (function () {
                 if (!passVal) {
                     $("#divPass").show();
                 } else {
+                    $("#botonRegistro").attr('disabled', true);
                     var promesa = apiclientRegistrarPersonalSalud.adicionarPersonalSalud(nombres,apellidos,tipoDocumento,documentoIdentidad,nombreUsuario,password,correo,rol); 
                     promesa.then(
                     function(){
                         alert("Se ha registrado con exito el personal de la salud!");
                         window.location.href = "iniciarSesion.html";
+                        $("#botonRegistro").attr('disabled', false);
                     },
                     function(){
                         $("#mensajeFaltaProm").text(promesa.responseText); 
                         $("#divProm").show();
+                        $("#botonRegistro").attr('disabled', false);
                     });
                 }
             }
