@@ -10,6 +10,7 @@ import edu.eci.pgr1.entremente.model.Relacion;
 import edu.eci.pgr1.entremente.persistence.PersistenceException;
 import edu.eci.pgr1.entremente.persistence.PersistenceNotFoundException;
 import edu.eci.pgr1.entremente.security.SecurityToken;
+import edu.eci.pgr1.entremente.security.Sha1;
 import edu.eci.pgr1.entremente.services.EntreMenteServicesPersonalSalud;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -39,6 +40,7 @@ public class EntreMenteControllerPersonalSalud {
     @CrossOrigin(origins = "*")
     @RequestMapping(path = "/personalSalud", method = RequestMethod.POST)
     public ResponseEntity<?> manejadorPostAdicionarPersonalSalud(@RequestBody PersonalSalud personalSalud) {
+        personalSalud.setPassword(Sha1.sha1(personalSalud.getPassword()));
         try {
             ems.adicionarPersonalSalud(personalSalud);
             return new ResponseEntity<>(HttpStatus.CREATED);
@@ -67,7 +69,7 @@ public class EntreMenteControllerPersonalSalud {
     @RequestMapping(path = "/personalSalud/{usuario}/{password}", method = RequestMethod.GET)
     public ResponseEntity<?> manejadorIniciarPersonalSalud(@PathVariable("usuario") String nombreU, @PathVariable("password") String password) {
         try {
-            PersonalSalud personalSalud = ems.iniciarSesionPersonalSalud(nombreU, password);
+            PersonalSalud personalSalud = ems.iniciarSesionPersonalSalud(nombreU, Sha1.sha1(password));
             personalSalud.setToken(SecurityToken.getToken(personalSalud).getAccessToken());
             return new ResponseEntity<>(personalSalud, HttpStatus.ACCEPTED);
         } catch (PersistenceNotFoundException | PersistenceException ex) {

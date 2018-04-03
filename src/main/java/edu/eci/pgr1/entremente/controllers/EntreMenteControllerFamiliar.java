@@ -10,6 +10,7 @@ import edu.eci.pgr1.entremente.model.Relacion;
 import edu.eci.pgr1.entremente.persistence.PersistenceException;
 import edu.eci.pgr1.entremente.persistence.PersistenceNotFoundException;
 import edu.eci.pgr1.entremente.security.SecurityToken;
+import edu.eci.pgr1.entremente.security.Sha1;
 import edu.eci.pgr1.entremente.services.EntreMenteServicesFamiliar;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -38,6 +39,7 @@ public class EntreMenteControllerFamiliar {
     @CrossOrigin(origins = "*")
     @RequestMapping(path = "/familiares", method = RequestMethod.POST)
     public ResponseEntity<?> manejadorPostAdicionarFamiliar(@RequestBody Familiar familiar) {
+        familiar.setPassword(Sha1.sha1(familiar.getPassword()));
         try {
             ems.adicionarFamiliar(familiar);
             return new ResponseEntity<>(HttpStatus.CREATED);
@@ -66,7 +68,7 @@ public class EntreMenteControllerFamiliar {
     @RequestMapping(path = "/familiares/{usuario}/{password}", method = RequestMethod.GET)
     public ResponseEntity<?> manejadorIniciarFamiliar(@PathVariable("usuario") String nombreU, @PathVariable("password") String password) {
         try {
-            Familiar familiar = ems.iniciarSesionFamiliar(nombreU, password);
+            Familiar familiar = ems.iniciarSesionFamiliar(nombreU,  Sha1.sha1(password));
             familiar.setToken(SecurityToken.getToken(familiar).getAccessToken());
             return new ResponseEntity<>(familiar, HttpStatus.ACCEPTED);
         } catch (PersistenceNotFoundException | PersistenceException ex) {

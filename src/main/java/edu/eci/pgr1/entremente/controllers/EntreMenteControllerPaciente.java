@@ -10,6 +10,7 @@ import edu.eci.pgr1.entremente.model.Relacion;
 import edu.eci.pgr1.entremente.persistence.PersistenceException;
 import edu.eci.pgr1.entremente.persistence.PersistenceNotFoundException;
 import edu.eci.pgr1.entremente.security.SecurityToken;
+import edu.eci.pgr1.entremente.security.Sha1;
 import edu.eci.pgr1.entremente.services.EntreMenteServicesPaciente;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -37,6 +38,7 @@ public class EntreMenteControllerPaciente {
     @CrossOrigin(origins = "*")
     @RequestMapping(path = "/pacientes", method = RequestMethod.POST)
     public ResponseEntity<?> manejadorPostAdicionarPaciente(@RequestBody Paciente paciente) {
+        paciente.setPassword(Sha1.sha1(paciente.getPassword()));
         try {
             ems.adicionarPaciente(paciente);
             return new ResponseEntity<>(HttpStatus.CREATED);
@@ -66,9 +68,9 @@ public class EntreMenteControllerPaciente {
     @CrossOrigin(origins = "*")
     @RequestMapping(path = "/pacientes/{usuario}/{password}", method = RequestMethod.GET)
     public ResponseEntity<?> manejadorIniciarPaciente(@PathVariable("usuario") String nombreU, @PathVariable("password") String password) {
-        System.err.println("EENTRO INICIAR SESION");
+        
         try {
-            Paciente paciente = ems.iniciarSesionPaciente(nombreU, password);
+            Paciente paciente = ems.iniciarSesionPaciente(nombreU, Sha1.sha1(password));
             paciente.setToken(SecurityToken.getToken(paciente).getAccessToken());
             return new ResponseEntity<>(paciente, HttpStatus.ACCEPTED);
         } catch (PersistenceNotFoundException | PersistenceException ex) {
