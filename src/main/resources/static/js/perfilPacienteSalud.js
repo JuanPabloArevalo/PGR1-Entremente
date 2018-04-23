@@ -1,3 +1,4 @@
+
 /* global apiclientResultados, diagramaFormas, diagramaAtencion, diagramaPercepcion, diagramaCalculemos, diagramaGaleria, apiclientPerfilPacienteSalud */
 
 //$(document).ready(function(){
