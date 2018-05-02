@@ -2,8 +2,8 @@
 /* global apiclientQueUsar */
 
 var appQueUsar = (function () {
-    const cantidaPreguntasPorNivel = 8;
-    const nivelMaximo = 4;
+    const cantidaPreguntasPorNivel = 6;
+    const nivelMaximo = 2;
     var pregunta = [];
     var nivel = 1;
     var preguntasCorrectasTemporales = 1;
