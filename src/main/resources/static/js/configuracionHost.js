@@ -10,7 +10,7 @@
  * @type 
  */
 var configuracionHost = (function () {
-    var equipoBackEnd = "";
+    var equipoBackEnd = "http://54.186.163.136:8087";
     var version = "/entremente/V1/";
     return {
         getEquipoBackEnd(){
