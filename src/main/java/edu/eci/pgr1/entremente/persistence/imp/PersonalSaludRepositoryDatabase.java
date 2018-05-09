@@ -11,6 +11,7 @@ import edu.eci.pgr1.entremente.model.Relacion;
 import edu.eci.pgr1.entremente.persistence.PersistenceException;
 import edu.eci.pgr1.entremente.persistence.PersistenceNotFoundException;
 import edu.eci.pgr1.entremente.persistence.PersonalSaludRepository;
+import edu.eci.pgr1.entremente.security.AES;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
@@ -64,7 +65,7 @@ public class PersonalSaludRepositoryDatabase implements PersonalSaludRepository{
             Class.forName(DatosBD.DRIVER);
             connect = DriverManager.getConnection(DatosBD.CONECTOR);
             
-            preparedStatement = connect.prepareStatement("SELECT documentoIdentidad, tipoDocumento, nombreUsuario, correo FROM "+NOMBRETABLA +" WHERE (documentoIdentidad='"+personalSalud.getDocumentoIdentidad()+"' AND tipoDocumento = '"+personalSalud.getTipoDocumento()+"') OR nombreUsuario = '"+personalSalud.getNombreUsuario()+"' OR correo = '"+personalSalud.getCorreo()+"'");
+            preparedStatement = connect.prepareStatement("SELECT documentoIdentidad, tipoDocumento, nombreUsuario, correo FROM "+NOMBRETABLA +" WHERE (documentoIdentidad='"+AES.encrypt(personalSalud.getDocumentoIdentidad())+"' AND tipoDocumento = '"+personalSalud.getTipoDocumento()+"') OR nombreUsuario = '"+personalSalud.getNombreUsuario()+"' OR correo = '"+AES.encrypt(personalSalud.getCorreo())+"'");
             resultSet = preparedStatement.executeQuery();
             
             if(resultSet.next()){
@@ -109,7 +110,13 @@ public class PersonalSaludRepositoryDatabase implements PersonalSaludRepository{
                personalSalud = new PersonalSalud();
                personalSalud.setApellidos(resultSet.getString("apellidos"));
                personalSalud.setCorreo(resultSet.getString("correo"));
+               if(!personalSalud.getCorreo().isEmpty()){
+                   personalSalud.setCorreo(AES.decrypt(personalSalud.getCorreo()));
+               }
                personalSalud.setDocumentoIdentidad(resultSet.getString("documentoIdentidad"));
+               if(!personalSalud.getDocumentoIdentidad().isEmpty()){
+                   personalSalud.setDocumentoIdentidad(AES.decrypt(personalSalud.getDocumentoIdentidad()));
+                }
                personalSalud.setId(resultSet.getInt("id"));
                personalSalud.setNombreUsuario(nombreUsuarios);
                personalSalud.setNombres(resultSet.getString("nombres"));
@@ -135,6 +142,13 @@ public class PersonalSaludRepositoryDatabase implements PersonalSaludRepository{
 
     @Override
     public void adicionarPersonalSalud(PersonalSalud personalSalud) throws PersistenceNotFoundException {
+        if(!personalSalud.getCorreo().isEmpty()){
+            personalSalud.setCorreo(personalSalud.getCorreo());
+        }
+        
+        if(!personalSalud.getDocumentoIdentidad().isEmpty()){
+            personalSalud.setDocumentoIdentidad(personalSalud.getDocumentoIdentidad());
+        }
         try {
             Class.forName(DatosBD.DRIVER);
             connect = DriverManager.getConnection(DatosBD.CONECTOR);
@@ -164,14 +178,19 @@ public class PersonalSaludRepositoryDatabase implements PersonalSaludRepository{
         try {
             Class.forName(DatosBD.DRIVER);
             connect = DriverManager.getConnection(DatosBD.CONECTOR);
-            preparedStatement = connect.prepareStatement("SELECT * FROM "+NOMBRETABLA +" WHERE nombreUsuario LIKE '%"+valor+"%' OR nombres LIKE '%"+valor+"%' OR apellidos LIKE '%"+valor+"%' OR documentoIdentidad LIKE '%"+valor+"%' or correo LIKE '%"+valor+"%' ORDER BY Apellidos, Nombres");
-            System.out.println("SELECT * FROM "+NOMBRETABLA +" WHERE nombreUsuario LIKE '%"+valor+"%' OR nombres LIKE '%"+valor+"%' OR apellidos LIKE '%"+valor+"%' OR documentoIdentidad LIKE '%"+valor+"%' or correo LIKE '%"+valor+"%' ORDER BY Apellidos, Nombres");
+            preparedStatement = connect.prepareStatement("SELECT * FROM "+NOMBRETABLA +" WHERE nombreUsuario LIKE '%"+valor+"%' OR nombres LIKE '%"+valor+"%' OR apellidos LIKE '%"+valor+"%' OR documentoIdentidad LIKE '%"+AES.encrypt(valor)+"%' or correo LIKE '%"+AES.encrypt(valor)+"%' ORDER BY Apellidos, Nombres");
             resultSet = preparedStatement.executeQuery();
             while(resultSet.next()){
                 personalSalud = new PersonalSalud();
                 personalSalud.setApellidos(resultSet.getString("apellidos"));
                 personalSalud.setCorreo(resultSet.getString("correo"));
+                if(!personalSalud.getCorreo().isEmpty()){
+                   personalSalud.setCorreo(AES.decrypt(personalSalud.getCorreo()));
+                }
                 personalSalud.setDocumentoIdentidad(resultSet.getString("documentoIdentidad"));
+                if(!personalSalud.getDocumentoIdentidad().isEmpty()){
+                   personalSalud.setDocumentoIdentidad(AES.decrypt(personalSalud.getDocumentoIdentidad()));
+                }
                 personalSalud.setId(resultSet.getInt("id"));
                 personalSalud.setNombreUsuario(resultSet.getString("nombreUsuario"));
                 personalSalud.setNombres(resultSet.getString("nombres"));

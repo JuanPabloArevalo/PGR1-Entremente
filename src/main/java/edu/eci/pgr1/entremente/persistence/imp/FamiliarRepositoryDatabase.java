@@ -11,6 +11,7 @@ import edu.eci.pgr1.entremente.model.Relacion;
 import edu.eci.pgr1.entremente.persistence.FamiliarRepository;
 import edu.eci.pgr1.entremente.persistence.PersistenceException;
 import edu.eci.pgr1.entremente.persistence.PersistenceNotFoundException;
+import edu.eci.pgr1.entremente.security.AES;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
@@ -19,6 +20,8 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.HashSet;
 import java.util.Set;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import org.springframework.stereotype.Service;
 
 /**
@@ -60,6 +63,13 @@ public class FamiliarRepositoryDatabase implements FamiliarRepository{
         boolean existeFamiliar = false;
         String nombreUsuario = "";
         String correo = "";
+        if(!familiar.getCorreo().isEmpty()){
+            familiar.setCorreo(AES.encrypt(familiar.getCorreo()));
+        }
+        if(!familiar.getDocumentoIdentidad().isEmpty()){
+            familiar.setDocumentoIdentidad(AES.encrypt(familiar.getDocumentoIdentidad()));
+        }
+        
         try {
             Class.forName(DatosBD.DRIVER);
             connect = DriverManager.getConnection(DatosBD.CONECTOR);
@@ -70,6 +80,9 @@ public class FamiliarRepositoryDatabase implements FamiliarRepository{
             if(resultSet.next()){
                 nombreUsuario = resultSet.getString(3);
                 correo = resultSet.getString(4);
+                if(!correo.isEmpty()){
+                   correo = AES.decrypt(correo);
+                }
                 existeFamiliar = true;
             }
             
@@ -109,7 +122,13 @@ public class FamiliarRepositoryDatabase implements FamiliarRepository{
                familiar = new Familiar();
                familiar.setApellidos(resultSet.getString("apellidos"));
                familiar.setCorreo(resultSet.getString("correo"));
+               if(!familiar.getCorreo().isEmpty()){
+                   familiar.setCorreo(AES.decrypt(familiar.getCorreo()));
+               }
                familiar.setDocumentoIdentidad(resultSet.getString("documentoIdentidad"));
+               if(!familiar.getDocumentoIdentidad().isEmpty()){
+                   familiar.setDocumentoIdentidad(AES.decrypt(familiar.getDocumentoIdentidad()));
+               }
                familiar.setId(resultSet.getInt("id"));
                familiar.setNombreUsuario(nombreUsuarios);
                familiar.setNombres(resultSet.getString("nombres"));
@@ -133,6 +152,12 @@ public class FamiliarRepositoryDatabase implements FamiliarRepository{
 
     @Override
     public void adicionarFamiliar(Familiar familiar) throws PersistenceNotFoundException {
+        if(!familiar.getCorreo().isEmpty()){
+            familiar.setCorreo(familiar.getCorreo());
+        }
+        if(!familiar.getDocumentoIdentidad().isEmpty()){
+            familiar.setDocumentoIdentidad(familiar.getDocumentoIdentidad());
+        }
         try {
             Class.forName(DatosBD.DRIVER);
             connect = DriverManager.getConnection(DatosBD.CONECTOR);
@@ -275,17 +300,22 @@ public class FamiliarRepositoryDatabase implements FamiliarRepository{
     public Set<Familiar> busquedaFamiliares(String valor) throws PersistenceNotFoundException, PersistenceException {
         Set<Familiar> familiares = new HashSet<>();
         Familiar familiar = null;
-        
         try {
             Class.forName(DatosBD.DRIVER);
             connect = DriverManager.getConnection(DatosBD.CONECTOR);
-            preparedStatement = connect.prepareStatement("SELECT * FROM "+NOMBRETABLA +" WHERE nombreUsuario LIKE '%"+valor+"%' OR nombres LIKE '%"+valor+"%' OR apellidos LIKE '%"+valor+"%' OR documentoIdentidad LIKE '%"+valor+"%' or correo LIKE '%"+valor+"%' ORDER BY Apellidos, Nombres");
+            preparedStatement = connect.prepareStatement("SELECT * FROM "+NOMBRETABLA +" WHERE nombreUsuario LIKE '%"+valor+"%' OR nombres LIKE '%"+valor+"%' OR apellidos LIKE '%"+valor+"%' OR documentoIdentidad LIKE '%"+AES.encrypt(valor)+"%' or correo LIKE '%"+AES.encrypt(valor)+"%' ORDER BY Apellidos, Nombres");
             resultSet = preparedStatement.executeQuery();
             while(resultSet.next()){
                 familiar = new Familiar();
                 familiar.setApellidos(resultSet.getString("apellidos"));
                 familiar.setCorreo(resultSet.getString("correo"));
+                if(!familiar.getCorreo().isEmpty()){
+                   familiar.setCorreo(AES.decrypt(familiar.getCorreo()));
+                }
                 familiar.setDocumentoIdentidad(resultSet.getString("documentoIdentidad"));
+                if(!familiar.getDocumentoIdentidad().isEmpty()){
+                   familiar.setDocumentoIdentidad(AES.decrypt(familiar.getDocumentoIdentidad()));
+                }
                 familiar.setId(resultSet.getInt("id"));
                 familiar.setNombreUsuario(resultSet.getString("nombreUsuario"));
                 familiar.setNombres(resultSet.getString("nombres"));

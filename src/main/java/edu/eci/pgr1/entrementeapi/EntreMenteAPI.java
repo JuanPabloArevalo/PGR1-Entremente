@@ -5,6 +5,8 @@
  */
 package edu.eci.pgr1.entrementeapi;
 
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.ComponentScan;
@@ -17,6 +19,11 @@ import org.springframework.context.annotation.ComponentScan;
 @ComponentScan(basePackages = {"edu.eci.pgr1.entremente"})
 public class EntreMenteAPI {
      public static void main(String[] args) {
-	SpringApplication.run(EntreMenteAPI.class, args);
+         try {
+             SpringApplication.run(EntreMenteAPI.class, args);
+         } catch (Exception ex) {
+             Logger.getLogger(EntreMenteAPI.class.getName()).log(Level.SEVERE, null, ex);
+         }
+         
     }
 }

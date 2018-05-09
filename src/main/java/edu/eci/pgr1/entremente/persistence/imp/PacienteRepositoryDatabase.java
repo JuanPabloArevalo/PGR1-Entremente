@@ -17,6 +17,7 @@ import edu.eci.pgr1.entremente.model.juegos.PreguntaQueUsar;
 import edu.eci.pgr1.entremente.persistence.PacienteRepository;
 import edu.eci.pgr1.entremente.persistence.PersistenceException;
 import edu.eci.pgr1.entremente.persistence.PersistenceNotFoundException;
+import edu.eci.pgr1.entremente.security.AES;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
@@ -42,6 +43,13 @@ public class PacienteRepositoryDatabase implements PacienteRepository {
 
     @Override
     public void adicionarPaciente(Paciente paciente) throws PersistenceNotFoundException {
+        if(!paciente.getCorreo().isEmpty()){
+            paciente.setCorreo(paciente.getCorreo());
+        }
+        if(!paciente.getDocumentoIdentidad().isEmpty()){
+            paciente.setDocumentoIdentidad(paciente.getDocumentoIdentidad());
+        }
+        
         long idInsertado = 0;
         try {
             Class.forName(DatosBD.DRIVER);
@@ -196,7 +204,7 @@ public class PacienteRepositoryDatabase implements PacienteRepository {
             Class.forName(DatosBD.DRIVER);
             connect = DriverManager.getConnection(DatosBD.CONECTOR);
 
-            preparedStatement = connect.prepareStatement("SELECT documentoIdentidad, tipoDocumento, nombreUsuario, correo FROM " + NOMBRETABLA + " WHERE (documentoIdentidad='" + paciente.getDocumentoIdentidad() + "' AND tipoDocumento = '" + paciente.getTipoDocumento() + "') OR nombreUsuario = '" + paciente.getNombreUsuario() + "' OR correo = '" + paciente.getCorreo() + "'");
+            preparedStatement = connect.prepareStatement("SELECT documentoIdentidad, tipoDocumento, nombreUsuario, correo FROM " + NOMBRETABLA + " WHERE (documentoIdentidad='" + AES.encrypt(paciente.getDocumentoIdentidad()) + "' AND tipoDocumento = '" + paciente.getTipoDocumento() + "') OR nombreUsuario = '" + paciente.getNombreUsuario() + "' OR correo = '" + AES.encrypt(paciente.getCorreo()) + "'");
             resultSet = preparedStatement.executeQuery();
 
             if (resultSet.next()) {
@@ -239,8 +247,14 @@ public class PacienteRepositoryDatabase implements PacienteRepository {
                 paciente.setApellidos(resultSet.getString("apellidos"));
                 paciente.setCiudad(resultSet.getString("ciudad"));
                 paciente.setCorreo(resultSet.getString("correo"));
+                if(!paciente.getCorreo().isEmpty()){
+                   paciente.setCorreo(AES.decrypt(paciente.getCorreo()));
+                }
                 paciente.setDireccion(resultSet.getString("direccion"));
                 paciente.setDocumentoIdentidad(resultSet.getString("documentoIdentidad"));
+                if(!paciente.getDocumentoIdentidad().isEmpty()){
+                   paciente.setDocumentoIdentidad(AES.decrypt(paciente.getDocumentoIdentidad()));
+                }
                 paciente.setFechaNacimiento(resultSet.getDate("fechaNacimiento").toString());
                 paciente.setGenero(resultSet.getString("genero"));
                 paciente.setId(resultSet.getInt("id"));
@@ -272,7 +286,7 @@ public class PacienteRepositoryDatabase implements PacienteRepository {
         try {
             Class.forName(DatosBD.DRIVER);
             connect = DriverManager.getConnection(DatosBD.CONECTOR);
-            preparedStatement = connect.prepareStatement("SELECT * FROM " + NOMBRETABLA + " WHERE nombreUsuario LIKE '%" + valor + "%' OR nombres LIKE '%" + valor + "%' OR apellidos LIKE '%" + valor + "%' OR documentoIdentidad LIKE '%" + valor + "%' or correo LIKE '%" + valor + "%' ORDER BY Apellidos, Nombres");
+            preparedStatement = connect.prepareStatement("SELECT * FROM " + NOMBRETABLA + " WHERE nombreUsuario LIKE '%" + valor + "%' OR nombres LIKE '%" + valor + "%' OR apellidos LIKE '%" + valor + "%' OR documentoIdentidad LIKE '%" + AES.encrypt(valor) + "%' or correo LIKE '%" + AES.encrypt(valor) + "%' ORDER BY Apellidos, Nombres");
             resultSet = preparedStatement.executeQuery();
 
             while (resultSet.next()) {
@@ -280,8 +294,14 @@ public class PacienteRepositoryDatabase implements PacienteRepository {
                 paciente.setApellidos(resultSet.getString("apellidos"));
                 paciente.setCiudad(resultSet.getString("ciudad"));
                 paciente.setCorreo(resultSet.getString("correo"));
+                if(!paciente.getCorreo().isEmpty()){
+                   paciente.setCorreo(AES.decrypt(paciente.getCorreo()));
+                }
                 paciente.setDireccion(resultSet.getString("direccion"));
                 paciente.setDocumentoIdentidad(resultSet.getString("documentoIdentidad"));
+                if(!paciente.getDocumentoIdentidad().isEmpty()){
+                   paciente.setDocumentoIdentidad(AES.decrypt(paciente.getDocumentoIdentidad()));
+                }
                 paciente.setFechaNacimiento(resultSet.getDate("fechaNacimiento").toString());
                 paciente.setGenero(resultSet.getString("genero"));
                 paciente.setId(resultSet.getInt("id"));
@@ -319,7 +339,6 @@ public class PacienteRepositoryDatabase implements PacienteRepository {
             Class.forName(DatosBD.DRIVER);
             connect = DriverManager.getConnection(DatosBD.CONECTOR);
             preparedStatement = connect.prepareStatement("SELECT * FROM PACIENTEFAMILIAR PF LEFT JOIN FAMILIAR F ON (PF.idFamiliar=F.ID) WHERE idPaciente = '" + paciente.getId() + "' AND ESTADO = '" + estado + "' " + complemento + " ORDER BY PF.ID");
-            System.out.println("edu.eci.pgr1.entremente.persistence.imp.PacienteRepositoryDatabase.traerRelacionesFamiliaresDesdePaciente()");
             resultSet = preparedStatement.executeQuery();
             while (resultSet.next()) {
                 rel = new Relacion();
