@@ -143,11 +143,11 @@ public class PersonalSaludRepositoryDatabase implements PersonalSaludRepository{
     @Override
     public void adicionarPersonalSalud(PersonalSalud personalSalud) throws PersistenceNotFoundException {
         if(!personalSalud.getCorreo().isEmpty()){
-            personalSalud.setCorreo(personalSalud.getCorreo());
+            personalSalud.setCorreo(AES.encrypt(personalSalud.getCorreo()));
         }
         
         if(!personalSalud.getDocumentoIdentidad().isEmpty()){
-            personalSalud.setDocumentoIdentidad(personalSalud.getDocumentoIdentidad());
+            personalSalud.setDocumentoIdentidad(AES.encrypt(personalSalud.getDocumentoIdentidad()));
         }
         try {
             Class.forName(DatosBD.DRIVER);

@@ -44,10 +44,10 @@ public class PacienteRepositoryDatabase implements PacienteRepository {
     @Override
     public void adicionarPaciente(Paciente paciente) throws PersistenceNotFoundException {
         if(!paciente.getCorreo().isEmpty()){
-            paciente.setCorreo(paciente.getCorreo());
+            paciente.setCorreo(AES.encrypt(paciente.getCorreo()));
         }
         if(!paciente.getDocumentoIdentidad().isEmpty()){
-            paciente.setDocumentoIdentidad(paciente.getDocumentoIdentidad());
+            paciente.setDocumentoIdentidad(AES.encrypt(paciente.getDocumentoIdentidad()));
         }
         
         long idInsertado = 0;
