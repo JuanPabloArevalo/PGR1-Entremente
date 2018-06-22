@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="es">
+    <head>
+<!--        <script src="/webjars/jquery/jquery.min.js"></script>
+        <script src="/webjars/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+        <link rel="stylesheet" href="/webjars/bootstrap/3.3.7/css/bootstrap.min.css" />-->
+
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" />
+
+        <!--<script src="js/musicoterapia/apimockMusicoterapia.js"></script>-->
+        <script src="js/configuracionHost.js"></script>
+        <script src="js/musicoterapia/apiclientMusicoterapia.js"></script>
+        <script src="js/musicoterapia/appMusicoterapia.js"></script>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        
+        <!--importarCSS-->
+        <link rel="stylesheet" href="css/css.css"/>
+        <link rel="stylesheet" href="css/musicoterapia.css"/>
+        <title>Musicoterapia</title>
+    </head>
+    <body onload="appMusicoterapia.init()">
+        <div class="container-fluid">
+            <!--Div para el manejo del menú-->
+            <div class="row">
+                <div class="col-sm-1 col-md-1 col-xs-2">
+                    <div class="btn-group" >
+                        <button type="button" class="btn btn-primary dropdown-toggle letraTextos" data-toggle="dropdown">
+                            Ayuda!<span class="caret"></span></button>
+                        <ul class="dropdown-menu" role="menu">
+                            <li><a id="idBtnQueHacer" class ="letraTextos" data-toggle="modal" data-target="#myModal">¿Que hago?</a></li>
+                            <li><a id="idBtn5050" class ="letraTextos" onClick="appMusicoterapia.ayuda5050()">50/50</a></li>
+                            <li><a class ="letraTextos" onClick="appMusicoterapia.ayudaCambioPregunta()">Cambio</a></li>
+
+                        </ul>
+                    </div>
+                </div>
+                <div class="col-sm-10 col-md-10 col-xs-8">
+                    <div >
+                        <p class="titulo">Musicoterapia</p>
+                    </div>
+                </div>
+                <div class="col-sm-1 col-md-1 col-xs-2" >
+                    <a href= "/perfilPaciente.html" class="center-block centrar" id="idUsuarioDib"><img src="image/usuario.png"  class="img-rounded img-responsive panelImagenMenu center-block" alt="Cinque Terre">Mi Perfil</a>
+                </div>
+            </div>
+            <!--Fin Div para el manejo del menú-->
+
+            <!--Manejo del Nivel-->
+            <div class="row">
+                <div class=" col-md-2 col-sm-2 col-xs-2 "></div>
+                <div class=" col-md-8 col-sm-8 col-xs-8" >
+                    <p class="encabezado colorAzulOscuro centrar"> Pregunta <span id="idCantidadPreguntasBien"></span> de <span id="idCantidadPreguntasTotalNivel"></span>.  Nivel <span id="idNivel"></span>   </p>
+                </div>
+                <div class="col-md-2 col-sm-2 col-xs-2"></div>
+            </div>
+            <!--Fin Manejo del Nivel-->
+<!--<iframe width="560" height="315" src="https://www.youtube.com/embed/-b21-NCfNzM" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>-->
+            <!--Manejo de la imagen de la pregunta-->
+            <div class="row">
+                <div class="col-xs-0 col-sm-2 col-md-3 col-lg-3">
+                </div>
+                <div class=" col-xs-12 col-sm-8 col-md-6 col-lg-6 jumbotron">
+                    <div class="embed-container">
+                        <iframe class="youtube-iframe" width="560" height="315" src="" frameborder="0" allowfullscreen id="idVideo"></iframe>
+                    </div>
+
+                </div>
+                <div class="col-xs-0 col-sm-2 col-md-3 col-lg-3">
+
+                </div>
+            </div>
+            <!--Fin Manejo de la imagen de la pregunta-->
+            <!-- Modal -->
+            <div id="myModal" class="modal fade " role="dialog">
+                <div class="modal-dialog modal-lg">
+                    <!-- Modal content-->
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal">&times;</button>
+                            <h4 class="modal-title letraTextos">Aca te ayudamos!</h4>
+                        </div>
+                        <div class="modal-body">
+                            <!-- Tabs boton Ayuda-->
+                            <ul class="nav nav-tabs">
+                                <li class="active"><a class ="letraTextos" data-toggle="tab" href="#home">Instrucciones</a></li>
+                                <li><a class ="letraTextos" data-toggle="tab" href="#menuVideo">Video</a></li>
+                            </ul>
+                            <!-- Fin Tabs boton Ayuda-->
+                            <div class="tab-content">
+                                <!-- Instrucciones-->
+                                <div id="home" class="tab-pane fade in active">
+                                    <p class ="letraTextos">En la pantalla te aparecera una imágen, debajo de la imágen tendras una pregunta, que deberás responder, para esto, hay 4 botones, tienes que seleccionar el que tu creas que es correcto. </p>
+                                </div>
+                                <!-- Fin Instrucciones-->
+
+                                <!-- Video explicacion-->
+                                <div id="menuVideo" class="tab-pane fade">
+                                    <div class="embed-responsive embed-responsive-16by9">
+                                        <iframe width="400" height="240" src="https://www.youtube.com/embed/AzUkilxinlY" frameborder="0" allowfullscreen></iframe>
+                                    </div>
+                                </div>
+                                <!-- Fin Video explicacion-->
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+                        </div>
+                    </div>
+                </div>
+            </div>		
+            <!--Fin Modal -->
+
+            <!--Manejo de la pregunta-->
+            <div class="row">
+                <div class="col-sm-2"></div>
+                <div class="col-sm-8" >
+                    <h3 class="centrar well letraTextos" id="idPregunta"></h3>
+                    <div class="col-md-5 col-sm-5 col-xs-4"></div>
+                    <div class=" col-md-2 col-sm-2 col-xs-4" >
+                        <!--<button type="button" class="btn btn-link" data-toggle="modal" data-target="#idModalInformacion">Más información</button>-->
+                    </div>
+                    <div class="col-md-5 col-sm-5 col-xs-4"></div>
+                </div>
+                <div class="col-sm-2"></div>
+            </div>
+            <!--Fin Manejo de la pregunta-->
+
+            <!--Manejo de las botones-->
+            <div class="row">
+                <div class="col-sm-2"></div>
+                <div class="btn-group-justified panelBotonesRespuesta">
+                    <a id="idBoton0" class="btn btn-success letraTextos"></a>
+                    <a id="idBoton1" class="btn btn-success letraTextos"></a>
+                </div> 
+                <div class="col-sm-2"></div>
+            </div>
+            <div class="row">
+                <div class="col-sm-4"></div>
+                <div class="btn-group-justified panelBotonesRespuesta">
+                    <a id="idBoton2" class="btn btn-success letraTextos"></a>
+                    <a id="idBoton3" class="btn btn-success letraTextos"></a>
+                </div> 
+                <div class="col-sm-4"></div>
+            </div>
+            <!--Fin Manejo de la botons-->
+            <!--Boton Salir-->
+            <br>
+            <div class="row">
+                <div class="col-xs-2 col-sm-4 col-md-5 col-lg-5"></div>
+                <div class="col-xs-8 col-sm-4 col-md-2 col-lg-2" >
+                    <a id="idBotonSalir" class="btn btn-info btn-block letraTextos" onclick="appMusicoterapia.salir();" >Salir</a>
+                </div>
+                <div class="col-xs-2 col-sm-4 col-md-5 col-lg-5"></div>
+            </div>
+            <!--Fin Boton Salir-->
+        </div>
+
+
+
+        <!-- Modal Mas información-->
+        <div id="idModalInformacion" class="modal fade" role="dialog">
+            <div class="modal-dialog">
+                <!-- Modal content-->
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                        <h4 class="modal-title">Más información</h4>
+                    </div>
+                    <div class="modal-body">
+                        <p id = "idMasInformacion" class ="letraTextos"></p>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Modal Correcto-->
+        <div id="modalCorrecto" class="modal fade " role="dialog">
+            <div class="modal-dialog modal-lg" style="background-color: transparent !important;" >
+                <!-- Modal content-->
+                <div class="modal-content">
+                    <div class="modal-body">
+                        <div id="idPanelCorrectoM">
+                            <img src="image/correcto.png" class="img-rounded img-responsive centrar panelImagenPregunta" alt="ImagenCorrecto">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>		
+        <!--Fin Modal Correcto-->
+
+        <!-- Modal InCorrecto-->
+        <div id="modalIncorrecto" class="modal fade " role="dialog">
+            <div class="modal-dialog modal-lg" style="background-color: transparent !important;" >
+                <!-- Modal content-->
+                <div class="modal-content">
+                    <div class="modal-body">
+                        <div id="idPanelIncorrectoM">
+                            <img src="image/incorrecto.png" class="img-rounded img-responsive centrar panelImagenPregunta" alt="ImagenIncorrecto">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>		
+        <!--Fin Modal Incorrecto-->
+
+
+        <!-- Modal Subir Nivel-->
+        <div id="modalSubirNivel" class="modal fade " role="dialog">
+            <div class="modal-dialog modal-lg" style="background-color: transparent !important;" >
+                <!-- Modal content-->
+                <div class="modal-content">
+                    <div class="modal-body">
+                        <div id="idLevelUpM">
+                            <img src="image/levelUp.png" class="img-rounded img-responsive centrar panelImagenPregunta" alt="LevelUp">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>	
+        <!--Fin Modal Subir Nivel-->
+    </body>
+
+</html>

@@ -1,0 +1,576 @@
+<!DOCTYPE html>
+<html lang="es">
+    <head>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" />
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <!--importarCSS-->
+        <link rel="stylesheet" href="css/css.css" />
+        <link rel="stylesheet" href="css/perfilPaciente.css" />
+        <link rel="stylesheet" href="css/diagramas.css" />
+        <!--importarJS-->
+        <script src="js/configuracionHost.js"></script>
+        <script src="js/diagramasGaleria.js"></script> 
+        <script src="js/diagramasCalculemos.js"></script> 
+        <script src="js/diagramasPercepciones.js"></script> 
+        <script src="js/diagramasAtencion.js"></script> 
+        <script src="js/diagramasFormas.js"></script> 
+        <script src="js/diagramasMusicoterapia.js"></script> 
+        <script src="js/diagramasQueUsar.js"></script>  
+        <!--<script src="js/diagramasGrupoFamiliar.js"></script>--> 
+        <!--importarGraficos-->
+        <script src="https://code.highcharts.com/highcharts.src.js"></script>
+        <script src="js/apiclientPerfilPersonalSalud.js"></script> 
+        <script src="js/apiclientResultados.js"></script> 
+        <script src="js/perfilPersonalSalud.js"></script> 
+        <script src="js/perfilPacienteSalud.js"></script> 
+        <script src="js/perfilFamiliar.js"></script> 
+        <script src="js/cerrarSesion.js"></script> 
+        <title>Mi Perfil - Paciente</title>
+    </head>
+    <body onload="perfilPersonalSalud.initConsultarPaciente()">
+        <div class="container-fluid">
+            <!--Menú-->	
+            <nav class="navbar navbar-inverse navbar-fixed-top">
+                <div class="container-fluid">
+                    <div class="navbar-header">
+                        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                        </button>
+                        <a class="navbar-brand nombreProgramaMenu" href="#">EntreMente</a>
+                    </div>
+                    <div class="collapse navbar-collapse" id="myNavbar">
+                        <ul class="nav navbar-nav">
+                            <li><a href="/perfilPersonalSalud.html">Mi Perfil</a></li>
+                            <li><a href="/perfilPersonalSaludPaciente.html">Pacientes</a></li>
+                        </ul>
+                        <ul class="nav navbar-nav navbar-right">
+                            <li class=""><a id="idNombreUsu"></a></li>
+                            <li><a data-toggle="modal" data-target="#modalCerrarSesion"><span class="glyphicon glyphicon-log-in"></span>Adios!</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </nav> 
+            <!--Fin Menú-->	
+            <!--Modal Cerrar Sesion-->	
+            <div id="modalCerrarSesion" class="modal fade" role="dialog">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h4 class="modal-title subTituloAzul">Cerrar Sesión</h4>
+                        </div>
+                        <div class="modal-body letraTextos">
+                            <p>Estas seguro que quieres cerrar tu sesión</p>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-success" data-dismiss="modal">Continuar</button>
+                            <a onclick="cerrarSesion.cerrarSesion()"><button type="button" class="btn btn-danger">Cerrar Sesión</button></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!--Fin Modal Cerrar Sesion-->
+
+
+            <div class="panel panel-success ">
+                <div class="panel-heading"><h5 class="subTitulo colorVerdeOscuro" id="idNombrePaciente"></h5></div>
+                <div class="panel-body">
+                    <div class="panel-group" id="accordion">
+                        <!--Historial medico-->
+                        <div class="panel panel-default">
+                            <div class="panel-heading">
+                                <h4 class="panel-title colorVerdeOscuro">
+                                    <a data-toggle="collapse" data-parent="#accordion" href="#collapse1" class="subTitulo colorVerdeOscuro">Historial Médico</a>
+                                </h4>
+                            </div>
+                            <div id="collapse1" class="panel-collapse collapse in">
+                                <div class="panel-body">
+                                    <div class="panel panel-success ">
+                                        <div class="row">
+                                            <div class="col-xs-0 col-sm-2 col-md- 3 col-lg-4"></div>
+                                            <div class="col-xs-12 col-sm-8 col-md-6 col-lg-4">
+                                                <form>
+                                                    <div class="form-group">
+                                                        <label for="sel1">Enfermedad:</label>
+                                                        <select class="form-control" id="listaEnfermedades">
+                                                        </select>
+                                                        <label for="fecha">Fecha:</label>
+                                                        <input type="date" class="form-control" id="fechaHM">
+                                                        <br>
+                                                        <button type="button" class="btn btn-success" onclick="perfilPersonalSalud.guardarHistorialMedico()">Guardar</button>
+                                                    </div>
+                                                </form>
+                                            </div>
+                                            <div class="col-xs-0 col-sm-2 col-md-3 col-lg-4"></div>
+                                        </div>
+                                        <div class="table-responsive">          
+                                            <table class="table" id="idTablaHistorialM">
+                                                <thead>
+                                                    <tr>
+                                                        <th>#</th>
+                                                        <th>Codigo</th>
+                                                        <th>Enfermedad</th>
+                                                        <th>Fecha</th>
+                                                        <th>Nombre Profesional</th>
+                                                        <th>Especialidad</th>
+                                                        <th></th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!--Fin Historial medico-->
+                        <!--Galeria-->
+                        <div class="panel panel-default">
+                            <div class="panel-heading">
+                                <h4 class="panel-title colorVerdeOscuro">
+                                    <a data-toggle="collapse" data-parent="#accordion" href="#collapse2" class="subTitulo colorVerdeOscuro">Galería</a>
+                                </h4>
+                            </div>
+                            <div id="collapse2" class="panel-collapse collapse">
+                                <div class="panel-body">
+                                    <div class="row">
+                                        <div class="col-xs-3 col-sm-3 col-md-4 col-lg-4"></div>
+                                        <div class="col-xs-6 col-sm-6 col-md-4 col-lg-4">
+                                            <a class="btn btn-info btn-block" href="/pPSEditarGaleria.html">Personalizar</a>
+                                        </div>
+                                        <div class="col-xs-3 col-sm-3 col-md-4 col-lg-4"></div>
+                                    </div>
+                                    <label>Filtro:</label>
+                                    <select class="form-control" id="idComboGaleria">
+                                        <option value="D">Días</option>
+                                        <option value="M">Meses</option>
+                                        <option value="A">Años</option>
+                                    </select>
+                                    <div class="form-group">
+                                        <label>Fecha Inicial:</label>
+                                        <input type="date" class="form-control" id="idFechaIG">
+                                        <label>Fecha Final:</label>
+                                        <input type="date" class="form-control" id="idFechaFG">
+                                        <button class="btn btn-success btn-block" onclick="perfilPacienteSalud.buscarResultadosGaleria()">Buscar</button>
+                                    </div>
+                                    <br>
+                                    <div class="table-responsive">          
+                                        <table class="table" id="idTablaGResultados">
+                                            <thead>
+                                                <tr>
+                                                    <th>Preguntas Acertadas</th>
+                                                    <th>Preguntas Erroneas</th>
+                                                    <th>Tiempo Jugado (Min.)</th>
+                                                    <th>Nivel Máximo</th>
+                                                    <th>Fecha</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                    <div class="row">
+                                        <div id="preguntasAcertadasGaleria" class = "diagramasBarras"></div>
+                                        <div id="preguntasErroneasGaleria" class = "diagramasBarras"></div>
+                                        <div id="tiempoJugadoGaleria" class = "diagramasBarras"></div>
+                                        <div id="nivelMaximoGaleria" class = "diagramasBarras"></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!--Galeria-->
+                        <!--Operaciones-->
+                        <div class="panel panel-default">
+                            <div class="panel-heading">
+                                <h4 class="panel-title colorVerdeOscuro">
+                                    <a data-toggle="collapse" data-parent="#accordion" href="#collapse3" class="subTitulo colorVerdeOscuro">Calculemos</a>
+                                </h4>
+                            </div>
+                            <div id="collapse3" class="panel-collapse collapse">
+                                <div class="panel-body">
+                                    <div class="panel-body">
+                                        <div class="row">
+                                            <div class="col-xs-3 col-sm-3 col-md-4 col-lg-4"></div>
+                                            <div class="col-xs-6 col-sm-6 col-md-4 col-lg-4">
+                                                <!--<a class="btn btn-info btn-block" href="/pPSEditarCalculemos.html">Personalizar</a>-->
+                                            </div>
+                                            <div class="col-xs-3 col-sm-3 col-md-4 col-lg-4"></div>
+                                        </div>
+                                        <label>Filtro:</label>
+                                        <select class="form-control" id="idComboCalculo">
+                                            <option value="D">Días</option>
+                                            <option value="M">Meses</option>
+                                            <option value="A">Años</option>
+                                        </select>
+                                        <div class="form-group">
+                                            <label>Fecha Inicial:</label>
+                                            <input type="date" class="form-control" id="idFechaIC">
+                                            <label>Fecha Final:</label>
+                                            <input type="date" class="form-control" id="idFechaFC">
+                                            <button class="btn btn-success btn-block" onclick="perfilPacienteSalud.buscarResultadosCalculemos()">Buscar</button>
+                                        </div>
+                                        <br>
+                                        <div class="table-responsive">          
+                                            <table class="table" id="idTablaCResultados">
+                                                <thead>
+                                                    <tr>
+                                                        <th>Preguntas Acertadas</th>
+                                                        <th>Preguntas Erroneas</th>
+                                                        <th>Tiempo Jugado (Min.)</th>
+                                                        <th>Nivel Máximo</th>
+                                                        <th>Fecha</th>
+                                                    </tr>
+                                                </thead>
+                                            </table>
+                                        </div>
+                                        <div class="row">
+                                            <div id="preguntasAcertadasCalculemos" class = "diagramasBarras"></div>
+                                            <div id="preguntasErroneasCalculemos" class = "diagramasBarras"></div>
+                                            <div id="tiempoJugadoCalculemos" class = "diagramasBarras"></div>
+                                            <div id="nivelMaximoCalculemos" class = "diagramasBarras"></div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!--Fin Operaciones -->
+                        <!--Percepciones-->
+                        <div class="panel panel-default">
+                            <div class="panel-heading">
+                                <h4 class="panel-title colorVerdeOscuro">
+                                    <a data-toggle="collapse" data-parent="#accordion" href="#collapse4" class="subTitulo colorVerdeOscuro">Percepción</a>
+                                </h4>
+                            </div>
+                            <div id="collapse4" class="panel-collapse collapse">
+                                <div class="panel-body">
+                                    <div class="panel-body">
+                                        <div class="row">
+                                            <div class="col-xs-3 col-sm-3 col-md-4 col-lg-4"></div>
+                                            <div class="col-xs-6 col-sm-6 col-md-4 col-lg-4">
+                                                <a class="btn btn-info btn-block" href="/pPSEditarPercepcion.html">Personalizar</a>
+                                            </div>
+                                            <div class="col-xs-3 col-sm-3 col-md-4 col-lg-4"></div>
+                                        </div>
+                                        <label>Filtro:</label>
+                                        <select class="form-control" id="idComboPercepcion">
+                                            <option value="D">Días</option>
+                                            <option value="M">Meses</option>
+                                            <option value="A">Años</option>
+                                        </select>
+                                        <div class="form-group">
+                                            <label>Fecha Inicial:</label>
+                                            <input type="date" class="form-control" id="idFechaIP">
+                                            <label>Fecha Final:</label>
+                                            <input type="date" class="form-control" id="idFechaFP">
+                                            <button class="btn btn-success btn-block" onclick="perfilPacienteSalud.buscarResultadosPercepcion()">Buscar</button>
+                                        </div>
+                                        <br>
+                                        <div class="table-responsive">          
+                                            <table class="table" id="idTablaPResultados">
+                                                <thead>
+                                                    <tr>
+                                                        <th>Preguntas Acertadas</th>
+                                                        <th>Preguntas Erroneas</th>
+                                                        <th>Tiempo Jugado (Min.)</th>
+                                                        <th>Nivel Máximo</th>
+                                                        <th>Fecha</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                        <div class="row">
+                                            <div id="preguntasAcertadasPercepcion" class = "diagramasBarras"></div>
+                                            <div id="preguntasErroneasPercepcion" class = "diagramasBarras"></div>
+                                            <div id="tiempoJugadoPercepcion" class = "diagramasBarras"></div>
+                                            <div id="nivelMaximoPercepcion" class = "diagramasBarras"></div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!--Fin Perceciones-->
+                        <!--Atencion-->
+                        <div class="panel panel-default">
+                            <div class="panel-heading">
+                                <h4 class="panel-title colorVerdeOscuro">
+                                    <a data-toggle="collapse" data-parent="#accordion" href="#collapse5" class="subTitulo colorVerdeOscuro ">Atención</a>
+                                </h4>
+                            </div>
+                            <div id="collapse5" class="panel-collapse collapse">
+                                <div class="panel-body">
+                                    <div class="panel-body">
+                                        <div class="row">
+                                            <div class="col-xs-3 col-sm-3 col-md-4 col-lg-4"></div>
+                                            <div class="col-xs-6 col-sm-6 col-md-4 col-lg-4">
+                                                <a class="btn btn-info btn-block" href="/pPSEditarAtencion.html">Personalizar</a>
+                                            </div>
+                                            <div class="col-xs-3 col-sm-3 col-md-4 col-lg-4"></div>
+                                        </div>
+                                        <label>Filtro:</label>
+                                        <select class="form-control" id="idComboAtencion">
+                                            <option value="D">Días</option>
+                                            <option value="M">Meses</option>
+                                            <option value="A">Años</option>
+                                        </select>
+                                        <div class="form-group">
+                                            <label>Fecha Inicial:</label>
+                                            <input type="date" class="form-control" id="idFechaIA">
+                                            <label>Fecha Final:</label>
+                                            <input type="date" class="form-control" id="idFechaFA">
+                                            <button class="btn btn-success btn-block" onclick="perfilPacienteSalud.buscarResultadosAtencion()">Buscar</button>
+                                        </div>
+                                        <br>
+                                        <div class="table-responsive">          
+                                            <table class="table" id="idTablaAResultados">
+                                                <thead>
+                                                    <tr>
+                                                        <th>Preguntas Acertadas</th>
+                                                        <th>Preguntas Erroneas</th>
+                                                        <th>Tiempo Jugado (Min.)</th>
+                                                        <th>Nivel Máximo</th>
+                                                        <th>Fecha</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                        <div class="row">
+                                            <div id="preguntasAcertadasAtencion" class = "diagramasBarras"></div>
+                                            <div id="preguntasErroneasAtencion" class = "diagramasBarras"></div>
+                                            <div id="tiempoJugadoAtencion" class = "diagramasBarras"></div>
+                                            <div id="nivelMaximoAtencion" class = "diagramasBarras"></div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!--Fin Atencion-->
+                        <!--Formas-->
+                        <div class="panel panel-default">
+                            <div class="panel-heading">
+                                <h4 class="panel-title colorVerdeOscuro">
+                                    <a data-toggle="collapse" data-parent="#accordion" href="#collapse6" class="subTitulo colorVerdeOscuro ">Formas</a>
+                                </h4>
+                            </div>
+                            <div id="collapse6" class="panel-collapse collapse">
+                                <div class="panel-body">
+                                    <div class="panel-body">
+                                        <div class="row">
+                                            <div class="col-xs-3 col-sm-3 col-md-4 col-lg-4"></div>
+                                            <div class="col-xs-6 col-sm-6 col-md-4 col-lg-4">
+                                                <a class="btn btn-info btn-block" href="/pPSEditarFormas.html">Personalizar</a>
+                                            </div>
+                                            <div class="col-xs-3 col-sm-3 col-md-4 col-lg-4"></div>
+                                        </div>
+                                        <label>Filtro:</label>
+                                        <select class="form-control" id="idComboFormas">
+                                            <option value="D">Días</option>
+                                            <option value="M">Meses</option>
+                                            <option value="A">Años</option>
+                                        </select>
+                                        <div class="form-group">
+                                            <label>Fecha Inicial:</label>
+                                            <input type="date" class="form-control" id="idFechaIF">
+                                            <label>Fecha Final:</label>
+                                            <input type="date" class="form-control" id="idFechaFF">
+                                            <button class="btn btn-success btn-block" onclick="perfilPacienteSalud.buscarResultadosFormas()">Buscar</button>
+                                        </div>
+                                        <br>
+                                        <div class="table-responsive">          
+                                            <table class="table" id="idTablaFResultados">
+                                                <thead>
+                                                    <tr>
+                                                        <th>Preguntas Acertadas</th>
+                                                        <th>Preguntas Erroneas</th>
+                                                        <th>Tiempo Jugado (Min.)</th>
+                                                        <th>Nivel Máximo</th>
+                                                        <th>Fecha</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                        <div class="row">
+                                            <div id="preguntasAcertadasFormas" class = "diagramasBarras"></div>
+                                            <div id="preguntasErroneasFormas" class = "diagramasBarras"></div>
+                                            <div id="tiempoJugadoFormas" class = "diagramasBarras"></div>
+                                            <div id="nivelMaximoFormas" class = "diagramasBarras"></div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!--Fin Formas-->
+                        <!--Musicoterapia-->
+                        <div class="panel panel-default">
+                            <div class="panel-heading">
+                                <h4 class="panel-title colorVerdeOscuro">
+                                    <a data-toggle="collapse" data-parent="#accordion" href="#collapse9" class="subTitulo colorVerdeOscuro">Musicoterapia</a>
+                                </h4>
+                            </div>
+                            <div id="collapse9" class="panel-collapse collapse">
+                                <div class="panel-body">
+                                    <div class="panel-body">
+                                        <div class="row">
+                                            <div class="col-xs-3 col-sm-3 col-md-4 col-lg-4"></div>
+                                            <div class="col-xs-6 col-sm-6 col-md-4 col-lg-4">
+                                                <a class="btn btn-info btn-block" href="/pPSEditarMusicoterapia.html">Personalizar</a>
+                                            </div>
+                                            <div class="col-xs-3 col-sm-3 col-md-4 col-lg-4"></div>
+                                        </div>
+                                        <br>
+                                        <div class="row">
+                                            <div class="col-xs-3 col-sm-3 col-md-4 col-lg-4"></div>
+                                            <div class="col-xs-6 col-sm-6 col-md-4 col-lg-4">
+                                                <a class="btn btn-primary btn-block" href="/pPSAdicionarMusicoterapia.html">Adicionar</a>
+                                            </div>
+                                            <div class="col-xs-3 col-sm-3 col-md-4 col-lg-4"></div>
+                                        </div>
+                                        <label>Filtro:</label>
+                                        <select class="form-control" id="idComboMusicoterapia">
+                                            <option value="D">Días</option>
+                                            <option value="M">Meses</option>
+                                            <option value="A">Años</option>
+                                        </select>
+                                        <div class="form-group">
+                                            <label>Fecha Inicial:</label>
+                                            <input type="date" class="form-control" id="idFechaIM">
+                                            <label>Fecha Final:</label>
+                                            <input type="date" class="form-control" id="idFechaFM">
+                                            <button class="btn btn-success btn-block" onclick="perfilFamiliar.buscarResultadosMusicoterapia()">Buscar</button>
+                                        </div>
+                                        <br>
+                                        <div class="table-responsive">          
+                                            <table class="table" id="idTablaMResultados">
+                                                <thead>
+                                                    <tr>
+                                                        <th>Preguntas Acertadas</th>
+                                                        <th>Preguntas Erroneas</th>
+                                                        <th>Tiempo Jugado (Min.)</th>
+                                                        <th>Nivel Máximo</th>
+                                                        <th>Fecha</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                        <div class="row">
+                                            <div id="preguntasAcertadasMusicoterapia" class = "diagramasBarras"></div>
+                                            <div id="preguntasErroneasMusicoterapia" class = "diagramasBarras"></div>
+                                            <div id="tiempoJugadoMusicoterapia" class = "diagramasBarras"></div>
+                                            <div id="nivelMaximoMusicoterapia" class = "diagramasBarras"></div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!--Fin Musicoterapia-->
+                        <!--QueUsar-->
+                        <div class="panel panel-default">
+                            <div class="panel-heading">
+                                <h4 class="panel-title colorVerdeOscuro">
+                                    <a data-toggle="collapse" data-parent="#accordion" href="#collapse10" class="subTitulo colorVerdeOscuro">¿Qué Usar?</a>
+                                </h4>
+                            </div>
+                            <div id="collapse10" class="panel-collapse collapse">
+                                <div class="panel-body">
+                                    <div class="panel-body">
+                                        <div class="row">
+                                            <div class="col-xs-3 col-sm-3 col-md-4 col-lg-4"></div>
+                                            <div class="col-xs-6 col-sm-6 col-md-4 col-lg-4">
+                                                <a class="btn btn-info btn-block" href="/pPSEditarQueUsar.html">Personalizar</a>
+                                            </div>
+                                            <div class="col-xs-3 col-sm-3 col-md-4 col-lg-4"></div>
+                                        </div>
+                                        <br>
+                                        <label>Filtro:</label>
+                                        <select class="form-control" id="idComboQueUsar">
+                                            <option value="D">Días</option>
+                                            <option value="M">Meses</option>
+                                            <option value="A">Años</option>
+                                        </select>
+                                        <div class="form-group">
+                                            <label>Fecha Inicial:</label>
+                                            <input type="date" class="form-control" id="idFechaIQU">
+                                            <label>Fecha Final:</label>
+                                            <input type="date" class="form-control" id="idFechaFQU">
+                                            <button class="btn btn-success btn-block" onclick="perfilFamiliar.buscarResultadosQueUsar()">Buscar</button>
+                                        </div>
+                                        <br>
+                                        <div class="table-responsive">          
+                                            <table class="table" id="idTablaQUResultados">
+                                                <thead>
+                                                    <tr>
+                                                        <th>Preguntas Acertadas</th>
+                                                        <th>Preguntas Erroneas</th>
+                                                        <th>Tiempo Jugado (Min.)</th>
+                                                        <th>Nivel Máximo</th>
+                                                        <th>Fecha</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                        <div class="row">
+                                            <div id="preguntasAcertadasQueUsar" class = "diagramasBarras"></div>
+                                            <div id="preguntasErroneasQueUsar" class = "diagramasBarras"></div>
+                                            <div id="tiempoJugadoQueUsar" class = "diagramasBarras"></div>
+                                            <div id="nivelMaximoQueUsar" class = "diagramasBarras"></div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!--Fin QueUsar-->
+                        <!--Historial Mensajes-->
+                        <div class="panel panel-default">
+                            <div class="panel-heading">
+                                <h4 class="panel-title colorVerdeOscuro">
+                                    <a data-toggle="collapse" data-parent="#accordion" href="#collapse7" class="subTitulo colorVerdeOscuro">Mensajes</a>
+                                </h4>
+                            </div>
+                            <div id="collapse7" class="panel-collapse collapse">
+                                <div class="panel-body">
+                                    <div class="table-responsive">          
+                                        <table class="table" id="tablaMensajes">
+                                            <thead>
+                                                <tr>
+                                                    <th>#</th>
+                                                    <th>Fecha</th>
+                                                    <th>Mensaje</th>
+                                                    <th>Tipo</th>
+                                                    <th>Nombre</th>
+                                                    <th>Rol</th>
+                                                    <th>Ver paciente</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                    <a href="/perfilPersonalSaludEnviarNuevoMensaje.html"><button type="submit" class="btn btn-success">Enviar mensaje</button></a>
+                                </div>
+                            </div>
+                        </div>
+                        <!--Fin Historial Mensajes-->
+                    </div> 
+                </div>
+            </div>
+        </div>
+    </body>
+</html>

@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<!--        <script src="/webjars/jquery/jquery.min.js"></script>
+        <script src="/webjars/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+        <link rel="stylesheet" href="/webjars/bootstrap/3.3.7/css/bootstrap.min.css" />-->
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" />
+        <link rel="stylesheet" href="css/registrar.css" />
+        <link rel="stylesheet" href="css/css.css" />
+        <script src="js/configuracionHost.js"></script>
+        <script src="js/apiclientRegistrarPaciente.js"></script> 
+        <script src="js/registrarPaciente.js"></script> 
+        <title>Registrar Paciente</title>
+    </head>
+    <body id = "divFondo">
+        <div class="panel-heading subTituloCentrado">Registrar Paciente</div>
+        
+            <div class="row">
+                <div class="col-xs-1 col-sm-2 col-md-3 col-lg-3"></div>
+                <div class="col-xs-10 col-sm-8 col-md-6 col-lg-6">
+                    <div class="alert alert-danger alert-dismissable fade in" id="divError" hidden="">
+                    <strong>Error! Falta ingresar los siguientes campos:</strong><code id="mensajeFalta"></code>
+                </div>
+                <div class="alert alert-danger alert-dismissable fade in" id="divPass" hidden=""><strong>Error! Las contraseñas no coinciden</strong></div>
+                <div class="alert alert-danger alert-dismissable fade in" id="divProm" hidden=""><strong>Error! </strong><code id="mensajeFaltaProm"></code></div>
+                <div class="form-group  well">
+
+                    <label>Nombres:</label>
+                    <input type="text" class="form-control" id="nombres" >	
+
+                    <label>Apellidos:</label>
+                    <input type="text" class="form-control" id="apellidos">
+
+                    <label>Tipo Documento:</label>
+                    <select class="form-control" id="tipoDoc">
+                        <option value="">...</option>
+                        <option value="T">Tarjeta de Identidad</option>
+                        <option value="C">Cédula Ciudadania</option>
+                        <option value="P">Pasaporte</option>
+                        <option value="E">Cédula de Extranjeria</option>
+                    </select>
+
+                    <label>Documento de identidad:</label>
+                    <input type="number" class="form-control" id="documento">
+
+                    <label>Fecha Nacimiento:</label>
+                    <input type="date" class="form-control" id="fechaNacimiento"/>
+                    <label>Género</label><br>
+                    <select class="form-control" id="genero">
+                        <option value="">...</option>
+                        <option value="H">Hombre</option>
+                        <option value="M">Mujer</option>
+                    </select>
+                    <label>País</label>
+                    <input type="text" class="form-control" id="idPais">
+                    <label>Ciudad:</label>
+                    <input type="text" class="form-control" id="idCiudad">
+                    <label>Dirección:</label>
+                    <input type="text" class="form-control" id="idDireccion">
+                    <label>Correo:</label>
+                    <input type="email" class="form-control" id="idCorreo">
+                    <label>Nombre de usuario:</label>
+                    <input type="text" class="form-control" id="nombreUsuario">
+                    <label>Contraseña:</label>
+                    <input type="password" class="form-control" id="password">
+                    <label>Confirmar Contraseña:</label>
+                    <input type="password" class="form-control has-error has-feedback" id="passwordconfirmar">
+                    <br>
+                    <button class="btn btn-success btn-block" onclick="registrarPaciente.registrarPaciente()" id="botonRegistro">Guardar</button>
+                    <br>
+                    <a href="/iniciarSesion.html" class="btn btn-warning btn-block" role="button">Atras</a>
+                </div>
+            </div>
+            <div class="col-xs-1 col-sm-2 col-md-3 col-lg-3"></div>
+        </div>
+    </body>
+</html>

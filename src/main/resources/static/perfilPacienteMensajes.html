@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="es">
+    <head>
+<!--        <script src="/webjars/jquery/jquery.min.js"></script>
+        <script src="/webjars/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+        <link rel="stylesheet" href="/webjars/bootstrap/3.3.7/css/bootstrap.min.css" />-->
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" />
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <!--importarCSS-->
+        <link rel="stylesheet" href="css/css.css" />
+        <link rel="stylesheet" href="css/perfilPaciente.css" />
+        <script src="js/configuracionHost.js"></script>
+        <script src="js/cerrarSesion.js"></script> 
+        <script src="js/iniciarSesion.js"></script> 
+        <script src="js/apiclientPerfilPaciente.js"></script> 
+        <script src="js/perfilPaciente.js"></script> 
+        <title>Mi perfil - Mensajes</title>
+    </head>
+    <body onload="perfilPaciente.initCargarMensajes()">
+        <div class="container-fluid">
+            <nav class="navbar navbar-inverse navbar-fixed-top">
+                <div class="container-fluid">
+                    <div class="navbar-header">
+                        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                        </button>
+                        <a class="navbar-brand nombreProgramaMenu" href="/menuPaciente.html">EntreMente</a>
+                    </div>
+                    <div class="collapse navbar-collapse" id="myNavbar">
+                        <ul class="nav navbar-nav">
+                            <li><a href="/perfilPaciente.html">Mi Perfil</a></li>
+                            <li><a href="/perfilPacienteFamiliares.html">Familiares</a></li>
+                            <li><a href="/perfilPacientePersonalSalud.html">Personal de Salud</a></li>
+                            <li class="active"><a href="/perfilPacienteMensajes.html">Mensajes</a></li>
+                        </ul>
+                        <ul class="nav navbar-nav navbar-right">
+                            <li class=""><a id="idNombreUsu"></a></li>
+                            <li><a data-toggle="modal" data-target="#modalCerrarSesion"><span class="glyphicon glyphicon-log-in"></span>Adios!</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </nav> 
+            <!--Modal Cerrar Sesion-->	
+            <div id="modalCerrarSesion" class="modal fade" role="dialog">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h4 class="modal-title subTituloAzul">Cerrar Sesión</h4>
+                        </div>
+                        <div class="modal-body letraTextos">
+                            <p>Estas seguro que quieres cerrar tu sesión</p>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-success" data-dismiss="modal">Continuar</button>
+                            <a onclick="cerrarSesion.cerrarSesion()"><button type="button" class="btn btn-danger">Cerrar Sesión</button></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!--Fin Modal Cerrar Sesion-->
+
+
+            <div class="tab-content">
+                <div class="row">
+                    <h2 class="titulo">Mensajes</h2>
+                </div>
+                <!--Tabla solicitudes familiares-->
+                <div class="panel panel-primary">
+                    <div class="panel-heading"><h5 class="subTituloBlanco">Mensajes</h5></div>
+                    <div class="panel-body">
+                        <div class="table-responsive" >          
+                            <table class="table" id="tablaMensajesPaciente">
+                                <thead>
+                                    <tr>
+                                        <th>#</th>
+                                        <th>Fecha</th>
+                                        <th>Mensaje</th>
+                                        <th>Tipo</th>
+                                        <th>Nombre</th>
+                                        <th>Rol</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                </tbody>
+                            </table>
+                        </div>	
+                    </div>	
+                </div>
+            </div>				
+            <!--Fin Tabla solicitudes familiares-->
+        </div>
+    </body>
+</html>

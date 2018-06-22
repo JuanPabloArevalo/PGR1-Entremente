@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="es">
+    <head>
+<!--        <script src="/webjars/jquery/jquery.min.js"></script>
+        <script src="/webjars/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+        <link rel="stylesheet" href="/webjars/bootstrap/3.3.7/css/bootstrap.min.css" />-->
+
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" />
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <!--importarCSS-->
+        <link rel="stylesheet" href="css/css.css" />
+        <link rel="stylesheet" href="css/perfilPaciente.css" />
+        <script src="js/configuracionHost.js"></script>
+        <script src="js/cerrarSesion.js"></script> 
+        <script src="js/grupoFamiliar/apiclientGrupoFamiliar.js"></script> 
+        <script src="js/grupoFamiliar/appGrupoFamiliar.js"></script> 
+        <title>Adicionar Grupo Familiar</title>
+    </head>
+    <body onload="appGrupoFamiliar.initAdicionarPregunta()">
+        <div class="container-fluid">
+            <!--Menú-->	
+            <nav class="navbar navbar-inverse navbar-fixed-top">
+                <div class="container-fluid">
+                    <div class="navbar-header">
+                        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                        </button>
+                        <a class="navbar-brand nombreProgramaMenu" href="#">EntreMente</a>
+                    </div>
+                    <div class="collapse navbar-collapse" id="myNavbar">
+                        <ul class="nav navbar-nav">
+                            <li><a href="/perfilFamiliar.html">Mi Perfil</a></li>
+                            <li><a href="/perfilFamiliarFamiliares.html">Mis Familiares</a></li>
+                        </ul>
+                        <ul class="nav navbar-nav navbar-right">
+                            <li class=""><a id="idNombreUsu"></a></li>
+                            <li><a data-toggle="modal" data-target="#modalCerrarSesion"><span class="glyphicon glyphicon-log-in"></span>Adios!</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </nav> 
+            <!--Fin Menú-->	
+            <!--Modal Cerrar Sesion-->	
+            <div id="modalCerrarSesion" class="modal fade" role="dialog">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h4 class="modal-title subTituloAzul">Cerrar Sesión</h4>
+                        </div>
+                        <div class="modal-body letraTextos">
+                            <p>Estas seguro que quieres cerrar tu sesión</p>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-success" data-dismiss="modal">Continuar</button>
+                            <a onclick="cerrarSesion.cerrarSesion()"><button type="button" class="btn btn-danger">Cerrar Sesión</button></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!--Fin Modal Cerrar Sesion-->
+            <div class="panel-heading">
+                <h4 class="subTitulo centrar">Adicionar Grupo Familiar</h4>
+            </div>
+            <div class="panel panel-warning" >
+                <div class="panel-heading"><h5 class="subTitulo" id="idNombrePaciente">Adicionar Grupo Familiar</h5></div>
+                <div class="panel-body">
+                    <div class="panel-group" id="accordion">
+                        <div class="row"  id="idPanelAdicion">
+                            <div class="col-xs-0 col-sm-2 col-md-3 col-lg-3">
+                            </div>
+                            <div class=" col-xs-12 col-sm-8 col-md-6 col-lg-6 jumbotron">
+                                <div class="embed-container">
+                                    <div>
+                                        <img src="image/Rutinas/matrimonio1.jpg" id = "idImagenPregunta" class="img-rounded img-responsive centrar clasePanelImagenPregunta" alt="Selecciona Imagen">
+                                    </div>
+                                    <div class="alert alert-danger alert-dismissable fade in" id="divError" hidden="">
+                                        <strong>Error! Falta ingresar los siguientes campos:</strong><code id="mensajeFalta"></code>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label class="control-label">Selecciona la imagen</label>
+                                        <input id="input-b5" name="input-b5[]" type="file" multiple class="btn btn-info">
+                                    </div> 
+                                    <div class="form-group">
+                                        <label>Pregunta:</label>
+                                        <textarea class="form-control" rows="5" id="idPregunta"></textarea>
+                                    </div> 
+                                    <div class="form-group">
+                                        <label>Nivel:</label>
+                                        <select class="form-control" id="idNivel">
+                                            <option value="1">Nivel 1</option>
+                                            <option value="2">Nivel 2</option>
+                                            <option value="3">Nivel 3</option>
+                                            <option value="4">Nivel 4</option>
+                                        </select>
+                                    </div>
+                                    <div class="form-group">
+                                        <label>Opción A:</label>
+                                        <input type="text" class="form-control" id="idRespuestaA">
+                                    </div>
+                                    <div class="form-group">
+                                        <label>Opción B:</label>
+                                        <input type="text" class="form-control" id="idRespuestaB">
+                                    </div>
+                                    <div class="form-group">
+                                        <label>Opción C:</label>
+                                        <input type="text" class="form-control" id="idRespuestaC">
+                                    </div>
+                                    <div class="form-group">
+                                        <label>Opción D:</label>
+                                        <input type="text" class="form-control" id="idRespuestaD">
+                                    </div>
+                                    <div class="form-group">
+                                        <label>Respuesta Correcta:</label>
+                                        <select class="form-control" id="idRespuestaCorrecta">
+                                            <option value="A">Opción A</option>
+                                            <option value="B">Opción B</option>
+                                            <option value="C">Opción C</option>
+                                            <option value="D">Opción D</option>
+                                        </select>
+                                    </div>
+                                    <button type="button" class="btn btn-success btn-block" onclick="appMusicoterapia.guardarPregunta()">Guardar</button>
+                                    <button type="button" class="btn btn-warning btn-block" onclick="appMusicoterapia.atrasCrearPregunta()">Cancelar</button>
+                                </div>
+                                <div class="col-xs-0 col-sm-2 col-md-3 col-lg-3">
+
+                                </div>
+                            </div>
+                        </div> 
+                    </div>
+                </div>
+            </div>
+        </div>
+    </body>
+</html>

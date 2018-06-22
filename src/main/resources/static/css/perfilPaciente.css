@@ -1,0 +1,23 @@
+#imagenGeneralInfoPaciente {
+	width: 65%;
+        height: 65%;
+        padding-top:2%;
+}
+
+#nivel{
+	text-align: center;
+	font-family: verdana ;
+	font-size: 2.5rem;
+	font-style: normal;
+	color: #3333ff;
+}
+.textoFormulario{
+	font-family: verdana ;
+}
+#imagenLogoMini{
+	width: 20%;
+}
+#logoNav{
+	width: 20%;
+}
+body { padding-top: 70px; }

@@ -1,0 +1,145 @@
+
+<!DOCTYPE html>
+<html lang="es">
+    <head>
+<!--        <script src="/webjars/jquery/jquery.min.js"></script>
+        <script src="/webjars/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+        <link rel="stylesheet" href="/webjars/bootstrap/3.3.7/css/bootstrap.min.css" />-->
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" />
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <!--importarCSS-->
+        <link rel="stylesheet" href="css/css.css" />
+        <link rel="stylesheet" href="css/perfilPaciente.css" />
+        <title>Mi perfil</title>
+        <script src="js/configuracionHost.js"></script>
+        <script src="js/apiclientPerfilPaciente.js"></script> 
+        <script src="js/perfilPaciente.js"></script> 
+        <script src="js/cerrarSesion.js"></script> 
+    </head>
+    <body onload="perfilPaciente.init()">
+        <div class="container-fluid">
+            <nav class="navbar navbar-inverse navbar-fixed-top">
+                <div class="container-fluid">
+                    <div class="navbar-header">
+                        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                        </button>
+                        <a class="navbar-brand nombreProgramaMenu" href="/menuPaciente.html">EntreMente</a>
+                    </div>
+                    <div class="collapse navbar-collapse" id="myNavbar">
+                        <ul class="nav navbar-nav">
+                            <li class="active"><a href="/perfilPaciente.html">Mi Perfil</a></li>
+                            <li><a href="/perfilPacienteFamiliares.html">Familiares </a></li>
+                            <li><a href="/perfilPacientePersonalSalud.html">Personal de Salud</a></li>
+                            <li><a href="/perfilPacienteMensajes.html">Mensajes</a></li>
+                        </ul>
+                        <ul class="nav navbar-nav navbar-right">
+                            <li class=""><a id="idNombreUsu"></a></li>
+                            <li><a data-toggle="modal" data-target="#modalCerrarSesion"><span class="glyphicon glyphicon-log-in"></span>Adios!</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </nav> 
+            <!--Modal Cerrar Sesion-->	
+            <div id="modalCerrarSesion" class="modal fade" role="dialog">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h4 class="modal-title subTituloAzul">Cerrar Sesión</h4>
+                        </div>
+                        <div class="modal-body letraTextos">
+                            <p>Estas seguro que quieres cerrar tu sesión</p>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-success" data-dismiss="modal">Continuar</button>
+                            <a onclick="cerrarSesion.cerrarSesion()"><button type="button" class="btn btn-danger">Cerrar Sesión</button></a>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+            <!--Fin Modal Cerrar Sesion-->
+
+
+            <div class="panel panel-primary">
+                <div class="panel-heading"><h5 class="subTituloBlanco">Mi perfil</h5></div>
+                <div class="panel-body">
+
+                    <!--Div para el manejo de la imagen de usuario y nivel y progreso-->
+                    <div class="col-xs-1 col-sm-2 col-md-3 col-lg-3"></div>
+                    <div class="col-xs-8 col-sm-8 col-md-6 col-lg-6" >
+                        <h4 class= "center centrar">Nivel <span class="label label-default" id="idNivel"></span></h4>
+                        <br>
+                        <div class="progress">
+                            <div class="progress-bar progress-bar-striped active" id="idProgeso">
+                            </div>
+                        </div> 
+                    </div>
+                    <div class="col-xs-3 col-sm-2 col-md-2 col-lg-2" >
+                        <a href= "" class="center-block centrar"><img src="image/usuario.png"  class="img-rounded img-responsive center-block" id = "imagenGeneralInfoPaciente" alt="ImagenPaciente"></a>
+                    </div>
+                </div>
+                <!--Fin div manejo imagen de usuario y nivel y progeso--!>
+                
+                <!--Div para los datos-->
+                <div class="row">
+                    <div class="col-xs-1 col-sm-2 col-md-3 col-lg-3"></div>
+                    <div class="col-xs-10 col-sm-8 col-md-6 col-lg-6">
+                        <div class="alert alert-danger alert-dismissable fade in" id="divError" hidden="">
+                            <strong>Error! Falta ingresar los siguientes campos:</strong><code id="mensajeFalta"></code>
+                        </div>
+                        <div class="alert alert-danger alert-dismissable fade in" id="divProm" hidden=""><strong>Error! </strong><code id="mensajeFaltaProm"></code></div>
+
+                        <div class="form-group  well">
+                            <label for="nombre">Nombres:</label>
+                            <input type="text" class="form-control" id="nombre">	
+                            <label>Apellidos:</label>
+                            <input type="text" class="form-control" id="apellido">
+                            <label>Tipo Documento:</label>
+                            <select class="form-control" id="tipoDoc"  disabled>
+                                <option value="">...</option>
+                                <option value="T">Tarjeta de Identidad</option>
+                                <option value="C">Cédula Ciudadania</option>
+                                <option value="P">Pasaporte</option>
+                                <option value="E">Cédula de Extranjeria</option>
+                            </select>
+
+                            <label>Documento de identidad:</label>
+                            <input type="number" class="form-control" id="documento"  disabled>
+                            <label>Fecha Nacimiento:</label>
+                            <input type='date' class="form-control" id="idFechaN"/>
+                            <label></label>
+                            <label>Género</label><br>
+                            <select class="form-control" id="genero">
+                                <option value="">...</option>
+                                <option value="H">Hombre</option>
+                                <option value="M">Mujer</option>
+                            </select>
+                            <label>País</label>
+                            <input type="text" class="form-control" id="idPais">
+                            <label>Ciudad:</label>
+                            <input type="text" class="form-control" id="idCiudad">
+                            <label>Dirección:</label>
+                            <input type="text" class="form-control" id="idDireccion">
+                            <label>Correo:</label>
+                            <input type="email" class="form-control" id="idCorreo"  disabled>
+                            <label>Nombre de usuario:</label>
+                            <input type="text" class="form-control" id="nombreUsuario"  disabled>
+                            <br>
+                            <button type="button" class="btn btn-success btn-block" onclick="perfilPaciente.modificarDatosPaciente()">Guardar</button>
+                            <br>
+                            <button type="button" class="btn btn-warning btn-block" onclick="perfilPaciente.atras()" >Atrás</button>
+                        </div>
+                    </div>
+                    <div class="col-xs-1 col-sm-2 col-md-3 col-lg-3"></div>
+                </div>
+                <!--Fin Manejo de la botons-->			
+            </div>
+        </div>
+    </body>
+</html>
