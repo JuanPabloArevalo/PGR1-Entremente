@@ -11,7 +11,7 @@ package edu.eci.pgr1.entremente.persistence.imp;
  */
 public class DatosBD {
     public static final String SERVIDOR = "localhost";
-    public static final String PUERTO = "3307";
+    public static final String PUERTO = "3306";
     public static final String USUARIO = "entremente";
     public static final String PASSWORD = "entremente2018";
     public static final String DRIVER = "org.mariadb.jdbc.Driver";
